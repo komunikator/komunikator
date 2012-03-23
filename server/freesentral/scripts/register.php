@@ -285,11 +285,11 @@ function rewrite_digits($route, $nr)
 	{
 		if (!$route["nr_of_digits_to_replace"])
 			return $route["digits_to_replace_with"];
-		$result = substr($nr,0,$route["position_to_start_replacing"] -1 ) . $route["digits_to_replace_with"] .substr($nr, $route["position_to_start_replacing"]+$route["nr_of_digits_to_replace"]-1, strlen($nr));
+		$result = substr($result,0,$route["position_to_start_replacing"] -1 ) . $route["digits_to_replace_with"] .substr($result, $route["position_to_start_replacing"]+$route["nr_of_digits_to_replace"]-1, strlen($result));
 	}
 	if ($route["position_to_start_adding"] && $route["digits_to_add"])
 	{
-		$result = substr($nr,0,$route["position_to_start_adding"]-1) . $route["digits_to_add"] . substr($nr,$route["position_to_start_adding"]-1,strlen($nr));
+		$result = substr($result,0,$route["position_to_start_adding"]-1) . $route["digits_to_add"] . substr($result,$route["position_to_start_adding"]-1,strlen($result));
 	}
 	if (!$result){
 		debug("Wrong: resulted number is empty when nr='$nr' and route=".format_array($route));
@@ -655,8 +655,10 @@ function return_route($called,$caller,$no_forward=false)
 		$fallback[$j] = $ev->params;
 		$custom_caller_id = ($res[$i]["callerid"]) ? $res[$i]["callerid"] : $caller_id;
 		$custom_caller_name = ($res[$i]["callername"]) ? $res[$i]["callername"] : $caller_name;
+		$custom_domain = $res[$i]["domain"];
 		if($res[$i]["send_extension"] == "f") {
 			$fallback[$j]["caller"] = $custom_caller_id;
+			if ($custom_domain) $fallback[$j]["domain"] = $custom_domain;
 			$fallback[$j]["callername"] = $custom_caller_name;
 		}elseif($system_prefix && $call_type == "from inside")
 			$fallback[$j]["caller"] = $system_prefix.$fallback[$j]["caller"];

@@ -268,7 +268,7 @@ function active_calls($lim = NULL)
 	$use_limit = ($lim) ? $lim : $limit;
 	$total = getparam("total");
 	$call_log = new Call_Log;
-	$total = $call_log->fieldSelect("count(*)",array("ended"=>false));
+	$total = $call_log->fieldSelect("count(*)",array("ended"=>false, 'status' => '!= unknown'));
 	if(!$lim)
 	{
 		items_on_page();
@@ -288,7 +288,7 @@ function active_calls($lim = NULL)
 			$formats["function_select_time:time"] = "time"; 
 		}
 	}
-	$call_logs = Model::selection("call_log",array("ended"=>false), "time DESC", $use_limit, $page);
+	$call_logs = Model::selection("call_log",array("ended"=>false, 'status' => "!=unknown"), "time DESC", $use_limit, $page);
 
 	if(!$total)
 		$total = count($call_logs);

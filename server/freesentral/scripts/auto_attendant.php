@@ -30,9 +30,18 @@ require_once("libyate.php");
 $ourcallid = "auto_attendant/" . uniqid(rand(),1);
 
 $wait_time = 4; //number of seconds that script has to wait after user input in order to see if another digit will be pressed
-$hold_keys = '';
+$hold_keys = '0';
 $count = false; //start to count seconds since a digit has been pressed
 $state = "enter";
+
+function format_array($arr)
+{
+        $str =  str_replace("\n", "", print_r($arr, true));
+        $str = str_replace("\t","",$str);
+        while(strlen($str) != strlen(str_replace("  "," ",$str)))
+        $str = str_replace("  "," ",$str);
+        return $str;
+}
 
 function debug($mess)
 {
@@ -150,6 +159,9 @@ function gotDTMF($text)
 
     debug("gotDTMF('$text') state: $state");
 
+    // Reset default key
+    if (!$count) 
+	$hold_keys = '';
     $count = true;
     switch ($state) {
 	case "greeting":
@@ -188,6 +200,8 @@ function gotNotify($reason)
 
 Yate::Init();
 
+Yate::Debug(true);
+
 /* Install filtered handlers for the wave end and dtmf notify messages */
 // chan.dtmf should have a greater priority than that of pbxassist(by default 15)
 Yate::Install("chan.dtmf",10,"targetid",$ourcallid);
@@ -204,6 +218,7 @@ while ($state != "") {
     if ($ev === true)
 	continue;
     /* If we reached here we should have a valid object */
+    debug(format_array($ev));
     switch ($ev->type) {
 	case "incoming":
 	    switch ($ev->name) {
