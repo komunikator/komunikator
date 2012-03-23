@@ -1,0 +1,12 @@
+#! /bin/sh
+
+# this helper is executed as the apache user
+export IFS=' '
+cd /tmp
+
+if echo "$*" | grep -q '[^ ./_+[:alnum:]-]'; then
+	echo "EVIL command line: $*" >&2
+	exit 1
+fi
+
+sudo /usr/libexec/freesentral/ctl-root "$@"

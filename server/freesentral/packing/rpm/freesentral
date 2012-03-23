@@ -1,0 +1,79 @@
+#!/bin/sh
+#
+# freesentral:	Starts the Yate server for FreeSentral service
+#
+# chkconfig: 345 94 09
+# description: Starts and stops Yate used as FreeSentral service
+#
+# processname: yate
+# pidfile: /var/run/yate.pid
+#
+### BEGIN INIT INFO
+# Provides: freesentral
+# Required-Start: $local_fs $network postgresql freesentral-init
+# Required-Stop:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: FreeSentral telephony service
+# Description: Starts and stops Yate used as FreeSentral service
+### END INIT INFO
+
+# Extra Yate command line options
+OPTS="-c /etc/freesentral -rs -vvv -l /var/log/yate"
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+start() {
+    echo -n $"Starting FreeSentral: "
+    # Have to bring up now the loopback so a local route exists
+    /sbin/ifconfig lo up
+    daemon yate -d -p /var/run/yate.pid $OPTS
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/yate
+}
+
+stop() {
+    echo -n $"Stopping FreeSentral: "
+    killproc yate
+    RETVAL=$?
+    echo
+    if [ $RETVAL -eq 0 ]; then
+        rm -f /var/lock/subsys/yate
+    fi
+}
+
+# See how we were called.
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+        status yate
+	RETVAL=$?
+        ;;
+    restart)
+	stop
+	start
+	;;
+    condrestart)
+	if [ -f /var/lock/subsys/yate ]; then
+	    stop
+	    start
+	fi
+	;;
+    reload)
+  	killproc yate -HUP
+	RETVAL=$?
+        ;;
+    *)
+	echo $"Usage: $0 {start|stop|status|restart|condrestart|reload}"
+	;;
+esac
+exit $RETVAL

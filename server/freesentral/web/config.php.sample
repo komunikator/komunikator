@@ -1,0 +1,25 @@
+<?php
+
+$db_host = "localhost";     /*  database server hostname   */
+$db_user = "postgres";      /*  database server username   */
+$db_database = "freesentral_v2";   /*  database name   */
+$db_passwd = '';
+
+$target_path = "/var/spool/voicemail";     //where to upload audio files
+
+$do_not_load = array(/*"groups", "forward"*/);        //modules that are inserted here won't be loaded
+
+$limit = 20;
+
+date_default_timezone_set('Europe/Bucharest');
+
+$enable_logging = "on"; // possible values: "on"/"off", true/false, "yes"/"no" 
+
+$upload_path = "/var/www/uploads";     // path where file for importing extensions will be uploaded
+
+$default_ip = "ssl://127.0.0.1";	// ip of server where yate runs ssl:// marks that socket with ssl support will be used 
+$default_port = "5039";		// port for socket to yate
+
+$block = array("admin_settings"=>array("network"));	
+
+?>

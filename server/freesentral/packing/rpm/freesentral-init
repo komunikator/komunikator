@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+# freesentral-init:	Initializes the system for FreeSentral service
+#
+# chkconfig: 345 90 10
+# description: Initializes a system used as FreeSentral service
+#
+### BEGIN INIT INFO
+# Provides: freesentral-init
+# Required-Start: $local_fs $network postgresql
+# Required-Stop:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: FreeSentral system initialization
+# Description: Initializes a system used as FreeSentral service
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+init() {
+    echo -n $"Initializing FreeSentral: "
+    # system
+    /usr/libexec/freesentral/install.sh init_system
+    if [ -n "$1" -o ! -f /etc/freesentral/initialized ]; then
+	touch /etc/freesentral/initialized
+	# database
+	/usr/libexec/freesentral/install.sh --no_defaults --quiet
+	# certificates
+	DESTDIR=/etc/freesentral /usr/libexec/freesentral/install.sh --no_defaults generate_certificate
+    fi
+    case "X$?" in
+	X0)
+	    success
+	    ;;
+	X1)
+	    passed
+	    ;;
+	*)
+	    failure
+	    RETVAL=1
+	    ;;
+    esac
+    echo
+}
+
+# See how we were called.
+case "$1" in
+    init)
+	init forced
+	;;
+    start)
+	init
+	;;
+    stop)
+	;;
+    *)
+	echo $"Usage: $0 {init|start}"
+	;;
+esac
+exit $RETVAL

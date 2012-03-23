@@ -1,0 +1,102 @@
+[general]
+; This section sets global variables of the implementation
+
+; port: int: UDP port for incoming connections
+;port=4569
+
+; addr: ipaddress: IP address to bind to
+;addr=0.0.0.0
+
+; force_bind: boolean: Try to use a random port if failed to bind on configured one
+; Defaults to yes
+;force_bind=yes
+
+; calltoken_in: boolean: Use call token ip address authentication on incoming calls
+; Note: If the caller don't support the call token IAX extension the call request
+;  will be ignored anyway
+; This parameter is applied on reload
+; Defaults to no
+;calltoken_in=no
+
+; calltoken_out: boolean: Offer call token ip address authentication on outgoing calls
+; This parameter is applied on reload and can be overridden from routing
+; Defaults to yes
+;calltoken_out=yes
+
+; calltoken_rejectmissing: boolean: Reject incoming calls without call token support
+;  when calltoken_in is enabled
+; If disabled the requests will be ignored (dropped)
+; This parameter is applied on reload
+; Defaults to yes
+;calltoken_rejectmissing=yes
+
+; tos: keyword: Type Of Service to set in outgoing UDP packets
+; numeric TOS value or: lowdelay, throughput, reliability, mincost
+;tos=0
+
+; read_threads: int: Number of threads that read packets from socket
+;read_threads=1 in client mode, 3 in server mode
+
+; event_threads: int: Number of threads that process events
+;event_threads=1 in client mode, 3 in server mode
+
+; trunk_threads: int: Number of threads that service trunked voice packets
+;trunk_threads=1
+
+; thread: keyword: Default priority of the data service threads (socket listener and data trunking)
+; Can be one of: lowest, low, normal, high, highest
+; It is a bad idea to set a low priority for anything but testing
+;thread=normal
+
+; printmsg: boolean: Print sent/received frames to output if the module's debug
+;  level is at least 9
+; This parameter is applied on reload
+; Defaults to yes
+;printmsg=yes
+
+
+[registrar]
+; Controls the behaviour when acting as registrar
+
+; expires_min: int: Minimum allowed expiration time in seconds
+; This parameter is applied on reload
+; Minimum allowed value is 1
+; Defaults to 60 if missing
+;expires_min=60
+
+; expires_max: int: Value used to limit the expiration time to something sane
+; This parameter is applied on reload
+; Minimum allowed value is the value set in expires_min
+; Defaults to 3600 if missing
+;expires_max=3600
+
+; expires_def: int: Default expiration time if not present in register requests
+; This parameter is applied on reload
+; The value is checked to be between expires_min and expires_max
+; Defaults to 60 if missing
+;expires_def=60
+
+
+[formats]
+; This section allows to individually enable or disable the codecs
+
+; default: bool: Default enabling state for codecs
+;default=enable
+
+; preferred: string: Preferred format to use
+;preferred=
+
+; slin: bool: Uncompressed 16-bit signed linear
+;slin=enable
+
+; mulaw: bool: Companded-only G711 mu-law
+;mulaw=enable
+
+; alaw: bool: Companded-only G711 a-law
+;alaw=enable
+
+; gsm: bool: European GSM 06.10
+;gsm=enable
+
+; lpc10: bool: LPC 10
+;lpc10=enable

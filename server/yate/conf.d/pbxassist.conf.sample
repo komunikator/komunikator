@@ -1,0 +1,108 @@
+[general]
+; Common settings
+
+; enabled: bool: Enable the module and install message handlers
+;enabled=no
+
+; priority: int: Priority to install message handlers into engine
+;priority=15
+
+; default: bool: Assist channels by default, module must be enabled first
+;default=yes
+
+; incoming: bool: Assist incoming calls, needs that default is enabled
+;incoming=yes
+
+; filter: regexp: Expression matching assisted channel IDs, default all
+; Adding a ^ character at the very end reverses the matching mode
+;filter=
+
+; dtmfpass: bool: Enter DTMF pass-through mode by default
+;dtmfpass=no
+
+; dialheld: bool: Dial back from held calls if the control call leg hangs up
+;dialheld=no
+
+; diversion: bool: Honor protocol requested diversion of calls
+;diversion=no
+
+; minlen: int: Minimum length of command sequences
+;minlen=2
+
+; maxlen: int: Maximum length of command sequences
+;maxlen=20
+
+; timeout: int: Inter-digit timeout in milliseconds
+;timeout=30000
+
+; retake: string: Exact sequence to exit DTMF pass-through mode
+;retake=###
+
+; lang: string: Language for tones used by the pbx
+; This parameter can be overridden from routing by a 'pbxlang' parameter
+;lang=
+
+; dropconfhangup: bool: Drop (terminate) the conference room on hangup if the call is in one
+; This parameter can be overridden from routing by a 'pbxdropconfhangup' parameter
+; This parameter is applied on reload
+; Defaults to yes
+;dropconfhangup=yes
+
+; confowner: bool: Make non-guest assistants own the conference rooms they join
+; This parameter can be overridden from routing by a 'pbxconfowner' parameter
+; This parameter is applied on reload
+; Defaults to no
+;confowner=no
+
+; lonelytimeout: integer: The interval (in milliseconds) a lonely user is allowed to
+;  remain in conference
+; This parameter can be overridden from routing by a 'pbxlonelytimeout' parameter
+; This parameter is applied on reload
+; Defaults to 0 (stay until hangup)
+;lonelytimeout=0
+
+
+; Every other section defines an operation to trigger
+;[operation]
+; The name of the section is used as the default operation name
+
+; trigger: regexp: Trigger key sequence
+;trigger=
+
+; operation: string: Operation name, will use section name if missing
+;operation=
+
+; message: string: Message to emit for this operation
+;message=chan.operation
+
+; pbxstates: regexp: Expression matching states allowing operation, default all
+;pbxstates=
+
+; pbxprompt: string: Resource to overlay on audio channel, * for error beep
+;pbxprompt=
+
+; pastekeys: string: Keys to fill in buffer instead of clearing it
+;pastekeys=
+
+; All other parameters are copied in the generated message after having
+;  the \0 .. \9 placeholders replaced with matches from the trigger
+
+
+; Example: flush the key buffer with *#, play the error beep
+;[flush]
+;trigger=\*#$
+;operation=
+;pbxprompt=*
+
+
+; Example: enter DTMF pass-through mode with 3 successive asterisks
+;[passthrough]
+;trigger=\*\*\*
+;pbxprompt=tone/probe/1
+
+
+; Example: enter conference named conf/dyn-N with key sequence #N# where N=0..9
+;[conference]
+;trigger=#\([0-9]\)#$
+;message=call.conference
+;room=conf/dyn-\1

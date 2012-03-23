@@ -1,0 +1,69 @@
+[general]
+; This section sets global network level variables
+
+; minport: int: Minimum port range to allocate
+;minport=16384
+
+; maxport: int: Maximum port range to allocate
+;maxport=32768
+
+; localip: ipaddress: Local IP address to use instead of guessing
+;localip=
+
+; tos: keyword: Type Of Service to set in outgoing UDP packets
+; numeric TOS value or: lowdelay, throughput, reliability, mincost
+;tos=0
+
+; buffer: int: Maximum buffer size - used to fragment octet (G.711) audio streams
+;buffer=240
+
+; autoaddr: bool: Auto change outgoing RTP address:port to match incoming
+;autoaddr=enable
+
+; anyssrc: bool: Accept any incoming SSRC, even if it changes frequently
+;anyssrc=enable
+
+; padding: int: Pad the RTP payload to a multiple of this setting
+; Supported values are between 2 and 128
+;padding=0
+
+; rtcp: bool: Allocate socket for the RTCP protocol by default
+;rtcp=enabled
+
+; rtcp_interval: int: RTCP report interval in ms (500-60000), zero disables
+;rtcp_interval=4500
+
+; drillhole: bool: Attempt to drill a hole through a firewall or NAT
+;drillhole=disable in server mode, enable in client mode
+
+; thread: keyword: Default priority of the data service threads
+; Can be one of: lowest, low, normal, high, highest
+; It is a bad idea to set a low priority for anything but testing
+;thread=normal
+
+; defsleep: int: Default in-loop sleep time for new RTP sessions in milliseconds
+;defsleep=5
+
+; minsleep: int: Minimum allowed in-loop sleep time in milliseconds
+;minsleep=1
+
+
+[timeouts]
+; This section controls the behaviour when RTP and RTCP data is missing
+
+; timeout: int: RTP/RTCP receiver timeout in ms (500-60000), zero disables
+;timeout=3000
+
+; udptl_timeout: int: UDPTL receiver timeout in ms (500-60000), zero disables
+;udptl_timeout=25000
+
+; notifymsg: string: Name of the notification message sent on timeout
+; Usually it should be chan.notify or call.drop, empty disables the message
+;notifymsg=
+
+; warnfirst: bool: Emit timeout warnings if no RTP packet was received
+; Once a packet is received further timeouts are controlled by warnlater
+;warnfirst=yes
+
+; warnlater: bool: Emit timeout warnings even if there was initially some RTP
+;warnlater=no

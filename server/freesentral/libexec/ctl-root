@@ -1,0 +1,49 @@
+#! /bin/sh
+
+# this helper is executed as the root user
+export IFS=' '
+cd /tmp
+
+if echo "$*" | grep -q '[^ ./_+[:alnum:]-]'; then
+	echo "EVIL command line: $*" >&2
+	exit 1
+fi
+
+cmd="$1"
+case "X$cmd" in
+	Xserver_start)
+	    /usr/sbin/wanrouter start
+	    if [ -f "/etc/init.d/freesentral" ]; then
+		echo "Restarting freesentral service"
+		/etc/init.d/freesentral restart
+	    fi
+	;;
+	Xserver_stop)
+	    if [ -f "/etc/init.d/freesentral" ]; then
+		echo "Stopping freesentral service"
+		/etc/init.d/freesentral stop
+	    fi
+	    /usr/sbin/wanrouter stop
+	;;
+	Xserver_hwprobe)
+	    /usr/sbin/wanrouter hwprobe verbose
+	;;
+	Xnetwork_stop)
+		if [ -f "/etc/init.d/network" ]; then
+		/etc/init.d/network stop
+		else
+		echo "Don't know command to stop network"
+		fi
+	;;
+	Xnetwork_start)
+		if [ -f "/etc/init.d/network" ]; then
+		/etc/init.d/network restart
+		else
+		echo "Don't know command to restart network"
+		fi
+	;;
+	*)
+	    echo "Invalid command line: $*" >&2
+	    exit 1
+	;;
+esac
