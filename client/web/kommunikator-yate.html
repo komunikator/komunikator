@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="kommunikator.css" />
+
+<script type="text/javascript" src="prototype.js"></script>
+
+<script type="text/javascript" src="Settings.js"></script>
+<script type="text/javascript" src="SettingsScreen.js"></script>
+<script type="text/javascript" src="PhoneCore.js"></script>
+<script type="text/javascript" src="PhoneScreen.js"></script>
+<script type="text/javascript" src="KPlugin.js"></script>
+<script type="text/javascript" src="Account.js"></script>
+<script type="text/javascript" src="SIPAccount.js"></script>
+
+<script type="text/javascript" src="GUI.js"></script>
+
+
+<script type="text/javascript">
+
+function log(logText) {
+	console.log(logText);
+}
+
+</script>
+
+</head>
+<body onload="PhoneCore.init();">
+
+<object type="application/x-kommunikator" id="kommunikatorPlugin" width="0" height="0"> </object>
+
+<div id="mainWindow">
+
+<div id="menu">
+	<span id="tab-phone" onclick="activateScreen('phone');">Phone</span>
+	<span id="tab-settings" onclick="activateScreen('settings');">Setup</span>
+</div>
+
+<div id="content">
+
+<div id="screen-phone">
+	<div id="accountsStatus"></div>
+
+	<form id="form-phone" onsubmit="return PhoneScreen.onCallButton();">
+		<p>
+			<input type="text" id="phone-callee" name="phone-callee" value="102" />
+			<input type="submit" class="button" value="Call" />
+		</p>
+	</form>
+	
+	<div id="calls"></div>
+</div>
+
+<div id="screen-settings">
+	<form id="form-settings">
+		<table width="100%">
+			<tr>
+				<td width="30%">SIP ID</td>
+				<td width="70%"><input type="text" id="settings-account" name="settings-account" value="" /></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="text" id="settings-password" name="settings-password" value="" /></td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+</div>
+
+<div id="ringer"></div>
+
+<div id="status"></div>
+
+</div>
+
+</body>
+</html>

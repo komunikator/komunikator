@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>digt</groupId>
+	<artifactId>kommunikator</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>Kommunikator</name>
+	<description>Kommunikator plugin</description>
+	<url>http://digt.ru</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<dependencyDir>FireBreath/3rdparty</dependencyDir>
+	</properties>
+	
+	<profiles>
+		<profile>
+			<id>macosx</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<envClassifier>mac-${os.arch}</envClassifier>
+				<FBPrep>prepmac.sh</FBPrep>
+				<FBBuild>Xcodebuild</FBBuild>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<includeTypes>tar.gz</includeTypes>
+					<excludeTransitive>true</excludeTransitive>
+					<outputDirectory>${dependencyDir}</outputDirectory>
+					<useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+					<stripVersion>true</stripVersion>
+				</configuration>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+					<configuration>
+						<artifactItems>
+							<artifactItem>
+								<groupId>digt</groupId>
+								<artifactId>yate</artifactId>
+								<version>4.0.0</version>
+								<type>tar.gz</type>
+								<classifier>${envClassifier}</classifier>
+							</artifactItem>
+							<artifactItem>
+								<groupId>digt</groupId>
+								<artifactId>linphone</artifactId>
+								<version>3.5.0</version>
+								<type>tar.gz</type>
+								<classifier>${envClassifier}</classifier>
+							</artifactItem>
+							<artifactItem>
+								<groupId>digt</groupId>
+								<artifactId>libosip2</artifactId>
+								<version>3.6.0</version>
+								<type>tar.gz</type>
+								<classifier>${envClassifier}</classifier>
+							</artifactItem>
+							<artifactItem>
+								<groupId>digt</groupId>
+								<artifactId>libexosip2</artifactId>
+								<version>3.6.0</version>
+								<type>tar.gz</type>
+								<classifier>${envClassifier}</classifier>
+							</artifactItem>
+							<artifactItem>
+								<groupId>digt</groupId>
+								<artifactId>speex</artifactId>
+								<version>1.2rc1</version>
+								<type>tar.gz</type>
+								<classifier>${envClassifier}</classifier>
+							</artifactItem>
+						</artifactItems>
+					</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>CMake prepare</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>FireBreath/${FBPrep}</executable>
+							<workingDirectory>FireBreath</workingDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Build</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>${FBBuild}</executable>
+							<workingDirectory>FireBreath/build</workingDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<!-- Publish the versioned releases here -->
+		<repository>
+			<id>digt-nexus</id>
+			<name>digt nexus</name>
+			<url>http://172.17.2.10:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<!-- Publish the versioned releases here -->
+		<snapshotRepository>
+			<id>digt-nexus</id>
+			<name>digt nexus</name>
+			<url>http://172.17.2.10:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
