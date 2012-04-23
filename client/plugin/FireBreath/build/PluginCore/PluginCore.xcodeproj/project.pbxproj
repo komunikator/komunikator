@@ -1,0 +1,898 @@
+// !$*UTF8*$!
+{
+       archiveVersion = 1;
+       classes = {
+       };
+       objectVersion = 46;
+       objects = {
+
+/* Begin PBXAggregateTarget section */
+              F2CC5AC75D0A40268981DFF0 /* ALL_BUILD */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = EAFB62D3181F40ABAD1F1EFF /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildPhases = (
+                            44237B37E4164375A6C1B488 /* CMake Rules */,
+                     );
+                     dependencies = (
+                            51EEEC7831E14553BADF06C1 /* PBXTargetDependency */,
+                            212D48B292474F4DACA7B19A /* PBXTargetDependency */,
+                     );
+                     name = ALL_BUILD;
+                     productName = ALL_BUILD;
+              };
+              8EA4058C50A24FE9A39899D6 /* ZERO_CHECK */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 4223F77D863A456EA88C34F7 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildPhases = (
+                            6F6D8193CD7D415E82223D85 /* CMake Rules */,
+                     );
+                     dependencies = (
+                     );
+                     name = ZERO_CHECK;
+                     productName = ZERO_CHECK;
+              };
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+BF6ED2BD446949AC8F5DD65B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.cpp */ = {isa = PBXBuildFile; fileRef = 2E4396C3B08B48B59B1917D6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+712FBE2FD186487B9D260326 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.cpp */ = {isa = PBXBuildFile; fileRef = 40A3D28E3ECC418E96ED9687 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+C0D9A11637A84664BA19CA0F /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.cpp */ = {isa = PBXBuildFile; fileRef = 6A3E7E40EC9F476AB29F9996 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+E0CE4DDC9A824666A25E182C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.cpp */ = {isa = PBXBuildFile; fileRef = 50CBE8F9D8D640E8A25036AB /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+4FE539CE2A2847538AA19AC3 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.cpp */ = {isa = PBXBuildFile; fileRef = C2BB894713FC42EB8A0EA035 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+FC395454F99247BAA8FAA42C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.cpp */ = {isa = PBXBuildFile; fileRef = FF9FBA95F7DE4427B21150DC /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+B0375CD23CFF43BEAB0C1C43 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.cpp */ = {isa = PBXBuildFile; fileRef = C67D990DD9AE43DB849810F4 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+53EB64418B9A4D029044C067 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.cpp */ = {isa = PBXBuildFile; fileRef = E67072FD71B749C8AF815104 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+3422670E3C3E4AEEB7511C75 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.cpp */ = {isa = PBXBuildFile; fileRef = 85AC52317C064530A350380A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+21BC4DE5BE914C21BA6F162C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.cpp */ = {isa = PBXBuildFile; fileRef = CD638E284E80436EB2A38776 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+C79EA052E5B142ED930DEB5D /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.h */ = {isa = PBXBuildFile; fileRef = CB030630C56F4F39AC55A45C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.h */; settings = { COMPILER_FLAGS = ""; }; };
+6C23A80C3AFB421FB0EE769C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.h */ = {isa = PBXBuildFile; fileRef = 81FD4D90CFEC41028096C426 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.h */; settings = { COMPILER_FLAGS = ""; }; };
+4560E610127247F387822A64 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.h */ = {isa = PBXBuildFile; fileRef = 95E1367D7EFF44A4BC32A511 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.h */; settings = { COMPILER_FLAGS = ""; }; };
+CC9557B8964D44FCB88284EA /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/ConstructDefaultPluginWindows.h */ = {isa = PBXBuildFile; fileRef = E1780B8B822D4234A6B8DE05 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/ConstructDefaultPluginWindows.h */; settings = { COMPILER_FLAGS = ""; }; };
+ABAAE932AE254942A261B520 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.h */ = {isa = PBXBuildFile; fileRef = 1324A69D22964FD18FA935CB /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.h */; settings = { COMPILER_FLAGS = ""; }; };
+BE014933E8594061B8AC1624 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.h */ = {isa = PBXBuildFile; fileRef = 779D7928F0F14597990363B7 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.h */; settings = { COMPILER_FLAGS = ""; }; };
+0AB64BF9F52047ADA97D08BF /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.h */ = {isa = PBXBuildFile; fileRef = 6AC66577A00F40E8B6468D5D /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.h */; settings = { COMPILER_FLAGS = ""; }; };
+7D3D3F9187CA4A7BB4308384 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvent.h */ = {isa = PBXBuildFile; fileRef = 00ACADBE791E4B91BBB2F8E8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvent.h */; settings = { COMPILER_FLAGS = ""; }; };
+03A25D42A1C346EBBAA3D541 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSink.h */ = {isa = PBXBuildFile; fileRef = D0465ECC1C9747C09A388545 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSink.h */; settings = { COMPILER_FLAGS = ""; }; };
+1AD8F761E1BF4B4BA084A047 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.h */ = {isa = PBXBuildFile; fileRef = 8D9C0A70281C4F55AB856C16 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.h */; settings = { COMPILER_FLAGS = ""; }; };
+DD4518B299BE4A84AC7F661A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginInfo.h */ = {isa = PBXBuildFile; fileRef = BCCA258049E549C7BE0318B6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginInfo.h */; settings = { COMPILER_FLAGS = ""; }; };
+E8AE106E288B48BAB8067B9B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindow.h */ = {isa = PBXBuildFile; fileRef = 0D708DE78D534B3CB6933BEA /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindow.h */; settings = { COMPILER_FLAGS = ""; }; };
+F94AE21818524979B90231F3 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindowForwardDecl.h */ = {isa = PBXBuildFile; fileRef = 6006F37BB1564981892D4F7B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindowForwardDecl.h */; settings = { COMPILER_FLAGS = ""; }; };
+190C802E4E65414BB3E3A94F /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.h */ = {isa = PBXBuildFile; fileRef = 4578D1798DB5445AA578D196 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.h */; settings = { COMPILER_FLAGS = ""; }; };
+4B31E915EE05489A81E1554B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemHelpers.h */ = {isa = PBXBuildFile; fileRef = B63E164E8E5F4DDD9B1F24CC /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemHelpers.h */; settings = { COMPILER_FLAGS = ""; }; };
+D800710D654148B594AD6002 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemProxyDetector.h */ = {isa = PBXBuildFile; fileRef = 1AFAF0ABDC884423A076C5C8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemProxyDetector.h */; settings = { COMPILER_FLAGS = ""; }; };
+07F11099A0F6480DA0E20E9F /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.h */ = {isa = PBXBuildFile; fileRef = 580B2B780B834EA0A85DC30B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.h */; settings = { COMPILER_FLAGS = ""; }; };
+FE7A53D2CC144AAEA41B1DBA /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.h */ = {isa = PBXBuildFile; fileRef = D0045650C87240ABA993BB70 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.h */; settings = { COMPILER_FLAGS = ""; }; };
+DDC5E1C5EA7547BD80C87CEE /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/AttachedEvent.h */ = {isa = PBXBuildFile; fileRef = 0681CF0650874C40B3DFB8F2 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/AttachedEvent.h */; settings = { COMPILER_FLAGS = ""; }; };
+02892BB6E46B4807AB908562 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/DrawingEvents.h */ = {isa = PBXBuildFile; fileRef = F4EFC4461CB64E4D9120DEB9 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/DrawingEvents.h */; settings = { COMPILER_FLAGS = ""; }; };
+3252C1E0C0F74E2495ADC81B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/GeneralEvents.h */ = {isa = PBXBuildFile; fileRef = 81732750B038422CABFFD04C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/GeneralEvents.h */; settings = { COMPILER_FLAGS = ""; }; };
+087BAF72FAA54CD59824404C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyboardEvents.h */ = {isa = PBXBuildFile; fileRef = AA74B6C346FE457D98686E67 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyboardEvents.h */; settings = { COMPILER_FLAGS = ""; }; };
+E31D3CEB1BB44A6EAB1DF2B7 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyCodes.h */ = {isa = PBXBuildFile; fileRef = 871F48F313924718B7E7727C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyCodes.h */; settings = { COMPILER_FLAGS = ""; }; };
+B86E151973054A01A890C344 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCarbon.h */ = {isa = PBXBuildFile; fileRef = D50B30E212854F12A95FBD8E /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCarbon.h */; settings = { COMPILER_FLAGS = ""; }; };
+16664CBEEF344D8AB20E0411 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCocoa.h */ = {isa = PBXBuildFile; fileRef = 30B2D2E02CCB4971950F2087 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCocoa.h */; settings = { COMPILER_FLAGS = ""; }; };
+CD9F70E291ED4B2284A62E01 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MouseEvents.h */ = {isa = PBXBuildFile; fileRef = FB8470D1F34446CAB8E027F1 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MouseEvents.h */; settings = { COMPILER_FLAGS = ""; }; };
+8D19B0D049524EACA9DE0ACA /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/StreamEvents.h */ = {isa = PBXBuildFile; fileRef = FE53978CCD314758AE889503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/StreamEvents.h */; settings = { COMPILER_FLAGS = ""; }; };
+37A28227FC8B47F6B9BF5A59 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/WindowsEvent.h */ = {isa = PBXBuildFile; fileRef = BBFC31769EC14DE89E108D00 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/WindowsEvent.h */; settings = { COMPILER_FLAGS = ""; }; };
+5B771E6A7A1F4DCEA527E98A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/X11Event.h */ = {isa = PBXBuildFile; fileRef = BF45672E39DD40A88B16FB9B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/X11Event.h */; settings = { COMPILER_FLAGS = ""; }; };
+D107F37D307F4BF68A361956 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.h */ = {isa = PBXBuildFile; fileRef = 77CC02A9FDFB40AE9D31F754 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.h */; settings = { COMPILER_FLAGS = ""; }; };
+AF5258FC40AE48A2BFCAE488 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.h */ = {isa = PBXBuildFile; fileRef = 890B654519B64BFA9FE0EE41 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.h */; settings = { COMPILER_FLAGS = ""; }; };
+A2CD429BA7664A5EA6CA0956 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WindowContextWin.h */ = {isa = PBXBuildFile; fileRef = 5112963CECF84157B67FBD87 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WindowContextWin.h */; settings = { COMPILER_FLAGS = ""; }; };
+83B07BDE5D624A59AAA3F233 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.h */ = {isa = PBXBuildFile; fileRef = F9DF74C50CA24747842B4BFE /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.h */; settings = { COMPILER_FLAGS = ""; }; };
+14965808752E4F22B9DF224D /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.cpp */ = {isa = PBXBuildFile; fileRef = DD3436BECCB9440DAF432C44 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+6043C63AB95F4008A5F9EAEF /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemHelpersWin.cpp */ = {isa = PBXBuildFile; fileRef = 40F97879946644BCA7B03823 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemHelpersWin.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+00F3A710DBE04C2AB97DE704 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.cpp */ = {isa = PBXBuildFile; fileRef = 2116A3D8AA994608A2B11C43 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+9B0CC5832FD047BE96E165D1 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.cpp */ = {isa = PBXBuildFile; fileRef = 1515D30B2C48414C9C1B574A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+FE5EA69601B2487BAF4CE2E9 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.h */ = {isa = PBXBuildFile; fileRef = 76385918989F41C495FB2074 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.h */; settings = { COMPILER_FLAGS = ""; }; };
+ED9755B501FB407E9117230E /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.h */ = {isa = PBXBuildFile; fileRef = 729E4C4B460D4DD3A98383C0 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.h */; settings = { COMPILER_FLAGS = ""; }; };
+DA9C28DCAD3844C6A5E18840 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.cpp */ = {isa = PBXBuildFile; fileRef = 9DB3F0E27291411D93B90BB1 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+65067C1279EC4547BAB8A5E6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.mm */ = {isa = PBXBuildFile; fileRef = F8CBB136A4864A95BF442753 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.mm */; settings = { COMPILER_FLAGS = ""; }; };
+9760AA9E24C94CFC84699C6A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemHelpersMac.mm */ = {isa = PBXBuildFile; fileRef = E9F0E09576CA469DA2B524F8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemHelpersMac.mm */; settings = { COMPILER_FLAGS = ""; }; };
+F86FB39C1FB64727AD77A12C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.h */ = {isa = PBXBuildFile; fileRef = 50A770EDE90941B5811315F8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.h */; settings = { COMPILER_FLAGS = ""; }; };
+807BC14E065A454AA07B8D6A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemHelpersX11.cpp */ = {isa = PBXBuildFile; fileRef = 7F7ADF02E0484B9CBC95766C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemHelpersX11.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+17EDCEE495BD466DBB3B372A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.cpp */ = {isa = PBXBuildFile; fileRef = 75465EAD21A04A7681D25062 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+A7BC7B6233A84F8C86EC8736 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 5265FF6528514C7EA5001503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+              8400B175D6D546BBA5C19C56 /*  */ = {
+                     isa = PBXBuildStyle;
+              };
+              34C9195D007A457A9D72535C /* Debug */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Debug;
+              };
+              7ABD2965565E4A3295B0C8D2 /* Release */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Release;
+              };
+              4D485BC10F3A460AA5FDF447 /* MinSizeRel */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = MinSizeRel;
+              };
+              2C883E3C8F3042C7A0EA99B3 /* RelWithDebInfo */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+              C95A85894607426BB5E2ABA1 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = DBA2A60F302A495788B18091 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 799CA41713E84A57BBFCBADD;
+                     remoteInfo = PluginCore;
+              };
+              584DA97236E54656AB09A1F2 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = DBA2A60F302A495788B18091 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 8EA4058C50A24FE9A39899D6;
+                     remoteInfo = ZERO_CHECK;
+              };
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+5265FF6528514C7EA5001503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+2E4396C3B08B48B59B1917D6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "BrowserPlugin.cpp"; path = "BrowserPlugin.cpp"; sourceTree = SOURCE_ROOT; };
+40A3D28E3ECC418E96ED9687 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "BrowserStream.cpp"; path = "BrowserStream.cpp"; sourceTree = SOURCE_ROOT; };
+6A3E7E40EC9F476AB29F9996 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "BrowserStreamManager.cpp"; path = "BrowserStreamManager.cpp"; sourceTree = SOURCE_ROOT; };
+50CBE8F9D8D640E8A25036AB /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "DefaultBrowserStreamHandler.cpp"; path = "DefaultBrowserStreamHandler.cpp"; sourceTree = SOURCE_ROOT; };
+C2BB894713FC42EB8A0EA035 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "FactoryBase.cpp"; path = "FactoryBase.cpp"; sourceTree = SOURCE_ROOT; };
+FF9FBA95F7DE4427B21150DC /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "PluginCore.cpp"; path = "PluginCore.cpp"; sourceTree = SOURCE_ROOT; };
+C67D990DD9AE43DB849810F4 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "PluginEventSource.cpp"; path = "PluginEventSource.cpp"; sourceTree = SOURCE_ROOT; };
+E67072FD71B749C8AF815104 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "SimpleStreamHelper.cpp"; path = "SimpleStreamHelper.cpp"; sourceTree = SOURCE_ROOT; };
+85AC52317C064530A350380A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "Timer.cpp"; path = "Timer.cpp"; sourceTree = SOURCE_ROOT; };
+CD638E284E80436EB2A38776 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "TimerService.cpp"; path = "TimerService.cpp"; sourceTree = SOURCE_ROOT; };
+CB030630C56F4F39AC55A45C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "BrowserPlugin.h"; path = "BrowserPlugin.h"; sourceTree = SOURCE_ROOT; };
+81FD4D90CFEC41028096C426 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "BrowserStream.h"; path = "BrowserStream.h"; sourceTree = SOURCE_ROOT; };
+95E1367D7EFF44A4BC32A511 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "BrowserStreamManager.h"; path = "BrowserStreamManager.h"; sourceTree = SOURCE_ROOT; };
+E1780B8B822D4234A6B8DE05 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/ConstructDefaultPluginWindows.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "ConstructDefaultPluginWindows.h"; path = "ConstructDefaultPluginWindows.h"; sourceTree = SOURCE_ROOT; };
+1324A69D22964FD18FA935CB /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "DefaultBrowserStreamHandler.h"; path = "DefaultBrowserStreamHandler.h"; sourceTree = SOURCE_ROOT; };
+779D7928F0F14597990363B7 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "FactoryBase.h"; path = "FactoryBase.h"; sourceTree = SOURCE_ROOT; };
+6AC66577A00F40E8B6468D5D /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "PluginCore.h"; path = "PluginCore.h"; sourceTree = SOURCE_ROOT; };
+00ACADBE791E4B91BBB2F8E8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "PluginEvent.h"; path = "PluginEvent.h"; sourceTree = SOURCE_ROOT; };
+D0465ECC1C9747C09A388545 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "PluginEventSink.h"; path = "PluginEventSink.h"; sourceTree = SOURCE_ROOT; };
+8D9C0A70281C4F55AB856C16 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "PluginEventSource.h"; path = "PluginEventSource.h"; sourceTree = SOURCE_ROOT; };
+BCCA258049E549C7BE0318B6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "PluginInfo.h"; path = "PluginInfo.h"; sourceTree = SOURCE_ROOT; };
+0D708DE78D534B3CB6933BEA /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "PluginWindow.h"; path = "PluginWindow.h"; sourceTree = SOURCE_ROOT; };
+6006F37BB1564981892D4F7B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindowForwardDecl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "PluginWindowForwardDecl.h"; path = "PluginWindowForwardDecl.h"; sourceTree = SOURCE_ROOT; };
+4578D1798DB5445AA578D196 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "SimpleStreamHelper.h"; path = "SimpleStreamHelper.h"; sourceTree = SOURCE_ROOT; };
+B63E164E8E5F4DDD9B1F24CC /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "SystemHelpers.h"; path = "SystemHelpers.h"; sourceTree = SOURCE_ROOT; };
+1AFAF0ABDC884423A076C5C8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemProxyDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "SystemProxyDetector.h"; path = "SystemProxyDetector.h"; sourceTree = SOURCE_ROOT; };
+580B2B780B834EA0A85DC30B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "Timer.h"; path = "Timer.h"; sourceTree = SOURCE_ROOT; };
+D0045650C87240ABA993BB70 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "TimerService.h"; path = "TimerService.h"; sourceTree = SOURCE_ROOT; };
+0681CF0650874C40B3DFB8F2 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/AttachedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "AttachedEvent.h"; path = "PluginEvents/AttachedEvent.h"; sourceTree = SOURCE_ROOT; };
+F4EFC4461CB64E4D9120DEB9 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/DrawingEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "DrawingEvents.h"; path = "PluginEvents/DrawingEvents.h"; sourceTree = SOURCE_ROOT; };
+81732750B038422CABFFD04C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/GeneralEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "GeneralEvents.h"; path = "PluginEvents/GeneralEvents.h"; sourceTree = SOURCE_ROOT; };
+AA74B6C346FE457D98686E67 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyboardEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "KeyboardEvents.h"; path = "PluginEvents/KeyboardEvents.h"; sourceTree = SOURCE_ROOT; };
+871F48F313924718B7E7727C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "KeyCodes.h"; path = "PluginEvents/KeyCodes.h"; sourceTree = SOURCE_ROOT; };
+D50B30E212854F12A95FBD8E /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCarbon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "MacEventCarbon.h"; path = "PluginEvents/MacEventCarbon.h"; sourceTree = SOURCE_ROOT; };
+30B2D2E02CCB4971950F2087 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "MacEventCocoa.h"; path = "PluginEvents/MacEventCocoa.h"; sourceTree = SOURCE_ROOT; };
+FB8470D1F34446CAB8E027F1 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MouseEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "MouseEvents.h"; path = "PluginEvents/MouseEvents.h"; sourceTree = SOURCE_ROOT; };
+FE53978CCD314758AE889503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/StreamEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "StreamEvents.h"; path = "PluginEvents/StreamEvents.h"; sourceTree = SOURCE_ROOT; };
+BBFC31769EC14DE89E108D00 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/WindowsEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "WindowsEvent.h"; path = "PluginEvents/WindowsEvent.h"; sourceTree = SOURCE_ROOT; };
+BF45672E39DD40A88B16FB9B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/X11Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "X11Event.h"; path = "PluginEvents/X11Event.h"; sourceTree = SOURCE_ROOT; };
+77CC02A9FDFB40AE9D31F754 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "KeyCodesWin.h"; path = "Win/KeyCodesWin.h"; sourceTree = SOURCE_ROOT; };
+890B654519B64BFA9FE0EE41 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "SystemProxyDetectorWin.h"; path = "Win/SystemProxyDetectorWin.h"; sourceTree = SOURCE_ROOT; };
+5112963CECF84157B67FBD87 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WindowContextWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "WindowContextWin.h"; path = "Win/WindowContextWin.h"; sourceTree = SOURCE_ROOT; };
+F9DF74C50CA24747842B4BFE /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "WinMessageWindow.h"; path = "Win/WinMessageWindow.h"; sourceTree = SOURCE_ROOT; };
+DD3436BECCB9440DAF432C44 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "KeyCodesWin.cpp"; path = "Win/KeyCodesWin.cpp"; sourceTree = SOURCE_ROOT; };
+40F97879946644BCA7B03823 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemHelpersWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "SystemHelpersWin.cpp"; path = "Win/SystemHelpersWin.cpp"; sourceTree = SOURCE_ROOT; };
+2116A3D8AA994608A2B11C43 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "SystemProxyDetectorWin.cpp"; path = "Win/SystemProxyDetectorWin.cpp"; sourceTree = SOURCE_ROOT; };
+1515D30B2C48414C9C1B574A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "WinMessageWindow.cpp"; path = "Win/WinMessageWindow.cpp"; sourceTree = SOURCE_ROOT; };
+76385918989F41C495FB2074 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "OneShotManager.h"; path = "Mac/OneShotManager.h"; sourceTree = SOURCE_ROOT; };
+729E4C4B460D4DD3A98383C0 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "SystemProxyDetectorMac.h"; path = "Mac/SystemProxyDetectorMac.h"; sourceTree = SOURCE_ROOT; };
+9DB3F0E27291411D93B90BB1 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "SystemProxyDetectorMac.cpp"; path = "Mac/SystemProxyDetectorMac.cpp"; sourceTree = SOURCE_ROOT; };
+F8CBB136A4864A95BF442753 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.objcpp"; name = "OneShotManager.mm"; path = "Mac/OneShotManager.mm"; sourceTree = SOURCE_ROOT; };
+E9F0E09576CA469DA2B524F8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemHelpersMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.objcpp"; name = "SystemHelpersMac.mm"; path = "Mac/SystemHelpersMac.mm"; sourceTree = SOURCE_ROOT; };
+50A770EDE90941B5811315F8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.h"; name = "SystemProxyDetectorX11.h"; path = "X11/SystemProxyDetectorX11.h"; sourceTree = SOURCE_ROOT; };
+7F7ADF02E0484B9CBC95766C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemHelpersX11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "SystemHelpersX11.cpp"; path = "X11/SystemHelpersX11.cpp"; sourceTree = SOURCE_ROOT; };
+75465EAD21A04A7681D25062 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.cpp.cpp"; name = "SystemProxyDetectorX11.cpp"; path = "X11/SystemProxyDetectorX11.cpp"; sourceTree = SOURCE_ROOT; };
+BDD614C5C8E74708A1BACB03 /* PluginCore */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libPluginCore.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+              AE65CFA0F9734A968F6A41E6  = {
+                     isa = PBXGroup;
+                     children = (
+                            02CF9D41F03843BDA8B18D9E /* Sources */,
+                            791BD3F6C65A44789C033EAE /* Resources */,
+                            9FDA77EE996C400682E1EFBD /* Products */,
+                     );
+                     sourceTree = "<group>";
+              };
+              02CF9D41F03843BDA8B18D9E /* Sources */ = {
+                     isa = PBXGroup;
+                     children = (
+                            92CDC6F329064110950EB0C4 /* ALL_BUILD */,
+                            CBACD4BA68DA4D18B3EBBD72 /* FireBreath Core */,
+                            79F660EFD9404462971EB145 /* ZERO_CHECK */,
+                     );
+                     name = Sources;
+                     sourceTree = "<group>";
+              };
+              791BD3F6C65A44789C033EAE /* Resources */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = Resources;
+                     sourceTree = "<group>";
+              };
+              92CDC6F329064110950EB0C4 /* ALL_BUILD */ = {
+                     isa = PBXGroup;
+                     children = (
+                            994DE5D5D0AB46D493A2DA71 /* CMake Rules */,
+                            5265FF6528514C7EA5001503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/CMakeLists.txt */,
+                     );
+                     name = ALL_BUILD;
+                     sourceTree = "<group>";
+              };
+              994DE5D5D0AB46D493A2DA71 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              CBACD4BA68DA4D18B3EBBD72 /* FireBreath Core */ = {
+                     isa = PBXGroup;
+                     children = (
+                            5FD8039BE2CC4A32B9FE3BDE /* PluginCore */,
+                     );
+                     name = "FireBreath Core";
+                     sourceTree = "<group>";
+              };
+              5FD8039BE2CC4A32B9FE3BDE /* PluginCore */ = {
+                     isa = PBXGroup;
+                     children = (
+                            C9C26CEC592B42728D54D5F2 /* Source Files */,
+                            1CE9711207594F1A8EC6DC28 /* Header Files */,
+                            173248B7B9844AE698485F32 /* PluginEvents */,
+                            BD8F6E09FB6741918EF53199 /* Windows */,
+                            673038701D5E486AAD648802 /* Mac */,
+                            10836FD2CAEE458387C1676B /* X11 */,
+                            5265FF6528514C7EA5001503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/CMakeLists.txt */,
+                     );
+                     name = PluginCore;
+                     sourceTree = "<group>";
+              };
+              C9C26CEC592B42728D54D5F2 /* Source Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            2E4396C3B08B48B59B1917D6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.cpp */,
+                            40A3D28E3ECC418E96ED9687 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.cpp */,
+                            6A3E7E40EC9F476AB29F9996 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.cpp */,
+                            50CBE8F9D8D640E8A25036AB /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.cpp */,
+                            C2BB894713FC42EB8A0EA035 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.cpp */,
+                            FF9FBA95F7DE4427B21150DC /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.cpp */,
+                            C67D990DD9AE43DB849810F4 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.cpp */,
+                            E67072FD71B749C8AF815104 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.cpp */,
+                            85AC52317C064530A350380A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.cpp */,
+                            CD638E284E80436EB2A38776 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.cpp */,
+                     );
+                     name = "Source Files";
+                     sourceTree = "<group>";
+              };
+              1CE9711207594F1A8EC6DC28 /* Header Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            CB030630C56F4F39AC55A45C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.h */,
+                            81FD4D90CFEC41028096C426 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.h */,
+                            95E1367D7EFF44A4BC32A511 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.h */,
+                            E1780B8B822D4234A6B8DE05 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/ConstructDefaultPluginWindows.h */,
+                            1324A69D22964FD18FA935CB /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.h */,
+                            779D7928F0F14597990363B7 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.h */,
+                            6AC66577A00F40E8B6468D5D /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.h */,
+                            00ACADBE791E4B91BBB2F8E8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvent.h */,
+                            D0465ECC1C9747C09A388545 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSink.h */,
+                            8D9C0A70281C4F55AB856C16 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.h */,
+                            BCCA258049E549C7BE0318B6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginInfo.h */,
+                            0D708DE78D534B3CB6933BEA /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindow.h */,
+                            6006F37BB1564981892D4F7B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginWindowForwardDecl.h */,
+                            4578D1798DB5445AA578D196 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.h */,
+                            B63E164E8E5F4DDD9B1F24CC /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemHelpers.h */,
+                            1AFAF0ABDC884423A076C5C8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SystemProxyDetector.h */,
+                            580B2B780B834EA0A85DC30B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.h */,
+                            D0045650C87240ABA993BB70 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.h */,
+                     );
+                     name = "Header Files";
+                     sourceTree = "<group>";
+              };
+              173248B7B9844AE698485F32 /* PluginEvents */ = {
+                     isa = PBXGroup;
+                     children = (
+                            0681CF0650874C40B3DFB8F2 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/AttachedEvent.h */,
+                            F4EFC4461CB64E4D9120DEB9 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/DrawingEvents.h */,
+                            81732750B038422CABFFD04C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/GeneralEvents.h */,
+                            AA74B6C346FE457D98686E67 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyboardEvents.h */,
+                            871F48F313924718B7E7727C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/KeyCodes.h */,
+                            D50B30E212854F12A95FBD8E /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCarbon.h */,
+                            30B2D2E02CCB4971950F2087 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MacEventCocoa.h */,
+                            FB8470D1F34446CAB8E027F1 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/MouseEvents.h */,
+                            FE53978CCD314758AE889503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/StreamEvents.h */,
+                            BBFC31769EC14DE89E108D00 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/WindowsEvent.h */,
+                            BF45672E39DD40A88B16FB9B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEvents/X11Event.h */,
+                     );
+                     name = PluginEvents;
+                     sourceTree = "<group>";
+              };
+              BD8F6E09FB6741918EF53199 /* Windows */ = {
+                     isa = PBXGroup;
+                     children = (
+                            77CC02A9FDFB40AE9D31F754 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.h */,
+                            890B654519B64BFA9FE0EE41 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.h */,
+                            5112963CECF84157B67FBD87 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WindowContextWin.h */,
+                            F9DF74C50CA24747842B4BFE /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.h */,
+                            DD3436BECCB9440DAF432C44 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/KeyCodesWin.cpp */,
+                            40F97879946644BCA7B03823 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemHelpersWin.cpp */,
+                            2116A3D8AA994608A2B11C43 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/SystemProxyDetectorWin.cpp */,
+                            1515D30B2C48414C9C1B574A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Win/WinMessageWindow.cpp */,
+                     );
+                     name = Windows;
+                     sourceTree = "<group>";
+              };
+              673038701D5E486AAD648802 /* Mac */ = {
+                     isa = PBXGroup;
+                     children = (
+                            76385918989F41C495FB2074 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.h */,
+                            729E4C4B460D4DD3A98383C0 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.h */,
+                            9DB3F0E27291411D93B90BB1 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.cpp */,
+                            F8CBB136A4864A95BF442753 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.mm */,
+                            E9F0E09576CA469DA2B524F8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemHelpersMac.mm */,
+                     );
+                     name = Mac;
+                     sourceTree = "<group>";
+              };
+              10836FD2CAEE458387C1676B /* X11 */ = {
+                     isa = PBXGroup;
+                     children = (
+                            50A770EDE90941B5811315F8 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.h */,
+                            7F7ADF02E0484B9CBC95766C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemHelpersX11.cpp */,
+                            75465EAD21A04A7681D25062 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/X11/SystemProxyDetectorX11.cpp */,
+                     );
+                     name = X11;
+                     sourceTree = "<group>";
+              };
+              79F660EFD9404462971EB145 /* ZERO_CHECK */ = {
+                     isa = PBXGroup;
+                     children = (
+                            EBB661E469514217A69B1997 /* CMake Rules */,
+                            5265FF6528514C7EA5001503 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/CMakeLists.txt */,
+                     );
+                     name = ZERO_CHECK;
+                     sourceTree = "<group>";
+              };
+              EBB661E469514217A69B1997 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              9FDA77EE996C400682E1EFBD /* Products */ = {
+                     isa = PBXGroup;
+                     children = (
+                            BDD614C5C8E74708A1BACB03 /* PluginCore */,
+                     );
+                     name = Products;
+                     sourceTree = "<group>";
+              };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+              799CA41713E84A57BBFCBADD /* PluginCore */ = {
+                     isa = PBXNativeTarget;
+                     buildConfigurationList = 6DAB1867E82948B29F0ABA21 /* Build configuration list for PBXNativeTarget "PluginCore" */;
+                     buildPhases = (
+                            4C96001D381E4C08A2C265B4 /* Sources */,
+                            3ABA943905C5423BB636A5E9 /* CMake PostBuild Rules */,
+                     );
+                     buildRules = (
+                     );
+                     dependencies = (
+                            212D48B292474F4DACA7B19A /* PBXTargetDependency */,
+                     );
+                     name = PluginCore;
+                     productName = PluginCore;
+                     productReference = BDD614C5C8E74708A1BACB03 /* PluginCore */;
+                     productType = "com.apple.product-type.library.static";
+              };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+              DBA2A60F302A495788B18091 /* Project object */ = {
+                     isa = PBXProject;
+                     attributes = {
+                            BuildIndependentTargetsInParallel = YES;
+                     };
+                     buildConfigurationList = 507C2FBFE7D34A39A6BB9D24 /* Build configuration list for PBXProject  "PluginCore" */;
+                     buildSettings = {
+                     };
+                     buildStyles = (
+                            34C9195D007A457A9D72535C /* Debug */,
+                            7ABD2965565E4A3295B0C8D2 /* Release */,
+                            4D485BC10F3A460AA5FDF447 /* MinSizeRel */,
+                            2C883E3C8F3042C7A0EA99B3 /* RelWithDebInfo */,
+                     );
+                     compatibilityVersion = "Xcode 3.2";
+                     hasScannedForEncodings = 0;
+                     mainGroup = AE65CFA0F9734A968F6A41E6;
+                     projectDirPath = "../../src/PluginCore";
+                     projectRoot = "";
+                     targets = (
+                            F2CC5AC75D0A40268981DFF0 /* ALL_BUILD */,
+                            799CA41713E84A57BBFCBADD /* PluginCore */,
+                            8EA4058C50A24FE9A39899D6 /* ZERO_CHECK */,
+                     );
+              };
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+              7B134C1B14F547B58BD361F0 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+              };
+              44237B37E4164375A6C1B488 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore -f /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+              };
+              3ABA943905C5423BB636A5E9 /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore -f /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore/CMakeScripts/PluginCore_postBuildPhase.make$CONFIGURATION all";
+              };
+              7AA0442C583B4AA79EFFE935 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+              };
+              6F6D8193CD7D415E82223D85 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore -f /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+              };
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+              4C96001D381E4C08A2C265B4 /* Sources */ = {
+                     isa = PBXSourcesBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                            BF6ED2BD446949AC8F5DD65B /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserPlugin.cpp */,
+                            712FBE2FD186487B9D260326 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStream.cpp */,
+                            C0D9A11637A84664BA19CA0F /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/BrowserStreamManager.cpp */,
+                            E0CE4DDC9A824666A25E182C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/DefaultBrowserStreamHandler.cpp */,
+                            4FE539CE2A2847538AA19AC3 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/FactoryBase.cpp */,
+                            FC395454F99247BAA8FAA42C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginCore.cpp */,
+                            B0375CD23CFF43BEAB0C1C43 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/PluginEventSource.cpp */,
+                            53EB64418B9A4D029044C067 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/SimpleStreamHelper.cpp */,
+                            3422670E3C3E4AEEB7511C75 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Timer.cpp */,
+                            21BC4DE5BE914C21BA6F162C /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/TimerService.cpp */,
+                            DA9C28DCAD3844C6A5E18840 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemProxyDetectorMac.cpp */,
+                            65067C1279EC4547BAB8A5E6 /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/OneShotManager.mm */,
+                            9760AA9E24C94CFC84699C6A /* /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore/Mac/SystemHelpersMac.mm */,
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+              };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+              51EEEC7831E14553BADF06C1 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 799CA41713E84A57BBFCBADD /* PluginCore */;
+                     targetProxy = C95A85894607426BB5E2ABA1 /* PBXContainerItemProxy */;
+              };
+              212D48B292474F4DACA7B19A /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 8EA4058C50A24FE9A39899D6 /* ZERO_CHECK */;
+                     targetProxy = 584DA97236E54656AB09A1F2 /* PBXContainerItemProxy */;
+              };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+              D9F77F3130B44CBB84EA1FA4 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore/build;
+                     };
+                     name = Debug;
+              };
+              2FE7FF833D8B4206B6721967 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore/build;
+                     };
+                     name = Release;
+              };
+              F814726BB2514EF7A71033A9 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore/build;
+                     };
+                     name = MinSizeRel;
+              };
+              78DDF4D330B14E0C92E2DDBA /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.7.sdk";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore/build;
+                     };
+                     name = RelWithDebInfo;
+              };
+              0E1AE17749004B87908E3D92 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              E9645913A5E5417C8CCC4161 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              11437371EAF342278F65847F /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              A103AA872FFC4CDD99CE985B /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              90895471D7044DF687093ADD /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1     ";
+                            OTHER_CPLUSPLUSFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1     ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = PluginCore;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              1F0793E49F4F425292D91A08 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1     -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1     -DNDEBUG  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = PluginCore;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              BB680A38E99849599CD235FB /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = s;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1     -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1     -DNDEBUG  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = PluginCore;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              09822092749045FEBE66DF97 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".a";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            LIBRARY_STYLE = STATIC;
+                            OTHER_CFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1        -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = " -DFB_MACOSX=1 -DXP_UNIX -DXP_MACOSX  -DBOOST_ALL_NO_LIB=1        -DNDEBUG  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = PluginCore;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              0EE4D272402D49B6BC010AF3 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              7DACC7E1A65F46E99CE224BB /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              E63951E7537240358918A512 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              3C63A6B6CB674876A5CEB337 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ScriptingCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/PluginAuto, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/NpapiCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/ActiveXCore, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/3rdParty/boost, /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/src/config, "/System/Library/Frameworks/foundation.framework/Headers", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/PluginCore;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+              507C2FBFE7D34A39A6BB9D24 /* Build configuration list for PBXProject  "PluginCore" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            D9F77F3130B44CBB84EA1FA4 /* Debug */,
+                            2FE7FF833D8B4206B6721967 /* Release */,
+                            F814726BB2514EF7A71033A9 /* MinSizeRel */,
+                            78DDF4D330B14E0C92E2DDBA /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              EAFB62D3181F40ABAD1F1EFF /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            0E1AE17749004B87908E3D92 /* Debug */,
+                            E9645913A5E5417C8CCC4161 /* Release */,
+                            11437371EAF342278F65847F /* MinSizeRel */,
+                            A103AA872FFC4CDD99CE985B /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              6DAB1867E82948B29F0ABA21 /* Build configuration list for PBXNativeTarget "PluginCore" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            90895471D7044DF687093ADD /* Debug */,
+                            1F0793E49F4F425292D91A08 /* Release */,
+                            BB680A38E99849599CD235FB /* MinSizeRel */,
+                            09822092749045FEBE66DF97 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              4223F77D863A456EA88C34F7 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            0EE4D272402D49B6BC010AF3 /* Debug */,
+                            7DACC7E1A65F46E99CE224BB /* Release */,
+                            E63951E7537240358918A512 /* MinSizeRel */,
+                            3C63A6B6CB674876A5CEB337 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+/* End XCConfigurationList section */
+       };
+       rootObject = DBA2A60F302A495788B18091;
+}

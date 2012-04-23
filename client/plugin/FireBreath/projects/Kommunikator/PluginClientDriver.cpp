@@ -19,7 +19,12 @@ PluginClientDriver::~PluginClientDriver() {
 }
 
 void PluginClientDriver::initialize() {
+#ifdef KMACOS
     s_device = "coreaudio/*";
+#endif
+#ifdef KWINDOWS
+    s_device = "dsound/*";
+#endif
     if (!m_init) {
         m_init = true;
         setup();

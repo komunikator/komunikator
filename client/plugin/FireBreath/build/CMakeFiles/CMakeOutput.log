@@ -1,0 +1,139 @@
+The system is: Darwin - 11.3.0 - i386
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/gcc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/g++ 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/opt/local/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/testCCompiler.o testCCompiler.c normal x86_64 c com.apple.compilers.llvmgcc42
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/include -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/testCCompiler.c -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/testCCompiler.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk -L/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -filelist /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.7 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-D1D49281AABD47B69557CEFC.sh
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /bin/sh -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-D1D49281AABD47B69557CEFC.sh
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp && make -C /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp -f /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.cmTryCompileExec.Debug
+make[1]: Nothing to be done for `PostBuild.cmTryCompileExec.Debug'.
+
+
+** BUILD SUCCEEDED **
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/opt/local/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CMakeCCompilerABI.o ../../../../../../../../../opt/local/share/cmake-2.8/Modules/CMakeCCompilerABI.c normal x86_64 c com.apple.compilers.llvmgcc42
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/include -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/../../../../../../../../../opt/local/share/cmake-2.8/Modules/CMakeCCompilerABI.c -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CMakeCCompilerABI.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk -L/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -filelist /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.7 -v -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-7D3D5D7031D74E20873E2C29.sh
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /bin/sh -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-7D3D5D7031D74E20873E2C29.sh
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp && make -C /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp -f /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.cmTryCompileExec.Debug
+make[1]: Nothing to be done for `PostBuild.cmTryCompileExec.Debug'.
+
+
+** BUILD SUCCEEDED **
+
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/opt/local/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/testCXXCompiler.o testCXXCompiler.cxx normal x86_64 c++ com.apple.compilers.llvmgcc42
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/include -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -g -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/testCXXCompiler.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-g++-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk -L/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -filelist /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.7 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-D827E93A069E48068B6642DE.sh
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /bin/sh -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-D827E93A069E48068B6642DE.sh
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp && make -C /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp -f /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.cmTryCompileExec.Debug
+make[1]: Nothing to be done for `PostBuild.cmTryCompileExec.Debug'.
+
+
+** BUILD SUCCEEDED **
+
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/opt/local/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CMakeCXXCompilerABI.o ../../../../../../../../../opt/local/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp normal x86_64 c++ com.apple.compilers.llvmgcc42
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -O0 "-DCMAKE_INTDIR=\"Debug\"" -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/include -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -g -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/../../../../../../../../../opt/local/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CMakeCXXCompilerABI.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/llvm-g++-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk -L/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -F/Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug -filelist /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.7 -v -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-6832276541F94805A696BFB3.sh
+    cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp
+    /bin/sh -c /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-6832276541F94805A696BFB3.sh
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp && make -C /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp -f /Projects/Kommunikator/kommunikator/client/plugin/FireBreath/build/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make PostBuild.cmTryCompileExec.Debug
+make[1]: Nothing to be done for `PostBuild.cmTryCompileExec.Debug'.
+
+
+** BUILD SUCCEEDED **
+
+
+

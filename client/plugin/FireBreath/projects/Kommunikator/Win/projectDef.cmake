@@ -16,6 +16,7 @@ file (GLOB PLATFORM RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 # use this to add preprocessor definitions
 add_definitions(
     /D "_ATL_STATIC_REGISTRY"
+    /D "KWINDOWS"
 )
 
 SOURCE_GROUP(Win FILES ${PLATFORM})
@@ -26,6 +27,14 @@ set (SOURCES
     )
 
 add_windows_plugin(${PROJECT_NAME} SOURCES)
+
+#SET(LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../3rdparty/lib")
+SET(LIB_PATH "C:/Yate")
+SET(INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../3rdparty/windows" "C:/Yate/devel")
+
+include_directories(${PLUGIN_INCLUDE_DIRS}
+    ${INCLUDE_PATH}
+)
 
 # This is an example of how to add a build step to sign the plugin DLL before
 # the WiX installer builds.  The first filename (certificate.pfx) should be
@@ -47,6 +56,9 @@ add_windows_plugin(${PROJECT_NAME} SOURCES)
 # add library dependencies here; leave ${PLUGIN_INTERNAL_DEPS} there unless you know what you're doing!
 target_link_libraries(${PROJECT_NAME}
     ${PLUGIN_INTERNAL_DEPS}
+    ${LIB_PATH}/devel/libyate.lib
+#    ${LIB_PATH}/libymgcp.dll
+#    ${LIB_PATH}/libysig.dll
     )
 
 set(WIX_HEAT_FLAGS

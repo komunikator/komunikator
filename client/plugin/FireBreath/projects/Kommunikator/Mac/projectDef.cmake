@@ -15,9 +15,8 @@ file (GLOB PLATFORM RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 
 # use this to add preprocessor definitions
 add_definitions(
-    
+    -D "KMACOS"
 )
-
 
 SOURCE_GROUP(Mac FILES ${PLATFORM})
 
@@ -30,9 +29,19 @@ set(PLIST "Mac/bundle_template/Info.plist")
 set(STRINGS "Mac/bundle_template/InfoPlist.strings")
 set(LOCALIZED "Mac/bundle_template/Localized.r")
 
+SET(LIB_PATH "/usr/local/lib")
+SET(INCLUDE_PATH "/usr/local/include/yate")
+
 add_mac_plugin(${PROJECT_NAME} ${PLIST} ${STRINGS} ${LOCALIZED} SOURCES)
 
 # add library dependencies here; leave ${PLUGIN_INTERNAL_DEPS} there unless you know what you're doing!
 target_link_libraries(${PROJECT_NAME}
     ${PLUGIN_INTERNAL_DEPS}
+    ${LIB_PATH}/libyate.so
     )
+
+include_directories(${PLUGIN_INCLUDE_DIRS}
+${INCLUDE_PATH}
+${INCLUDE_PATH}/yate
+)
+

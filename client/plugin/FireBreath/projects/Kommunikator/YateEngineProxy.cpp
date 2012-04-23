@@ -250,11 +250,22 @@ void YateEngineProxy::callDropAll() {
 //
 
 void YateEngineProxy::engineThread() {
+#ifdef KMACOS
     const char* argv[3];
+    int argc = 1;
     argv[0] = "yate";
-    argv[1] = "-l";
+    //argv[1] = "-l";
     //argv[2] = "/Projects/yate.log";
-    argv[2] = "C:/Projects/yate.log";
+#endif
+#ifdef KWINDOWS
+    const char* argv[5];
+    int argc = 5;
+    argv[0] = "C:\\Yate\\yate.exe";
+    argv[1] = "-l";
+    argv[2] = "C:\\Yate\\yate.log";
+    argv[3] = "-m";
+    argv[4] = "C:\\Yate\\modules";
+#endif
     
     TelEngine::Engine::self();
     TelEngine::debugLevel(TelEngine::DebugAll);
@@ -267,7 +278,7 @@ void YateEngineProxy::engineThread() {
         installRelay(s_relays[i].name, s_relays[i].id, s_relays[i].prio);
     }
     
-    TelEngine::Engine::main(3, argv, NULL, TelEngine::Engine::Client);
+    TelEngine::Engine::main(argc, argv, NULL, TelEngine::Engine::Client);
     m_events->engineStopped();
 }
 

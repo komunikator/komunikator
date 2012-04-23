@@ -16,23 +16,6 @@ file (GLOB GENERAL RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     [^.]*.cmake
     )
 
-#SET(LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../3rdparty/lib")
-SET(LIB_PATH "/usr/local/lib")
-#SET(INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../3rdparty/include")
-SET(INCLUDE_PATH "/usr/local/include/yate")
-
-include_directories(${PLUGIN_INCLUDE_DIRS}
-    ${INCLUDE_PATH}
-    ${INCLUDE_PATH}/yate
-)
-
-SET(PLUGIN_INTERNAL_DEPS ${PLUGIN_INTERNAL_DEPS}
-    ${LIB_PATH}/libyate.so
-    ${LIB_PATH}/libyatemgcp.so
-    ${LIB_PATH}/libyatesig.so
-)
-
-
 # Generated files are stored in ${GENERATED} by the project configuration
 SET_SOURCE_FILES_PROPERTIES(
     ${GENERATED}
