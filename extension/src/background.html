@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <script src="functions.js"></script>
+        <script>
+            chrome.extension.onRequest.addListener(
+            function(request, sender, sendResponse) {
+                if (sender.tab.url == chrome.extension.getURL("options.html") && request.do == "update")
+                {
+                    init();
+                    //console.log('Update refresh time from options !');
+                }
+            }
+        );
+            init();
+        </script>
+    </head>
+</html>
