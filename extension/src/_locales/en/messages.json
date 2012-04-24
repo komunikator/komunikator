@@ -1,0 +1,51 @@
+{
+	"extName": {
+		"message": "DIGT Virtual PBX Systems"
+	},
+	"extDescr": {
+		"message": "DIGT Virtual PBX Systems"
+	},
+	"language": {
+		"message": "Language"
+	},
+	"auth_failed": {
+		"message": "Auth Failed"
+	},
+	"save": {
+		"message": "Save"
+	},
+	"exit": {
+		"message": "Exit"
+	},
+	"options": {
+		"message": "Options"
+	},
+	"options_saved": {
+		"message": "Options saved"
+	},
+	"password": {
+		"message": "Password"
+	},
+	"extension": {
+		"message": "Internal number"
+	},
+	"writeInVkontakte": {
+		"message": "Write in Vkontakte"
+	},
+	"writeInTwitter": {
+		"message": "Write in twitter"
+	},
+	"writeInFacebook": {
+		"message": "Write in Facebook"
+	},
+	"service_not_available": {
+		"message": "service is not available"
+	},
+	"status": {
+		"message": "status"
+	},
+	"call_from": {
+		"message": "call from"
+	}
+
+}
