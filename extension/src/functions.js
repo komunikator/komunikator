@@ -10,29 +10,35 @@ var bitrix_SOURCE_ID = 15;
 var bitrix_url  = "http://digt.ru/bitrix/admin/ticket_edit.php?lang="+localStorage['lang'];
 var time_offset = new Date().getTimezoneOffset();
 
-function get_session_id(cb){ 
+function get_session_id(cb){  
     var req = new XMLHttpRequest();
-    req.onload = function () {
-        var doc = req.responseText;
-        var status = chrome.i18n.getMessage("options_saved");
-        if (doc) {
-            var json = JSON.parse(doc);
-            if (json.success && json.session_id){
-                localStorage['session_id'] =  json.session_id;
-                localStorage['session_name'] = json.session_name?json.session_name:"PHPSESSID";
-            }
-            else
-            {               
-                if (localStorage['session_id'])
-                    localStorage.removeItem('session_id');
-                status = chrome.i18n.getMessage("auth_failed")?chrome.i18n.getMessage("auth_failed"):json.message?json.message:'Failed'
-            }
-            if (cb) cb(status);
-        };
-    };
 
     req.onreadystatechange = function() {
-      if (req.readyState != 4) cb(chrome.i18n.getMessage("service_not_available"))}; 
+        // req.onload = function ()
+        if (req.readyState == 4){
+            if (req.status != 200) 
+                cb(chrome.i18n.getMessage("service_not_available"))
+            else
+            {
+                var doc = req.responseText;
+                var status = chrome.i18n.getMessage("options_saved");
+                if (doc) {
+                    var json = JSON.parse(doc);
+                    if (json.success && json.session_id){
+                        localStorage['session_id'] =  json.session_id;
+                        localStorage['session_name'] = json.session_name?json.session_name:"PHPSESSID";
+                    }
+                    else
+                    {
+                        if (localStorage['session_id'])
+                            localStorage.removeItem('session_id');
+                        status = chrome.i18n.getMessage("auth_failed")?chrome.i18n.getMessage("auth_failed"):json.message?json.message:'Failed'
+                    }
+                    if (cb) cb(status);
+                };
+            };
+        }
+    }
 
     req.open("GET", service_url+"?action=auth&extension="+localStorage['extension']+"&password="+localStorage['password'], true);
     req.send(null);
@@ -90,13 +96,13 @@ function main()
                         var cur_state = localStorage['extension_'+localStorage['extension']];
                         if (status[e][1]!=cur_state)
                         {
-                            text = 'статус : ' + status[e][1];
+                            text = chrome.i18n.getMessage("status")+' : ' + status[e][1];
                             localStorage['extension_'+localStorage['extension']] = status[e][1];
                         }
                     }
                 if (calls.length) {
                     for (var e in calls)
-                        text += ' звонок от : ' + calls[e][1];
+                        text += ' '+chrome.i18n.getMessage("call_from")+' : ' + calls[e][1];
                     var caller=calls[e][1];
                     chrome.tabs.create({
                         url:bitrix_url
@@ -113,7 +119,7 @@ function main()
                 text = json.message;
                 init();
             }
-            if (text) showNotification(localStorage['extension'], text); 
+            if (text) showNotification(localStorage['extension'], text);
         //log(author, text, link);
         
         };
@@ -150,10 +156,14 @@ function init() {
         if (interval!="")
             window.clearInterval(interval);
         interval = "";
-	chrome.browserAction.setIcon({path:"images/icon_not_logged_in.png"});
+        chrome.browserAction.setIcon({
+            path:"images/icon_not_logged_in.png"
+        });
         return;
     }
-    chrome.browserAction.setIcon({path:"images/icon_logged_in.png"});
+    chrome.browserAction.setIcon({
+        path:"images/icon_logged_in.png"
+    });
     window.clearInterval(interval);
     interval = window.setInterval(function() {
         main();

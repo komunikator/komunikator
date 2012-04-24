@@ -40,5 +40,12 @@
 	},
 	"service_not_available": {
 		"message": "service is not available"
+	},
+	"status": {
+		"message": "status"
+	},
+	"call_from": {
+		"message": "call from"
 	}
+
 }

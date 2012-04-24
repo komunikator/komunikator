@@ -40,5 +40,11 @@
 	},
 	"service_not_available": {
 		"message": "Сервис недоступен"
+	},
+	"status": {
+		"message": "статус"
+	},
+	"call_from": {
+		"message": "звонок от"
 	}
 }
