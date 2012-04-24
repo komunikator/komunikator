@@ -207,15 +207,15 @@ void YateEngineProxy::callDrop(const std::string& channelId) {
     const char* error = NULL;
     
     // Check if the channel exists
-    TelEngine::Lock lock(PluginClientDriver::self());
-    if (!PluginClientDriver::self())
-        return;
+    //TelEngine::Lock lock(PluginClientDriver::self());
+    //if (!PluginClientDriver::self())
+    //    return;
     TelEngine::Channel* chan = PluginClientDriver::self()->find(channelId.c_str());
     if (!chan)
         return;
     bool hangup = chan->isAnswered();
     bool cancel = !hangup && chan->isIncoming();
-    lock.drop();
+    //lock.drop();
 
     // Drop the call
     TelEngine::Message* m = new TelEngine::Message("call.drop");
@@ -268,8 +268,8 @@ void YateEngineProxy::engineThread() {
 #endif
     
     TelEngine::Engine::self();
-    TelEngine::debugLevel(TelEngine::DebugAll);
-    //TelEngine::debugLevel(TelEngine::DebugNote);
+    //TelEngine::debugLevel(TelEngine::DebugAll);
+    TelEngine::debugLevel(TelEngine::DebugNote);
     
     m_driver = new PluginClientDriver(this);
     
