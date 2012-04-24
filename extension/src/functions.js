@@ -10,7 +10,7 @@ var bitrix_SOURCE_ID = 15;
 var bitrix_url  = "http://digt.ru/bitrix/admin/ticket_edit.php?lang="+localStorage['lang'];
 var time_offset = new Date().getTimezoneOffset();
 
-function get_session_id(cb){
+function get_session_id(cb){ 
     var req = new XMLHttpRequest();
     req.onload = function () {
         var doc = req.responseText;
@@ -29,7 +29,11 @@ function get_session_id(cb){
             }
             if (cb) cb(status);
         };
-    }
+    };
+
+    req.onreadystatechange = function() {
+      if (req.readyState != 4) cb(chrome.i18n.getMessage("service_not_available"))}; 
+
     req.open("GET", service_url+"?action=auth&extension="+localStorage['extension']+"&password="+localStorage['password'], true);
     req.send(null);
 }

@@ -37,5 +37,8 @@
 	},
 	"writeInFacebook": {
 		"message": "Написать в фейсбук"
+	},
+	"service_not_available": {
+		"message": "Сервис недоступен"
 	}
 }
