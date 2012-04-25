@@ -268,8 +268,8 @@ void YateEngineProxy::engineThread() {
 #endif
     
     TelEngine::Engine::self();
-    //TelEngine::debugLevel(TelEngine::DebugAll);
-    TelEngine::debugLevel(TelEngine::DebugNote);
+    TelEngine::debugLevel(TelEngine::DebugAll);
+    //TelEngine::debugLevel(TelEngine::DebugNote);
     
     m_driver = new PluginClientDriver(this);
     

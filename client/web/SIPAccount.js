@@ -11,7 +11,11 @@ var SIPAccount = Class.create(Account, {
 		this.username = items[0];
 		this.hostname = items[1];
 		
-		this.accountId = 'kplugin:' + this.account;
+		if (!this.account.startsWith("sip:")) {
+			this.account = "sip:" + this.account
+		}
+
+		this.accountId = 'kplugin:' + this.account;		
 	},
 	
 	validateDataField: function(field, value) {
