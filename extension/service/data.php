@@ -1,10 +1,10 @@
-<?php
+<?php 
 require_once("config.php");
 require_once("framework.php");
 require_once("menu.php");
 require_once("lib/lib.php");
 require_once("lib/lib_freesentral.php");
-$db_host = "172.17.2.6";
+//$db_host = "localhost";
 
 ini_set("session.use_only_cookies", "0");
 
@@ -72,6 +72,25 @@ function compact_array($array) {
         }
     return array('header'=>$header,'data'=>$data);
 }
+function make_call() {
+    $called = getparam("number");
+    $caller = $_SESSION["user"];
+
+    $command = "click_to_call $caller $called";
+
+    $socket = new SocketConn;
+    $msg = '';
+
+    if($socket->error == "") {
+        $obj=array("success"=>true);
+        $socket->command($command);
+    }
+    else {
+        $obj=array("success"=>false);
+        $obj['message'] = "Can't make call. Please contact your system administrator.";
+    }
+    echo json_encode($obj);
+}
 
 if ($extension && $action == 'get_state') {
     $status =  compact_array(query_to_array (Database::query("SELECT extension,CASE WHEN expires is not NULL THEN 'online' ELSE 'offline' END as status FROM \"public\".\"extensions\" where extension in ($extension) ORDER BY 2 LIMIT 1000 OFFSET 0")));
@@ -82,5 +101,8 @@ if ($extension && $action == 'get_state') {
     echo json_encode($obj);
 }
 else 
-    echo json_encode(array("success"=>false,"message"=>"Unknown action '".$action."'"));
+    if ($extension && $action == 'make_call')
+        make_call();
+    else
+        echo json_encode(array("success"=>false,"message"=>"Unknown action '".$action."'"));
 ?>

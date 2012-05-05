@@ -6,9 +6,13 @@
         <script>
             chrome.extension.onRequest.addListener(
             function(request, sender, sendResponse) {
+                if (request.method == "getLocalStorage")
+                    sendResponse({data: localStorage[request.key]});
+                if (request.method == "getLocalMsg")
+                    sendResponse({data: chrome.i18n.getMessage(request.key)});
                 if (sender.tab.url == chrome.extension.getURL("options.html") && request.do == "update")
                 {
-                    init();
+                    get_session_id(init);
                     //console.log('Update refresh time from options !');
                 }
             }

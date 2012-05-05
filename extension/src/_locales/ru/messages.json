@@ -3,7 +3,7 @@
 		"message": "DIGT Виртуальная АТС"
 	},
 	"extDescr": {
-		"message": "DIGT Виртуальная АТС. Открывает окно нового обращения Bitrix при поступлении звонка на внутренний номер"
+		"message": "DIGT Виртуальная АТС. Открывает окно нового обращения Bitrix при поступлении звонка на внутренний номер. Позволяет совершать звонки на номер, указанный на web странице."
 	},
 	"language": {
 		"message": "Язык"
@@ -29,14 +29,14 @@
 	"extension": {
 		"message": "Внутренний номер"
 	},
-	"writeInVkontakte": {
-		"message": "Написать в контакте"
+	"openform": {
+		"message": "Открывать окно Bitrix"
 	},
-	"writeInTwitter": {
-		"message": "Написать в твиттере"
+	"click2call": {
+		"message": "Включить выделение номеров"
 	},
-	"writeInFacebook": {
-		"message": "Написать в фейсбук"
+	"click2callDesc": {
+		"message": "Щелкните, чтобы позвонить через DIGT Витруальная АТС"
 	},
 	"service_not_available": {
 		"message": "Сервис недоступен"

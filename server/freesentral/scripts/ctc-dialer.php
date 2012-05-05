@@ -19,7 +19,7 @@ function secondCall($route,$ev)
     $m->params = $ev->params;
     $m->SetParam("message", "call.execute");
     $m->SetParam("callto", $route);
-    $m->SetParam("caller", $real_caller);
+//    $m->SetParam("caller", $real_caller);
     $m->SetParam("called", $real_called);
     $m->SetParam("id", $partycallid);
     $m->SetParam("billid", $billid);

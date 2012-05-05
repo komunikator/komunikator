@@ -10,10 +10,26 @@
     <body onload="restore_options();">
 
         <div class="menu">
-            <label><span id="_extension">Extension</span></label>
-            <input type="text" name="extension" id="extension"/>
-            <label><span id="_password">Password</span></label>
-            <input type="password" name="password" id="password"/>
+            <table  border="0">
+                <tr>
+                    <td><label><span id="_extension">Extension</span></label></td>
+                    <td><input type="text" id="extension"/></td>
+                </tr>
+                <tr>
+                    <td><label><span id="_password">Password</span></label></td>
+                    <td><input type="password" id="password"/></td>
+                </tr>
+            </table>
+            <div class="param">
+                <input type="checkbox" id="openform"/>
+                <label><span id="_openform">openForm</span></label>
+            </div>
+            <div class="param">
+                <input type="checkbox" id="click2call"/>
+                <label><span id="_click2call">click2call</span></label>
+            </div>
+
+
         </div>
 
         <br/>

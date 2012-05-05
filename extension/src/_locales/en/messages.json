@@ -29,14 +29,14 @@
 	"extension": {
 		"message": "Internal number"
 	},
-	"writeInVkontakte": {
-		"message": "Write in Vkontakte"
+	"openform": {
+		"message": "Open Bitrix window"
 	},
-	"writeInTwitter": {
-		"message": "Write in twitter"
+	"click2call": {
+		"message": "Enable select number"
 	},
-	"writeInFacebook": {
-		"message": "Write in Facebook"
+	"click2callDesc": {
+		"message": "Click to call using DIGT Virtual PBX Systems"
 	},
 	"service_not_available": {
 		"message": "service is not available"

@@ -5,7 +5,8 @@ if (lang == 'ru')
 else
     localStorage['lang'] = "en";
 
-var service_url = "http://172.17.2.37/freesentral/data.php";
+localStorage['service_url'] = "http://ats.digt.local/freesentral/data.php";
+
 var bitrix_SOURCE_ID = 15;
 var bitrix_url  = "http://digt.ru/bitrix/admin/ticket_edit.php?lang="+localStorage['lang'];
 var time_offset = new Date().getTimezoneOffset();
@@ -40,7 +41,7 @@ function get_session_id(cb){
         }
     }
 
-    req.open("GET", service_url+"?action=auth&extension="+localStorage['extension']+"&password="+localStorage['password'], true);
+    req.open("GET", localStorage['service_url']+"?action=auth&extension="+localStorage['extension']+"&password="+localStorage['password'], true);
     req.send(null);
 }
 
@@ -48,19 +49,25 @@ function restore_options()
 {
     document.getElementById("_extension").innerHTML = chrome.i18n.getMessage("extension");
     document.getElementById("_password").innerHTML = chrome.i18n.getMessage("password");
+    document.getElementById("_openform").innerHTML = chrome.i18n.getMessage("openform");
+    document.getElementById("_click2call").innerHTML = chrome.i18n.getMessage("click2call");
 
     document.getElementById("_save").value = chrome.i18n.getMessage("save");
     document.getElementById("_exit").value = chrome.i18n.getMessage("exit");
     document.title = chrome.i18n.getMessage("options");
 
-    document.getElementById("extension").value = localStorage["extension"];
-    document.getElementById("password").value  = localStorage["password"];
+    document.getElementById("extension").value = localStorage["extension"]?localStorage["extension"]:'';
+    document.getElementById("password").value  = localStorage["password"]?localStorage["password"]:'';
+    document.getElementById("openform").checked = localStorage["openform"]=='true'?true:false;
+    document.getElementById("click2call").checked  = localStorage["click2call"]=='true'?true:false;
 }
 
 function save_options()
 {
     localStorage["extension"] = document.getElementById("extension").value;
     localStorage["password"]  = document.getElementById("password").value;
+    localStorage["openform"]  = document.getElementById("openform").checked;
+    localStorage["click2call"]  = document.getElementById("click2call").checked;
 
     get_session_id(function(msg){
         var status = document.getElementById("status");
@@ -98,19 +105,21 @@ function main()
                         {
                             text = chrome.i18n.getMessage("status")+' : ' + status[e][1];
                             localStorage['extension_'+localStorage['extension']] = status[e][1];
+                            init();
                         }
                     }
                 if (calls.length) {
                     for (var e in calls)
                         text += ' '+chrome.i18n.getMessage("call_from")+' : ' + calls[e][1];
                     var caller=calls[e][1];
-                    chrome.tabs.create({
-                        url:bitrix_url
-                    },function(tab){
-                        chrome.tabs.executeScript(tab.id, {
-                            code:"document.getElementById('SOURCE_ID').value="+bitrix_SOURCE_ID+";document.getElementById('OWNER_USER_ID').value="+caller
-                        });
-                    })
+                    if (localStorage["openform"]=='true')
+                        chrome.tabs.create({
+                            url:bitrix_url
+                        },function(tab){
+                            chrome.tabs.executeScript(tab.id, {
+                                code:"document.getElementById('SOURCE_ID').value="+bitrix_SOURCE_ID+";document.getElementById('OWNER_USER_ID').value="+caller
+                            });
+                        })
                 }
             }
             else
@@ -124,7 +133,7 @@ function main()
         
         };
     }
-    req.open("GET", service_url+"?action=get_state&extension='"+localStorage['extension']+"'&time_offset="+time_offset+"&period="+localStorage['refresh']+"&"+localStorage['session_name']+'='+localStorage['session_id'], true);
+    req.open("GET", localStorage['service_url']+"?action=get_state&extension='"+localStorage['extension']+"'&time_offset="+time_offset+"&period="+localStorage['refresh']+"&"+localStorage['session_name']+'='+localStorage['session_id'], true);
     req.send(null);
 
     
@@ -149,9 +158,10 @@ function showNotification(title, text)
     }, 5000);
 }
 var interval;
+
 function init() {
-    //   console.log("session_id :"+ localStorage['session_id']);
-    if (!localStorage['session_id'])
+    console.log("session_id :"+ localStorage['session_id']);
+    if (!localStorage['session_id']/* || localStorage['extension_'+localStorage['extension']]=='offline'*/)
     {
         if (interval!="")
             window.clearInterval(interval);
