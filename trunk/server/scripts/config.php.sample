@@ -1,0 +1,19 @@
+<?php
+$db_host = "localhost";     /*  database server hostname   */
+$db_user = "postgres";      /*  database server username   */
+$db_database = "freesentral_v2";//"crm";   /*  database name   */
+$db_passwd = '';
+
+$conn = pg_Connect ("host='" . $db_host. "' dbname='" . $db_database . "' user='" . $db_user."' password='". $db_passwd . "'")
+	or die ("Could not connect to the postgresql database");
+date_default_timezone_set('Europe/Bucharest');
+
+$no_groups = false;
+$no_pbx = false;
+
+$uploaded_prompts = "/var/spool/voicemail";
+
+$query_on = false;
+$max_resets_conn = 5;
+
+?>

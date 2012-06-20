@@ -1,0 +1,28 @@
+{
+   "default_locale":"ru",
+   "background_page": "background.html",
+   "name": "__MSG_extName__",
+   "description": "__MSG_extDescr__",
+
+   "browser_action": {
+      "default_icon": "images/icon_not_logged_in.png",
+      "default_title": "__MSG_extDescr__",
+      "default_popup": "options.html" 	
+   },
+   "content_scripts": [ {
+      "js": [ "contentscript.js" ],
+      		"matches": [ "http://*/*"],
+      "run_at": "document_end"
+   }, {
+      "js": [ "jquery.min.js" ],
+      		"matches": [ "http://*/*"],
+      "run_at": "document_start"
+   } ],
+   "options_page": "options.html",
+   "permissions": [ "notifications", "contextMenus" , "tabs", "http://*/*" , "https://*/*","unlimitedStorage"],
+   "version": "1.2",
+   "icons": {
+		"48": "images/icon_48.png"
+	}
+
+}

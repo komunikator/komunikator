@@ -1,0 +1,50 @@
+{
+	"extName": {
+		"message": "DIGT Виртуальная АТС"
+	},
+	"extDescr": {
+		"message": "DIGT Виртуальная АТС. Открывает окно нового обращения Bitrix при поступлении звонка на внутренний номер. Позволяет совершать звонки на номер, указанный на web странице."
+	},
+	"language": {
+		"message": "Язык"
+	},
+	"auth_failed": {
+		"message": "Ошибка авторизации"
+	},
+	"save": {
+		"message": "Сохранить"
+	},
+	"exit": {
+		"message": "Выход"
+	},
+	"options": {
+		"message": "Опции"
+	},
+	"options_saved": {
+		"message": "Настройки сохранены"
+	},
+	"password": {
+		"message": "Пароль"
+	},
+	"extension": {
+		"message": "Внутренний номер"
+	},
+	"openform": {
+		"message": "Открывать окно Bitrix"
+	},
+	"click2call": {
+		"message": "Включить выделение номеров"
+	},
+	"click2callDesc": {
+		"message": "Щелкните, чтобы позвонить через DIGT Витруальная АТС"
+	},
+	"service_not_available": {
+		"message": "Сервис недоступен"
+	},
+	"status": {
+		"message": "статус"
+	},
+	"call_from": {
+		"message": "звонок от"
+	}
+}
