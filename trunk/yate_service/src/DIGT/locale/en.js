@@ -6,5 +6,7 @@ password   : 'Password',
 OK	   : 'OK',
 logout	   : 'logout',
 home	   : 'Home',
-attendant  : 'Auto Attendant'
+attendant  : 'Auto Attendant',
+call_logs  : 'Call logs',
+active_calls : 'Active Calls'
 }

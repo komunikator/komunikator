@@ -6,5 +6,7 @@ password   : 'Пароль',
 OK	   : 'ОК',
 logout	   : 'Выход',
 home	   : 'Главная',
-attendant  : 'Автосекретарь'
+attendant  : 'Автосекретарь',
+call_logs  : 'История звонков',
+active_calls : 'Активные звонки'
 }

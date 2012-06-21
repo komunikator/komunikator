@@ -15,7 +15,7 @@ Ext.define('DIGT.LoginWindow', {
     initComponent : function () {
         this.items = [{
             region : 'north',
-            title: DIGT.msg.auth_title,
+            title: DIGT.msg.auth_title
         //height : 52,
         //bodyCls : 'app_header'
         }, {

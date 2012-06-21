@@ -163,5 +163,49 @@ else
         make_call();
     else
         //echo json_encode(array("success"=>false,"message"=>"User:'".$_SESSION['user']."'. Unknown action '".$action."'"));
+if ($action == 'get_call_logs') {
+   if(!$_SESSION['user']){
+        echo (json_encode(array("success"=>false,"message"=>"User is undefined"))); exit;} 
+
+        $total =  compact_array(query_to_array("SELECT count(*) FROM call_logs"));
+        if(!is_array($total["data"]))  echo json_encode(array("success"=>false,"message"=>$total));
+
+        $call_logs =  compact_array(query_to_array("SELECT time, caller, called, duration, status FROM call_logs ORDER BY ".getparam("sort")." ".getparam("dir").get_sql_limit(getparam("start"),getparam("size"))));
+        if(!is_array($call_logs["data"]))  echo json_encode(array("success"=>false,"message"=>$call_logs));
+
+        $obj=array("success"=>true);
+        $obj["total"] = $total['data'][0][0]; 
+        $obj["data"] = $call_logs['data']; 
+        echo json_encode($obj);
+
+}
+else
+
+if ($action == 'get_active_calls') {
+   if(!$_SESSION['user']){
+        echo (json_encode(array("success"=>false,"message"=>"User is undefined"))); exit;} 
+
+        $total =  compact_array(query_to_array("SELECT count(*) FROM call_logs where status!='unknown' and /*ended = 0 */ended = false"));
+        if(!is_array($total["data"]))  echo json_encode(array("success"=>false,"message"=>$total));
+
+        $call_logs =  compact_array(query_to_array("SELECT time, caller, called, duration, status FROM call_logs where status!='unknown' and /*ended = 0 or*/ ended = false ORDER BY ".getparam("sort")." ".getparam("dir").get_sql_limit(getparam("start"),getparam("size"))));
+        if(!is_array($call_logs["data"]))  echo json_encode(array("success"=>false,"message"=>$call_logs));
+
+        $obj=array("success"=>true);
+        $obj["total"] = $total['data'][0][0]; 
+        $obj["data"] = $call_logs['data']; 
+        echo json_encode($obj);
+
+}
+else
         echo json_encode(array("success"=>false,"message"=>"Unknown action '".$action."'"));
+
+function get_sql_limit($start,$size,$page){
+ if ($start==null || $size==null) return '';
+ global $db_type_sql;
+ if ($db_type_sql == 'mysql')
+ return " LIMIT $start,$size";	
+ return " LIMIT $size OFFSET $start";
+}
+
 ?>
