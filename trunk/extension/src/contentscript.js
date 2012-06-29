@@ -3,7 +3,7 @@ $(function(){
     if (headElement) {
         $(headElement).append($('<link type="text/css" rel="stylesheet">').attr('href', chrome.extension.getURL("options.css")));
     }
-    var regexp = /\+(?[78] ?\(?\d+\)? ?\d{1,3}-?\d{2}-?\d{2})\D/;
+    var regexp = /(\+?[78] ?\(?\d{3,4}\)? ?\d{1,3}-?\d{2}-?\d{2})/;
     var service_url ;
     var click2callDesc;
 

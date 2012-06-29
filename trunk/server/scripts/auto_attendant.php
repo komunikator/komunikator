@@ -74,8 +74,10 @@ function setState($newstate)
     switch ($newstate) {
 	case "greeting":
 	    // check what prompt to use for this time of day
-	    $query = "select prompts.prompt_id, prompts.file as prompt from time_frames, prompts where numeric_day=extract(dow from now()) and cast(start_hour as integer)<=extract(HOUR FROM now()) AND cast(end_hour as integer)>extract(HOUR FROM now()) and time_frames.prompt_id=prompts.prompt_id UNION select prompt_id,  file as prompt from prompts where status='offline'";
+	    $query = "select prompts.prompt_id, prompts.file as prompt from time_frames, prompts /*where numeric_day=extract(dow from now()) and cast(start_hour as integer)<=extract(HOUR FROM now()) AND cast(end_hour as integer)>extract(HOUR FROM now()) and time_frames.prompt_id=prompts.prompt_id*/ UNION select prompt_id,  file as prompt from prompts where status='offline'";
 	    $res = query_to_array($query);
+             debug('greeting:'.format_array($res));
+	
 	    if(!count($res))
 	    {
 		debug("Auto-Attendant is not configured!!");
@@ -86,10 +88,14 @@ function setState($newstate)
 	    $prompt =  $res[0]["prompt"];
 	    // here we must have ".au"
 	    $prompt = str_ireplace(".mp3", ".slin", $prompt);
-	    $query = "SELECT key, destination FROM keys WHERE prompt_id=$prompt_id";
+	    $query = "SELECT 'key', destination FROM `keys` WHERE prompt_id=$prompt_id";
+
 	    $keys = query_to_array($query);
+              debug('keys:'.format_array($res));
 	    $m = new Yate("chan.attach" );
 	    $m->params["source"] = "wave/play/$uploaded_prompts/auto_attendant/$prompt";
+              debug('source:'."wave/play/$uploaded_prompts/auto_attendant/$prompt");
+
 	    $m->params["notify"] = $ourcallid;
 	    $m->Dispatch();
 	    break;

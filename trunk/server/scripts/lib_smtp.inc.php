@@ -106,7 +106,7 @@ function setMultifonOpt($opt)
     // Valid options are 0,1,2
     if ($opt < 0 || $opt > 2) 
 	return;
-    $ch = curl_init('https://sm.megafon.ru/sm/client/routing/set?login=79278837050@multifon.ru&password=JbhfDDaz&routing='.$opt);
+    $ch = curl_init('https://sm.megafon.ru/sm/client/routing/set?login=79297333104@multifon.ru&password=rOQmkWRM&routing='.$opt);
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_exec($ch);

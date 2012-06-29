@@ -35,7 +35,7 @@ for (;;) {
 		if ($ev->GetValue('direction') == 'outgoing' &&
 		    $ev->GetValue('operation') == 'finalize') 
 		{
-		    send_mail();
+		    //send_mail();
 		}
 	    break;
 	}

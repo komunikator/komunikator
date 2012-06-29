@@ -60,7 +60,8 @@ Ext.define('DIGT.LoginWindow', {
                         function(result){
                             login_form.getForm().reset();
                             Ext.getCmp('loginWindow').hide();
-		            Ext.getCmp('Digt.container').onShowFn(result['user']);
+			    DIGT.main(result['user']);
+		            //Ext.getCmp('Digt.container').onShowFn(result['user']);
                             login_form.body.unmask();
                         },function(result){
                             if (result['message'])

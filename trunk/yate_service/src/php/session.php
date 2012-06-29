@@ -20,7 +20,7 @@ if (file_exists($ext_path.'ext-all.js')) {
 }
 else die('File "ext-all.js" is not found');
 
-$DIGT_path = 'DIGT/';
+$DIGT_path = 'js/DIGT/';
 
 if (file_exists($DIGT_path.'locale/'.$_SESSION['lang'].'.js'))
     echo '<script type="text/javascript" src="'.$DIGT_path.'locale/'.$_SESSION['lang'].'.js"></script>'."\n";

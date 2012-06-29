@@ -18,13 +18,15 @@ $db_user="root";
 $db_passwd="root";
 $db_database="FREESENTRAL";
 
-/*
+ /*
 $db_type_sql="pgsql";
 $db_host="localhost";
 $db_user="postgres";
 $db_passwd="postgres";
 $db_database="freesentral";
 */
+//$db_host="172.17.2.6";
+
 
 $dsn="$db_type_sql://$db_user:$db_passwd@$db_host/$db_database";
 $conn = DB::connect($dsn);
