@@ -1,4 +1,6 @@
 <?php
+$default_ip = "ssl://127.0.0.1";	//	ip address where yate runs
+$default_port = "5039";	// port used to connect to
 
 // class used to open a socket, send and receive information from it
 class SocketConn

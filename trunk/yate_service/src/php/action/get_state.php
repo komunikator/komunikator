@@ -13,7 +13,7 @@ if (!$limit) $limit=1000;
 if (!$time_offset) $time_offset=-240;
 
 if(!$extension) {
-    echo (json_encode(array("success"=>false,"message"=>"Extension is undefined"))); exit;} 
+    echo (out(array("success"=>false,"message"=>"Extension is undefined"))); exit;} 
 
 $status =  compact_array(query_to_array("SELECT extension,CASE WHEN expires is not NULL THEN 'online' ELSE 'offline' END as status FROM extensions where extension in ($extension) ORDER BY 2 LIMIT 1000 OFFSET 0"));
 $obj=array("success"=>true);
@@ -22,7 +22,15 @@ if (isset($_SESSION['extension']))
 else
     $obj["status"] = $status['data'];
 $data  =  compact_array(query_to_array ("SELECT time-($time_offset)*60,caller FROM call_logs where ".time()."-time < $period and (/*caller in ($extension) or*/ called in ($extension)) and direction='outgoing' LIMIT $limit OFFSET 0"));
-$obj["calls"] = $data['data'];
-echo json_encode($obj);
+
+$f_data = array();
+foreach ($data["data"] as $row) {
+    $row[0] = date($date_format,$row[0]); 
+    $f_data[] = $row; 
+    //$f_data[] = array('time'=>$row[0],'number'=>$row[1]); 
+}
+
+$obj["calls"] = $f_data; 
+echo out($obj);
 
 ?>

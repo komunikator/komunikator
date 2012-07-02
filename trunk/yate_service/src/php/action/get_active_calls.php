@@ -1,12 +1,12 @@
 <?
 if(!$_SESSION['user']) {
-    echo (json_encode(array("success"=>false,"message"=>"User is undefined"))); exit;} 
+    echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
 
 $total =  compact_array(query_to_array("SELECT count(*) FROM call_logs where status!='unknown' and /*ended = 0 */ended = false"));
-if(!is_array($total["data"]))  echo json_encode(array("success"=>false,"message"=>$total));
+if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
     
 $data =  compact_array(query_to_array("SELECT time, caller, called, duration, status FROM call_logs where status!='unknown' and /*ended = 0 or*/ ended = false ORDER BY ".get_sql_order_limit()));
-if(!is_array($data["data"]))  echo json_encode(array("success"=>false,"message"=>$data));
+if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
     
 $obj=array("success"=>true);
 $obj["total"] = $total['data'][0][0]; 
@@ -18,5 +18,5 @@ foreach ($data["data"] as $row) {
 }
 
 $obj["data"] = $f_data; 
-echo json_encode($obj);
+echo out($obj);
 ?>
