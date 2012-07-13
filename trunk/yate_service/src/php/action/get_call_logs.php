@@ -1,4 +1,5 @@
 <?
+//sleep(10);
 if(!$_SESSION['user']) {
     echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
 

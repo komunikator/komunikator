@@ -1,67 +1,87 @@
 Ext.define('DIGT.Viewport', {
     extend : 'Ext.container.Viewport',
-    layout: 'fit',
-    items: [ {
-        id:'Digt.container',
-        xtype: 'container',
-        //hidden: true,
-        layout: 'border',
-        items: [{
-            region: 'north',
-            autoHeight: true,
-            border: false,
-            margins: '0 0 5 0'
-        }, {
-            region: 'west',
-            collapsible: true,
-            title: 'Navigation',
-            width: 150
-        // could use a TreePanel or AccordionLayout for navigational items
-        },{
-            region: 'center',
+    style:'padding:2px;',
+    layout: 'border',
+    items: [{
+        region: 'north',
+        autoHeight: true,
+        border: false,
+        margins: '0 0 5 0'
+    }, {
+        region: 'west',
+        collapsible: true,
+        title: 'Navigation',
+        width: 150
+    },{
+        region: 'center',
+        xtype: 'tabpanel',
+	id: 'main_tabpanel',
+        bodyStyle:'padding:5px;',
+        //style:'padding:2px;',
+	defaults:{layout: 'fit'},	
+        activeTab: 0,
+        listeners:{
+            tabchange : DIGT.tabchange_listeners
+        }, 
+        items: [
+        {
+            title: DIGT.msg.home,
+            //layout: 'fit',
+            id: 'home_tab',
             xtype: 'tabpanel',
-            //bodyStyle:'padding:5px;',
+	    defaults:{layout: 'fit'},	
             activeTab: 0,
+	    layoutOnTabChange: true, 
             listeners:{
                 tabchange : DIGT.tabchange_listeners
             }, 
-            items: [
-            {
-                title: DIGT.msg.home,
-                id: 'cal_logs_tab',
-                //html: DIGT.msg.home,
-                //items: [{
-                xtype: 'tabpanel',
-                activeTab: 0, 
-                listeners:{
-                    tabchange : DIGT.tabchange_listeners
-                }, 
-
-                items:[ 
-                Ext.create('DIGT.Call_logs_Grid'),
-                Ext.create('DIGT.Active_calls_Grid')
-                ]
-            //}]
-            },{
-                title: DIGT.msg.attendant,
+            items:[
+            { 
+               title:DIGT.msg.call_logs,
+               items:Ext.create('DIGT.Call_logs_Grid')
+            },
+           {   
+                title:DIGT.msg.active_calls,
+                items: Ext.create('DIGT.Active_calls_Grid')
+            }
+            ] 
+        },{ 
+            title: DIGT.msg.attendant,
+            items:{
                 html: DIGT.msg.attendant
-            },Ext.create('DIGT.Extensions_Grid')]
-        }]
+            }
+        },
+        {
+            title:DIGT.msg.extensions, 
+            items:Ext.create('DIGT.Extensions_Grid')
+        },
+	{
+	    title:DIGT.msg.gateways,
+	    items:Ext.create('DIGT.Gateways_Grid')
+	}
+	]
     }],
     initComponent : function () {
-        this.items[0].items[0].title =
+        this.items[0].title =
         '<h1 class="x-panel-header">DIGT PBX</h1><div style="padding-left: 40px;">'+
-        '<p>'+DIGT.msg.login+': '+this.user_name+'</p><a href="#" onclick="DIGT.logout();return false">'+ DIGT.msg.logout +'</a></div>';
+        '<p>'+DIGT.msg.user+': '+this.user_name+'</p><a href="#" onclick="DIGT.logout();return false">'+ DIGT.msg.logout +'</a></div>';
+/*
+        this.listeners = {
+            afterrender: function(){
+        	Ext.getCmp('main_tabpanel').setActiveTab(0);
+                this.un('afterrender', arguments.callee); 
+        	}
+	}
+*/
         this.callParent(arguments);
-  
-      Ext.TaskManager.start({
+        Ext.TaskManager.start({
             run: function (){
                 Ext.StoreMgr.each(function(item,index,length){
-                    if (item.autorefresh) item.load();
+                    if (item.autorefresh && !this.dirtyMark) item.load();
                 })
             }
             ,
-            interval:DIGT.refresh_time
+            interval:DIGT.refreshTime
         });
     }    
 });

@@ -7,6 +7,7 @@ ini_set('session.name', 'session');
 //ini_set('session.use_cookies', 0);
 ini_set('session.use_only_cookies', 0);
 session_start();
+session_write_close();
 //ini_set("error_reporting",'');
 //ini_set("display_errors",true);
 
@@ -17,8 +18,6 @@ ini_set("error_log",$log_file);
 require_once("libyate.php");
 require_once("lib_queries.php");
 
-$default_ip = "ssl://127.0.0.1";	//	ip address where yate runs
-$default_port = "5039";	// port used to connect to
 $date_format = "d.m.y H:i:s"; 
 
 if (!$conn) die('Database Connection Failed');
@@ -38,7 +37,7 @@ require_once "php/util.php";
 $action = getparam("action"); 
 
 if ($action!='auth' && !(isset($_SESSION['user']) || isset($_SESSION['extension']))) {
-    echo (json_encode(array("success"=>false,"message"=>"Auth failed")));
+    echo out(array("success"=>false,"message"=>"Auth failed"));
     exit;
 }
 
@@ -46,6 +45,6 @@ $action_path = "php/action";
 
 if (file_exists("$action_path/$action".".php")) include "$action_path/$action".".php"; 
 else 
-   echo json_encode(array("success"=>false,"message"=>"Unknown action '".$action."'"));
+   echo out(array("success"=>false,"message"=>"Unknown action '".$action."'"));
 
 ?>

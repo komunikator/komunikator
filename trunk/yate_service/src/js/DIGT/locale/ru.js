@@ -1,3 +1,14 @@
+Ext.onReady(function() { 
+	if (Ext.grid.RowEditor) {
+		Ext.apply(Ext.grid.RowEditor.prototype, {
+			saveBtnText : "Сохранить",
+			cancelBtnText : "Отмена",
+			errorsText : "Ошибка",
+			dirtyText : "Вы должны сохранить или отменить изменения"
+		});
+	}
+});
+
 if (window['DIGT']== undefined) DIGT = {}; 
 DIGT.msg = {
 auth_title : 'DIGT PBX авторизация',
@@ -15,5 +26,8 @@ extensions : 'Внутренние номера',
 time 	   : 'Время',
 status	   : 'Статус',
 duration   : 'Длительность',
-groups	   : 'Группы'
+groups	   : 'Группы',
+user	   : 'Пользователь',
+total	   : 'Всего',
+gateways   : 'Провайдеры'
 }

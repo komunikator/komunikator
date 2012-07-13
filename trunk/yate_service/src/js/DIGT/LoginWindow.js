@@ -63,20 +63,7 @@ Ext.define('DIGT.LoginWindow', {
 			    DIGT.main(result['user']);
 		            //Ext.getCmp('Digt.container').onShowFn(result['user']);
                             login_form.body.unmask();
-                        },function(result){
-                            if (result['message'])
-                                Ext.Msg.show({
-                                    title: 'Error',
-                                    msg: result['message'],
-                                    buttons: Ext.Msg.OK,
-                                    icon: Ext.Msg.ERROR,
-                                    fn: function () {
-                                    //Ext.Msg.alert('Callback', 'You can handle OK button click!');
-                                    }
-                                });
-
-                            login_form.body.unmask();
-                        });
+                        },function(result){login_form.body.unmask();});
                 }
             }
         }];

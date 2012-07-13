@@ -22,7 +22,7 @@ if (isset($_SESSION['extension']))
 else
     $obj["status"] = $status['data'];
 $data  =  compact_array(query_to_array ("SELECT time-($time_offset)*60,caller FROM call_logs where ".time()."-time < $period and (/*caller in ($extension) or*/ called in ($extension)) and direction='outgoing' LIMIT $limit OFFSET 0"));
-
+/*
 $f_data = array();
 foreach ($data["data"] as $row) {
     $row[0] = date($date_format,$row[0]); 
@@ -30,7 +30,10 @@ foreach ($data["data"] as $row) {
     //$f_data[] = array('time'=>$row[0],'number'=>$row[1]); 
 }
 
-$obj["calls"] = $f_data; 
+//$obj["calls"] = $f_data; 
+*/
+if ($data["data"])
+ $obj["incoming_call"] = array('time'=>date($date_format,$data["data"][0][0]),'number'=>$data["data"][0][1]); 
 echo out($obj);
 
 ?>

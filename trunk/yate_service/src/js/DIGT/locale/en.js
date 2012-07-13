@@ -15,5 +15,8 @@ extensions : 'Extensions',
 time 	   : 'Time',
 status	   : 'Status',
 duration   : 'Duration',
-groups	   : 'Groups'
+groups	   : 'Groups',
+user	   : 'User',
+total	   : 'Total',
+gateways   : 'Gateways'
 }
