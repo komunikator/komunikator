@@ -45,12 +45,15 @@ Ext.define('DIGT.Viewport', {
                 items: Ext.create('DIGT.Active_calls_Grid')
             }
             ] 
-        },{ 
-            title: DIGT.msg.attendant,
-            items:{
-                html: DIGT.msg.attendant
-            }
-        },
+        },/*{ 
+            title: DIGT.msg.attendant,layout: 'anchor', 
+            items: [{height:100,border: false,html:'test message'},Ext.create('DIGT.Prompts_Grid'/*,{height:300})]
+        }*/
+	Ext.create('DIGT.Attendant'),
+	{
+	    title:DIGT.msg.groups,
+	    items:Ext.create('DIGT.Groups_Grid')
+	},
         {
             title:DIGT.msg.extensions, 
             items:Ext.create('DIGT.Extensions_Grid')
@@ -64,7 +67,8 @@ Ext.define('DIGT.Viewport', {
     initComponent : function () {
         this.items[0].title =
         '<h1 class="x-panel-header">DIGT PBX</h1><div style="padding-left: 40px;">'+
-        '<p>'+DIGT.msg.user+': '+this.user_name+'</p><a href="#" onclick="DIGT.logout();return false">'+ DIGT.msg.logout +'</a></div>';
+        '<p>'+DIGT.msg.user+': <a href="#" onclick="DIGT.logout();return false" title="'+ DIGT.msg.changepassword +'">'+
+        this.user_name+'</a></p><a href="#" onclick="DIGT.logout();return false">'+ DIGT.msg.logout +'</a></div>';
 /*
         this.listeners = {
             afterrender: function(){

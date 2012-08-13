@@ -18,5 +18,6 @@ duration   : 'Duration',
 groups	   : 'Groups',
 user	   : 'User',
 total	   : 'Total',
-gateways   : 'Gateways'
+gateways   : 'Gateways',
+changepassword: 'Change password'
 }

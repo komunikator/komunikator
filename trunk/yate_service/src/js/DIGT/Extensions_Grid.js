@@ -3,25 +3,31 @@ Ext.define('DIGT.Extensions_Grid', {
     initComponent : function () {
 	//this.title = DIGT.msg.extensions;
 	this.store.autorefresh = false;
-	this.store.fields = ['id','status', 'extension', 'firstname', 'lastname'/*, 'groups'*/];
+	this.store.fields = ['id','status', 'extension', 'firstname', 'lastname', 'group'];
         this.store.storeId ='extensions';
 	this.viewConfig.loadMask = false;
 	this.columns = [
 	{hidden: true},
 	{},
 	{ editor :  {
-                xtype: 'numberfield',
-                allowBlank: false
+                xtype: 'textfield',
+ 		regex: /^\d{3}$/
+		//,
+                //allowBlank: false 
 	}},
 	{ editor :  {
                 xtype: 'textfield'
 	}},
 	{ editor :  {
                 xtype: 'textfield'
-	}}/*,
+	}},
 	{ editor :  {
-                xtype: 'textfield'
-	}}*/
+    		xtype: "combobox",
+    		store: Ext.StoreMgr.lookup('groups'),
+    		displayField: "group",
+    		valueField: "group",
+    		queryMode: "remove"
+	}}
 	];
         this.callParent(arguments); 
    }

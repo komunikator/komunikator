@@ -64,17 +64,45 @@ function out($data) {
 }
 
 function get_sql_order_limit() {
-    $sort =  getparam("sort")?getparam("sort"):1;
+    $sort =  getparam("sort")?get_sql_field(getparam("sort")):1;
     $dir  = getparam("dir")?getparam("dir"):'';
     return $sort." ".$dir.get_sql_limit(getparam("start"),getparam("size"));
 }
 
 function get_sql_limit($start,$size,$page) {
-    if ($start==null || $size==null) return '';
+    if (!(isset($start)) || !(isset($size))) return '';
+  //  if ($start==null || $size==null) return '';
     global $db_type_sql;
     if ($db_type_sql == 'mysql')
         return " LIMIT $start,$size";	
     return " LIMIT $size OFFSET $start";
+}
+
+function get_sql_field($name) {
+    global $db_type_sql;
+    if ($db_type_sql == 'mysql')
+        return "`$name`";
+    return $name;
+}
+
+function get_SQL_concat($data){
+  global $db_type_sql;
+  if (!is_array($data)) return $data;
+  if (count($data)==0) return '';
+  if (count($data)==1) return $data[0];
+  if ($db_type_sql=='mysql'){
+    $str = 'CONCAT(';
+    $sep = '';
+	foreach ($data as $el) {$str .= $sep.$el; $sep = ',';};
+    return $str.')';
+  }
+  else
+  {
+      $str = '';
+      $sep = '';
+          foreach ($data as $el) {$str .= $sep.$el; $sep = ' || ';};
+     return $str;
+    }
 }
 
     ?>

@@ -37,7 +37,17 @@ Ext.define('DIGT.LoginWindow', {
                 name : 'password',
                 inputType : 'password',
                 id : 'pwd',
-                allowBlank : false
+                allowBlank : false,
+                listeners:
+                {
+                    specialkey:function(t, e){
+                        var login_button = Ext.getCmp('login_button');
+                        if(e.getKey() == e.ENTER && !login_button.disabled){
+                            e.stopEvent();
+                            login_button.handler();
+                        }
+                    }
+                }
             }, {
                 name : 'action',
                 value: 'auth',

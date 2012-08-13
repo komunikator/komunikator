@@ -14,6 +14,6 @@ $values = array();
             $values[$key]=$value; 
 $rows[] = $values;
 }
-$id_name = 'extension_id';
+$id_name = 'group_id';
 require_once("destroy.php");
 ?>

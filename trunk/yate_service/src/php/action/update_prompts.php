@@ -11,9 +11,9 @@ foreach ($data as $row)
 {
 $values = array();
     foreach ($row as $key=>$value)
-            $values[$key]=$value; 
+            $values[$key]="'$value'"; 
 $rows[] = $values;
 }
-$id_name = 'extension_id';
-require_once("destroy.php");
+$id_name = 'prompt_id';
+require_once("update.php");
 ?>

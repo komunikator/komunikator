@@ -29,5 +29,6 @@ duration   : 'Длительность',
 groups	   : 'Группы',
 user	   : 'Пользователь',
 total	   : 'Всего',
-gateways   : 'Провайдеры'
+gateways   : 'Провайдеры',
+changepassword: 'Сменить пароль'
 }

@@ -19,6 +19,7 @@ Ext.define('DIGT.Grid', {
         pageSize: DIGT.pageSize,
         remoteSort: true,
         buffered: true,
+	autorefresh:  undefined,
         //autoLoad: true,
         //restful: true,
         //autoSync: true,
@@ -63,6 +64,9 @@ Ext.define('DIGT.Grid', {
     },
     verticalScrollerType: 'paginggridscroller',
     loadMask: true,
+    //selModel :new Ext.grid.RowSelectionModel({singleSelect:false}),
+    //selModel: 'cellmodel',
+    multiSelect: true,
     //disableSelection: true,
     invalidateScrollerOnRefresh: false,
     viewConfig: {
@@ -134,7 +138,7 @@ Ext.define('DIGT.Grid', {
                 this.dirtyMark = false;
                 if(!success && store.storeId) {
                     store.removeAll();
-                    DIGT.fail_load_show();
+                    //DIGT.fail_load_show();
                     if (store.autorefresh!=undefined) store.autorefresh = false;
                     console.log (store.storeId+' fail_load');
                 }
@@ -154,15 +158,27 @@ Ext.define('DIGT.Grid', {
                 listeners: {
                     beforeedit: function(e) {
                         e.grid.store.dirtyMark = true
+                    },
+		    //validateedit : function(){console.log('validateedit')},	            	
+		    //canceledit : function(){console.log('canceledit')},	            	
+		    //edit : function(){console.log('edit')},	
+                    edit: function(e) {
+			//if (e.record.isValid())
+			//e.grid.store.sync();//
+			e.grid.store.mySync({success:function(){e.grid.store.Total_sync();}});
+                        //console.log(e.grid.store.storeId+' edit_stop');
                     }
                 },	
                 autoCancel: false
             })];
 	     	
             this.onDeleteClick = function(){
-                var selection = this.getView().getSelectionModel().getSelection()[0];
+                var selection = this.getView().getSelectionModel().getSelection();//[0];
                 if (selection) {
-                    this.store.remove(selection); this.store.Total_sync();
+                    this.store.remove(selection); 
+			//this.store.Total_sync();
+		     var me = this;	
+		     this.store.mySync({success:function(){alert(me.store.storeId());me.store.Total_sync()/*this.store.load*/}});
                 }
             };
             this.onSelectChange = function(selModel, selections){
@@ -176,7 +192,8 @@ Ext.define('DIGT.Grid', {
                 var rec = new model;
                 var editor = this.plugins[0];
                 editor.cancelEdit();
-                this.store.insert(0, rec); this.store.Total_sync();
+                this.store.insert(0, rec); 
+		this.store.Total_sync();
                 var i=1;
                 while (i<rec.fields.length && (this.headerCt.getHeaderAtIndex(i) && !this.headerCt.getHeaderAtIndex(i).getEditor(rec)))
                     i++;
@@ -202,7 +219,9 @@ Ext.define('DIGT.Grid', {
                     }
                 })
             };
-
+            this.onRefresh = function(){
+		this.store.load();
+	    }
             this.tbar = {
                 items: [{
                     iconCls: 'icon-add',
@@ -216,13 +235,20 @@ Ext.define('DIGT.Grid', {
                     itemId: 'delete',
                     scope: this,
                     handler: this.onDeleteClick
-                },{
+                }/*,{
                     iconCls: 'icon-save',
                     text: DIGT.msg.save?DIGT.msg.save:'Save',
                     //disabled: true,
                     itemId: 'save',
                     scope: this,
                     handler: this.onSync
+                },*/,{
+                    iconCls: 'x-tbar-loading',
+                    text: DIGT.msg.refresh?DIGT.msg.refresh:'Refresh',
+                    //disabled: true,
+                    itemId: 'refresh',
+                    scope: this,
+                    handler: this.onRefresh
                 }]
             } ;
             DIGT.Loader.load('js/DIGT/editor.css');

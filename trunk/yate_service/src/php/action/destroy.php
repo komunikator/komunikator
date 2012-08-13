@@ -1,4 +1,6 @@
 <?
+$table_name = next(explode('_',$action,2));
+
 if (!$id_name) $id_name='id';
 foreach ($rows as $row) {
     $updates = array();
@@ -13,6 +15,6 @@ foreach ($rows as $row) {
     }
 };
 
-$out = array("success"=>true,"message"=>'saved');
+$out = array("success"=>true/*,"message"=>'saved'*/);
 echo (out($out)); 
 ?>

@@ -98,7 +98,7 @@ DIGT.tabchange_listeners =
             if (item.autorefresh!=undefined) item.autorefresh = false; 
         })
         var s = i.items.items[0];
-        if (s.store) {
+        if (s && s.store) {
             s.store.load();
             if (s.store.autorefresh!=undefined) s.store.autorefresh = true;
         }
@@ -129,4 +129,7 @@ Ext.application({
     }
 });
 
+Ext.override(Ext.LoadMask, { 
+    onHide: function() { this.callParent(); }
+});
 
