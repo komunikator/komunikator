@@ -30,13 +30,13 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-DAEMON=/usr/sbin/yate
+DAEMON=/usr/bin/yate
 NAME=yate
 DESC=yate
-LOGDIR=/var/log/yate
+LOGDIR=/var/log/$NAME
 LOGFILE=$LOGDIR/$NAME.log  # Server logfile
 
-PIDFILE=/var/run/$NAME.pid
+PIDFILE=/var/run/$NAME/$NAME.pid
 
 test -x $DAEMON || exit 0
 
@@ -66,6 +66,12 @@ DAEMONUSER=yate		# Users to run the daemons as. If this value
 # Include defaults if available
 if [ -f /etc/default/$NAME ] ; then
     . /etc/default/$NAME
+fi
+
+if [ ! -d $LOGDIR ]; then
+    mkdir -p $LOGDIR
+    chgrp $DAEMONUSER $LOGDIR
+    chmod 775 $LOGDIR
 fi
 
 # Use this if you want the user to explicitly set 'RUN' in
