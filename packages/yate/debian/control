@@ -1,0 +1,16 @@
+Source: yate
+Section: comm
+Priority: extra
+Maintainer: Digt Inc <info@digt.ru>
+Build-Depends: debhelper (>= 7), autotools-dev, libpq-dev, libmysqlclient-dev, libssl-dev, libtiff4-dev, libspandsp-dev
+Standards-Version: 3.8.3
+Homepage: http://yate.null.ro
+
+Package: yate
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Yate VOIP server
+
+Package: yate-doc
+Architecture: all
+Description: documentation for Yate
