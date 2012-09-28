@@ -5,10 +5,12 @@ if (lang == 'ru')
 else
     localStorage['lang'] = "en";
 
-localStorage['service_url'] = "http://ats.digt.local/freesentral/data.php";
+localStorage['service_url'] = "http://ats.digt.local/service/data.php";
 
 var bitrix_SOURCE_ID = 15;
-var bitrix_url  = "http://digt.ru/bitrix/admin/ticket_edit.php?lang="+localStorage['lang'];
+var bitrix_base  = "http://digt.ru/bitrix";
+var bitrix_url   = bitrix_base + "/admin/ticket_edit.php?lang="+localStorage['lang'];
+var bitrix_expire_time = 5*60*1000;
 var time_offset = new Date().getTimezoneOffset();
 
 function get_session_id(cb){  
@@ -94,11 +96,19 @@ function main()
             var text = '';
             var json = JSON.parse(doc);
             //console.log(localStorage['session_id']+":"+doc);
-            if (json.success && json.data){
-                var status = json.data.status;
-                var calls = json.data.calls;
+            if (json.success/* && json.status='online'*/){
+                var status = json['status'];
+                var incoming_call = json['incoming_call'];
 
-                for (var e in status)
+                        var cur_state = localStorage['status'];
+                        if (status && status!=cur_state)
+                        {
+                            text = chrome.i18n.getMessage("status")+' : ' + status;
+                            localStorage['status'] = status;
+                            init();
+                        }
+
+/*                for (var e in status)
                     if (status[e][0] == localStorage['extension']){
                         var cur_state = localStorage['extension_'+localStorage['extension']];
                         if (status[e][1]!=cur_state)
@@ -108,16 +118,30 @@ function main()
                             init();
                         }
                     }
-                if (calls.length) {
-                    for (var e in calls)
-                        text += ' '+chrome.i18n.getMessage("call_from")+' : ' + calls[e][1];
-                    var caller=calls[e][1];
+*/
+                if (incoming_call && incoming_call['number']) {
+		    var caller = incoming_call.number;
+		    var line,called,time;
+			if (incoming_call['line'])    line = incoming_call.line;
+			if (incoming_call['called'])  called = incoming_call.called;
+			if (incoming_call['time'])    time = incoming_call.time;
+                    var call_from_msg = chrome.i18n.getMessage("call_from")+' ' + incoming_call.number;
+                        text += ' ' + call_from_msg;
+                    var bitrix_msg = chrome.i18n.getMessage("bitrix_message");
+			bitrix_msg = bitrix_msg.replace('{caller}',caller);
+			bitrix_msg = bitrix_msg.replace('{line}',line?line:'');
+			bitrix_msg = bitrix_msg.replace('{called}',called?called:'');
+			bitrix_msg = bitrix_msg.replace('{date}',time);
+			//"message": "└сюэхэЄ: {caller}\\n┬їюф ∙р  ышэш : {line}\\n╩юьє: {called} \\n─рЄр: {date}\\n╥шя: ┬їюф ∙шщ"
                     if (localStorage["openform"]=='true')
                         chrome.tabs.create({
                             url:bitrix_url
                         },function(tab){
                             chrome.tabs.executeScript(tab.id, {
-                                code:"document.getElementById('SOURCE_ID').value="+bitrix_SOURCE_ID+";document.getElementById('OWNER_USER_ID').value="+caller
+                                code:"document.getElementById('SOURCE_ID').value="+bitrix_SOURCE_ID
+				   +";document.getElementById('OWNER_USER_ID').value="+caller 
+				   +";document.forms[0]['TITLE'].value ='"+call_from_msg+"'"
+				   +";document.getElementById('MESSAGE').innerHTML='"+ bitrix_msg+"'"      
                             });
                         })
                 }
@@ -163,6 +187,7 @@ function init() {
     console.log("session_id :"+ localStorage['session_id']);
     if (!localStorage['session_id']/* || localStorage['extension_'+localStorage['extension']]=='offline'*/)
     {
+      
         if (interval!="")
             window.clearInterval(interval);
         interval = "";
@@ -170,13 +195,26 @@ function init() {
             path:"images/icon_not_logged_in.png"
         });
         return;
-    }
+    }  else
     chrome.browserAction.setIcon({
         path:"images/icon_logged_in.png"
     });
     window.clearInterval(interval);
     interval = window.setInterval(function() {
+	refresh_bitrix();
         main();
     }, localStorage['refresh'] * 1000);
 //    console.log(localStorage['refresh'] * 1000);
 }
+var time = new Date();
+function refresh_bitrix(){
+    if (!localStorage["openform"]) return;
+    if ((new Date()-time) < bitrix_expire_time) return; 	
+	//console.log (new Date()-time +':'+ bitrix_expire_time);
+    time = new Date();
+    var req = new XMLHttpRequest();
+    req.open("GET", bitrix_base+'/index.php?dc='+new Date().getTime(), true);
+    //req.setRequestHeader('Accept', "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");	
+    req.send(null);
+}
+

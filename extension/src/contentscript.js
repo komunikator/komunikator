@@ -3,7 +3,7 @@ $(function(){
     if (headElement) {
         $(headElement).append($('<link type="text/css" rel="stylesheet">').attr('href', chrome.extension.getURL("options.css")));
     }
-    var regexp = /(\+?\d ?\(?\d+\)? ?\d{1,3}-?\d{2}-?\d{2})/;
+    var regexp = /(\+?[78] ?\(?\d{3,4}\)? ?\d{1,3}-?\d{2}-?\d{2})/;
     var service_url ;
     var click2callDesc;
 
@@ -29,7 +29,7 @@ $(function(){
                             //       alert('call: "'+number+'"')
                             }
                         };
-                        req.open("GET", service_url+'?action=make_call&number='+number, true);
+                        req.open("GET", service_url+'&action=make_call&number='+number, true);
                         req.send(null);                       
                     }
                     );
@@ -62,13 +62,27 @@ $(function(){
             if (url.data) {
                 service_url = url.data;
                 chrome.extension.sendRequest({
-                    method: "getLocalMsg",
-                    key: "click2callDesc"
-                }, function(msg) {
-                    if (msg.data)
-                        click2callDesc = msg.data;
-                    if (response.data=='true')
-                        $('body').digt_phone();
+                    method: "getLocalStorage",
+                    key: "session_name"
+                }, function(session_name) {
+                    if (session_name.data)
+                        service_url += '?'+session_name.data;
+                    chrome.extension.sendRequest({
+                        method: "getLocalStorage",
+                        key: "session_id"
+                    }, function(session_id) {
+                        if (session_id.data)
+                            service_url += '='+session_id.data;
+                        chrome.extension.sendRequest({
+                            method: "getLocalMsg",
+                            key: "click2callDesc"
+                        }, function(msg) {
+                            if (msg.data)
+                                click2callDesc = msg.data;
+                            if (response.data=='true')
+                                $('body').digt_phone();
+                        }) 
+                    })
                 })
             }
         });
