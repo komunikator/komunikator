@@ -5,7 +5,7 @@ $password = getparam("password");
 
 if ($username)  $username = $conn->escapeSimple($username);
 if ($extension) $extension = $conn->escapeSimple($extension);
-if (password)   $password = $conn->escapeSimple($password);
+if ($password)  $password = $conn->escapeSimple($password);
 
 if ($password && ($username || $extension)) { 
     session_start();

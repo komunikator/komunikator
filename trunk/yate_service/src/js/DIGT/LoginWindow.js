@@ -13,13 +13,14 @@ Ext.define('DIGT.LoginWindow', {
     draggable : false,
 
     initComponent : function () {
-        this.items = [{
+        this.items = [/*{
             region : 'north',
             title: DIGT.msg.auth_title
         //height : 52,
         //bodyCls : 'app_header'
-        }, {
+        }, */{
             id : 'login_form',
+	    title: DIGT.msg.auth_title,	
             region : 'center',
             xtype : 'form',
             url: 'data.php',

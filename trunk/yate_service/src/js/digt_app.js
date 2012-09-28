@@ -36,10 +36,10 @@ Ext.Ajax.on ('requestcomplete', function(conn, response, options) {
     try {
         var jsonData = Ext.decode(response.responseText);
         if (jsonData.message) 
-            DIGT.fail_load_show(jsonData.message,jsonData.success?'info':'error');
+            DIGT.msgShow(jsonData.message,jsonData.success?'info':'error');
     }
     catch (err) {
-        DIGT.fail_load_show(response.responseText);
+        DIGT.msgShow(response.responseText);
     }
 });
 
@@ -50,7 +50,7 @@ DIGT.onSuccessOrFail = function(result, request,onSuccess,onFail) {
     else
     if (result&& result.success==false && onFail) onFail(result);
     else 
-        DIGT.fail_load_show()
+        DIGT.msgShow()
 }
 
 DIGT.request = function(params,onSuccess,onFail){
@@ -83,7 +83,7 @@ DIGT.login = function(){
     Ext.Msg.hide();
     if (Ext.getCmp('loginWindow')) Ext.getCmp('loginWindow').show(); else Ext.create('DIGT.LoginWindow').show()
 };
-DIGT.fail_load_show = function(msg,type){
+DIGT.msgShow = function(msg,type){
     Ext.Msg.show({
         title: (type=='info')?DIGT.msg.info?DIGT.msg.info:'Info':DIGT.msg.error?DIGT.msg.error:'Error',
         msg: msg?msg:(DIGT.msg.fail_load?DIGT.msg.fail_load:'Fail load'),
@@ -91,19 +91,6 @@ DIGT.fail_load_show = function(msg,type){
         icon: (type=='info')?Ext.Msg.INFO:Ext.Msg.ERROR
     });  
 } 
-
-DIGT.tabchange_listeners = 
-    function (t,i){
-        Ext.StoreMgr.each(function(item,index,length){
-            if (item.autorefresh!=undefined) item.autorefresh = false; 
-        })
-        var s = i.items.items[0];
-        if (s && s.store) {
-            s.store.load();
-            if (s.store.autorefresh!=undefined) s.store.autorefresh = true;
-        }
-    //var cur_index  = t.items.indexOf(s);
-    }
 
 DIGT.main = function (msg_login){
     Ext.create('DIGT.Viewport',{
@@ -114,6 +101,7 @@ DIGT.main = function (msg_login){
 Ext.application({
     name: 'DIGT',
     appFolder: 'js/DIGT',
+    //autoCreateViewport: true,
     launch: function() {
 
         DIGT.request(

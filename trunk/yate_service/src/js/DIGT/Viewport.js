@@ -16,13 +16,10 @@ Ext.define('DIGT.Viewport', {
         region: 'center',
         xtype: 'tabpanel',
 	id: 'main_tabpanel',
-        bodyStyle:'padding:5px;',
+        bodyStyle:'padding:15px;',
         //style:'padding:2px;',
 	defaults:{layout: 'fit'},	
         activeTab: 0,
-        listeners:{
-            tabchange : DIGT.tabchange_listeners
-        }, 
         items: [
         {
             title: DIGT.msg.home,
@@ -32,9 +29,6 @@ Ext.define('DIGT.Viewport', {
 	    defaults:{layout: 'fit'},	
             activeTab: 0,
 	    layoutOnTabChange: true, 
-            listeners:{
-                tabchange : DIGT.tabchange_listeners
-            }, 
             items:[
             { 
                title:DIGT.msg.call_logs,
@@ -51,6 +45,10 @@ Ext.define('DIGT.Viewport', {
         }*/
 	Ext.create('DIGT.Attendant'),
 	{
+	    title:'DIGT.msg.did',
+	    items:Ext.create('DIGT.DID_Grid')
+	},
+	{
 	    title:DIGT.msg.groups,
 	    items:Ext.create('DIGT.Groups_Grid')
 	},
@@ -63,7 +61,7 @@ Ext.define('DIGT.Viewport', {
 	    items:Ext.create('DIGT.Gateways_Grid')
 	}
 	]
-    }],
+    }],  
     initComponent : function () {
         this.items[0].title =
         '<h1 class="x-panel-header">DIGT PBX</h1><div style="padding-left: 40px;">'+
@@ -77,7 +75,8 @@ Ext.define('DIGT.Viewport', {
         	}
 	}
 */
-        this.callParent(arguments);
+ 
+       this.callParent(arguments);
         Ext.TaskManager.start({
             run: function (){
                 Ext.StoreMgr.each(function(item,index,length){

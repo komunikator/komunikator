@@ -30,5 +30,13 @@ groups	   : 'Группы',
 user	   : 'Пользователь',
 total	   : 'Всего',
 gateways   : 'Провайдеры',
-changepassword: 'Сменить пароль'
+changepassword: 'Сменить пароль',
+add	   : 'Добавить',
+delete	   : 'Удалить',
+refresh	   : 'Обновить',
+online     : 'Рабочее время',
+offline    : 'Нерабочее время',
+previous   : 'Предыдущий',
+next	   : 'Следующий',
+first_step : "<div></div><p><b>The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours.</b></p>"
 }

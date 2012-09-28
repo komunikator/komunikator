@@ -19,5 +19,13 @@ groups	   : 'Groups',
 user	   : 'User',
 total	   : 'Total',
 gateways   : 'Gateways',
-changepassword: 'Change password'
+changepassword: 'Change password',
+add	   : 'Add',
+delete	   : 'Delete',
+refresh	   : 'Refresh',
+online     : 'Online',
+offline    : 'Offline',
+previous   : 'Previous',
+next	   : 'Next',
+first_step : "The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours."
 }

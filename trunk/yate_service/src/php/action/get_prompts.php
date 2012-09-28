@@ -4,9 +4,8 @@ if(!$_SESSION['user']) {
 
 $total =  compact_array(query_to_array("SELECT count(*) FROM prompts"));
 if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
-    
-$data =  compact_array(query_to_array("SELECT prompt_id as id, status, prompt, description,file FROM prompts ORDER BY ".get_sql_order_limit()));
-//file_put_contents("test.txt","SELECT group_id as id, \"group\", description, extension FROM groups ORDER BY ".get_sql_order_limit());
+$prompt_path = "auto_attendant/";    
+$data =  compact_array(query_to_array("SELECT prompt_id as id, status, prompt, description, ".get_SQL_concat(array("'$prompt_path'",'file'))." FROM prompts ORDER BY ".get_sql_order_limit()));
 
 if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
     
