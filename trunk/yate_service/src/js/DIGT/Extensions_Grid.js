@@ -1,7 +1,9 @@
 Ext.define('DIGT.Extensions_Grid', {
+    requires: 'DIGT.Groups_Grid',
     extend : 'DIGT.Grid',
     initComponent : function () {
 	//this.title = DIGT.msg.extensions;
+	//`console.log(Ext.StoreMgr.lookup('groups'));
 	this.store.autorefresh = false;
 	this.store.fields = ['id','status', 'extension', 'firstname', 'lastname', 'group'];
         this.store.storeId ='extensions';

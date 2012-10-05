@@ -67,16 +67,28 @@ Ext.define('DIGT.Grid', {
         render: function(c) {
             //if (item.autorefresh!=undefined) item.autorefresh = true;
             this.store.load();
+            var set_autorefresh = function(i,active){
+                i.items.each(function(s){
+                    if (s && s.store) {
+                //console.log(s.store.storeId+':'+active);
+                        if (active) s.store.load();
+                        if (s.store.autorefresh!=undefined) s.store.autorefresh = active;
+                    }
+                });	
+            };
+
             this.ownerCt.on('activate', function(i){
-                Ext.StoreMgr.each(function(item,index,length){
-                    if (item.autorefresh!=undefined) item.autorefresh = false; 
-                })
-                var s = i.items.items[0];
-                if (s && s.store) {
-                    s.store.load();
-                    if (s.store.autorefresh!=undefined) s.store.autorefresh = true;
-                }
-            })
+                set_autorefresh(i,true);
+            });
+            this.ownerCt.on('deactivate', function(i){ 
+                set_autorefresh(i,false);               
+            });
+            this.ownerCt.on('expand', function(i){ 
+                set_autorefresh(i,true);
+            });
+            this.ownerCt.on('collapse', function(i){ 
+                set_autorefresh(i,false);
+            });
         }
     },	
     loadMask: true,
@@ -94,6 +106,7 @@ Ext.define('DIGT.Grid', {
             direction: 'ASC'
         }];
         this.id = this.store.storeId+'_grid';
+        this.itemId = this.id;
         //this.store.proxy.extraParams.action = 'get_'+this.store.storeId;
         var url = 'data.php';
         this.store.proxy.api.read  = url+'?action=get_'+this.store.storeId;
@@ -110,14 +123,14 @@ Ext.define('DIGT.Grid', {
 
             this.sync();
         }
-
-        this.bbar = {
-            items:['->',{},{
-                xtype: 'tbtext',
-                id: this.store.storeId+'_displayItem',
-                text:' '
-            }]
-        };
+        if (!this['status_grid'])
+            this.bbar = {
+                items:['->',{},{
+                    xtype: 'tbtext',
+                    id: this.store.storeId+'_displayItem',
+                    text:' '
+                }]
+            };
         if (!this.columns)
             this.columns = [/*{
             xtype: 'rownumberer',
@@ -279,6 +292,7 @@ Ext.define('DIGT.Grid', {
 
         };
         this.callParent(arguments);
+	//if (this.title) this.title ='<center>'+this.title+'</center>';
         //this.on('edit', function(editor, e) {alert(e.store.storeId)});
         this.getSelectionModel().on('selectionchange', this.onSelectChange, this);
     }

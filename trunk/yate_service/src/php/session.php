@@ -44,22 +44,13 @@ if (isset($_GET['refresh']))
 if (isset($_GET['refreshtime']))
     $refreshtime = $_GET['refreshtime'];
 
-switch ($_SESSION['style']) {
-    case 'blue':
-        echo '<link rel="stylesheet" type="text/css" href="'.$ext_path.'resources/css/ext-all.css" />';
-        break;
-    case 'gray':
-        echo '<link rel="stylesheet" type="text/css" href="'.$ext_path.'resources/css/ext-all-gray.css" />';
-        break;
-    case 'access':
-        echo '<link rel="stylesheet" type="text/css" href="'.$ext_path.'resources/css/ext-all-access.css" />';
-        break;
-    case 'scoped':
-        echo '<link rel="stylesheet" type="text/css" href="'.$ext_path.'resources/css/ext-all-scoped.css" />';
-        break;
-    default:
-        echo '<link rel="stylesheet" type="text/css" href="'.$ext_path.'resources/css/ext-all.css" />';
-} ;
+if (file_exists($ext_path.'resources/css/ext-all-'.$_SESSION['style'].'.css'))
+    echo '<link rel="stylesheet" type="text/css" href="'.$ext_path.'resources/css/ext-all-'.$_SESSION['style'].'.css" />';
+    else
+    echo '<link rel="stylesheet" type="text/css" href="'.$ext_path.'resources/css/ext-all.css" />';
+
+
+
 
 
 ?>
