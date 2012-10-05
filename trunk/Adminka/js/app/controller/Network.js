@@ -3,7 +3,7 @@ Ext.define('Adminka.controller.Network', {
 
 	refs: [
 	    { ref: 'networkEdit', selector: '#networkedit' },
-	    { ref: 'fields', selector: '#networkedit > fieldset' },
+	    { ref: 'fields', selector: '#networkedit > fieldset' }
 	],
 	
 	init: function() {
