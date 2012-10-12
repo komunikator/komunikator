@@ -5,7 +5,7 @@ if(!$_SESSION['user']) {
 $total =  compact_array(query_to_array("SELECT count(*) FROM playlists"));
 if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
     
-$data =  compact_array(query_to_array("SELECT playlist_id as id, playlist, in_use FROM playlists ORDER BY ".get_sql_order_limit()));
+$data =  compact_array(query_to_array("SELECT playlist_id as id, playlist, in_use FROM playlists ".get_sql_order_limit()));
 //file_put_contents("test.txt","SELECT group_id as id, \"group\", description, extension FROM groups ORDER BY ".get_sql_order_limit());
 
 if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));

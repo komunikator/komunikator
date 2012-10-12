@@ -15,7 +15,6 @@ $sql=
 	FROM `keys` k 
 		left join  prompts p 
 			on k.prompt_id = p.prompt_id
-			order by 
 EOD;
     
 $data =  compact_array(query_to_array($sql.get_sql_order_limit()));

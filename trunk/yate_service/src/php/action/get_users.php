@@ -11,7 +11,7 @@ $sql=
 	u.user_id as id,
         u.username,
 	u.password
-	FROM users u order by 
+	FROM users u 
 EOD;
 
 $data =  compact_array(query_to_array($sql.get_sql_order_limit()));

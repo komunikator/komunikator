@@ -20,7 +20,7 @@ $sql=
 			on e.extension_id = d.extension_id
 			left join groups g 
 				on g.group_id = d.group_id 
-			where did_id not in (select did_id from dids where did like "conference %") order by 
+			where did_id not in (select did_id from dids where did like "conference %") 
 EOD;
 
 $data =  compact_array(query_to_array($sql.get_sql_order_limit()));

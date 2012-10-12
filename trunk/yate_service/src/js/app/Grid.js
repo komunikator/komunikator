@@ -29,10 +29,10 @@ Ext.define('app.Grid', {
                 });	
             };
 
-            this.ownerCt.on('activate', function(i){
+            this.on('activate', function(i){
                 set_autorefresh(i,true);
             });
-            this.ownerCt.on('deactivate', function(i){ 
+            this.on('deactivate', function(i){ 
                 set_autorefresh(i,false);               
             });
             this.ownerCt.on('expand', function(i){ 
@@ -59,10 +59,10 @@ Ext.define('app.Grid', {
         if (selection) {
             this.store.remove(selection); 
             //this.store.Total_sync();
-            var me = this;	
+            var store = this.store;	
             this.store.mySync({
                 success:function(){
-                    alert(me.store.storeId());me.store.Total_sync()/*this.store.load*/
+                    store.Total_sync();
                 }
             });
         }
@@ -81,6 +81,17 @@ Ext.define('app.Grid', {
         var editor = this.plugins[0];
         editor.cancelEdit();
         this.store.insert(0, rec); 
+        this.store.Total_sync();
+        /*
+            var store = this.store;	
+            this.store.mySync({
+                success:function(){
+		store.Total_sync();
+                }
+            });
+
+*/
+
         this.store.Total_sync();
         var i=1;
         while (i<rec.fields.length && (this.headerCt.getHeaderAtIndex(i) && !this.headerCt.getHeaderAtIndex(i).getEditor(rec)))
@@ -133,25 +144,35 @@ Ext.define('app.Grid', {
             sortable: false
         }*/];
         var need_editor = false;
-        for (var key in this.store_cfg.fields)
+        for (var key in this.store_cfg.fields) {
+            var field_name =  Ext.isString(this.store_cfg.fields[key])?this.store_cfg.fields[key]:this.store_cfg.fields[key]['name'];
             if (this.columns[key]) {
                 if (this.columns[key].editor) need_editor=true;
-                this.columns[key].text = app.msg[this.store_cfg.fields[key]]?app.msg[this.store_cfg.fields[key]]:this.store_cfg.fields[key],
-                this.columns[key].dataIndex = this.store_cfg.fields[key],
+                this.columns[key].text = app.msg[field_name]?app.msg[field_name]:field_name,
+                this.columns[key].dataIndex = field_name,
                 this.columns[key].renderer=  this.columns_renderer?this.columns_renderer:null
             }
             else
                 this.columns[this.columns.length] = {
-                    text:app.msg[this.store_cfg.fields[key]]?app.msg[this.store_cfg.fields[key]]:this.store_cfg.fields[key],
-                    dataIndex:this.store_cfg.fields[key],
+                    text:app.msg[field_name]?app.msg[field_name]:field_name,
+                    dataIndex:field_name,
                     renderer: this.columns_renderer?this.columns_renderer:null
                 };
+            if (key==0) {
+                this.store_cfg.sorters = [{
+                    direction: 'ASC',
+                    property: field_name	
+                }];
+
+            }
+        };
+        /*
         this.store_cfg.sorters = [{
             direction: 'ASC'
         }];
 
         this.store_cfg.sorters[0].property = this.store_cfg.fields[0];
-
+        */
         if (need_editor) {
             this.tbar = {
                 items: [{
@@ -182,7 +203,11 @@ Ext.define('app.Grid', {
                     handler: this.onRefresh
                 }]
             } ,            
-            this.store_cfg.sorters[0].property = this.store_cfg.fields[1]?this.store_cfg.fields[1]:null;
+            this.store_cfg.sorters[0].property = this.store_cfg.fields[1]?Ext.isString(this.store_cfg.fields[1])?this.store_cfg.fields[1]:this.store_cfg.fields[1]['name']:null;
+
+	    if (this['no_adddelbuttons'])
+		this.tbar.items.splice(0,2);
+
             //	    this.plugins = [Ext.create('Ext.grid.plugin.RowEditing', {
             this.plugins = [Ext.create('Ext.grid.plugin.CellEditing', {
                 clicksToMoveEditor: 1,
@@ -193,12 +218,17 @@ Ext.define('app.Grid', {
                     //validateedit : function(){console.log('validateedit')},	            	
                     //canceledit : function(){console.log('canceledit')},	            	
                     //edit : function(){console.log('edit')},	
-                    edit: function(e) {
+                    edit: function(editor,e) {
                         //if (e.record.isValid())
                         //e.grid.store.sync();//
+                        //var store = e.grid.store;
+                        //var record = e.record;
+                        //console.log('e.record:'+record);
                         e.grid.store.mySync({
                             success:function(){
-                                e.grid.store.Total_sync();
+                                if (!e.record.get('id')) e.grid.store.load();	
+                            //console.log('rec[id]:'+e.record.get('id'));
+                            //store.Total_sync();
                             }
                         });
                     //console.log(e.grid.store.storeId+' edit_stop');

@@ -19,7 +19,6 @@ $sql=
 			on ex.extension_id = gm.extension_id
 			left join groups m 
 				on gm.group_id = m.group_id 
-			order by 
 EOD;
 
 $data =  compact_array(query_to_array($sql.get_sql_order_limit()));

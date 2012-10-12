@@ -2,6 +2,7 @@
 $table_name = next(explode('_',$action,2));
 
 if (!$id_name) $id_name='id';
+
 foreach ($rows as $row) {
     $updates = array();
     $id = null;

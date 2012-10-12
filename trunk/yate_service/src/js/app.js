@@ -3,9 +3,9 @@ Ext.Loader.setConfig({
 //disableCaching: true,
 });
 
-Ext.Loader.setPath('Ext.ux', 'ext/examples/ux/');
+//Ext.Loader.setPath('Ext.ux', 'ext/examples/ux/');
+Ext.Loader.setPath('Ext.ux', 'js/ux/');
 Ext.Loader.setPath('app', 'js/app');
-
 
 Ext.require([
     'app.Loader'
@@ -21,9 +21,12 @@ Ext.require([
 ]);
 */
 
-if (window['app']== undefined) app = {};
+if (window['app'] == undefined) app = {};
 
 app.pageSize = 50;
+app.date_format = 'd.m.y H:i:s';
+//2010/08/11 06:33:00
+app.php_date_format = 'Y/m/d H:i:s';
 app.refreshTime = 5000; 
 
 Ext.Ajax.on('requestexception', function (conn, response, options) {

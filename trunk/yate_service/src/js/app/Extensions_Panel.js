@@ -24,7 +24,7 @@ Ext.define('app.Extensions_Panel', {
                 handler: eval ('(function(){return function(c){c.ownerCt.ownerCt.getLayout().setActiveItem('+item+')} })()'),
                 text: this.items[item].title
             });
-        }; 
+        };
         this.callParent(arguments);
     }    
 });

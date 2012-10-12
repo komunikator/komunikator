@@ -20,13 +20,13 @@ if (file_exists($ext_path.'ext-all.js')) {
 }
 else die('File "ext-all.js" is not found');
 
-$DIGT_path = 'js/DIGT/';
+$app_path = 'js/app/';
 
-if (file_exists($DIGT_path.'locale/'.$_SESSION['lang'].'.js'))
-    echo '<script type="text/javascript" src="'.$DIGT_path.'locale/'.$_SESSION['lang'].'.js"></script>'."\n";
+if (file_exists($app_path.'locale/'.$_SESSION['lang'].'.js'))
+    echo '<script type="text/javascript" src="'.$app_path.'locale/'.$_SESSION['lang'].'.js"></script>'."\n";
 else
-if (file_exists($DIGT_path.'locale/ru.js'))
-    echo '<script type="text/javascript" src="'.$DIGT_path.'locale/ru.js"></script>'."\n";
+if (file_exists($app_path.'locale/ru.js'))
+    echo '<script type="text/javascript" src="'.$app_path.'locale/ru.js"></script>'."\n";
 
 if ($_SESSION['lang']!='en' && file_exists($ext_path.'locale/ext-lang-'.$_SESSION['lang'].'.js'))
     echo '<script type="text/javascript" src="'.$ext_path.'locale/ext-lang-'.$_SESSION['lang'].'.js"></script>'."\n";

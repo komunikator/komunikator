@@ -1,17 +1,17 @@
 <?
-function need_user(){
-if(!$_SESSION['user']) {
-    echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
+function need_user() {
+    if(!$_SESSION['user']) {
+        echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
 }
 
 function getparam($param) {
-    $ret = NULL;
+    $ret = null;
     if (isset($_POST[$param]))
         $ret = $_POST[$param];
     else if (isset($_GET[$param]))
             $ret = $_GET[$param];
         else
-            return NULL;
+            return null;
     return $ret;
 }
 
@@ -63,15 +63,19 @@ function out($data) {
         return json_encode($data);		
 }
 
+function get_filter(){
+ return getparam("filter")?" WHERE ".parseExtJSFilters():'';
+}
+
 function get_sql_order_limit() {
     $sort =  getparam("sort")?get_sql_field(getparam("sort")):1;
     $dir  = getparam("dir")?getparam("dir"):'';
-    return $sort." ".$dir.get_sql_limit(getparam("start"),getparam("size"));
+    return get_filter()." ORDER BY ".$sort." ".$dir.get_sql_limit(getparam("start"),getparam("size"));
 }
 
 function get_sql_limit($start,$size,$page) {
     if (!(isset($start)) || !(isset($size))) return '';
-  //  if ($start==null || $size==null) return '';
+    //  if ($start==null || $size==null) return '';
     global $db_type_sql;
     if ($db_type_sql == 'mysql')
         return " LIMIT $start,$size";	
@@ -85,24 +89,80 @@ function get_sql_field($name) {
     return $name;
 }
 
-function get_SQL_concat($data){
-  global $db_type_sql;
-  if (!is_array($data)) return $data;
-  if (count($data)==0) return '';
-  if (count($data)==1) return $data[0];
-  if ($db_type_sql=='mysql'){
-    $str = 'CONCAT(';
-    $sep = '';
-	foreach ($data as $el) {$str .= $sep.$el; $sep = ',';};
-    return $str.')';
-  }
-  else
-  {
-      $str = '';
-      $sep = '';
-          foreach ($data as $el) {$str .= $sep.$el; $sep = ' || ';};
-     return $str;
+function get_SQL_concat($data) {
+    global $db_type_sql;
+    if (!is_array($data)) return $data;
+    if (count($data)==0) return '';
+    if (count($data)==1) return $data[0];
+    if ($db_type_sql=='mysql') {
+        $str = 'CONCAT(';
+        $sep = '';
+        foreach ($data as $el) {$str .= $sep.$el; $sep = ',';};
+        return $str.')';
+    }
+    else {
+        $str = '';
+        $sep = '';
+        foreach ($data as $el) {$str .= $sep.$el; $sep = ' || ';};
+        return $str;
     }
 }
 
+
+function parseExtJSFilters() {
+    if (getparam('filter')==null) {
+    // No filter passed in
+        return false;
+    };
+    
+    $filters = json_decode(getparam('filter')); // Decode the filter
+    if($filters == null) { // If we couldn't decode the filter
+        return false;
+    }
+    $whereClauses = array(); // Stores whereClauses
+    foreach($filters as $filter) {
+        switch($filter->type) {
+            case 'boolean':
+                $filter->value = ($filter->value === true) ? '1' : '0'; // Convert value for DB
+                $whereClauses[] = "$filter->field = $filter->value" ;
+                break;
+            case 'date':
+                //$filter->value = "'$filter->value'"; // Enclose data in quotes
+                $filter->value = strtotime($filter->value); // Enclose data in quotes
+            case 'numeric':
+                switch($filter->comparison) {
+                    case 'lt': // Less Than
+                        $whereClauses[] = "$filter->field < $filter->value";
+                        break;
+                    case 'gt': // Greather Than
+                        $whereClauses[] = "$filter->field > $filter->value";
+                        break;
+                    case 'eq': // Equal To
+                        $whereClauses[] = "$filter->field = $filter->value";
+                        break;
+                }
+                break;
+            case 'list':
+                $listItems = array();
+                foreach($filter->value as $value) {
+                    $listItems[] = "'$value'";
+                }
+                $whereClauses[] = "$filter->field IN(" . implode(',', $listItems) . ')';
+                break;
+            case 'string':
+            default: // Assume string
+                $whereClauses[] = "(
+                    $filter->field LIKE '{$filter->value}%' OR
+                    $filter->field LIKE '%{$filter->value}' OR 
+                    $filter->field LIKE '%{$filter->value}%' OR
+                    $filter->field = '{$filter->value}'
+                )";
+                break;
+        }
+    }
+    if(count($whereClauses) > 0) {
+        return implode(' AND ', $whereClauses);
+    }
+    return false;        
+}
     ?>

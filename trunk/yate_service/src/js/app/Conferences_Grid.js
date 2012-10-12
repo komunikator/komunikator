@@ -1,28 +1,30 @@
 Ext.define('app.Conferences_Grid', {
     extend : 'app.Grid',
-    initComponent : function () {
-        //this.title = app.msg.extensions;
-        this.store_cfg.autorefresh = false;
-        this.store_cfg.fields = ['id','conference', 'number', 'participants'];
-        this.store_cfg.storeId ='conferences';
-        this.viewConfig.loadMask = false;
-        this.columns = [
-        {
-            hidden: true
-        },
-        { 
-            editor :  {
-                xtype: 'textfield'
-            }
-        },
+    store_cfg:{
+        autorefresh : false,                                     
+        fields :  ['id','conference', 'number', 'participants'],  
+        storeId : 'conferences'
+    },
+    columns : [
+    {
+        hidden: true
+    },
+    { 
+        editor :  {
+            xtype: 'textfield'
+        }
+    },
 
-        { 
-            editor :  {
-                xtype: 'textfield'
-            }
-        },
-	{}
-        ];
+    { 
+        editor :  {
+            xtype: 'textfield'
+        }
+    },
+    {}
+    ],
+    initComponent : function () {
+        //this.title = app.msg.extensions;       
+       
         this.callParent(arguments); 
     }
 })

@@ -12,7 +12,7 @@ $sql=
         s.param,
 	s.value,
 	s.description
-	FROM settings s order by 
+	FROM settings s 
 EOD;
 
 $data =  compact_array(query_to_array($sql.get_sql_order_limit()));

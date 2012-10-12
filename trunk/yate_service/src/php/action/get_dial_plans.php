@@ -20,7 +20,7 @@ $sql=
 	d.position_to_start_replacing,
 	d.position_to_start_adding,
 	d.digits_to_add
-	FROM dial_plans d order by 
+	FROM dial_plans d 
 EOD;
 
 $data =  compact_array(query_to_array($sql.get_sql_order_limit()));

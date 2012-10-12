@@ -58,16 +58,30 @@ Ext.define('app.Viewport', {
         //activeTab: 0, 
         items: [
                                              
-        Ext.create('app.Attendant_Panel'),
+/*        Ext.create('app.Attendant_Panel'),*/
         //Ext.create('app.Extensions_Panel'),   
+        Ext.create('app.Card_Panel',{
+	    title: app.msg.attendant,
+	    items: [
+	    Ext.create('app.Prompts_Panel',{
+		title:'<center>'+'app.msg.prompts'+'</center>'
+	    }),
+	    Ext.create('app.Keys_Grid',{
+		title:'app.msg.key'
+	    }),
+	    Ext.create('app.Time_Frames_Grid',{
+		title:'app.msg.timeframes'
+	    })
+	    ]
+	}),
         Ext.create('app.Card_Panel',{
             title: app.msg.extensions,
             items: [
-            Ext.create('app.Groups_Grid',{
-                title:app.msg.groups
-            }),
             Ext.create('app.Extensions_Grid',{
                 title:app.msg.extensions
+            }),
+            Ext.create('app.Groups_Grid',{
+                title:app.msg.groups
             })
             ]
 

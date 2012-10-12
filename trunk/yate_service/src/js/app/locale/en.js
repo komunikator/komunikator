@@ -38,5 +38,13 @@ description: 'Description',
 music_on_hold: 'Music on hold',
 playlist   : 'Playlist',
 file	   : 'File',
+    Monday	: 'Monday',
+    Tuesday	: 'Tuesday',
+    Wednesday	: 'Wednesday',
+    Thursday	: 'Thursday',
+    Friday	: 'Friday',
+    Saturday	: 'Saturday',
+    Sunday	: 'Sunday',
+notselected: 'Not selected',
 first_step : "The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours."
 }

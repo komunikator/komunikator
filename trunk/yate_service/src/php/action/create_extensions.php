@@ -8,7 +8,7 @@ $rows = array();
 $values = array();
 $extensions = array();
 
-if ($data)
+if ($data && !is_array($data)) $data = array($data);
 foreach ($data as $row)
 {
 $values = array();

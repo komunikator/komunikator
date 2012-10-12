@@ -12,7 +12,7 @@ $sql=
 	substring(did,length("conference ")+1 ,length (did)) as conference,
 	number,
 	(select count(*) from call_logs where called = d.number and ended = '0') as participants
-	FROM dids d where did like "conference %" order by 
+	FROM dids d where did like "conference %"  
 EOD;
 
 $data =  compact_array(query_to_array($sql.get_sql_order_limit()));

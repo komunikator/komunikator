@@ -5,7 +5,7 @@ if(!$_SESSION['user']) {
 $total =  compact_array(query_to_array("SELECT count(*) FROM gateways"));
 if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
     
-$data =  compact_array(query_to_array("SELECT gateway_id as id, enabled, gateway, protocol, server, username, password, description, authname, domain FROM gateways ORDER BY ".get_sql_order_limit()));
+$data =  compact_array(query_to_array("SELECT gateway_id as id, enabled, gateway, protocol, server, username, password, description, authname, domain FROM gateways ".get_sql_order_limit()));
 if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
     
 $obj=array("success"=>true);

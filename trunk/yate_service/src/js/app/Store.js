@@ -10,7 +10,7 @@ Ext.define('app.Store', {
             buffered: true,
             //autoLoad: true,
             //restful: true,
-            autoSync: true,
+            //autoSync: true,
             proxy: {
                 type: 'ajax',
                 //url: 'data.php',
@@ -22,8 +22,8 @@ Ext.define('app.Store', {
                 },
                 api: {
                     read: 'data.php?action=get_'+cfg.storeId,
-                    create: 'data.php?action=update_'+cfg.storeId,
-                    update: 'data.php?action=create_'+cfg.storeId,
+                    create: 'data.php?action=create_'+cfg.storeId,
+                    update: 'data.php?action=update_'+cfg.storeId,
                     destroy: 'data.php?action=destroy_'+cfg.storeId
                 },
                 writer: {
@@ -45,6 +45,7 @@ Ext.define('app.Store', {
             }],
             listeners : {
                 load: function(store, records, success) {
+                    //console.log (store.storeId+' loaded '+ store.getTotalCount());
                     this.Total_sync();
                     this.dirtyMark = false;
                     if(!success && store.storeId) {

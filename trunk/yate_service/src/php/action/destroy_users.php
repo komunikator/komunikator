@@ -6,7 +6,7 @@ $data = json_decode($HTTP_RAW_POST_DATA);
 $rows = array();
 $values = array();
 
-if ($data)
+if ($data && !is_array($data)) $data = array($data);
 foreach ($data as $row)
 {
 $values = array();
