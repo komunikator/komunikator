@@ -1,0 +1,3 @@
+debian/tmp/var/www/*
+debian/tmp/usr/*
+debian/tmp/etc/*

@@ -1,0 +1,17 @@
+Source: kommunikator
+Section: web
+Priority: extra
+Maintainer: Digt Inc <info@digt.ru>
+Build-Depends: debhelper (>= 7), autotools-dev
+Standards-Version: 3.8.3
+Homepage:
+
+Package: kommunikator
+Architecture: all
+Depends: yate (>=4.0.0), libphp5-mod-apache2, php5-mysql, dbconfig-common
+Recommends: mysql-server
+Description: Komminikator IP PBX administration web app
+
+Package: kommunikator-doc
+Architecture: all
+Description: documentation for kommunikator
