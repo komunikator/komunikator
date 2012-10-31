@@ -45,6 +45,9 @@
 		"message": "статус"
 	},
 	"call_from": {
-		"message": "звонок от"
+		"message": "Звонок принят от"
+	},
+	"bitrix_message": {
+		"message": "Абонент: {caller}\\nВходящая линия: {line}\\nКому: {called} \\nДата: {date}\\nТип: Входящий"                       
 	}
 }

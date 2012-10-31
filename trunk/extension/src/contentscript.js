@@ -59,7 +59,7 @@ $(function(){
             method: "getLocalStorage",
             key: "service_url"
         }, function(url) {
-            if (url.data) {
+            if (url && url.data) {
                 service_url = url.data;
                 chrome.extension.sendRequest({
                     method: "getLocalStorage",
