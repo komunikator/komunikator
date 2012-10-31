@@ -1,0 +1,105 @@
+<?
+/*
+global $vm_base;
+
+$online = basename($_FILES['online']['name']);
+$offline = basename($_FILES['offline']['name']);
+
+if(strtolower(substr($online,-4)) != ".mp3" || strtolower(substr($offline,-4)) != ".mp3") {
+    wizard("File format must be .mp3");
+    return;
+}
+
+$prompts = array("online"=>$online, "offline"=>$offline);
+
+$path = "$target_path/auto_attendant";
+
+if(!is_dir($path))
+    mkdir($path);
+
+$time = date("Y-m-d_H:i:s");
+
+$online_file = "$path/online_".$time.".mp3";
+$offline_file = "$path/offline_".$time.".mp3";
+
+Database::transaction();
+$prompt = new Prompt;
+$nr = $prompt->fieldSelect("count(*)");
+if($nr) {
+    Database::rollback();
+    errormess("There are already $nr prompts uploaded");
+    return;
+}
+
+if (!move_uploaded_file($_FILES["online"]['tmp_name'],$online_file)) {
+    Database::rollback();
+    errormess("Could not upload file for online mode");
+    return;
+}
+if (!move_uploaded_file($_FILES["offline"]['tmp_name'],$offline_file)) {
+    Database::rollback();
+    errormess("Could not upload file for offline mode");
+    return;
+}
+
+$slin_online = str_ireplace(".mp3",".slin",$online_file);
+$slin_offline = str_ireplace(".mp3",".slin",$offline_file);
+
+//	passthru("sox $online_file -r 8000 -c 1 -b -A $auonline");
+
+//	passthru("sox $offline_file -r 8000 -c 1 -b -A $auoffline");
+
+passthru("madplay -q --no-tty-control -m -R 8000 -o raw:\"$slin_online\" \"$online_file\"");
+passthru("madplay -q --no-tty-control -m -R 8000 -o raw:\"$slin_offline\" \"$offline_file\"");
+
+if(!is_file($slin_online) || !is_file($slin_offline)) {
+    Database::rollback();
+    errormess("Could not convert files in .au format.");
+    return;
+}
+
+foreach($prompts as $status=>$prompt_name) {
+    $prompt = new Prompt;
+    $prompt->prompt = $prompt_name;
+    $prompt->status = $status;
+    $prompt->file = $status."_".$time.".mp3";
+    $res = $prompt->insert();
+    if(!$res[0]) {
+        Database::rollback();
+        errormess("Could not upload the prompts. Please try again");
+        return;
+    }
+}
+Database::commit();
+wizard();
+*/
+if(isset($_FILES)) {
+    $file_tmp  = $_FILES['prompt_file']['tmp_name'];
+    $file_name = $_FILES['prompt_file']['name'];
+    $file_size = $_FILES['prompt_file']['size'];
+    $status = getparam("status");
+    $file_name = 'prompt_'.$status;
+    //echo ($file_tmp.", ".$file_name.", ".$file_size);
+    
+    $time = date("Y-m-d_H:i:s");
+    //global $vm_base;
+    
+    $file_name    = "$vm_base/auto_attendant/$status"."_".$time.".tmp";
+    $cn_file_name = "$vm_base/auto_attendant/$status.wav";;
+    if(is_uploaded_file($file_tmp)) {
+        if(move_uploaded_file($file_tmp, $file_name)) {         
+	passthru("madplay -q --no-tty-control -m -R 8000 -o raw:\"$cn_file_name\" \"$file_name\"");
+	if(!is_file($cn_file_name)) {
+            echo (out(array('success'=>false,'message'=>"Could not convert files in .au format.")));
+		return;
+	}
+           echo (out(array('success'=>true)));
+        } 
+        else {
+            echo (out(array('success'=>false,'message'=>"Could not upload file")));
+        }    
+    }  else {
+        echo (out(array('success'=>false,'message'=>"Error.")));
+    }
+}
+?>
