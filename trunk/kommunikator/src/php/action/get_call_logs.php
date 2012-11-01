@@ -5,7 +5,7 @@ if(!$_SESSION['user']) {
 
 $total =  compact_array(query_to_array("SELECT count(*) FROM call_logs ".get_filter()));
 if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
-$data =  compact_array(query_to_array("SELECT time, caller, called, duration, status FROM call_logs /*where time !='99999999999999.999'*/ ".get_sql_order_limit()));
+$data =  compact_array(query_to_array("SELECT time, caller, called, duration,  status FROM call_logs /*where time !='99999999999999.999'*/ ".get_sql_order_limit()));
 if(!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
 $obj=array("success"=>true);
 $obj["total"] = $total['data'][0][0]; 

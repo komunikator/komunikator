@@ -14,18 +14,18 @@ PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error');
 
 $db_type_sql="mysql";
 $db_host="localhost";
-$db_user="root";
-$db_passwd="root";
-$db_database="FREESENTRAL";
-
+$db_user="user";
+$db_passwd="user";
+$db_database="PBX";
 /*
+
 $db_type_sql="pgsql";
 $db_host="localhost";
 $db_user="postgres";
 $db_passwd="postgres";
 $db_database="freesentral";
 
-
+/*
 $db_host="172.17.2.6";
 */
 
@@ -39,4 +39,7 @@ $no_pbx = false;
 $uploaded_prompts = "/var/lib/misc";
 $query_on = false;
 $max_resets_conn = 5;
+
+$calls_email  = "info@digt.ru";
+$fax_call = "info@digt.ru";
 ?>

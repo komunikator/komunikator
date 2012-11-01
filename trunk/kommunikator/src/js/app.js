@@ -23,7 +23,7 @@ Ext.require([
 
 if (window['app'] == undefined) app = {};
 
-app.pageSize = 50;
+app.pageSize = 50;//50;
 app.date_format = 'd.m.y H:i:s';
 //2010/08/11 06:33:00
 app.php_date_format = 'Y/m/d H:i:s';
@@ -126,3 +126,47 @@ Ext.override(Ext.LoadMask, {
     onHide: function() { this.callParent(); }
 });
 
+
+/*
+ * BUG: SCROLLUPDATE
+ * When updating a store of grid with the pagingscroller such that there's no need for a scrollbar, this scrollbar
+ * cannot come back. When the scrollbar is hidden, its undocked from the grid panel. But the function that determines
+ * if the scrollbar is needed again needs the scrollbar to be docked, resulting in an error (this.ownerCt undefined
+ * in Ext.grid.PagingScroller.getSizeCalculation)
+ *
+ * http://www.sencha.com/forum/showthread.php?133050-4.0.0-Ext.grid.PagingScroller-this.ownerCt-undefined
+ */
+Ext.syncRequire('Ext.panel.Table');
+Ext.override(Ext.panel.Table, {
+
+    determineScrollbars:function(){
+        var me=this,viewElDom,centerScrollWidth,centerClientWidth,scrollHeight,clientHeight;if(!me.collapsed&&me.view&&me.view.el){viewElDom=me.view.el.dom;centerScrollWidth=me.headerCt.getFullWidth();centerClientWidth=viewElDom.offsetWidth;if(me.verticalScroller&&me.verticalScroller.el){
+// [SCROLLUPDATE]
+// --
+//        scrollHeight=me.verticalScroller.getSizeCalculation().height;
+// ++
+        scrollHeight=me.verticalScroller.getSizeCalculation(me).height;
+//
+        }else{scrollHeight=viewElDom.scrollHeight;}clientHeight=viewElDom.clientHeight;me.suspendLayout=true;me.scrollbarChanged=false;if(!me.collapsed&&scrollHeight>clientHeight){me.showVerticalScroller();}else{me.hideVerticalScroller();}if(!me.collapsed&&centerScrollWidth>(centerClientWidth+Ext.getScrollBarWidth()-2)){me.showHorizontalScroller();}else{me.hideHorizontalScroller();}me.suspendLayout=false;if(me.scrollbarChanged){me.doComponentLayout();}}
+    }
+});
+
+// NO CHANGE 4.0.0, 4.01
+Ext.syncRequire('Ext.grid.PagingScroller');
+Ext.override(Ext.grid.PagingScroller,{
+// [SCROLLUPDATE]
+// --
+//    getSizeCalculation: function() {
+// ++
+    getSizeCalculation: function(grid) {
+//
+        var owner = this.ownerCt,
+// [SCROLLUPDATE]
+// --
+//        view   = owner.getView(),
+// ++
+        view = (owner && owner.getView()) || (grid && grid.getView()),
+//
+        store=this.store,dock=this.dock,elDom=this.el.dom,width=1,height=1;if(!this.rowHeight){this.rowHeight=view.el.down(view.getItemSelector()).getHeight(false,true);}height=store.getTotalCount()*this.rowHeight;if(isNaN(width)){width=1;}if(isNaN(height)){height=1;}return{width:width,height:height};
+    }
+});  

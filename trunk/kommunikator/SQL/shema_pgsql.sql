@@ -733,3 +733,36 @@ ALTER SEQUENCE "public"."users_user_id_seq" OWNED BY "users"."user_id";
 -- Indexes structure for table actionlogs
 -- ----------------------------
 CREATE INDEX "actionlogs-index" ON "public"."actionlogs" USING btree ("date");
+
+
+DROP SEQUENCE "public"."ntn_settings_ntn_setting_id_seq";
+CREATE SEQUENCE "public"."ntn_settings_ntn_setting_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+
+DROP TABLE "public"."ntn_settings";
+CREATE TABLE "public"."ntn_settings" (
+"ntn_setting_id" int4 DEFAULT nextval('ntn_settings_ntn_setting_id_seq'::regclass) NOT NULL,
+"param" text,
+"value" text,
+"description" text
+)
+WITH (OIDS=TRUE)
+
+;
+
+-- ----------------------------
+-- Records of settings
+-- ----------------------------
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('incoming_trunk', 'true');                                                                                                                                                                                 
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('exclude_called', '104');                                                                                                                                                                                  
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('exclude_called', '103');                                                                                                                                                                                  
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('incoming_call', 'true');                                                                                                                                                                                  
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('outgoing_call', 'true');                                                                                                                                                                                  
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('internal_call', 'false');                                                                                                                                                                                 
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('incoming_trunk_text', '    Абонент: <caller>\\n    Входящая линия: <called>\\n    Дата: <ftime>');                                                                                                        
+INSERT INTO "public"."ntn_settings"(param,value) VALUES ('incoming_call_text', '    Абонент: <caller>\\n    Входящая линия: <incoming_trunk>\\n    Кому: <called>\\n    Дата: <ftime>\\n    Длительность: <duration>\\n    Состояние: <status>\\n    Тип: <type>'); 
+

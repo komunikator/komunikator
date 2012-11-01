@@ -1,5 +1,5 @@
 <?
-$table_name = next(explode('_',$action,2));
+$table_name = get_sql_field(next(explode('_',$action,2)));
 
 foreach ($rows as $row) {
     $sql=sprintf('SELECT %s FROM '.$table_name.' WHERE %s', );

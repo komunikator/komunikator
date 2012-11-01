@@ -1,16 +1,8 @@
 /*
-Navicat MySQL Data Transfer
 
-Source Server         : 172.17.2.48
-Source Server Version : 50162
-Source Host           : localhost:3306
-Source Database       : FREESENTRAL
+	PBX CREATE
+	v1.0
 
-Target Server Type    : MYSQL
-Target Server Version : 50162
-File Encoding         : 65001
-
-Date: 2012-06-15 17:24:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +12,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `actionlogs`;
 CREATE TABLE `actionlogs` (
-  `date` decimal(17,3) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `log` text,
   `performer_id` text,
   `performer` text,
@@ -46,14 +38,19 @@ CREATE TABLE `call_logs` (
   `billid` text,
   `caller` text,
   `called` text,
-  `duration` decimal(6,3) DEFAULT NULL,
-  `billtime` decimal(6,3) DEFAULT NULL,
-  `ringtime` decimal(6,3) DEFAULT NULL,
+  `duration` decimal(5,3) DEFAULT NULL,
+  `billtime` decimal(5,3) DEFAULT NULL,
+  `ringtime` decimal(5,3) DEFAULT NULL,
   `status` text,
   `reason` text,
   `ended` tinyint(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of call_logs
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `card_confs`
 -- ----------------------------
 DROP TABLE IF EXISTS `card_confs`;
@@ -63,6 +60,10 @@ CREATE TABLE `card_confs` (
   `section_name` text,
   `module_name` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of card_confs
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `card_ports`
@@ -86,6 +87,10 @@ CREATE TABLE `card_ports` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of card_ports
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `dial_plans`
 -- ----------------------------
 DROP TABLE IF EXISTS `dial_plans`;
@@ -103,7 +108,11 @@ CREATE TABLE `dial_plans` (
   `position_to_start_adding` int(11) DEFAULT NULL,
   `digits_to_add` text,
   PRIMARY KEY (`dial_plan_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dial_plans
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `dids`
@@ -118,7 +127,11 @@ CREATE TABLE `dids` (
   `extension_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`did_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dids
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `extensions`
@@ -126,7 +139,7 @@ CREATE TABLE `dids` (
 DROP TABLE IF EXISTS `extensions`;
 CREATE TABLE `extensions` (
   `extension_id` int(11) NOT NULL AUTO_INCREMENT,
-  `extension` text,
+  `extension` varchar(3) NOT NULL,
   `password` text,
   `firstname` text,
   `lastname` text,
@@ -134,13 +147,18 @@ CREATE TABLE `extensions` (
   `inuse` int(11) DEFAULT NULL,
   `location` text,
   `expires` decimal(17,3) DEFAULT NULL,
-  `max_minutes` decimal(6,3) DEFAULT NULL,
-  `used_minutes` decimal(6,3) DEFAULT NULL,
+  `max_minutes` time DEFAULT NULL,
+  `used_minutes` time DEFAULT NULL,
   `inuse_count` int(11) DEFAULT NULL,
   `inuse_last` decimal(17,3) DEFAULT NULL,
   `login_attempts` int(11) DEFAULT NULL,
-  PRIMARY KEY (`extension_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`extension_id`),
+  UNIQUE KEY `extension` (`extension`)
+) ENGINE=MyISAM AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of extensions
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `gateways`
@@ -180,6 +198,10 @@ CREATE TABLE `gateways` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of gateways
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `group_members`
 -- ----------------------------
 DROP TABLE IF EXISTS `group_members`;
@@ -188,7 +210,25 @@ CREATE TABLE `group_members` (
   `group_id` int(11) DEFAULT NULL,
   `extension_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`group_member_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of group_members
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `group_priority`
+-- ----------------------------
+DROP TABLE IF EXISTS `group_priority`;
+CREATE TABLE `group_priority` (
+  `group_id` int(11) NOT NULL,
+  `extension_id` int(11) NOT NULL,
+  `priority` smallint(6) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of group_priority
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `groups`
@@ -196,9 +236,9 @@ CREATE TABLE `group_members` (
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `group` text,
+  `group` varchar(25) DEFAULT NULL,
   `description` text,
-  `extension` text,
+  `extension` varchar(2) DEFAULT NULL,
   `mintime` int(11) DEFAULT NULL,
   `length` int(11) DEFAULT NULL,
   `maxout` int(11) DEFAULT NULL,
@@ -207,8 +247,14 @@ CREATE TABLE `groups` (
   `prompt` text,
   `detail` tinyint(1) DEFAULT NULL,
   `playlist_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`group_id`),
+  UNIQUE KEY `group` (`group`),
+  UNIQUE KEY `extension` (`extension`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of groups
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `incoming_gateways`
@@ -220,7 +266,11 @@ CREATE TABLE `incoming_gateways` (
   `gateway_id` int(11) DEFAULT NULL,
   `ip` text,
   PRIMARY KEY (`incoming_gateway_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of incoming_gateways
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `keys`
@@ -233,7 +283,11 @@ CREATE TABLE `keys` (
   `destination` text,
   `description` text,
   PRIMARY KEY (`key_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of keys
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `limits_international`
@@ -248,6 +302,10 @@ CREATE TABLE `limits_international` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of limits_international
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `music_on_hold`
 -- ----------------------------
 DROP TABLE IF EXISTS `music_on_hold`;
@@ -258,6 +316,10 @@ CREATE TABLE `music_on_hold` (
   `file` text,
   PRIMARY KEY (`music_on_hold_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of music_on_hold
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `network_interfaces`
@@ -274,6 +336,26 @@ CREATE TABLE `network_interfaces` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of network_interfaces
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ntn_settings`
+-- ----------------------------
+DROP TABLE IF EXISTS `ntn_settings`;
+CREATE TABLE `ntn_settings` (
+  `ntn_setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `param` text,
+  `value` text,
+  `description` text,
+  PRIMARY KEY (`ntn_setting_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ntn_settings
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `pbx_settings`
 -- ----------------------------
 DROP TABLE IF EXISTS `pbx_settings`;
@@ -283,7 +365,11 @@ CREATE TABLE `pbx_settings` (
   `param` text,
   `value` text,
   PRIMARY KEY (`pbx_setting_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pbx_settings
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `playlist_items`
@@ -297,6 +383,10 @@ CREATE TABLE `playlist_items` (
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of playlist_items
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `playlists`
 -- ----------------------------
 DROP TABLE IF EXISTS `playlists`;
@@ -306,6 +396,10 @@ CREATE TABLE `playlists` (
   `in_use` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`playlist_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of playlists
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `prefixes`
@@ -320,6 +414,10 @@ CREATE TABLE `prefixes` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of prefixes
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `prompts`
 -- ----------------------------
 DROP TABLE IF EXISTS `prompts`;
@@ -330,7 +428,11 @@ CREATE TABLE `prompts` (
   `status` text,
   `file` text,
   PRIMARY KEY (`prompt_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of prompts
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `settings`
@@ -345,6 +447,18 @@ CREATE TABLE `settings` (
 ) ENGINE=MyISAM AUTO_INCREMENT=261 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of settings
+-- ----------------------------
+INSERT INTO `settings` VALUES ('1', 'vm', 'external/nodata/leavemaildb.php', 'Script used for leaving a voicemail message.');
+INSERT INTO `settings` VALUES ('2', 'version', '1', null);
+INSERT INTO `settings` VALUES ('3', 'annonymous_calls', 'no', 'Allow calls from anomynous users if call is for one of the extensions. Use just \'yes\' or \'no\' as values.');
+INSERT INTO `settings` VALUES ('4', 'international_calls', 'yes', 'Allow calls to international/expensive destinations. This prefixes are set in Outbound>>International calls');
+INSERT INTO `settings` VALUES ('5', 'international_calls_live', 'yes', 'Allow calls to international/expensive destinations. This prefixes are set in Outbound>>International calls');
+INSERT INTO `settings` VALUES ('6', 'callerid', '', null);
+INSERT INTO `settings` VALUES ('7', 'callername', null, null);
+INSERT INTO `settings` VALUES ('8', 'prefix', null, null);
+
+-- ----------------------------
 -- Table structure for `short_names`
 -- ----------------------------
 DROP TABLE IF EXISTS `short_names`;
@@ -356,6 +470,10 @@ CREATE TABLE `short_names` (
   `extension_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`short_name_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of short_names
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `sig_trunks`
@@ -391,6 +509,10 @@ CREATE TABLE `sig_trunks` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of sig_trunks
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `time_frames`
 -- ----------------------------
 DROP TABLE IF EXISTS `time_frames`;
@@ -402,7 +524,18 @@ CREATE TABLE `time_frames` (
   `end_hour` text,
   `numeric_day` int(11) DEFAULT NULL,
   PRIMARY KEY (`time_frame_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of time_frames
+-- ----------------------------
+INSERT INTO `time_frames` VALUES ('1', '1', 'Sunday', null, null, '0');
+INSERT INTO `time_frames` VALUES ('2', '1', 'Monday', '8', '18', '1');
+INSERT INTO `time_frames` VALUES ('3', '1', 'Tuesday', '8', '18', '2');
+INSERT INTO `time_frames` VALUES ('4', '1', 'Wednesday', '8', '18', '3');
+INSERT INTO `time_frames` VALUES ('5', '1', 'Thursday', '8', '18', '4');
+INSERT INTO `time_frames` VALUES ('6', '1', 'Friday', '8', '18', '5');
+INSERT INTO `time_frames` VALUES ('7', '1', 'Saturday', null, null, '6');
 
 -- ----------------------------
 -- Table structure for `users`
@@ -420,43 +553,11 @@ CREATE TABLE `users` (
   `ident` text,
   `login_attempts` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `ntn_settings`;
-CREATE TABLE `ntn_settings` (
-  `ntn_setting_id` int(11) NOT NULL AUTO_INCREMENT,
-  `param` text,
-  `value` text,
-  `description` text,
-  PRIMARY KEY (`ntn_setting_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of time_frames
+-- Records of users
 -- ----------------------------
-INSERT INTO `time_frames` VALUES ('1', '1', 'Sunday', null, null, '0');
-INSERT INTO `time_frames` VALUES ('2', '1', 'Monday', '8', '18', '1');
-INSERT INTO `time_frames` VALUES ('3', '1', 'Tuesday', '8', '18', '2');
-INSERT INTO `time_frames` VALUES ('4', '1', 'Wednesday', '8', '18', '3');
-INSERT INTO `time_frames` VALUES ('5', '1', 'Thursday', '8', '18', '4');
-INSERT INTO `time_frames` VALUES ('6', '1', 'Friday', '8', '18', '5');
-INSERT INTO `time_frames` VALUES ('7', '1', 'Saturday', null, null, '6');
+INSERT INTO `users` VALUES ('1', 'admin', 'admin', null, null, null, null, null, null, '0');
 
-/*
-INSERT INTO `keys` VALUES ('1', '0', '1', '23', null);
-INSERT INTO `keys` VALUES ('2', '0', '2', '23', null);
-INSERT INTO `keys` VALUES ('3', '2', '2', '222', null);
-INSERT INTO `keys` VALUES ('4', '1', '1', '222', null);
-*/
-
-INSERT INTO `ntn_settings` VALUES ('1', 'incoming_trunk', 'true', null);
-INSERT INTO `ntn_settings` VALUES ('2', 'exclude_called', '104', null);
-INSERT INTO `ntn_settings` VALUES ('3', 'exclude_called', '103', null);
-INSERT INTO `ntn_settings` VALUES ('4', 'incoming_call', 'true', null);
-INSERT INTO `ntn_settings` VALUES ('5', 'outgoing_call', 'true', null);
-INSERT INTO `ntn_settings` VALUES ('6', 'internal_call', 'false', null);
-INSERT INTO `ntn_settings` VALUES ('7', 'incoming_trunk_text', '    Абонент: <caller>\\n    Входящая линия: <called>\\n    Дата: <ftime>', null);
-INSERT INTO `ntn_settings` VALUES ('8', 'incoming_call_text', '    Абонент: <caller>\\n    Входящая линия: <incoming_trunk>\\n    Кому: <called>\\n    Дата: <ftime>\\n    Длительность: <duration>\\n    Состояние: <status>\\n    Тип: <type>', null);
-
-ALTER TABLE extensions ADD UNIQUE (extension);
-ALTER TABLE groups ADD UNIQUE (`group`);
+COMMIT;

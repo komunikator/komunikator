@@ -42,6 +42,7 @@ Ext.define('app.Extensions_Grid', {
                 fields : ['id', 'group', 'description', 'extension'],   
                 storeId : 'groups'
             }),
+	    queryCaching: false,
             displayField: 'group',
             valueField: 'group',
             queryMode: 'remove'

@@ -4,19 +4,19 @@ Ext.define('app.Viewport', {
     layout: 'border',
     items: [{
         region: 'north',
-        autoHeight: true,
+        //autoHeight: true,
         border: false,
         margins: '0 0 5 0'
     }, {
         region: 'south',
-        title:'<center>Copyright 2012 app PBX</center>',
+        title:'<center>Copyright 2012 D&T PBX</center>',
         border: false,
         margins: '10 10 10 0'
     }, {
         region: 'west',
         collapsible: true,
-        title: 'Статус АТС',
-        autoHeight: true,
+        title: app.msg.pbx_status,
+        //autoHeight: true,
         width: 240,
         //split: true,
         items: [  /*
@@ -46,7 +46,7 @@ Ext.define('app.Viewport', {
         //split: true,
         //layout: 'anchor',
         layout: 'fit',
-        autoHeight: true,
+        //autoHeight: true,
         xtype: 'tabpanel',
         //layout:'accordion',
         id: 'main_tabpanel',
@@ -58,22 +58,22 @@ Ext.define('app.Viewport', {
         //activeTab: 0, 
         items: [
                                              
-/*        Ext.create('app.Attendant_Panel'),*/
+/*        Ext.create('app.Attendant_Panel'), */
         //Ext.create('app.Extensions_Panel'),   
         Ext.create('app.Card_Panel',{
 	    title: app.msg.attendant,
 	    items: [
 	    Ext.create('app.Prompts_Panel',{
-		title:'<center>'+'app.msg.prompts'+'</center>'
+		title:'<center>'+app.msg.prompts+'</center>'
 	    }),
 	    Ext.create('app.Keys_Grid',{
-		title:'app.msg.key'
+		title:app.msg.keys
 	    }),
 	    Ext.create('app.Time_Frames_Grid',{
-		title:'app.msg.timeframes'
+		title:app.msg.timeframes
 	    })
 	    ]
-	}),
+	}), 
         Ext.create('app.Card_Panel',{
             title: app.msg.extensions,
             items: [
@@ -87,7 +87,7 @@ Ext.define('app.Viewport', {
 
         }),
         Ext.create('app.Card_Panel',{
-            title: 'app.msg.telephony',
+            title: app.msg.routing,
             items: [
             Ext.create('app.DID_Grid',{
                 title:app.msg.routing_rules
@@ -145,11 +145,12 @@ Ext.define('app.Viewport', {
         //    title: app.msg.attendant,layout: 'anchor', 
         //    items: [{height:100,border: false,html:'test message'},Ext.create('app.Prompts_Grid'/*,{height:300})]
         //}
+	
         ]  
     }],  
     initComponent : function () {
         this.items[0].title =
-        '<h1 class="x-panel-header" style="text-align:center;">app PBX</h1><div style="padding-left: 40px;">'+
+        '<h1 class="x-panel-header" style="text-align:center;">D&T PBX</h1><div style="padding-left: 40px;">'+
         '<p>'+app.msg.user+': <a href="#" onclick="app.logout();return false" title="'+ app.msg.changepassword +'">'+
         this.user_name+'</a></p><a href="#" onclick="app.logout();return false">'+ app.msg.logout +'</a></div>';
         /*

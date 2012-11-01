@@ -4,6 +4,6 @@
     <head>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 	<? require_once ('php/session.php');?>
-	<script type="text/javascript" src="js/digt_app.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
     </head>
 </html>

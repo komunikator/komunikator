@@ -13,7 +13,7 @@ Ext.onReady(function() {
 if (window['app']== undefined) app = {}; 
 app.lang = 'ru';
 app.msg = {
-    auth_title : 'DIGT PBX авторизация',
+    auth_title : 'D&T PBX авторизация',
     login	   : 'Логин',
     password   : 'Пароль',
     error	   : 'Ошибка',
@@ -59,5 +59,20 @@ app.msg = {
     Saturday	: 'Суббота',
     Sunday	: 'Воскресенье',
     notselected	: 'Не выбрано',
+    prompts	: 'Приветствия',
+    keys	: 'Меню приветствия',
+    timeframes	: 'Расписание рабочего времени',
+    pbx_status	: 'Статус АТС',	
+    day		: 'День',
+    key		: 'Клавиша',
+    routing  	: 'Маршрутизация',
+    destination : 'Назначение',
+    description : 'Описание',		
+    start_hour  : 'Время начала',
+    end_hour    : 'Время окончания',
+    extension	: 'Внутренний номер', 
+    firstname	: 'Имя', 
+    lastname	: 'Фамилия',
+    group 	: 'Группа',
     first_step	: "<div></div><p><b>The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours.</b></p>"
 }

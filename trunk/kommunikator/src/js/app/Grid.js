@@ -13,7 +13,8 @@ app.Loader.load([
 Ext.define('app.Grid', {
     //    extend : 'Ext.ux.LiveSearchGridPanel',
     extend : 'Ext.grid.Panel',
-    //verticalScrollerType: 'paginggridscroller',
+    verticalScrollerType: 'paginggridscroller',
+    //height: 200,
     autoScroll: true, 
     listeners: {
         render: function(c) {
