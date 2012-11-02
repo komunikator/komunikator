@@ -5,7 +5,8 @@ set -e
 
 case "$1" in
     configure)
-
+	    chgrp www-data /etc/network/interfaces
+	    chmod 660 /etc/network/interfaces
 
             # Create link to config snippet
             if [ ! -f /etc/apache2/conf.d/kommadmin.conf ] && [ ! -h /etc/apache2/conf.d/kommadmin.conf ]; then

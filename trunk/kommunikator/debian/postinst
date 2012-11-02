@@ -23,7 +23,7 @@ case "$1" in
 
             # Create link to config snippet
             if [ ! -f /etc/apache2/conf.d/kommunikator.conf ] && [ ! -h /etc/apache2/conf.d/kommunikator.conf ]; then
-                ln -s /etc/yate-service/apache.conf /etc/apache2/conf.d/kommunikator.conf
+                ln -s /etc/kommunikator/apache.conf /etc/apache2/conf.d/kommunikator.conf
             fi
 
             # Restart the webserver
