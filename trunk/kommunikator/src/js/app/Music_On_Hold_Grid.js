@@ -10,6 +10,9 @@ Ext.define('app.Music_On_Hold_Grid', {
         hidden: true
     },
     {
+        editor :  {
+            xtype: 'textfield'
+        },
         width:320
     },
 
@@ -17,7 +20,11 @@ Ext.define('app.Music_On_Hold_Grid', {
         hidden: true
     },
     {
-        width:320
+        width:320,
+        fileUpload: true,
+        editor :  {
+            xtype: 'fileuploadfield'
+        }
     }
     ],        
     initComponent : function () {

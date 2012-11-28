@@ -1,6 +1,6 @@
 Ext.define('app.Viewport', {
     extend : 'Ext.container.Viewport',
-    style:'padding:2px;',
+    style:'padding:2px 10px;',
     layout: 'border',
     items: [{
         region: 'north',
@@ -9,7 +9,7 @@ Ext.define('app.Viewport', {
         margins: '0 0 5 0'
     }, {
         region: 'south',
-        title:'<center>Copyright 2012 D&T PBX</center>',
+        title:'<div style="text-align:center;"><p style="font-size:8pt;">'+app.msg.copyright+'</p></div>',
         border: false,
         margins: '10 10 10 0'
     }, {
@@ -75,13 +75,16 @@ Ext.define('app.Viewport', {
 	    ]
 	}), 
         Ext.create('app.Card_Panel',{
-            title: app.msg.extensions,
+            title: app.msg.directory,
             items: [
             Ext.create('app.Extensions_Grid',{
                 title:app.msg.extensions
             }),
             Ext.create('app.Groups_Grid',{
                 title:app.msg.groups
+            }),
+            Ext.create('app.AddressBook_Grid',{
+                title:app.msg.address_book
             })
             ]
 
@@ -130,11 +133,14 @@ Ext.define('app.Viewport', {
             title:app.msg.settings,
             items: [
             Ext.create('app.Settings_Grid',{
-                title:'app.msg.settings'
+                title:app.msg.settings
             }),
             Ext.create('app.Ntn_Settings_Grid',{
-                title:'app.msg.notification_settings'
-            })
+                title:app.msg.notification_settings
+            }),
+	    Ext.create('app.Update_Panel',{
+		title:app.msg.update
+	    })
             ]
         }),   
         {
@@ -150,9 +156,10 @@ Ext.define('app.Viewport', {
     }],  
     initComponent : function () {
         this.items[0].title =
-        '<h1 class="x-panel-header" style="text-align:center;">D&T PBX</h1><div style="padding-left: 40px;">'+
-        '<p>'+app.msg.user+': <a href="#" onclick="app.logout();return false" title="'+ app.msg.changepassword +'">'+
-        this.user_name+'</a></p><a href="#" onclick="app.logout();return false">'+ app.msg.logout +'</a></div>';
+	'<div class="x-box-inner" style="padding-left: 20px;padding-right: 20px;height:60px;background-color:#D5EAF3;">'+
+         '<img class="logo" src="js/app/images/logo_ts.png" height="60px" alt="TS" border="0" align="left">'+
+        '<p align="right"><a href="#" onclick="app.logout();return false">'+ app.msg.logout +'</a></p>'+
+        '<p align="right">'+app.msg.user+': '+ this.user_name +'</p></div>';
         /*
         this.listeners = {
             afterrender: function(){

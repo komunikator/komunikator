@@ -21,12 +21,12 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `actionlogs`;
 CREATE TABLE `actionlogs` (
   `date` decimal(17,3) NOT NULL,
-  `log` varchar(255),
-  `performer_id` varchar(255),
-  `performer` varchar(255),
-  `real_performer_id` varchar(255),
-  `object` varchar(255),
-  `query` varchar(255),
+  `log` text,
+  `performer_id` text,
+  `performer` text,
+  `real_performer_id` text,
+  `object` text,
+  `query` text,
   `ip` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -40,17 +40,17 @@ CREATE TABLE `actionlogs` (
 DROP TABLE IF EXISTS `call_logs`;
 CREATE TABLE `call_logs` (
   `time` decimal(17,3) NOT NULL,
-  `chan` varchar(255),
-  `address` varchar(255),
-  `direction` varchar(255),
-  `billid` varchar(255),
-  `caller` varchar(255),
-  `called` varchar(255),
+  `chan` text,
+  `address` text,
+  `direction` text,
+  `billid` text,
+  `caller` text,
+  `called` text,
   `duration` decimal(6,3) DEFAULT NULL,
   `billtime` decimal(6,3) DEFAULT NULL,
   `ringtime` decimal(6,3) DEFAULT NULL,
-  `status` varchar(255),
-  `reason` varchar(255),
+  `status` text,
+  `reason` text,
   `ended` tinyint(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -58,9 +58,9 @@ CREATE TABLE `call_logs` (
 -- ----------------------------
 DROP TABLE IF EXISTS `card_confs`;
 CREATE TABLE `card_confs` (
-  `param_name` varchar(255),
-  `param_value` varchar(255),
-  `section_name` varchar(255),
+  `param_name` text,
+  `param_value` text,
+  `section_name` text,
   `module_name` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -72,14 +72,14 @@ CREATE TABLE `card_ports` (
   `BUS` int(11) DEFAULT NULL,
   `SLOT` int(11) DEFAULT NULL,
   `PORT` int(11) DEFAULT NULL,
-  `filename` varchar(255),
-  `span` varchar(255),
-  `type` varchar(255),
-  `card_type` varchar(255),
-  `voice_interface` varchar(255),
-  `sig_interface` varchar(255),
-  `voice_chans` varchar(255),
-  `sig_chans` varchar(255),
+  `filename` text,
+  `span` text,
+  `type` text,
+  `card_type` text,
+  `voice_interface` text,
+  `sig_interface` text,
+  `voice_chans` text,
+  `sig_chans` text,
   `echocancel` tinyint(1) DEFAULT NULL,
   `dtmfdetect` tinyint(1) DEFAULT NULL,
   `name` text
@@ -91,17 +91,17 @@ CREATE TABLE `card_ports` (
 DROP TABLE IF EXISTS `dial_plans`;
 CREATE TABLE `dial_plans` (
   `dial_plan_id` int(11) NOT NULL AUTO_INCREMENT,
-  `dial_plan` varchar(255),
+  `dial_plan` text,
   `priority` int(11) DEFAULT NULL,
-  `prefix` varchar(255),
+  `prefix` text,
   `gateway_id` int(11) DEFAULT NULL,
   `nr_of_digits_to_cut` int(11) DEFAULT NULL,
   `position_to_start_cutting` int(11) DEFAULT NULL,
   `nr_of_digits_to_replace` int(11) DEFAULT NULL,
-  `digits_to_replace_with` varchar(255),
+  `digits_to_replace_with` text,
   `position_to_start_replacing` int(11) DEFAULT NULL,
   `position_to_start_adding` int(11) DEFAULT NULL,
-  `digits_to_add` varchar(255),
+  `digits_to_add` text,
   PRIMARY KEY (`dial_plan_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -111,10 +111,10 @@ CREATE TABLE `dial_plans` (
 DROP TABLE IF EXISTS `dids`;
 CREATE TABLE `dids` (
   `did_id` int(11) NOT NULL AUTO_INCREMENT,
-  `did` varchar(255),
-  `number` varchar(255),
-  `destination` varchar(255),
-  `description` varchar(255),
+  `did` text,
+  `number` text,
+  `destination` text,
+  `description` text,
   `extension_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`did_id`)
@@ -126,13 +126,13 @@ CREATE TABLE `dids` (
 DROP TABLE IF EXISTS `extensions`;
 CREATE TABLE `extensions` (
   `extension_id` int(11) NOT NULL AUTO_INCREMENT,
-  `extension` varchar(255),
-  `password` varchar(255),
-  `firstname` varchar(255),
-  `lastname` varchar(255),
-  `address` varchar(255),
+  `extension` text,
+  `password` text,
+  `firstname` text,
+  `lastname` text,
+  `address` text,
   `inuse` int(11) DEFAULT NULL,
-  `location` varchar(255),
+  `location` text,
   `expires` decimal(17,3) DEFAULT NULL,
   `max_minutes` decimal(6,3) DEFAULT NULL,
   `used_minutes` decimal(6,3) DEFAULT NULL,
@@ -148,31 +148,31 @@ CREATE TABLE `extensions` (
 DROP TABLE IF EXISTS `gateways`;
 CREATE TABLE `gateways` (
   `gateway_id` int(11) NOT NULL AUTO_INCREMENT,
-  `gateway` varchar(255),
-  `protocol` varchar(255),
-  `server` varchar(255),
-  `type` varchar(255),
-  `username` varchar(255),
-  `password` varchar(255),
+  `gateway` text,
+  `protocol` text,
+  `server` text,
+  `type` text,
+  `username` text,
+  `password` text,
   `enabled` tinyint(1) DEFAULT NULL,
-  `description` varchar(255),
-  `interval` varchar(255),
-  `authname` varchar(255),
-  `domain` varchar(255),
-  `outbound` varchar(255),
-  `localaddress` varchar(255),
-  `formats` varchar(255),
-  `rtp_localip` varchar(255),
-  `ip_transport` varchar(255),
-  `oip_transport` varchar(255),
-  `port` varchar(255),
-  `iaxuser` varchar(255),
-  `iaxcontext` varchar(255),
+  `description` text,
+  `interval` text,
+  `authname` text,
+  `domain` text,
+  `outbound` text,
+  `localaddress` text,
+  `formats` text,
+  `rtp_localip` text,
+  `ip_transport` text,
+  `oip_transport` text,
+  `port` text,
+  `iaxuser` text,
+  `iaxcontext` text,
   `rtp_forward` tinyint(1) DEFAULT NULL,
-  `status` varchar(255),
+  `status` text,
   `modified` tinyint(1) DEFAULT NULL,
-  `callerid` varchar(255),
-  `callername` varchar(255),
+  `callerid` text,
+  `callername` text,
   `send_extension` tinyint(1) DEFAULT NULL,
   `trusted` tinyint(1) DEFAULT NULL,
   `sig_trunk_id` int(11) DEFAULT NULL,
@@ -196,15 +196,15 @@ CREATE TABLE `group_members` (
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `group` varchar(255),
-  `description` varchar(255),
-  `extension` varchar(255),
+  `group` text,
+  `description` text,
+  `extension` text,
   `mintime` int(11) DEFAULT NULL,
   `length` int(11) DEFAULT NULL,
   `maxout` int(11) DEFAULT NULL,
-  `greeting` varchar(255),
+  `greeting` text,
   `maxcall` int(11) DEFAULT NULL,
-  `prompt` varchar(255),
+  `prompt` text,
   `detail` tinyint(1) DEFAULT NULL,
   `playlist_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`group_id`)
@@ -216,9 +216,9 @@ CREATE TABLE `groups` (
 DROP TABLE IF EXISTS `incoming_gateways`;
 CREATE TABLE `incoming_gateways` (
   `incoming_gateway_id` int(11) NOT NULL AUTO_INCREMENT,
-  `incoming_gateway` varchar(255),
+  `incoming_gateway` text,
   `gateway_id` int(11) DEFAULT NULL,
-  `ip` varchar(255),
+  `ip` text,
   PRIMARY KEY (`incoming_gateway_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -228,10 +228,10 @@ CREATE TABLE `incoming_gateways` (
 DROP TABLE IF EXISTS `keys`;
 CREATE TABLE `keys` (
   `key_id` int(11) NOT NULL AUTO_INCREMENT,
-  `key` varchar(255),
+  `key` text,
   `prompt_id` int(11) DEFAULT NULL,
-  `destination` varchar(255),
-  `description` varchar(255),
+  `destination` text,
+  `description` text,
   PRIMARY KEY (`key_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -241,9 +241,9 @@ CREATE TABLE `keys` (
 DROP TABLE IF EXISTS `limits_international`;
 CREATE TABLE `limits_international` (
   `limit_international_id` int(11) NOT NULL AUTO_INCREMENT,
-  `limit_international` varchar(255),
-  `name` varchar(255),
-  `value` varchar(255),
+  `limit_international` text,
+  `name` text,
+  `value` text,
   PRIMARY KEY (`limit_international_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -253,9 +253,9 @@ CREATE TABLE `limits_international` (
 DROP TABLE IF EXISTS `music_on_hold`;
 CREATE TABLE `music_on_hold` (
   `music_on_hold_id` int(11) NOT NULL AUTO_INCREMENT,
-  `music_on_hold` varchar(255),
-  `description` varchar(255),
-  `file` varchar(255),
+  `music_on_hold` text,
+  `description` text,
+  `file` text,
   PRIMARY KEY (`music_on_hold_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
@@ -265,11 +265,11 @@ CREATE TABLE `music_on_hold` (
 DROP TABLE IF EXISTS `network_interfaces`;
 CREATE TABLE `network_interfaces` (
   `network_interface_id` int(11) NOT NULL AUTO_INCREMENT,
-  `network_interface` varchar(255),
-  `protocol` varchar(255),
-  `ip_address` varchar(255),
-  `netmask` varchar(255),
-  `gateway` varchar(255),
+  `network_interface` text,
+  `protocol` text,
+  `ip_address` text,
+  `netmask` text,
+  `gateway` text,
   PRIMARY KEY (`network_interface_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -280,8 +280,8 @@ DROP TABLE IF EXISTS `pbx_settings`;
 CREATE TABLE `pbx_settings` (
   `pbx_setting_id` int(11) NOT NULL AUTO_INCREMENT,
   `extension_id` int(11) DEFAULT NULL,
-  `param` varchar(255),
-  `value` varchar(255),
+  `param` text,
+  `value` text,
   PRIMARY KEY (`pbx_setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -302,7 +302,7 @@ CREATE TABLE `playlist_items` (
 DROP TABLE IF EXISTS `playlists`;
 CREATE TABLE `playlists` (
   `playlist_id` int(11) NOT NULL AUTO_INCREMENT,
-  `playlist` varchar(255),
+  `playlist` text,
   `in_use` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`playlist_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -313,8 +313,8 @@ CREATE TABLE `playlists` (
 DROP TABLE IF EXISTS `prefixes`;
 CREATE TABLE `prefixes` (
   `prefix_id` int(11) NOT NULL AUTO_INCREMENT,
-  `prefix` varchar(255),
-  `name` varchar(255),
+  `prefix` text,
+  `name` text,
   `international` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`prefix_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -325,10 +325,10 @@ CREATE TABLE `prefixes` (
 DROP TABLE IF EXISTS `prompts`;
 CREATE TABLE `prompts` (
   `prompt_id` int(11) NOT NULL AUTO_INCREMENT,
-  `prompt` varchar(255),
-  `description` varchar(255),
-  `status` varchar(255),
-  `file` varchar(255),
+  `prompt` text,
+  `description` text,
+  `status` text,
+  `file` text,
   PRIMARY KEY (`prompt_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -338,9 +338,9 @@ CREATE TABLE `prompts` (
 DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
   `setting_id` int(11) NOT NULL AUTO_INCREMENT,
-  `param` varchar(255),
-  `value` varchar(255),
-  `description` varchar(255),
+  `param` text,
+  `value` text,
+  `description` text,
   PRIMARY KEY (`setting_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=261 DEFAULT CHARSET=utf8;
 
@@ -350,9 +350,9 @@ CREATE TABLE `settings` (
 DROP TABLE IF EXISTS `short_names`;
 CREATE TABLE `short_names` (
   `short_name_id` int(11) NOT NULL AUTO_INCREMENT,
-  `short_name` varchar(255),
-  `name` varchar(255),
-  `number` varchar(255),
+  `short_name` text,
+  `name` text,
+  `number` text,
   `extension_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`short_name_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -363,30 +363,30 @@ CREATE TABLE `short_names` (
 DROP TABLE IF EXISTS `sig_trunks`;
 CREATE TABLE `sig_trunks` (
   `sig_trunk_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sig_trunk` varchar(255),
-  `enable` varchar(255),
-  `type` varchar(255),
-  `switchtype` varchar(255),
-  `sig` varchar(255),
-  `voice` varchar(255),
-  `number` varchar(255),
+  `sig_trunk` text,
+  `enable` text,
+  `type` text,
+  `switchtype` text,
+  `sig` text,
+  `voice` text,
+  `number` text,
   `rxunderrun` int(11) DEFAULT NULL,
-  `strategy` varchar(255),
-  `strategy-restrict` varchar(255),
+  `strategy` text,
+  `strategy-restrict` text,
   `userparttest` int(11) DEFAULT NULL,
   `channelsync` int(11) DEFAULT NULL,
   `channellock` int(11) DEFAULT NULL,
-  `numplan` varchar(255),
-  `numtype` varchar(255),
-  `presentation` varchar(255),
-  `screening` varchar(255),
-  `format` varchar(255),
-  `print-messages` varchar(255),
-  `print-frames` varchar(255),
-  `extended-debug` varchar(255),
-  `layer2dump` varchar(255),
-  `layer3dump` varchar(255),
-  `port` varchar(255),
+  `numplan` text,
+  `numtype` text,
+  `presentation` text,
+  `screening` text,
+  `format` text,
+  `print-messages` text,
+  `print-frames` text,
+  `extended-debug` text,
+  `layer2dump` text,
+  `layer3dump` text,
+  `port` text,
   PRIMARY KEY (`sig_trunk_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -397,9 +397,9 @@ DROP TABLE IF EXISTS `time_frames`;
 CREATE TABLE `time_frames` (
   `time_frame_id` int(11) NOT NULL AUTO_INCREMENT,
   `prompt_id` int(11) DEFAULT NULL,
-  `day` varchar(255),
-  `start_hour` varchar(255),
-  `end_hour` varchar(255),
+  `day` text,
+  `start_hour` text,
+  `end_hour` text,
   `numeric_day` int(11) DEFAULT NULL,
   PRIMARY KEY (`time_frame_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -410,14 +410,14 @@ CREATE TABLE `time_frames` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255),
-  `password` varchar(255),
-  `firstname` varchar(255),
-  `lastname` varchar(255),
-  `email` varchar(255),
-  `description` varchar(255),
-  `fax_number` varchar(255),
-  `ident` varchar(255),
+  `username` text,
+  `password` text,
+  `firstname` text,
+  `lastname` text,
+  `email` text,
+  `description` text,
+  `fax_number` text,
+  `ident` text,
   `login_attempts` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -425,9 +425,9 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `ntn_settings`;
 CREATE TABLE `ntn_settings` (
   `ntn_setting_id` int(11) NOT NULL AUTO_INCREMENT,
-  `param` varchar(255),
-  `value` varchar(255),
-  `description` varchar(255),
+  `param` text,
+  `value` text,
+  `description` text,
   PRIMARY KEY (`ntn_setting_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 

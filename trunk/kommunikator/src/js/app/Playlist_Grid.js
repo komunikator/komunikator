@@ -7,6 +7,11 @@ Ext.define('app.Playlist_Grid', {
     columns : [
     {
         hidden: true
+    },
+    { 
+        editor :  {
+            xtype: 'textfield'
+        }
     }
     ],
     initComponent : function () {
