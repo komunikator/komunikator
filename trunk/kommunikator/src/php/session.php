@@ -36,6 +36,7 @@ if (isset($_GET['style']))
     $_SESSION['style'] = $_GET['style'];
 
 if (!isset($_SESSION['style']))
+//    $_SESSION['style'] = 'clifton';
     $_SESSION['style'] = 'blue';
 
 if (isset($_GET['refresh']))

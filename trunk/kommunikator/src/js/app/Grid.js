@@ -205,7 +205,7 @@ Ext.define('app.Grid', {
                 }]
             } ,            
             this.store_cfg.sorters[0].property = this.store_cfg.fields[1]?Ext.isString(this.store_cfg.fields[1])?this.store_cfg.fields[1]:this.store_cfg.fields[1]['name']:null;
-
+                                          
 	    if (this['no_adddelbuttons'])
 		this.tbar.items.splice(0,2);
 

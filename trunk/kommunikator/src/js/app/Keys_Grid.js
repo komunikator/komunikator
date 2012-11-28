@@ -39,14 +39,15 @@ Ext.define('app.Keys_Grid', {
     { 
         editor :  {
             xtype: 'combobox',
-            store: Ext.StoreMgr.lookup('extensions_groups')?
-            Ext.StoreMgr.lookup('extensions_groups'):
+            store: Ext.StoreMgr.lookup('sources')?
+            Ext.StoreMgr.lookup('sources'):
             Ext.create('app.Store',{
                 fields : ['id', 'name'],   
-                storeId : 'extensions_groups'
+                storeId : 'sources'
             }),
-	    queryCaching: false,
-	    //editable: false,	
+	    //tpl : '<tpl for="."><div class="x-combo-list-item">function(return app.msg["{name}"];)()</div></tpl>',	
+	    //queryCaching: false,
+	    editable: true,	
             displayField: 'name',
             valueField: 'name',
             queryMode: 'remove'
@@ -58,8 +59,15 @@ Ext.define('app.Keys_Grid', {
             xtype: 'textfield'
         }
     },
-        
     ],
+    columns_renderer :
+        function(value, metaData, record, rowIndex, colIndex, store) {
+            if (colIndex==3 && app.msg[value])
+	    {
+		return app.msg[value];
+	    }
+            return value;
+    },
     initComponent : function () {
         this.callParent(arguments); 
     }
