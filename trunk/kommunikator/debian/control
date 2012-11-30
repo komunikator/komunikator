@@ -8,8 +8,7 @@ Homepage:
 
 Package: kommunikator
 Architecture: all
-Depends: yate (>=4.0.0), libphp5-mod-apache2, php5-mysql, dbconfig-common
-Recommends: mysql-server
+Depends: yate (>=4.0.0), libapache2-mod-php5, php5-mysql, php-db, dbconfig-common, mysql-server
 Description: Komminikator IP PBX administration web app
 
 Package: kommunikator-doc

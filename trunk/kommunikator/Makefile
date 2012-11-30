@@ -17,5 +17,9 @@ install:
 	mkdir -p ${DESTDIR}/usr/share/dbconfig-common/data/kommunikator/install
 	cd SQL; \
 	cat shema_mysql.sql > ${DESTDIR}/usr/share/dbconfig-common/data/kommunikator/install/mysql
-	mkdir -p ${DESTDIR}/etc/kommunikator
-	cp etc/apache.conf ${DESTDIR}/etc/kommunikator
+	mkdir -p ${DESTDIR}/etc/kommunikator; \
+	cp etc/apache.conf ${DESTDIR}/etc/kommunikator; \
+	cp -R etc/yate ${DESTDIR}/etc/kommunikator
+	mkdir -p ${DESTDIR}/usr/share/kommunikator; \
+	cp -R scripts ${DESTDIR}/usr/share/kommunikator; \
+	chmod -R 755 ${DESTDIR}/usr/share/kommunikator/scripts/*

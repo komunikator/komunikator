@@ -10,6 +10,7 @@ fi
 
 # source dbconfig-common stuff
 if [ -f /usr/share/dbconfig-common/dpkg/config.mysql ]; then
+	dbc_dbpass=kommunikator
 	. /usr/share/dbconfig-common/dpkg/config.mysql 
 	dbc_go kommunikator $@
 fi

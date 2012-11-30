@@ -18,9 +18,9 @@
 #
 ### BEGIN INIT INFO
 # Provides:          yate
-# Required-Start:    $network $local_fs
+# Required-Start:    $network $local_fs $syslog
 # Required-Stop:
-# Should-Start:      postgresql
+# Should-Start:      postgresql mysql
 # Should-Stop:
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
@@ -51,7 +51,7 @@ DIETIME=10              # Time to wait for the server to die, in seconds
                         # let some servers to die gracefully and
                         # 'restart' will not work
 
-#STARTTIME=2             # Time to wait for the server to start, in seconds
+STARTTIME=3             # Time to wait for the server to start, in seconds
                         # If this value is set each time the server is
                         # started (on start or restart) the script will
                         # stall to try to determine if it is running
@@ -72,6 +72,14 @@ if [ ! -d $LOGDIR ]; then
     mkdir -p $LOGDIR
     chgrp $DAEMONUSER $LOGDIR
     chmod 775 $LOGDIR
+fi
+
+PID_DIR=$(dirname $PIDFILE)
+
+if [ ! -d $PID_DIR ]; then
+    mkdir -p $PID_DIR
+    chgrp $DAEMONUSER $PID_DIR
+    chmod 775 $PID_DIR
 fi
 
 # Use this if you want the user to explicitly set 'RUN' in
@@ -122,6 +130,7 @@ running() {
 }
 
 start_server() {
+        [ -n "$STARTTIME" ] && sleep $STARTTIME # Wait some time 
 # Start the process using the wrapper
         if [ -z "$DAEMONUSER" ] ; then
             start_daemon -p $PIDFILE $DAEMON $DAEMON_OPTS
