@@ -434,6 +434,8 @@ CREATE TABLE `ntn_settings` (
 -- ----------------------------
 -- Records of time_frames
 -- ----------------------------
+INSERT INTO `users` VALUES ('1', 'admin', 'admin', null, null, null, null, null, null, '0');
+
 INSERT INTO `time_frames` VALUES ('1', '1', 'Sunday', null, null, '0');
 INSERT INTO `time_frames` VALUES ('2', '1', 'Monday', '8', '18', '1');
 INSERT INTO `time_frames` VALUES ('3', '1', 'Tuesday', '8', '18', '2');
