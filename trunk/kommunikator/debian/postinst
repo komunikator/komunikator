@@ -3,10 +3,18 @@
 set -e
 #set -x
 
-. /usr/share/debconf/confmodule
-. /usr/share/dbconfig-common/dpkg/postinst.mysql 
-dbc_generate_include=php:/var/www/kommunikator/config-db.php
-dbc_go kommunikator $@
+# source debconf stuff
+if [ -f /usr/share/debconf/confmodule ]; then
+        . /usr/share/debconf/confmodule
+fi
+
+# source dbconfig-common stuff
+if [ -f /usr/share/dbconfig-common/dpkg/postinst.mysql ]; then
+	#dbc_generate_include=php:/var/www/kommunikator/config-db.php
+	#dbc_generate_include_perms=644
+	. /usr/share/dbconfig-common/dpkg/postinst.mysql 
+	dbc_go kommunikator $@
+fi
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
@@ -25,14 +33,35 @@ case "$1" in
             if [ ! -f /etc/apache2/conf.d/kommunikator.conf ] && [ ! -h /etc/apache2/conf.d/kommunikator.conf ]; then
                 ln -s /etc/kommunikator/apache.conf /etc/apache2/conf.d/kommunikator.conf
             fi
+	    # Installing /etc config stuff
+	    for f in /etc/kommunikator/yate/*
+	    do
+		ff=/etc/yate/$(basename $f)
+		if [ -f $ff ]; then
+		    dpkg-divert --add --package $DPKG_MAINTSCRIPT_PACKAGE --rename --divert $ff.old $ff
+		fi
+		ln -sf $f $ff
+	    done
+	    # Installing yate scripts
+	    for f in /usr/share/kommunikator/scripts/*
+	    do
+		ff=/usr/share/yate/scripts/$(basename $f)
+		if [ -f $ff ]; then
+		    dpkg-divert --add --package $DPKG_MAINTSCRIPT_PACKAGE --rename --divert $ff.old $ff
+		fi
+		ln -sf $f $ff
+	    done
 
-            # Restart the webserver
+	    ###### Magic trouble helper #########
+	    db_stop
+            # Restart daemons affected
             if [ -x /usr/sbin/invoke-rc.d ]; then
                 invoke-rc.d apache2 restart >&2
+                invoke-rc.d yate restart >&2
             else
                 /etc/init.d/apache2 restart >&2
+                /etc/init.d/yate restart >&2
             fi
-        done
 
         ;;
 
