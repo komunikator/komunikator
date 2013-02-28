@@ -26,6 +26,7 @@
 require_once("lib_queries.php");
 require_once("libyate.php");
 
+set_time_limit($time_out);
 
 $ourcallid = "auto_attendant/" . uniqid(rand(),1);
 
@@ -74,7 +75,27 @@ function setState($newstate)
     switch ($newstate) {
 	case "greeting":
 	    // check what prompt to use for this time of day
-	    $query = "select prompts.prompt_id, prompts.file as prompt from time_frames, prompts /*where numeric_day=extract(dow from now()) and cast(start_hour as integer)<=extract(HOUR FROM now()) AND cast(end_hour as integer)>extract(HOUR FROM now()) and time_frames.prompt_id=prompts.prompt_id*/ UNION select prompt_id,  file as prompt from prompts where status='offline'";
+
+	    //$query = "select prompts.prompt_id, prompts.file as prompt from time_frames, prompts /*where numeric_day=extract(dow from now()) and cast(start_hour as integer)<=extract(HOUR FROM now()) AND cast(end_hour as integer)>extract(HOUR FROM now()) and time_frames.prompt_id=prompts.prompt_id*/ UNION select prompt_id,  file as prompt from prompts where status='online'";
+
+	    $status = 'offline';
+            $query =  "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames"; 
+	    $res = query_to_array($query);
+	    if(count($res))
+	    {
+		$day_week = date('w');
+		$hour 	  = date('H')*1;
+		debug("Current week index '$day_week' : hour '$hour'");
+		//$day_week = 2;
+		//$hour 	  = 12;
+		$status = 'offline';
+
+ 		foreach ($res as $row)
+   		    if ($row["numeric_day"]==$day_week && $row["start_hour"]<=$hour && $hour<$row["end_hour"])	
+ 			$status = 'online';
+	    };
+
+	    $query = "select prompts.prompt_id, prompts.file as prompt from prompts where status='$status'";
 	    $res = query_to_array($query);
              debug('greeting:'.format_array($res));
 	
@@ -87,11 +108,11 @@ function setState($newstate)
 	    $prompt_id = $res[0]["prompt_id"];
 	    $prompt =  $res[0]["prompt"];
 	    // here we must have ".au"
-	    $prompt = str_ireplace(".mp3", ".slin", $prompt);
-	    $query = "SELECT 'key', destination FROM `keys` WHERE prompt_id=$prompt_id";
+	    //$prompt = str_ireplace(".mp3", ".slin", $prompt);
+	    $query = "SELECT keys.key, destination FROM `keys` WHERE prompt_id=$prompt_id";
 
 	    $keys = query_to_array($query);
-              debug('keys:'.format_array($res));
+              debug('keys:'.format_array($keys));
 	    $m = new Yate("chan.attach" );
 	    $m->params["source"] = "wave/play/$uploaded_prompts/auto_attendant/$prompt";
               debug('source:'."wave/play/$uploaded_prompts/auto_attendant/$prompt");
@@ -116,6 +137,7 @@ function setState($newstate)
 	    break;
 	case "call.route":
 	    $to_call = null;
+	    debug ('$keys = '.$keys);
 	    for($i=0; $i<count($keys); $i++) {
 		if($keys[$i]["key"] == $hold_keys) {
 		    $to_call = $keys[$i]["destination"];
@@ -124,6 +146,7 @@ function setState($newstate)
 		}
 	    }
 	    if($hold_keys == '') {
+		debug ('$called = '.$called);
 		$query = "SELECT (CASE WHEN extension_id IS NOT NULL THEN (SELECT extension FROM extensions WHERE extensions.extension_id=dids.extension_id) ELSE (SELECT extension FROM groups WHERE groups.group_id=dids.group_id) END) as called FROM dids WHERE number='$called'";
 		$res = query_to_array($query);
 		if(!count($res) || !strlen($res[0]["called"])) {
@@ -149,6 +172,7 @@ function setState($newstate)
 	    $m->params["message"] = "call.execute";
 	    $m->params["id"] = $partycallid;
 	    $m->params["callto"] = $destination;
+		
 	    $m->Dispatch();
 	    break;
      }
@@ -305,6 +329,5 @@ while ($state != "") {
 }
 
 Yate::Output("PHP Auto Attendant: bye!");
-
 /* vi: set ts=8 sw=4 sts=4 noet: */
 ?>

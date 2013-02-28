@@ -20,7 +20,7 @@ Ext.define('app.LoginWindow', {
         //bodyCls : 'app_header'
         }, */{
             id : 'login_form',
-	    title: app.msg.auth_title,	
+            title: app.msg.auth_title,	
             region : 'center',
             xtype : 'form',
             url: 'data.php',
@@ -53,8 +53,11 @@ Ext.define('app.LoginWindow', {
                 name : 'action',
                 value: 'auth',
                 hidden: true
-            }
-
+            }, {
+                name : 'time_offset',
+                value:  new Date().getTimezoneOffset(),
+                hidden: true
+            }	
             ]
         }
         ];
@@ -71,10 +74,12 @@ Ext.define('app.LoginWindow', {
                         function(result){
                             login_form.getForm().reset();
                             Ext.getCmp('loginWindow').hide();
-			    app.main(result['user']);
-		            //Ext.getCmp('app.container').onShowFn(result['user']);
+                            app.main(result['user']);
+                            //Ext.getCmp('app.container').onShowFn(result['user']);
                             login_form.body.unmask();
-                        },function(result){login_form.body.unmask();});
+                        },function(result){
+                            login_form.body.unmask();
+                        });
                 }
             }
         }];

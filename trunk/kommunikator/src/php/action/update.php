@@ -15,8 +15,9 @@ foreach ($rows as $row) {
     }
     if ($id && $updates) {
         $sql=sprintf("UPDATE %s SET %s WHERE %s=%s", $table_name, implode(', ', $updates), $id_name,$id);
-	file_put_contents('a',print_r($sql,true)."\n",FILE_APPEND);
         query($sql);
+    $sql="insert into actionlogs (date,performer,query,ip) values (".time().",\"{$_SESSION['user']}\",\"$sql\", \"{$_SERVER['REMOTE_ADDR']}\")";
+    query ($sql);
     }
 };
 

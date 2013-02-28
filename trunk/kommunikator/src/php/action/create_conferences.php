@@ -17,6 +17,7 @@ $values = array();
                 break;
             case 'conference':
                 $values['did'] = "'conference $value'";
+                $values['destination'] = "'conf/1'";
                 break;
             case 'participants':;;
                 break;

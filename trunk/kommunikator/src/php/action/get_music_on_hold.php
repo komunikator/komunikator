@@ -9,7 +9,7 @@ $sql=
 <<<EOD
 	SELECT 
 	moh.music_on_hold_id as id, 
-	music_on_hold, description, 
+	music_on_hold, 
 	file,
 	pl.playlist
 	FROM music_on_hold moh

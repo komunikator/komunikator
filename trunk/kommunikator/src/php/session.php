@@ -14,11 +14,13 @@ else
     $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
 $_SESSION["lasttime"] = date("d.m.Y H:i:s");
 
+
 if (file_exists($ext_path.'ext-all.js')) {
 //    echo '<script type="text/javascript" src="'.$ext_path.'bootstrap.js"></script>'."\n";
     echo '<script type="text/javascript" src="'.$ext_path.'ext-all.js"></script>'."\n";
 }
 else die('File "ext-all.js" is not found');
+
 
 $app_path = 'js/app/';
 

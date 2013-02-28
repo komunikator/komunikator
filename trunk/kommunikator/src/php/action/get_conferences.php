@@ -2,9 +2,6 @@
 if(!$_SESSION['user']) {
     echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
 
-$total =  compact_array(query_to_array("SELECT count(*) FROM dids"));
-if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
-    
 $sql=
 <<<EOD
 	SELECT 
@@ -15,12 +12,15 @@ $sql=
 	FROM dids d where did like "conference %"  
 EOD;
 
-$data =  compact_array(query_to_array($sql.get_sql_order_limit()));
+$data =  compact_array(query_to_array($sql.get_filter()));
+if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
+$total = count($data["data"]);
 
+$data =  compact_array(query_to_array($sql.get_sql_order_limit()));
 if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
     
 $obj=array("success"=>true);
-$obj["total"] = $total['data'][0][0]; 
+$obj["total"] = $total; 
 $obj["data"] = $data['data']; 
 echo out($obj);
 ?>

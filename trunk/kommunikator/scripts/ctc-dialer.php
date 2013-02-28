@@ -4,6 +4,7 @@
  * Callback system dialer - call leg A script
  */
 require_once("libyate.php");
+set_time_limit(600);
 
 $ourcallid = "ctc-dialer/" . uniqid(rand(),1);
 $billid = rand();
@@ -93,6 +94,5 @@ for (;;) {
 }
 
 Yate::Output("PHP: bye!");
-
 /* vi: set ts=8 sw=4 sts=4 noet: */
 ?>

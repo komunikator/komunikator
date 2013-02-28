@@ -2,6 +2,7 @@
 <?
 require_once('lib_queries.php');
 require_once('lib_smtp.inc.php');
+set_time_limit(600);
 
 function debug($msg) {
     Yate::Debug('send_voicem.php: ' . $msg);

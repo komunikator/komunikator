@@ -25,3 +25,19 @@
 .icon-delete {
     background-image: url(images/delete.png) !important;
 }
+
+.icon-online {
+    background-image: url(images/online.gif) !important;
+    background-repeat: no-repeat;
+    background-position:center; 
+}
+.icon-offline {
+    background-image: url(images/offline.gif) !important;
+    background-repeat: no-repeat;
+    background-position:center; 		
+}
+.icon-busy {
+    background-image: url(images/busy.gif) !important;
+    background-repeat: no-repeat;
+    background-position:center; 
+}

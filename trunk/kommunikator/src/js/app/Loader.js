@@ -1,17 +1,17 @@
 app.Loader = Ext.apply({}, {
     load: function(fileList, callback, scope, preserveOrder) {
         var scope       = scope || this,
-            head        = document.getElementsByTagName("head")[0],
-            fragment    = document.createDocumentFragment(),
-            numFiles    = fileList.length,
-            loadedFiles = 0,
-            me          = this;
+        head        = document.getElementsByTagName("head")[0],
+        fragment    = document.createDocumentFragment(),
+        numFiles    = fileList.length,
+        loadedFiles = 0,
+        me          = this;
         
         // Loads a particular file from the fileList by index. This is used when preserving order
         var loadFileIndex = function(index) {
             head.appendChild(
                 me.buildScriptTag(fileList[index], onFileLoaded)
-            );
+                );
         };
         
         /**
@@ -38,7 +38,7 @@ app.Loader = Ext.apply({}, {
             Ext.each(fileList, function(file, index) {
                 fragment.appendChild(
                     this.buildScriptTag(file, onFileLoaded)
-                );
+                    );
             }, this);
             
             head.appendChild(fragment);

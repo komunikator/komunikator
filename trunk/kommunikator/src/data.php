@@ -4,6 +4,7 @@
 //ini_set('session.cookie_lifetime', 2592000); //30 day
 
 ini_set('session.name', 'session');
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //ini_set('session.use_cookies', 0);
 ini_set('session.use_only_cookies', 0);
 session_start();
@@ -37,10 +38,11 @@ require_once "php/util.php";
 $action = getparam("action"); 
 
 if ($action!='auth' && !(isset($_SESSION['user']) || isset($_SESSION['extension']))) {
-    echo out(array("success"=>false,"message"=>"Auth failed"));
+    echo out(array("success"=>false,"message"=>"session_failed"));
     exit;
 }
 
+if (!isset($_SESSION['time_offset'])) $_SESSION['time_offset'] = 240;
 $action_path = "php/action"; 
 
 if (file_exists("$action_path/$action".".php")) include "$action_path/$action".".php"; 

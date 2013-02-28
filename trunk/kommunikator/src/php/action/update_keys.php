@@ -13,6 +13,9 @@ $values = array();
     foreach ($row as $key=>$value)
             if ($key == 'status')
 	     $values['prompt_id']= " (select prompt_id from prompts where prompt = '$value') "; 
+		else
+            if ($key == 'destination')
+	     $values['destination']= "(select extension from groups  where groups.group = '$value' union select '$value' limit 1) "; 
 		else 
             $values[$key]="'$value'"; 
 $rows[] = $values;

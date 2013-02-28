@@ -63,17 +63,18 @@ function out($data) {
         return json_encode($data);		
 }
 
-function get_filter(){
- return getparam("filter")?" WHERE ".parseExtJSFilters():'';
+function get_filter() {
+    $filters = parseExtJSFilters();	
+    return $filters?" WHERE ".$filters:'';
 }
 
 function get_sql_order_limit() {
     $sort =  getparam("sort")?get_sql_field(getparam("sort")):1;
-    $dir  = getparam("dir")?getparam("dir"):'';
+    $dir  = getparam("dir")?getparam("dir"):'DESC';
     return get_filter()." ORDER BY ".$sort." ".$dir.get_sql_limit(getparam("start"),getparam("size"));
 }
 
-function get_sql_limit($start,$size,$page) {
+function get_sql_limit($start,$size/*,$page*/) {
     if (!(isset($start)) || !(isset($size))) return '';
     //  if ($start==null || $size==null) return '';
     global $db_type_sql;
@@ -127,7 +128,7 @@ function parseExtJSFilters() {
                 $whereClauses[] = "$filter->field = $filter->value" ;
                 break;
             case 'date':
-                //$filter->value = "'$filter->value'"; // Enclose data in quotes
+            //$filter->value = "'$filter->value'"; // Enclose data in quotes
                 $filter->value = strtotime($filter->value); // Enclose data in quotes
             case 'numeric':
                 switch($filter->comparison) {
@@ -138,15 +139,21 @@ function parseExtJSFilters() {
                         $whereClauses[] = "$filter->field > $filter->value";
                         break;
                     case 'eq': // Equal To
-                        $whereClauses[] = "$filter->field = $filter->value";
+                        if ($filter->type == 'date') {
+                            $whereClauses[] = "$filter->field < $filter->value+60*60*24";
+                            $whereClauses[] = "$filter->field > $filter->value";
+                        }
+                        else
+                            $whereClauses[] = "$filter->field = $filter->value";
                         break;
                 }
                 break;
             case 'list':
                 $listItems = array();
+		if (!count ($filter->value)) break;
                 foreach($filter->value as $value) {
                     $listItems[] = "'$value'";
-                }
+                };
                 $whereClauses[] = "$filter->field IN(" . implode(',', $listItems) . ')';
                 break;
             case 'string':
@@ -165,4 +172,22 @@ function parseExtJSFilters() {
     }
     return false;        
 }
+
+$macro_sql = array (
+'caller_called1' => ' a.caller, b.called, ', 
+'caller_called' =>
+<<<EOD
+		case when (select firstname from extensions where extension = a.caller) is not null then 
+		CONCAT((select firstname from extensions where extension = a.caller),' ',
+					 (select lastname  from extensions where extension = a.caller),' (',a.caller,')') 
+		else 
+		a.caller end caller , 
+	  case when (select firstname from extensions where extension = b.called) is not null then 
+		CONCAT((select firstname from extensions where extension = b.called),' ',
+					 (select lastname  from extensions where extension = b.called),' (',b.called,')') 
+		else 
+		b.called end called , 
+
+EOD
+)
     ?>

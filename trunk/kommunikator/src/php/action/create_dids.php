@@ -18,8 +18,20 @@ $values = array();
             case 'id': 
                 $id = $key;
                 break;
-            case 'group':;;
-            case 'extension':;;
+            case 'did':
+		break;	
+            case 'default_dest':
+                if (preg_match('/\d{3}/',$value)) {
+                    $values['extension_id']= " (select extension_id from extensions where extension = '$value') "; 
+                    $values['group_id']= 'null'; 
+                }
+                else {
+                    $values['group_id']= " (select group_id from groups where groups.group = '$value') "; 
+                    $values['extension_id']= 'null'; 
+                }	
+                break;
+            case 'destination':
+                $values[$key]="'$source[$value]'"; 
                 break;
             default:	
                 $values[$key]="'$value'"; 

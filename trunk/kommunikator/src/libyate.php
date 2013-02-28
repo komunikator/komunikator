@@ -503,9 +503,6 @@ function _yate_error_handler($errno, $errstr, $errfile, $errline)
 	case E_USER_NOTICE:
 	    Yate::Output("PHP warning: $str");
 	    break;
-	case E_STRICT:
-	    //Yate::Output("PHP E_STRICT: $str");
-	    break;
 	default:
 	    Yate::Output("PHP unknown error: $str");
     }

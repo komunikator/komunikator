@@ -5,10 +5,12 @@ Ext.define('app.Store', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            pageSize: app.pageSize,
+            pageSize: 50,//app.pageSize,
+            leadingBufferZone: 50,
             remoteSort: true,
             buffered: true,
-            //autoLoad: true,
+            remoteFilter: true,
+            autoLoad: true,
             //restful: true,
             //autoSync: true,
             proxy: {
@@ -44,8 +46,29 @@ Ext.define('app.Store', {
                 direction: 'ASC'
             }],
             listeners : {
+                totalcountchange: function () {
+                /*
+{
+                xtype: 'component',
+                itemId: 'status',
+                tpl: 'Matching threads: {count}',
+                style: 'margin-right:5px'
+            }
+*/
+                //this.Total_sync();
+                //grid.down('#status').update({count: store.getTotalCount()});
+                },
+                beforeload:function(s){
+                    var grid = Ext.getCmp(this.storeId+'_grid');
+                    if (grid && !this.autoLoad)
+                        grid.ownerCt.body.mask(Ext.view.AbstractView.prototype.loadingText);
+                },
+
                 load: function(store, records, success) {
                     //console.log (store.storeId+' loaded '+ store.getTotalCount());
+                    var grid = Ext.getCmp(this.storeId+'_grid');
+                    if (grid && !this.autoLoad)
+                        grid.ownerCt.body.unmask();
                     this.Total_sync();
                     this.dirtyMark = false;
                     if(!success && store.storeId) {
@@ -71,13 +94,14 @@ Ext.define('app.Store', {
                 this.sync();
             },
             Total_sync : function(){
-                this.dirtyMark = true;
+                this.dirtyMark = true;   
                 var displayItem = Ext.getCmp(this.storeId+'_displayItem');
+                //console.log(displayItem);
                 if (this.storeId && displayItem) {
                     displayItem.setText((app.msg.total?app.msg.total:'Total')+': '+this.getTotalCount());
                     displayItem.ownerCt.doComponentLayout();
+                //displayItem.ownerCt.ownerCt.getView().refresh(true);
                 };
-
             }
 	    	
         },cfg)]);

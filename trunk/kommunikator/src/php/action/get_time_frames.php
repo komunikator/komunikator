@@ -4,8 +4,7 @@ if(!$_SESSION['user']) {
 
 $total =  compact_array(query_to_array("SELECT count(*) FROM time_frames"));
 if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
-    
-$data =  compact_array(query_to_array("SELECT time_frame_id as id, prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames ".get_sql_order_limit()));
+$data =  compact_array(query_to_array("select time_frame_id as id, day, start_hour, end_hour from (SELECT time_frame_id, day, start_hour-{$_SESSION['time_offset']}/60 as start_hour, end_hour-{$_SESSION['time_offset']}/60 as end_hour, case when numeric_day = 0 then 7 else numeric_day end as numeric_day FROM time_frames) a order by numeric_day "));
 
 if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
     

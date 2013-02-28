@@ -18,7 +18,9 @@ app.PanelResizer = Ext.extend(Ext.util.Observable, {
     },
 
     onRender : function(p){
-        this.handle = p.footer.createChild({cls:'x-panel-resize'});
+        this.handle = p.footer.createChild({
+            cls:'x-panel-resize'
+        });
 
         this.tracker = new Ext.dd.DragTracker({
             onStart: this.onDragStart.createDelegate(this),

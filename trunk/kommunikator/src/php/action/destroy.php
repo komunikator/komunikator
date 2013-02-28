@@ -12,6 +12,8 @@ foreach ($rows as $row) {
     if ($id) {
 	$sql=sprintf("DELETE FROM %s WHERE %s=%s", $table_name,$id_name,$id);
         query($sql);
+    $sql="insert into actionlogs (date,performer,query,ip) values (".time().",\"{$_SESSION['user']}\",\"$sql\", \"{$_SERVER['REMOTE_ADDR']}\")";
+    query ($sql);
     }
 };
 

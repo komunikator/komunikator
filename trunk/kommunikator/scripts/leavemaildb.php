@@ -26,6 +26,7 @@
 require_once("libyate.php");
 require_once("libvoicemail.php");
 require_once("lib_queries.php");
+set_time_limit(600);
 
 /* Always the first action to do */
 Yate::Init();
@@ -240,6 +241,5 @@ if(is_file("$user/$file"))
 }
 
 Yate::Output("PHP leavemaildb : bye!");
-
 /* vi: set ts=8 sw=4 sts=4 noet: */
 ?>

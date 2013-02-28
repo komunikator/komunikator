@@ -2,7 +2,7 @@
 if(!$_SESSION['user']) {
     echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
 
-$total =  compact_array(query_to_array("SELECT count(*) FROM groups"));
+$total =  compact_array(query_to_array("SELECT count(*) FROM `keys`"));
 if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
 
 $sql=
@@ -11,7 +11,8 @@ $sql=
 	key_id as id, 
 	p.status, 
 	`key`,
-	destination 
+	(select groups.group from groups  where groups.extension = destination union select destination limit 1) destination,
+	k.description 
 	FROM `keys` k 
 		left join  prompts p 
 			on k.prompt_id = p.prompt_id

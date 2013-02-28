@@ -7,21 +7,29 @@ $rows = array();
 $values = array();
 
 if ($data && !is_array($data)) $data = array($data);
- foreach ($data as $row)
-{
-$values = array();
+foreach ($data as $row) {
+    $values = array();
     foreach ($row as $key=>$value)
-	switch ($key) {
-            case 'extension':
-	     	$values['extension_id']= " (select extension_id from extensions where extension = '$value') "; 
+        switch ($key) {
+            case 'did':
+		break;	
+            case 'default_dest':
+                if (preg_match('/\d{3}/',$value)) {
+                    $values['extension_id']= " (select extension_id from extensions where extension = '$value') "; 
+                    $values['group_id']= 'null'; 
+                }
+                else {
+                    $values['group_id']= " (select group_id from groups where groups.group = '$value') "; 
+                    $values['extension_id']= 'null'; 
+                }	
                 break;
-            case 'group':
-	     	$values['group_id']= " (select group_id from groups where groups.group = '$value') "; 
+            case 'destination':
+                $values[$key]="'$source[$value]'"; 
                 break;
             default:	
                 $values[$key]="'$value'"; 
         }
-$rows[] = $values;
+    $rows[] = $values;
 }
 $id_name = 'did_id';
 require_once("update.php");

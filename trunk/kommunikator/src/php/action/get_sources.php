@@ -7,7 +7,7 @@ if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total
 
 $const = array('attendant','voicemail');
     
-$data =  compact_array(query_to_array("select 0 as id, '$const[0]' as name union select 1 as id, '$const[1]' as name union SELECT group_id as id, groups.group as name FROM groups union SELECT extension_id as id, extension as name from extensions ".get_sql_order_limit()));
+$data =  compact_array(query_to_array("select 0 as id, '$const[0]' as name union select 1 as id, '$const[1]' as name union SELECT extension as id, groups.group as name FROM groups union SELECT extension as id, extension as name from extensions "/*.get_sql_order_limit()*/));
 //file_put_contents("test.txt","SELECT group_id as id, \"group\", description, extension FROM groups ORDER BY ".get_sql_order_limit());
 
 if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));

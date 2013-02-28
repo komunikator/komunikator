@@ -45,13 +45,13 @@ for($i=0; $i<count($posib); $i++) {
 }
 
 //$query_on = false;
-//$debug_on = false;
+$debug_on = true;//false;
 $query_on = true;
 $debug_on = true;
 
 
 function debug($mess) {
-    Yate::Debug("FreeSentral : register.php : ".$mess);
+    Yate::Debug("register.php : ".$mess);
 }
 
 function format_array($arr) {
@@ -311,9 +311,9 @@ function routeToGroup($called) {
             set_moh();
         $ev->params["mohlist"] = $s_moh[$res[0]["playlist_id"]];
         if ($ev->GetValue("copyparams"))
-            $ev->params["copyparams"] .= ",caller,callername,billid";
+            $ev->params["copyparams"] .= ",caller,callername,billid,orig_called";
         else
-            $ev->params["copyparams"] = "caller,callername,billid";
+            $ev->params["copyparams"] = "caller,callername,billid,orig_called";
         return true;
     }
     return false;

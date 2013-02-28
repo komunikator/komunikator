@@ -16,11 +16,11 @@ $values = array();
     foreach ($row as $key=>$value)
         if ($key == 'id') $id = $key;
 	else
-        if ($key == 'status');
+        if (in_array($key ,array('status','forward','forward_busy','forward_noanswer','noanswer_timeout')));
 	//else
         //if ($key == "extension" && !$value) $values[$key]=" (SELECT MAX(extension)+1 FROM (SELECT * FROM extensions)as x) ";
         else
-        if ($key == 'group') {if ($value && $row->extension) ;
+        if ($key == 'group_name') {if ($value && $row->extension) ;
                                   $extensions[$row->extension] = $value;}
         else
             $values[$key]="'$value'"; 

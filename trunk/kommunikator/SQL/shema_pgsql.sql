@@ -278,9 +278,9 @@ CREATE TABLE "public"."call_logs" (
 "status" text,
 "reason" text,
 "time" numeric(17,3),
-"duration" numeric(6,3),
-"billtime" numeric(6,3),
-"ringtime" numeric(6,3),
+"duration" numeric(7,3),
+"billtime" numeric(7,3),
+"ringtime" numeric(7,3),
 "ended" int2
 )
 WITH (OIDS=TRUE)
@@ -377,8 +377,8 @@ CREATE TABLE "public"."extensions" (
 "address" text,
 "inuse" int4,
 "location" text,
-"max_minutes" numeric(6,3),
-"used_minutes" numeric(6,3),
+"max_minutes" numeric(7,3),
+"used_minutes" numeric(7,3),
 "inuse_count" int2,
 "login_attempts" int2,
 "expires" numeric(17,3),

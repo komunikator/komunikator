@@ -16,6 +16,8 @@ $msg = '';
 if($socket->error == "") {
     $obj=array("success"=>true);
     $socket->command($command);
+    	    $sql="insert into actionlogs (date,performer,log,ip) values (".time().",\"{$_SESSION['extension']}\",\"$command\", \"{$_SERVER['REMOTE_ADDR']}\")";
+	    query ($sql);
 }
 else {
     $obj=array("success"=>false);

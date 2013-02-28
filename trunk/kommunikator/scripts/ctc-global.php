@@ -1,6 +1,7 @@
 #!/usr/bin/php -q
 <?php
 require_once("libyate.php");
+set_time_limit(600);
 
 // Initiate a call once we know the target
 function callInitiate($target,$ev)
@@ -74,6 +75,5 @@ for (;;) {
 }
 
 Yate::Debug("PHP: bye!");
-
 /* vi: set ts=8 sw=4 sts=4 noet: */
 ?>
