@@ -1,6 +1,7 @@
 
 DESTDIR :=
 vardir = /var/www/kommunikator
+usrdir = /usr/share/kommunikator
 
 all:
 
@@ -20,6 +21,7 @@ install:
 	mkdir -p ${DESTDIR}/etc/kommunikator; \
 	cp etc/apache.conf ${DESTDIR}/etc/kommunikator; \
 	cp -R etc/yate ${DESTDIR}/etc/kommunikator
-	mkdir -p ${DESTDIR}/usr/share/kommunikator; \
-	cp -R scripts ${DESTDIR}/usr/share/kommunikator; \
-	chmod -R 755 ${DESTDIR}/usr/share/kommunikator/scripts/*
+	mkdir -p ${DESTDIR}${usrdir}; \
+	cp -R scripts ${DESTDIR}${usrdir}; \
+	chmod -R 755 ${DESTDIR}${usrdir}/scripts/*; \
+	ln -sf ${usrdir}/scripts/config.php ${DESTDIR}${vardir}/config.php
