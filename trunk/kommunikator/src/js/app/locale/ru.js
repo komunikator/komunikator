@@ -190,5 +190,23 @@ app.msg = {
     invalid_ip_address  : 'Некорректный IP адрес',
     invalid_netmask	: 'Некорректная маска подсети',
     error_updated 	: 'Ошибка обновления',
-    updated		: 'Обновлено'
-}
+    updated		: 'Обновлено',
+    mail_settings       : 'Почтовые уведомления',
+    mailevents          : 'События приводящие к отправке уведомлений',
+    mailevent_incoming_gate : 'Входящий вызов (с указанием шлюза)*',
+    mailevent_incoming: 'Входящий вызов',
+    mailevent_outgoing: 'Исходящий вызов',
+    mailevent_internal: 'Внутренний вызов',
+    email: 'Адрес(а) электронной почты',
+    mail1: 'Текст сообщения',
+    mail2: '* Текст сообщения для входящих вызовов с указанием шлюза',
+    invalid_email: 'Некорректный адрес электронной почты',
+    mail_nofications: 'Почтовые уведомления',
+    mail_subject: 'Тема сообщения',
+    mail_incoming_subject: '...при входящем вызове',
+    mail_outgoing_subject_call_not_accepted: '...при непринятом исходящем вызове',
+    mail_outgoing_subject_fax_not_accepted: '...при непринятом исходящем факсе',
+    mail_outgoing_subject_call_accepted: '...при успешном исходящем вызове',
+    mail_outgoing_subject_fax_accepted: '...при успешном исходящем факсе'
+
+};

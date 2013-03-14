@@ -35,15 +35,16 @@ Ext.define('app.module.Mail_Settings_Panel', {
             }
         }			
 
-    }/*,
+    },
     {
         text: app.msg.load,
         handler:function() {
-            var form = this.ownerCt.ownerCt.getForm();
+            //console.log('test');
+            var form = this.ownerCt.ownerCt.getForm();            
                 form.load();
         }			
 
-    }*/],
+    }],
 
     initComponent : function () {
          
@@ -52,35 +53,33 @@ Ext.define('app.module.Mail_Settings_Panel', {
             xtype: 'fieldset',
             title: app.msg.mailevents,
             defaultType: 'checkboxfield',
+            defaults: {
+                    inputValue: 'true',
+                    uncheckedValue: 'false'
+            },
             items: [
                 {
                     boxLabel  : app.msg.mailevent_incoming_gate,
-                    name      : 'mailevent',
-                    inputValue: '1',
-                    id        : 'mailevent1'
+                    name      : 'incoming_trunk'
                 }, {
                     boxLabel  : app.msg.mailevent_incoming,
-                    name      : 'mailevent',
-                    inputValue: '2',
-                    id        : 'mailevent2'
+                    name      : 'incoming_call'
                 }, {
                     boxLabel  : app.msg.mailevent_outgoing,
-                    name      : 'mailevent',
-                    inputValue: '3',
-                    id        : 'mailevent3'
+                    name      : 'outgoing_call'
                 }, {
                     boxLabel  : app.msg.mailevent_internal,
-                    name      : 'mailevent',
-                    inputValue: '4',
-                    id        : 'mailevent4'
+                    name      : 'internal_call'
                 }
             ]
         },{
             xtype: 'fieldset',
             border: true,
+            title: app.msg.mail_nofications,
             items: [
             {
                 xtype: 'textfield',
+                anchor: '100%',                
                 name : 'email',
                 fieldLabel: app.msg.email,
                 vtype: 'mailVal'
@@ -88,18 +87,56 @@ Ext.define('app.module.Mail_Settings_Panel', {
             {
                 xtype: 'textareafield',
                 anchor: '100%',
-                name : 'mail1',
+                name : 'incoming_call_text',
                 fieldLabel: app.msg.mail1                
             },
             {
                 xtype: 'textareafield',
                 anchor: '100%',
-                name : 'mail2',
+                name : 'incoming_trunk_text',
                 fieldLabel: app.msg.mail2
-            }]
+            },
+            {
+                xtype: 'fieldset',
+                border: true,
+                title: app.msg.mail_subject,
+                items: [
+                {
+                    xtype: 'textfield',
+                    anchor: '100%',
+                    name:  'incoming_subject',
+                    fieldLabel: app.msg.mail_incoming_subject
+                },            
+                {
+                    xtype: 'textfield',
+                    anchor: '100%',
+                    name:  'outgoing_subject_call_not_accepted',
+                    fieldLabel: app.msg.mail_outgoing_subject_call_not_accepted
+                },            
+                {
+                    xtype: 'textfield',
+                    anchor: '100%',
+                    name:  'outgoing_subject_fax_not_accepted',
+                    fieldLabel: app.msg.mail_outgoing_subject_fax_not_accepted
+                },            
+                {
+                    xtype: 'textfield',
+                    anchor: '100%',
+                    name:  'ioutgoing_subject_call_accepted',
+                    fieldLabel: app.msg.mail_outgoing_subject_call_accepted
+                },
+                {
+                    xtype: 'textfield',
+                    anchor: '100%',
+                    name:  'outgoing_subject_fax_accepted',
+                    fieldLabel: app.msg.mail_outgoing_subject_fax_accepted
+                }
+                ]
+            }
+        ]
         }];
         this.callParent(arguments);
         var form = this.getForm();
         form.load();
     }
-})
+});

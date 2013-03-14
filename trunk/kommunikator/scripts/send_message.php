@@ -1,5 +1,16 @@
 #!/usr/bin/php -q
 <?
+
+function getValueFromNtnSettings ($param,$default)
+{
+    $query = "SELECT value FROM ntn_settings where param = '$param'";
+    $res = query_to_array($query);
+    $value = $default;
+    if (count($res))
+        $value = $res[0]['value'];
+    return $value;
+}
+
 require_once('libyate.php');
 require_once('lib_smtp.inc.php');
 require_once('lib_queries.php');
@@ -52,26 +63,25 @@ for (;;) {
                             $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time'));
                             $params['caller'] = $ev->GetValue('caller');
                             $params['called'] = $ev->GetValue('called');
-                            $text = null;
-                            $query = "SELECT value FROM ntn_settings where param = 'incoming_trunk_text'";
-                            $res = query_to_array($query);
-                            if (count($res))
-                                $text = $res[0]["value"];                    
-                            $subject = 'Звонок на входящую линию <called>';
+
+                            $text = getValueFromNtnSettings('incoming_trunk_text','');
+                            $subject = getValueFromNtnSettings('incoming_subject', 'Звонок на входящую линию <called>');
                             
                             $text = format_msg($text,$params);
                             $subject = format_msg($subject,$params);
+
                             send_mail($text,$subject);
                         }
                     }
                 }
-                
+                //--------------------------------------------------------------
                 if ($ev->GetValue('operation') == 'update' &&
                     $ev->GetValue('reason')    == 'queued') {
                 //звонок на группу
                 
                 };
-                
+                //--------------------------------------------------------------
+                // исходящий вызов
                 if ($ev->GetValue('direction') == 'outgoing' &&
                     $ev->GetValue('operation') == 'finalize') {
                     //завершился звонок
@@ -92,22 +102,27 @@ for (;;) {
                     
                     $is_fax = false;
                     $filename = null;	
-                    if (strpos($ev->GetValue('chan'), 'fax') === false) {
-                        $subject = 'Звонок';
+
+                    if (strpos($ev->GetValue('chan'),'fax') === false) {
                         if ($ev->GetValue('status') != 'answered')
-                            $subject .= ' не';
-                        $subject .= ' принят';
-                    }
-                    else {
+                        {
+                            $subject = getValueFromNtnSettings('outgoing_subject_call_not_accepted', 'Звонок не принят от');
+                        } else {
+                            $subject = getValueFromNtnSettings('ioutgoing_subject_call_accepted', 'Звонок принят от');
+                        }
+                                    
+                    } else {
                         $is_fax = true;
-                        $subject = 'Факс ';
                         $filename = $ev->GetValue('address');
                         if (is_file($filename)) {
-                        //unlink($filename);
-                        } else
-                            $subject .= 'не принят';
+                            //unlink($filename);
+                            $subject = getValueFromNtnSettings('outgoing_subject_fax_accepted', 'Факс принят от');
+                        } else {
+                            $subject = getValueFromNtnSettings('outgoing_subject_fax_not_accepted', 'Факс не принят от');
+                        }
                     }
-                    $subject .= ' от ' . $params['caller'] . ' ' . $params['ftime'];
+                    
+                    $subject .= $params['caller'] . ' ' . $params['ftime'];
                     
                     $is_internal_call =	(strlen($params['caller']) <= 3 && strlen($params['called']) <= 3);
                     if ($is_internal_call) {
@@ -115,12 +130,7 @@ for (;;) {
                         $res = query_to_array($query);
                     }	
                     if ($is_internal_call && count($res) || !$is_internal_call) {                          
-                        $text = null;
-                        $query = "SELECT value FROM ntn_settings where param = 'incoming_call_text'";
-                        $res = query_to_array($query);
-                        if (count($res))
-                            $text = $res[0]["value"];                    
-                        //$query = "SELECT value  FROM ntn_settings where param = 'exclude_called' and value = '$params[called]'";
+                        $text = getValueFromNtnSettings('incoming_call_text', '');
                         $query = "SELECT value  FROM ntn_settings where param = 'exclude_called' and value = '$params[called]' and description > '".(time()-20)."'";
                         $res = query_to_array($query);
                         if(!count($res)) {

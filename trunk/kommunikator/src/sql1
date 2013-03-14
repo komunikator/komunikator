@@ -1,0 +1,33 @@
+update ntn_settings set value =     Абонент: <caller>
+    Входящая линия: <called>
+    Дата: <ftime> where param = 'incoming_trunk_text'update ntn_settings set value = 'true' where param = 'incoming_trunk'update ntn_settings set value = 'true' where param = 'incoming_call'update ntn_settings set value = 'false' where param = 'outgoing_call'update ntn_settings set value = 'false' where param = 'internal_call'update ntn_settings set value = '' where param = 'email'update ntn_settings set value = '    Абонент: <caller>
+    Входящая линия: <incoming_trunk>
+    Кому: <called>
+    Дата: <ftime>
+    Длительность: <duration>
+    Состояние: <status>
+    Тип: <type>' where param = 'incoming_call_text'update ntn_settings set value = '    Абонент: <caller>
+    Входящая линия: <called>
+    Дата: <ftime>' where param = 'incoming_trunk_text'update ntn_settings set value = 'true' where param = 'incoming_trunk'\nupdate ntn_settings set value = 'true' where param = 'incoming_call'\nupdate ntn_settings set value = 'false' where param = 'outgoing_call'\nupdate ntn_settings set value = 'false' where param = 'internal_call'\nupdate ntn_settings set value = '' where param = 'email'\nupdate ntn_settings set value = '    Абонент: <caller>
+    Входящая линия: <incoming_trunk>
+    Кому: <called>
+    Дата: <ftime>
+    Длительность: <duration>
+    Состояние: <status>
+    Тип: <type>' where param = 'incoming_call_text'\nupdate ntn_settings set value = '    Абонент: <caller>
+    Входящая линия: <called>
+    Дата: <ftime>' where param = 'incoming_trunk_text'\nupdate ntn_settings set value = 'true' where param = 'incoming_trunk'
+update ntn_settings set value = 'true' where param = 'incoming_call'
+update ntn_settings set value = 'false' where param = 'outgoing_call'
+update ntn_settings set value = 'false' where param = 'internal_call'
+update ntn_settings set value = '' where param = 'email'
+update ntn_settings set value = '    Абонент: <caller>
+    Входящая линия: <incoming_trunk>
+    Кому: <called>
+    Дата: <ftime>
+    Длительность: <duration>
+    Состояние: <status>
+    Тип: <type>' where param = 'incoming_call_text'
+update ntn_settings set value = '    Абонент: <caller>
+    Входящая линия: <called>
+    Дата: <ftime>' where param = 'incoming_trunk_text'

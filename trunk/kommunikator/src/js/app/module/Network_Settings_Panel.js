@@ -43,7 +43,7 @@ Ext.define('app.module.Network_Settings_Panel', {
             }
         }			
 
-    }/*,
+    },
     {
         text: app.msg.load,
         handler:function() {
@@ -51,7 +51,7 @@ Ext.define('app.module.Network_Settings_Panel', {
                 form.load();
         }			
 
-    }*/],
+    }],
 
     initComponent : function () {
          

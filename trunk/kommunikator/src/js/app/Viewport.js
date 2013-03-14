@@ -163,6 +163,9 @@ Ext.define('app.Viewport', {
             Ext.create('app.module.Network_Settings_Panel',{
                 title:app.msg.network_settings
             }), 
+            Ext.create('app.module.Mail_Settings_Panel',{
+                title:app.msg.mail_settings
+            }),
             /*
             Ext.create('app.module.Ntn_Settings_Grid',{
                 title:app.msg.notification_settings

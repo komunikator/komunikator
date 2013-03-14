@@ -156,5 +156,22 @@ app.msg = {
     invalid_ip_address  : 'Invalid IP Address',
     invalid_netmask	: 'Invalid Network Mask',
     error_updated 	: 'Error updating',
-    updated		: 'Updated'
-}
+    updated		: 'Updated',
+    mail_settings       : 'EMail notifications',
+    mailevents          : 'Mailing events',
+    mailevent_incoming_gate : 'Incoming call (with indicating the gateway)*',
+    mailevent_incoming: 'Incoming call',
+    mailevent_outgoing: 'Outgoing call',
+    mailevent_internal: 'Internal call',
+    email: 'E-Mail',
+    mail1: 'Message text',
+    mail2: '* Message text for incoming calls with indicating the gateway',
+    invalid_email: 'Invalid E-Mail address',
+    mail_subject: 'Subject of',
+    mail_nofications: 'E-Mail notifications',
+    mail_incoming_subject: '...an incoming call',
+    mail_outgoing_subject_call_not_accepted: '...missed outgoing call',
+    mail_outgoing_subject_fax_not_accepted: '...missed outgoing fax',
+    mail_outgoing_subject_call_accepted: '...successful outgoing call',
+    mail_outgoing_subject_fax_accepted: '...successful outgoing fax'
+};
