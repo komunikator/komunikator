@@ -19,6 +19,7 @@ Ext.define('app.module.Prompts_Panel', {
         style:'padding:5px;'
     },
     bodyStyle:'padding:10px;',
+    autoScroll: true,
     listeners : {
         activate: function(i){
             app.active_store = null;

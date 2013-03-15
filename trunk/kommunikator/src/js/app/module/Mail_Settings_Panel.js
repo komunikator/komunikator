@@ -14,6 +14,7 @@ Ext.define('app.module.Mail_Settings_Panel', {
     url:'data.php?action=mail_settings',
     //autoLoad: true,
     style:'padding:40px;',
+    autoScroll:true,
     frame: true,
     waitMsgTarget: true,
 
