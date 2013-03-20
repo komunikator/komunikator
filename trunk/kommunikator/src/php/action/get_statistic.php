@@ -35,42 +35,26 @@ $f_data[] = array('status',$status);
 
 $sql=
 <<<EOD
-SELECT count(*) from (
-    SELECT * from (
-    SELECT a.time, a.caller, b.called, a.duration, a.status  FROM 
-	(SELECT * FROM call_logs where direction = 'incoming' and status!='unknown' and ended = 1
-	) a
-	join 
-	(SELECT * FROM call_logs where direction = 'outgoing' and status!='unknown' and ended = 1) b 
- 	on a.billid = b.billid) c
-    /* union 
-    SELECT a.time, a.caller, a.called, a.duration, a.status  FROM 
-	(SELECT * FROM call_logs where direction = 'incoming' and status!='unknown' and ended = 1
-	and exists (SELECT * FROM groups WHERE extension = called)  
-	) a */
-) a
-		where a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
+    select count(*)	
+    from call_logs a  
+    join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
+    left join extensions x on x.extension=a.caller
+    left join extensions x2 on x2.extension=b.called
+    where a.ended=1 and a.direction='incoming' and a.status!='unknown'
+                    and a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
 EOD;
 $data =  compact_array(query_to_array($sql));
 $f_data[] = array('day_total_calls',$data["data"][0][0]);
 
 $sql=
 <<<EOD
-SELECT count(*) from (
-    SELECT * from (
-    SELECT a.time, a.caller, b.called, a.duration, a.status  FROM 
-	(SELECT * FROM call_logs where direction = 'incoming' and status!='unknown' and ended = 0
-	) a
-	join 
-	(SELECT * FROM call_logs where direction = 'outgoing' and status!='unknown' and ended = 0) b 
- 	on a.billid = b.billid) c
-    /*union 
-    SELECT a.time, a.caller, a.called, a.duration, a.status  FROM 
-	(SELECT * FROM call_logs where direction = 'incoming' and status!='unknown' and ended = 0
-	and exists (SELECT * FROM groups WHERE extension = called)  
-	) a  */
-) a
-		where a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
+ select count(*)	
+    from call_logs a  
+    join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
+    left join extensions x on x.extension=a.caller
+    left join extensions x2 on x2.extension=b.called
+    where a.ended=0 and a.direction='incoming' and a.status!='unknown'
+                    and a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
 EOD;
 $data =  compact_array(query_to_array($sql));
 $f_data[] = array('active_calls',$data["data"][0][0]);

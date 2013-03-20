@@ -4,27 +4,19 @@ if(!$_SESSION['user']) {
     echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
 $sql=
 <<<EOD
-SELECT "" id, a.* from (
-	SELECT time, caller, called, duration, 
-		CASE 
-		WHEN reason !="" THEN REPLACE(LOWER(reason),' ','_') 
-		ELSE status END as status
-	from (
-    SELECT a.time, 
-	{$macro_sql['caller_called']}	
-	-- a.caller, b.called, 
-	b.duration, a.status,a.reason  FROM 
-	(SELECT * FROM call_logs where direction = 'incoming' and status!='unknown' and ended = 1
-	) a
-	join 
-	(SELECT * FROM call_logs where direction = 'outgoing' and status!='unknown' and ended = 1) b 
- 	on a.billid = b.billid) c
-    /* union 
-    SELECT a.time, a.caller, a.called, a.duration, a.status  FROM 
-	(SELECT * FROM call_logs where direction = 'incoming' and status!='unknown' and ended = 1
-	and exists (SELECT * FROM groups WHERE extension = called)  
-	) a  */
-) a
+select * from (
+select
+	"" id,
+	a.time,
+	case when x.firstname is null then a.caller else concat(x.firstname,' ',x.lastname,' (',a.caller,')') end caller,
+	case when x2.firstname is null then b.called else concat(x2.firstname,' ',x2.lastname,' (',b.called,')') end called,
+	b.duration,
+	case when a.reason="" then a.status else replace(lower(a.reason),' ','_') end status
+from call_logs a  
+join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
+left join extensions x on x.extension=a.caller
+left join extensions x2 on x2.extension=b.called
+where a.ended=1 and a.direction='incoming' and a.status!='unknown') a
 EOD;
 
 $data =  compact_array(query_to_array($sql.get_filter()));
