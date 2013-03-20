@@ -1,9 +1,9 @@
 <?php
+error_reporting(E_ALL & ~(E_STRICT | E_NOTICE | E_WARNING));
 
 /* File created by FreeSentral v1.2 */
 
 date_default_timezone_set("Europe/London");
-//date_default_timezone_set("Europe/Moscow");
 
 require_once("DB.php");
 

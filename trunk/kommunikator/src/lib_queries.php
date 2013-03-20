@@ -24,6 +24,21 @@
 <?php
 require_once("config.php");
 
+function start_debug_req_time()
+{
+    return microtime(true);
+}
+
+function stop_debug_req_time($time,$query)
+{
+    $debug_requests = false;
+    $debug_requests_time = 0.5; // минимальное время выполнения запроса, после которого происходит журналирование
+    $debug_requests_file = 'requests_debug.log';
+    $time_d = microtime(true)-$time;
+    if ($debug_requests)
+        if ($time_d >= $debug_requests_time) file_put_contents($debug_requests_file,"$time_d\t$query\n",FILE_APPEND);
+}
+
 function query_to_array($query) {
     /*
     $res = query($query);
@@ -40,7 +55,9 @@ function query_to_array($query) {
     }
     */
     global $conn;
+    $time = start_debug_req_time();
     $array  = $conn->getAll($query);
+    stop_debug_req_time($time, $query);
     Yate::Output("Executed: $query");
     Yate::Output("Result:".json_encode($array));
     //$res->free();
@@ -53,7 +70,12 @@ function query($query) {
     $resets = 0;
     while(true) {
 	if ($conn)
-        $res = $conn->query($query);/*
+        {
+            $time = start_debug_req_time();            
+            $res = $conn->query($query);
+            stop_debug_req_time($time, $query);
+        }
+        /*
         if(!$res) {
             while(true) {
                 if($resets >= ($max_resets_conn-1)) {
