@@ -1,6 +1,6 @@
 <?php
-
-require_once dirname(__FILE__) . '/../src/config.php';
+chdir(dirname(__FILE__).'/../src/'); 
+require_once 'config.php';
 class configTest extends PHPUnit_Framework_TestCase {
 
     public function testDBConn() {
