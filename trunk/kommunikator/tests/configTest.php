@@ -1,7 +1,7 @@
 <?php
 
 $pwd = getcwd();
-chdir(dirname(__FILE__) . '\..\src');
+chdir(dirname(__FILE__) . '/../src');
 require_once 'config.php';
 chdir($pwd);
 
