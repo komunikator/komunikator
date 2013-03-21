@@ -1,19 +1,19 @@
 <?php
 
-class get_statusTest extends PHPUnit_Framework_TestCase {
+class valid_actionTest extends PHPUnit_Framework_TestCase {
 
     public static function provider() {
         return array(
-            array('c3h8rud74rfcap9bpae40e2pu5', false), //invalid session id
-            array(file_get_contents('session'), true),
+            array('invalid_action', false), //invalid action name
+            array('get_status', true),
         );
     }
 
     /**
      * @dataProvider provider
      */
-    public function testStatus($session, $result) {
-        $params = array('action' => 'get_status', 'session' => $session);
+    public function testValidAction($action, $result) {
+        $params = array('session' => file_get_contents('session'), 'action' => $action);
         $out = shell_exec("php data_.php " . addslashes(json_encode($params)));
         $res = json_decode($out);
         $this->assertEquals($result, $res->success);
