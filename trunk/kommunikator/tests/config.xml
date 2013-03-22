@@ -1,0 +1,11 @@
+<phpunit>
+  <testsuites>
+    <testsuite name="Kommunikator">
+      <file>configTest.php</file>
+      <file>authTest.php</file>
+      <file>valid_actionTest.php</file>
+      <file>get_statusTest.php</file>
+      <file>get_active_callsTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
