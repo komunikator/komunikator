@@ -18,7 +18,7 @@ class authTest extends PHPUnit_Framework_TestCase {
         $res = json_decode($out);
         $this->assertEquals($result, $res->success);
         if ($result)
-            file_put_contents('session', $res->session_id);
+            file_put_contents(sys_get_temp_dir() . '/session', $res->session_id);
     }
 
 }
