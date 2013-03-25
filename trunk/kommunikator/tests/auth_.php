@@ -1,15 +1,7 @@
-<?
+<?php
 
-/**
- * @param string user
- * @param string password
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
-chdir(dirname(__FILE__) . '\..\src');
-$_GET['action'] = "auth";
-if (isset($argv[1]))
-    $_POST['user'] = $argv[1];
-if (isset($argv[2]))
-    $_POST['password'] = $argv[2];
-
-include 'data.php';
 ?>
