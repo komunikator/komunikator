@@ -25,3 +25,14 @@ install:
 	cp -R scripts ${DESTDIR}${usrdir}; \
 	chmod -R 755 ${DESTDIR}${usrdir}/scripts/*; \
 	ln -sf ${usrdir}/scripts/config.php ${DESTDIR}${vardir}/config.php
+	ln -sf ${usrdir}/scripts/lib_queries.php ${DESTDIR}${vardir}/lib_queries.php
+	ln -sf ${usrdir}/scripts/libyate.php ${DESTDIR}${vardir}/libyate.php
+        chmod 766 /var/lib/php5
+        mkdir -p /var/lib/misc/auto_attendant
+        mkdir -p /var/lib/misc/moh /var/lib/misc/moh
+        chmod -R 766 /var/lib/misc
+        ln -sf  /var/lib/misc/auto_attendant /var/lib/misc/auto_attendant
+        ln -sf  /var/lib/misc/moh /var/lib/misc/moh
+
+
+
