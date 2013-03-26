@@ -1,4 +1,9 @@
 <?
+/**
+ * @param string user
+ * @param string password
+ * @assert ('admin','admin')==true
+ */
 
 $username = getparam("user");
 $extension = getparam("extension");
