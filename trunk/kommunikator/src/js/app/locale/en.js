@@ -160,7 +160,7 @@ app.msg = {
     mailevent_incoming: 'Incoming call',
     mailevent_outgoing: 'Outgoing call',
     mailevent_internal: 'Internal call',
-    email: 'E-Mail',
+    email: 'E-Mail to',
     mail1: 'Message text',
     mail2: '* Message text for incoming calls with indicating the gateway',
     invalid_email: 'Invalid E-Mail address',
@@ -170,5 +170,7 @@ app.msg = {
     mail_outgoing_subject_call_not_accepted: '...missed outgoing call',
     mail_outgoing_subject_fax_not_accepted: '...missed outgoing fax',
     mail_outgoing_subject_call_accepted: '...successful outgoing call',
-    mail_outgoing_subject_fax_accepted: '...successful outgoing fax'
+    mail_outgoing_subject_fax_accepted: '...successful outgoing fax',
+    from: 'From',
+    fromname: 'Sender\'s name'
 };

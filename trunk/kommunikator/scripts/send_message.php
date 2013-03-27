@@ -70,7 +70,7 @@ for (;;) {
                             $text = format_msg($text,$params);
                             $subject = format_msg($subject,$params);
 
-                            send_mail($text,$subject);
+                            send_mail($text,$subject,null,null,getValueFromNtnSettings('from',''),getValueFromNtnSettings('email', ''),  getValueFromNtnSettings('fromname', ''));
                         }
                     }
                 }
@@ -146,7 +146,8 @@ for (;;) {
                             if (count($res)) {
                                 $text = format_msg($text,$params);
                                 $subject = format_msg($subject,$params);
-                                send_mail($text,$subject,$is_fax,$filename);
+                                
+                                send_mail($text,$subject,$is_fax,$filename,getValueFromNtnSettings('from',''),getValueFromNtnSettings('email', ''),getValueFromNtnSettings('fromname', ''));
                             }
                         }
                     }
