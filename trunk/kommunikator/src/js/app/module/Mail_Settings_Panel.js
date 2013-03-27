@@ -1,6 +1,6 @@
 Ext.apply(Ext.form.field.VTypes, {
     mailVal: function(val, field) {
-        if (/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/.test(val))
+        if (/^(\w([-_+.']?\w+)+@(\w(-*\w+)+\.)+[a-zA-Z]{2,4}[,;])*\w([-_+.']?\w+)+@(\w(-*\w+)+\.)+[a-zA-Z]{2,4}$/.test(val))
         {
             return true;
         }
@@ -78,6 +78,19 @@ Ext.define('app.module.Mail_Settings_Panel', {
             border: true,
             title: app.msg.mail_nofications,
             items: [
+            {
+                xtype: 'textfield',
+                anchor: '100%',                
+                name : 'from',
+                fieldLabel: app.msg.from,
+                vtype: 'email'
+            },
+            {
+                xtype: 'textfield',
+                anchor: '100%',                
+                name : 'fromname',
+                fieldLabel: app.msg.fromname,
+            },            
             {
                 xtype: 'textfield',
                 anchor: '100%',                

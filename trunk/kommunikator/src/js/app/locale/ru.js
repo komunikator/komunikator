@@ -194,7 +194,7 @@ app.msg = {
     mailevent_incoming: 'Входящий вызов',
     mailevent_outgoing: 'Исходящий вызов',
     mailevent_internal: 'Внутренний вызов',
-    email: 'Адрес(а) электронной почты',
+    email: 'Адрес(а) получателей',
     mail1: 'Текст сообщения',
     mail2: '* Текст сообщения для входящих вызовов с указанием шлюза',
     invalid_email: 'Некорректный адрес электронной почты',
@@ -204,6 +204,7 @@ app.msg = {
     mail_outgoing_subject_call_not_accepted: '...при непринятом исходящем вызове',
     mail_outgoing_subject_fax_not_accepted: '...при непринятом исходящем факсе',
     mail_outgoing_subject_call_accepted: '...при успешном исходящем вызове',
-    mail_outgoing_subject_fax_accepted: '...при успешном исходящем факсе'
-
+    mail_outgoing_subject_fax_accepted: '...при успешном исходящем факсе',
+    from: 'Адрес отправителя',
+    fromname: 'Имя отправителя'
 };

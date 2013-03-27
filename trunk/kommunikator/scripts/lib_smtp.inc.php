@@ -24,9 +24,11 @@ function format_msg($text,$params) {
     return str_replace('\n',"\n",preg_replace("/\<([^\>]+)\>/e", 'isset($params["$1"])?$params["$1"]:"<$1>";', $text));
 }
 
-function send_mail($text=null,$subject=null,$is_fax=null,$filename=null) {
+function send_mail($text=null,$subject=null,$is_fax=null,$filename=null,$from=null,$to=null,$fromname=null) {
     
     global $fax_email, $calls_email;
+    $fax_email=$to;
+    $calls_email=$to;
     
     if (!$calls_email) return;	
     if (!$text) return; 
@@ -35,6 +37,8 @@ function send_mail($text=null,$subject=null,$is_fax=null,$filename=null) {
             
     $mail = new myMail;
     $mail->Body = $text;
+    $mail->FromName = $fromname;
+    $mail->From = $from;
     
     if (!$is_fax) {
         $mail->AddAddress($calls_email);
