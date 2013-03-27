@@ -6,6 +6,7 @@ misc = /var/lib/misc
 all:
 
 install:
+	mkdir -p ${DESTDIR}${vardir}/ext/locale
 	mkdir -p ${DESTDIR}${vardir}/ext/resources/themes
 	mkdir -p ${DESTDIR}${vardir}/ext/resources/css
 	cd src; \
@@ -13,6 +14,7 @@ install:
 	cp -R js ${DESTDIR}${vardir}; \
 	cp -R php ${DESTDIR}${vardir}; \
 	cp ext/ext-all.js ${DESTDIR}${vardir}/ext; \
+	cp ext/locale/*.* ${DESTDIR}${vardir}/ext/locale; \
 	cp ext/resources/css/ext-all*.css ${DESTDIR}${vardir}/ext/resources/css; \
 	cp -R ext/resources/themes/images ${DESTDIR}${vardir}/ext/resources/themes
 	mkdir -p ${DESTDIR}/usr/share/dbconfig-common/data/kommunikator/install
