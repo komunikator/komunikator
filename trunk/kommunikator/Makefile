@@ -29,11 +29,11 @@ install:
 	ln -sf ${usrdir}/scripts/lib_queries.php ${DESTDIR}${vardir}/lib_queries.php
 	ln -sf ${usrdir}/scripts/libyate.php ${DESTDIR}${vardir}/libyate.php
 	chmod 766 /var/lib/php5
-	mkdir -p ${misc}/auto_attendant
-	mkdir -p ${misc}/moh 
+	mkdir -p ${DESTDIR}/var/lib/misc/auto_attendant; \
+	mkdir -p ${DESTDIR}/var/lib/misc/moh; \
 	chmod -R 766 ${misc}
-	ln -sf  ${misc}/auto_attendant ${DESTDIR}${vardir}/auto_attendant
-	ln -sf  ${misc}/moh ${DESTDIR}${vardir}/moh
+	ln -sf  ${DESTDIR}${misc}/auto_attendant ${DESTDIR}${vardir}/auto_attendant
+	ln -sf  ${DESTDIR}${misc}/moh ${DESTDIR}${vardir}/moh
 
 
 
