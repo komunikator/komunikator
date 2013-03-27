@@ -28,8 +28,8 @@ fi
 case "$1" in
     configure)
 
-            chmod -R 766 /var/lib/misc
-            chmod -R 766 /var/lib/php5
+            chmod -R 777 /var/lib/misc
+            chmod -R 777 /var/lib/php5
 
             # Create link to config snippet
             if [ ! -f /etc/apache2/conf.d/kommunikator.conf ] && [ ! -h /etc/apache2/conf.d/kommunikator.conf ]; then

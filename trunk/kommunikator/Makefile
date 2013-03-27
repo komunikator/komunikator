@@ -30,5 +30,6 @@ install:
 	mkdir -p ${DESTDIR}${misc}; \
 	mkdir -p ${DESTDIR}${misc}/auto_attendant; \
 	mkdir -p ${DESTDIR}${misc}/moh; \
+        cp misc/*.* ${DESTDIR}${misc}
 	ln -sf ${misc}/auto_attendant ${DESTDIR}${vardir}/auto_attendant
 	ln -sf ${misc}/moh ${DESTDIR}${vardir}/moh

@@ -16,7 +16,7 @@ if(isset($_FILES)) {
         if(move_uploaded_file($file_tmp, $file_name)) {         
             passthru("madplay -q --no-tty-control -m -R 8000 -o wave:\"$cn_file_name\" \"$file_name\"");
             if(!is_file($cn_file_name)) {
-                echo (out(array('success'=>false,'message'=>"Could not convert files in .au format.")));
+                echo (out(array('success'=>false,'message'=>"Could not convert files in mp3 format.")));
                 return;
             }
             $total =  compact_array(query_to_array("SELECT prompt_id FROM prompts where status = '$status'"));
