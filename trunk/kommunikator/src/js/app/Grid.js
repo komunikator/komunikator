@@ -135,7 +135,7 @@ store.prefetch({
         var disabled = (selections.length === 0);
         if (this.down('#delete'))
             this.down('#delete').setDisabled(disabled);
-        this.store.dirtyMark = !disabled;
+        //this.store.dirtyMark = !disabled;
     },
 
     onAddClick : function(){

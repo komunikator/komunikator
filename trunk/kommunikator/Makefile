@@ -2,8 +2,7 @@
 DESTDIR :=
 vardir = /var/www/kommunikator
 usrdir = /usr/share/kommunikator
-misc   = /var/lib/misc
-
+misc = /var/lib/misc
 all:
 
 install:
@@ -28,12 +27,8 @@ install:
 	ln -sf ${usrdir}/scripts/config.php ${DESTDIR}${vardir}/config.php
 	ln -sf ${usrdir}/scripts/lib_queries.php ${DESTDIR}${vardir}/lib_queries.php
 	ln -sf ${usrdir}/scripts/libyate.php ${DESTDIR}${vardir}/libyate.php
-	chmod 766 /var/lib/php5
-	mkdir -p ${DESTDIR}/var/lib/misc/auto_attendant; \
-	mkdir -p ${DESTDIR}/var/lib/misc/moh; \
-	chmod -R 766 ${misc}
-	ln -sf  ${DESTDIR}${misc}/auto_attendant ${DESTDIR}${vardir}/auto_attendant
-	ln -sf  ${DESTDIR}${misc}/moh ${DESTDIR}${vardir}/moh
-
-
-
+	mkdir -p ${DESTDIR}${misc}; \
+	mkdir -p ${DESTDIR}${misc}/auto_attendant; \
+	mkdir -p ${DESTDIR}${misc}/moh; \
+	ln -sf ${misc}/auto_attendant ${DESTDIR}${vardir}/auto_attendant
+	ln -sf ${misc}/moh ${DESTDIR}${vardir}/moh
