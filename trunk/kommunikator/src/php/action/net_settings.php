@@ -1,6 +1,6 @@
 <?php
 
-const NETCONFIG_FILE='/etc/network/interfaces.test';
+const NETCONFIG_FILE='/etc/network/interfaces';
 
 function writeNetworkConfig($params) {
 	$tempconf = tempnam(sys_get_temp_dir(), 'kom');
