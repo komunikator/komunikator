@@ -1,11 +1,31 @@
 <phpunit>
-  <testsuites>
-    <testsuite name="Kommunikator">
-      <file>configTest.php</file>
-      <file>authTest.php</file>
-      <file>valid_actionTest.php</file>
-      <file>get_statusTest.php</file>
-      <file>get_active_callsTest.php</file>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="Kommunikator">
+            <file>configTest.php</file>
+            <file>authTest.php</file>
+            <file>valid_actionTest.php</file>
+            <file>get_statusTest.php</file>
+            <file>get_active_callsTest.php</file>      
+            <file>get_call_logsTest.php</file>
+            <file>get_conferencesTest.php</file>
+            <file>get_dial_plansTest.php</file>
+            <file>get_didsTest.php</file>
+            <file>get_extensions_groupsTest.php</file>
+            <file>get_extensionsTest.php</file>
+            <file>get_gatewaysTest.php</file>
+            <file>get_groupsTest.php</file>
+            <file>get_keysTest.php</file>
+            <file>get_music_on_holdTest.php</file>
+            <file>get_ntn_settingsTest.php</file>
+            <file>get_playlistsTest.php</file>
+            <file>get_promptsTest.php</file>
+            <file>get_settingsTest.php</file>
+            <file>get_short_namesTest.php</file>
+            <file>get_sourcesTest.php</file>
+            <file>get_stateTest.php</file>
+            <file>HelloWorld.php</file>
+            <file>HelloWorldTest.php</file>
+            <file>StackTest.php</file>
+        </testsuite>
+    </testsuites>
 </phpunit>
