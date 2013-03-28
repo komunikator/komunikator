@@ -49,8 +49,13 @@ Ext.define('app.module.Dial_plans_Grid', {
                 //triggerAction: 'query',
                 displayField: 'gateway',
                 valueField: 'gateway',
-                allowBlank: false
-                        //queryMode: 'remove'
+                allowBlank: false,
+                queryMode: 'local',
+                listeners: {
+                    afterrender: function() {
+                        this.store.load();
+                    }
+                }
             }
 
         },
