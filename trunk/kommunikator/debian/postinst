@@ -30,7 +30,12 @@ case "$1" in
 
             chmod -R 777 /var/lib/misc
             chmod -R 777 /var/lib/php5
-
+            ff=/var/www/index.html
+            if [ -f $ff ]; then
+                dpkg-divert --add --package $DPKG_MAINTSCRIPT_PACKAGE --rename --divert $ff.old $ff
+            fi
+            echo '<meta http-equiv="refresh" content="0;url=/kommunikator/">' > $ff
+            
             # Create link to config snippet
             if [ ! -f /etc/apache2/conf.d/kommunikator.conf ] && [ ! -h /etc/apache2/conf.d/kommunikator.conf ]; then
                 ln -s /etc/kommunikator/apache.conf /etc/apache2/conf.d/kommunikator.conf
