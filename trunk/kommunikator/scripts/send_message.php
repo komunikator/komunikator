@@ -122,7 +122,7 @@ for (;;) {
                         }
                     }
                     
-                    $subject .= $params['caller'] . ' ' . $params['ftime'];
+                    $subject .= ' ' . $params['caller'] . ' ' . $params['ftime'];
                     
                     $is_internal_call =	(strlen($params['caller']) <= 3 && strlen($params['called']) <= 3);
                     if ($is_internal_call) {
