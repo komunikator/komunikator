@@ -14,6 +14,7 @@ foreach ($data as $row) {
             case 'did':
 		break;	
             case 'default_dest':
+            case 'destination':
                 if (preg_match('/\d{3}/',$value)) {
                     $values['extension_id']= " (select extension_id from extensions where extension = '$value') "; 
                     $values['group_id']= 'null'; 
@@ -23,9 +24,9 @@ foreach ($data as $row) {
                     $values['extension_id']= 'null'; 
                 }	
                 break;
-            case 'destination':
-                $values[$key]="'$source[$value]'"; 
-                break;
+            //case 'destination':
+            //    $values[$key]="'$source[$value]'"; 
+            //    break;
             default:	
                 $values[$key]="'$value'"; 
         }
