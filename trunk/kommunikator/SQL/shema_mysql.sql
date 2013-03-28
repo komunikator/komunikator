@@ -551,6 +551,12 @@ CREATE TABLE `time_frames` (
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+LOCK TABLES `time_frames` WRITE;
+/*!40000 ALTER TABLE `time_frames` DISABLE KEYS */;
+INSERT INTO `time_frames` VALUES (1,1,'Sunday',NULL,NULL,0),(2,1,'Monday','4','14',1),(3,1,'Tuesday','4','14',2),(4,1,'Wednesday','4','14',3),(5,1,'Thursday','4','14',4),(6,1,'Friday','4','13',5),(7,1,'Saturday',NULL,NULL,6);
+/*!40000 ALTER TABLE `time_frames` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `users`
 --
