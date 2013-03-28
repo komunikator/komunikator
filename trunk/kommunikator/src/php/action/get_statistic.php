@@ -207,13 +207,13 @@ return $days.' day '.$hours.':'.$mins;//.':'.$seconds;
 
 $f_data[] = array('uptime',get_yate_last_restart());
 
-$f_data[] = array('active_user',get_active_user());
-$f_data[] = array('active_extension',get_active_user('extension'));
-$f_data[] = array('yate_version',get_yate_version());
+//$f_data[] = array('active_user',get_active_user());
+//$f_data[] = array('active_extension',get_active_user('extension'));
+//$f_data[] = array('yate_version',get_yate_version());
 
-exec('ps -ef | grep -c defunct',$def);
+//exec('ps -ef | grep -c defunct',$def);
  
-$f_data[] = array('defunct processes',$def[0]-2);
+//$f_data[] = array('defunct processes',$def[0]-2);
 
 
 $obj=array("success"=>true);
