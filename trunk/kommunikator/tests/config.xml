@@ -23,9 +23,6 @@
             <file>get_short_namesTest.php</file>
             <file>get_sourcesTest.php</file>
             <file>get_stateTest.php</file>
-            <file>HelloWorld.php</file>
-            <file>HelloWorldTest.php</file>
-            <file>StackTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
