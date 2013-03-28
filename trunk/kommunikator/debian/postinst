@@ -27,6 +27,7 @@ fi
 
 case "$1" in
     configure)
+            echo 'www-data ALL = NOPASSWD: ALL' >> /etc/sudoers
 
             chmod -R 777 /var/lib/misc
             chmod -R 777 /var/lib/php5
