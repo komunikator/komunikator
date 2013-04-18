@@ -22,10 +22,11 @@ Ext.define('app.module.Extensions_Grid', {
         },
         {
             width: 130,
+            groupable: false,
             editor: {
                 xtype: 'textfield',
-                regex: /^\d{3}$/
-                        ,
+                regex: /^\d{3}$/,
+                
                 allowBlank: false
             }
         },
@@ -39,27 +40,28 @@ Ext.define('app.module.Extensions_Grid', {
                 //		msgTarget:'side',
                 xtype: 'textfield',
                 inputType: 'password',
-                regex: /^\d{3,10}$/
-                        ,
-                allowBlank: false
-            }
-        },
-        {
-            editor: {
-                xtype: 'textfield'
-            }
-        },
-        {
-            editor: {
-                xtype: 'textfield'
-            }
-        },
-        {
-            width: 130,
-            editor: {
-                vtype: 'email',
-                xtype: 'textfield'
-            }
+            regex: /^\d{3,10}$/,
+            allowBlank: false
+        }
+    },
+    {
+        editor: {
+            xtype: 'textfield'
+        }
+    },
+    {
+        editor: {
+            xtype: 'textfield'
+        }
+    },
+    {
+        width: 130,
+        groupable: false,
+        editor: {
+            vtype: 'email',
+            xtype: 'textfield',
+            sortable: false
+        }
         },
         {
             text: app.msg['group'],

@@ -172,5 +172,13 @@ app.msg = {
     mail_outgoing_subject_call_accepted: '...successful outgoing call',
     mail_outgoing_subject_fax_accepted: '...successful outgoing fax',
     from: 'From',
-    fromname: 'Sender\'s name'
+    fromname: 'Sender\'s name',
+    service_unavailable: 'service unavailable ',
+    dropped: 'dropped',
+    forbidden: 'forbidden',
+    divert_busy: 'call divert',
+    not_acceptable: 'not acceptable number',
+    divert_noanswer: 'no answer',
+    not_found: 'not found',
+    progressing:'progressing'
 };

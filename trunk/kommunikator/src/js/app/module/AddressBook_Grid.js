@@ -11,7 +11,8 @@ Ext.define('app.module.AddressBook_Grid', {
 
     {
         editor :  {
-            xtype: 'textfield'
+            xtype: 'textfield',
+             allowBlank: false
         }
     },
     {
@@ -21,7 +22,8 @@ Ext.define('app.module.AddressBook_Grid', {
     },
     {
         editor :  {
-            xtype: 'textfield'
+            xtype: 'textfield',
+             allowBlank: false
         }
     }
     ],

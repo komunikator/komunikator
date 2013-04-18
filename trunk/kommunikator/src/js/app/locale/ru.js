@@ -49,7 +49,7 @@ app.msg = {
     refresh: 'Обновить',
     online: 'Рабочее время',
     offline: 'Нерабочее время',
-    busy: 'Занят',
+    busy: '',
     registered: 'Зарегистрирован',
     unregistered: 'Не зарегистрирован',
     previous: 'Предыдущий',
@@ -152,7 +152,7 @@ app.msg = {
     incoming: "входящий",
     request_terminated: "отменен",
     busy_here: "занят",
-    transfer: "переведен",
+    transfer: "перевееньен",
     temporarily_unavailable: "недоступен",
     performing_actions: "Выполнение действий",
     wait_reboot: "Пожалуйста, подождите пока происходит перезагрузка АТС",
@@ -206,5 +206,13 @@ app.msg = {
     mail_outgoing_subject_call_accepted: '...при успешном исходящем вызове',
     mail_outgoing_subject_fax_accepted: '...при успешном исходящем факсе',
     from: 'Адрес отправителя',
-    fromname: 'Имя отправителя'
+    fromname: 'Имя отправителя',
+    service_unavailable: 'сервис недоступен',
+    dropped: 'упущенный',
+    forbidden: 'звонок запрещён',
+    divert_busy: 'переадресация',
+    not_acceptable: 'недопустимый номер',
+    divert_noanswer: 'не отвечает',
+    not_found: 'не найден',
+    progressing: 'ожидание ответа'
 };
