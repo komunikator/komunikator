@@ -1,7 +1,9 @@
+
 Ext.define('app.module.DID_Grid', {
     extend : 'app.Grid',
     store_cfg:{
         fields : ['id','number', 'destination','default_dest','description'],
+      
         storeId : 'dids'
     },
     columns : [
@@ -20,12 +22,16 @@ Ext.define('app.module.DID_Grid', {
 
     { 
         editor :  app.get_Source_Combo({
-            allowBlank: false
+            allowBlank: false,
+            editable: false//,
+            //vtype: 'fds'
         })
     } ,
     { 
         width: 160,
-        editor :  app.get_Source_Combo(/*validator:{}*/)//TODO validator
+        editor :  app.get_Source_Combo({/*validator:{}*/
+     //  vtype: 'fds'
+            })//TODO validator
     } ,
     { 
         editor :  {

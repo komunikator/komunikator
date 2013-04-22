@@ -285,7 +285,7 @@ Ext.define('app.Viewport', {
         '<p align="right"><a href="#" onclick="app.logout();return false">'+ app.msg.logout +'</a></p>'+
         '<p align="right">'+app.msg.user+': '+ this.user_name +'</p>'+
         //        '<p align="right"><a target="_blank" href="http://ats.digt.local/bugtracker/">BUG TRACKER</a></p>'+
-        '<p align="right"><a target="_blank" href="http://ats.digt.local/bugtracker/">BUG TRACKER</a></p>'+
+       
         '</div>';
 
  

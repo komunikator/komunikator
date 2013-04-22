@@ -26,7 +26,6 @@ Ext.define('app.module.Extensions_Grid', {
             editor: {
                 xtype: 'textfield',
                 regex: /^\d{3}$/,
-                
                 allowBlank: false
             }
         },
