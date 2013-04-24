@@ -1,38 +1,44 @@
 Ext.define('app.module.Groups_Grid', {
-    extend : 'app.Grid',
-    store_cfg:{
-        fields : ['id', 'group', 'description', 'extension'],   
-        storeId : 'groups'
+    extend     : 'app.Grid',
+    
+    store_cfg  : {
+        fields   : ['id', 'group', 'description', 'extension'],   
+        storeId  : 'groups'
     },
-    columns : [
-    {
-        hidden: true
+    
+    columns    : [
+        
+    {  // 'id'
+        hidden : true
     },
 
-    { 
-        editor :  {
-            xtype: 'textfield',
-            allowBlank: false 
+    {  // 'group'
+        editor : {
+            xtype       : 'textfield',
+            allowBlank  : false
         }
     },
 
-    { 
-        editor :  {
-            xtype: 'textfield'
+    {  // 'description'
+        editor : {
+            xtype : 'textfield'
         }
     },
 
-    { 
-        width: 130,
-        editor :  {
-            xtype: 'textfield',
-            regex: /^\d{2}$/,
-            allowBlank: false
+    {  // 'extension'
+        width   : 130,
+        
+        editor  : {
+            xtype       : 'textfield',
+            regex       : /^\d{2}$/,
+            allowBlank  : false
         }
     }
+    
     ],
+    
     initComponent : function () {
-        //this.title = app.msg.extensions;
+        // this.title = app.msg.extensions;
         this.callParent(arguments); 
     }
 })

@@ -9,18 +9,22 @@ Ext.define('app.module.Extensions_Grid', {
         sorters: [{
                 direction: 'DESC',
                 property: 'group_name'
-            }]
+            }]        
     },
     advanced: ['forward'], //'forward_busy','forward_noanswer','noanswer_timeout'],	
     not_create_column: true,
     columns: [
-        {
+        
+        {  // 'id'
             hidden: true
+            // hidden: false <- не работает т.к. было скрыто раньше
         },
-        {
+        
+        {  // 'status'
             width: 70
         },
-        {
+        
+        {  // 'extension'
             width: 130,
             groupable: false,
             editor: {
@@ -29,7 +33,8 @@ Ext.define('app.module.Extensions_Grid', {
                 allowBlank: false
             }
         },
-        {
+        
+        {  // 'password'
             sortable: false,
             groupable: false,
             renderer: function() {
@@ -39,71 +44,104 @@ Ext.define('app.module.Extensions_Grid', {
                 //		msgTarget:'side',
                 xtype: 'textfield',
                 inputType: 'password',
-            regex: /^\d{3,10}$/,
-            allowBlank: false
-        }
-    },
-    {
-        editor: {
-            xtype: 'textfield'
-        }
-    },
-    {
-        editor: {
-            xtype: 'textfield'
-        }
-    },
-    {
-        width: 130,
-        groupable: false,
-        editor: {
-            vtype: 'email',
-            xtype: 'textfield',
-            sortable: false
-        }
+                regex: /^\d{3,10}$/,                        ,
+                allowBlank: false
+            }
         },
-        {
-            text: app.msg['group'],
+                
+        {  // 'firstname'
             editor: {
-                xtype: 'combobox',
-                store: Ext.StoreMgr.lookup('groups') ?
-                        Ext.StoreMgr.lookup('groups') :
-                        Ext.create('app.Store', {
-                    fields: ['id', 'group', 'description', 'extension'],
-                    storeId: 'groups'
-                }),
-                //queryCaching: false,
-                //triggerAction: 'query',
-                displayField: 'group',
-                valueField: 'group',
-                queryMode: 'local',
+                xtype: 'textfield'
+            }
+        },
+                
+        {  // 'lastname'
+            editor: {
+                xtype: 'textfield'
+            }
+        },
+                
+        {  // 'address'
+            width: 130,
+            groupable: false,
+            editor: {
+                vtype: 'email',
+                xtype: 'textfield'
+            }
+    },
+                
+        {  // 'group_name'
+            text    : app.msg['group'],
+
+            editor  : {
+                xtype         : 'combobox',
+                store         : Ext.StoreMgr.lookup('groups_extended') ?
+                    Ext.StoreMgr.lookup('groups_extended') :
+                    Ext.create('app.Store', {
+                        fields   : ['id', 'group', 'description', 'extension'],
+                        storeId  : 'groups_extended'
+                    }),
+
+                // queryCaching: false,
+                // triggerAction: 'query',
+
+                valueField    : 'group',
+
+                queryMode     : 'local',
+                
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                // Customized combobox
+                
+                // displayField  : 'group', <- заменено кодом ниже
+
+
+                tpl           : Ext.create('Ext.XTemplate',
+                    '<tpl for=".">',
+                        '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
+                    '</tpl>'
+                ),
+
+                displayTpl    : Ext.create('Ext.XTemplate',
+                    '<tpl for=".">',
+                        '{group}',
+                    '</tpl>'
+                ),
+
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                
+                editable      : false,
+
                 listeners: {
                     afterrender: function() {
                         this.store.load();
                     }
                 }
             }
-
         },
-        {
+                
+        {  // 'forward'
             header: app.msg.forward,
             dataIndex: 'forward',
             headers: [
+        
                 {
                     header: app.msg.number,
                     dataIndex: 'forward',
                     width: 120
                 },
+                
                 {
                     header: app.msg.forward_busy,
                     dataIndex: 'forward_busy',
                     width: 120
                 },
+                
                 {
                     header: app.msg.forward_noanswer,
                     dataIndex: 'forward_noanswer',
                     width: 120
                 },
+                
                 {
                     header: app.msg.noanswer_timeout,
                     dataIndex: 'noanswer_timeout',
