@@ -44,7 +44,7 @@ Ext.define('app.module.Extensions_Grid', {
                 //		msgTarget:'side',
                 xtype: 'textfield',
                 inputType: 'password',
-                regex: /^\d{3,10}$/,                        ,
+                regex: /^\d{3,10}$/,
                 allowBlank: false
             }
         },
