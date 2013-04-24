@@ -1,12 +1,25 @@
-
+ Ext.apply(Ext.form.field.VTypes, {
+    fds: function(val, field) {
+        if ( val !== app.msg.attendant )   
+          { 
+              console.log(field.ownerCt.items.items[3].setVisible(false));
+            console.log(field.ownerCt.items.items[3].setValue(null));
+          return true;
+        } 
+              console.log(field.ownerCt.items.items[3].setVisible(true));   
+    return true;
+    }
+   });  
+                                                                                                               
 Ext.define('app.module.DID_Grid', {
     extend : 'app.Grid',
     store_cfg:{
         fields : ['id','number', 'destination','default_dest','description'],
       
         storeId : 'dids'
-    },
-    columns : [
+    },  
+            advanced :['description'],
+        columns : [
     {
         hidden: true
     },
@@ -23,14 +36,14 @@ Ext.define('app.module.DID_Grid', {
     { 
         editor :  app.get_Source_Combo({
             allowBlank: false,
-            editable: false//,
-            //vtype: 'fds'
+            editable: false,
+            vtype: 'fds'
         })
     } ,
     { 
         width: 160,
         editor :  app.get_Source_Combo({/*validator:{}*/
-     //  vtype: 'fds'
+        //allowBlank: false
             })//TODO validator
     } ,
     { 
