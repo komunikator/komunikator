@@ -1,12 +1,25 @@
-
+ Ext.apply(Ext.form.field.VTypes, {
+    fds: function(val, field) {
+        if ( val !== app.msg.attendant )   
+          { 
+              console.log(field.ownerCt.items.items[3].setVisible(false));
+            console.log(field.ownerCt.items.items[3].setValue(null));
+          return true;
+        } 
+              console.log(field.ownerCt.items.items[3].setVisible(true));   
+    return true;
+    }
+   });  
+                                                                                                               
 Ext.define('app.module.DID_Grid', {
     extend : 'app.Grid',
     store_cfg:{
         fields : ['id','number', 'destination','default_dest','description'],
       
         storeId : 'dids'
-    },
-    columns : [
+    },  
+            advanced :['description'],
+        columns : [
     {
         hidden: true
     },
@@ -23,16 +36,35 @@ Ext.define('app.module.DID_Grid', {
     { 
         editor :  app.get_Source_Combo({
             allowBlank: false,
-            editable: false//,
-            //vtype: 'fds'
+            editable: false,
+            vtype: 'fds'
         })
     } ,
+    
     { 
-        width: 160,
-        editor :  app.get_Source_Combo({/*validator:{}*/
-     //  vtype: 'fds'
-            })//TODO validator
-    } ,
+        width   : 160,
+        
+        // - - - - -
+        editor  : {
+            xtype  : 'combobox',
+            store  : Ext.create('app.Store', {
+                fields   : ['id', 'name'],
+                storeId  : 'sources_exception'
+            }),
+            
+            editable: false,
+            displayField  : 'name',
+            valueField    : 'name',
+
+            queryMode     : 'local'
+        }
+        // - - - - -
+        
+        //editor :  app.get_Source_Combo({/*validator:{}*/
+        //allowBlank: false
+            //})//TODO validator
+    },
+    
     { 
         editor :  {
             xtype: 'textfield'
@@ -49,6 +81,39 @@ Ext.define('app.module.DID_Grid', {
         return value;
     },
     initComponent : function () {
-        this.callParent(arguments); 
+        this.callParent(arguments);
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // при внесении изменений в хранилище sources_exception
+        // повторная загрузка (обновление записей) хранилища groups_extended
+
+        this.store.on('load',
+
+            function(store, records, success) {
+
+                var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID
+                if (grid && !this.autoLoad)
+                    grid.ownerCt.body.unmask();  // «серый» экран – блокировка действий пользователя
+                this.Total_sync();  // количество записей
+                this.dirtyMark = false;  // измененных записей нет
+                if (!success && store.storeId) {
+                    store.removeAll();
+                    if (store.autorefresh != undefined)
+                        store.autorefresh = false;
+                    console.log('ERROR: ' + store.storeId + ' fail_load [code of DID_Grid.js]');
+                }
+                
+                
+                var repository_exists = Ext.StoreMgr.lookup('sources_exception');
+                
+                if (repository_exists)
+                    repository_exists.load()
+                else
+                    console.log('ERROR: sources_exception - fail_load [code of DID_Grid.js]');
+            }
+
+        );
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -        
+
     }
 })

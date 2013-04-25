@@ -269,20 +269,18 @@ app.online_offline_renderer = function(value, metadata, record, rowIndex, colInd
     if (colIndex == 1) {
         if (value == 'online')
         {
-            metadata.tdCls = 'icon-online';
+           // metadata.tdCls = 'icon-online';
             metadata.tdAttr = 'data-qtip="' + app.msg['registered'] + '"';
         }
         if (value == 'offline')
         {
-            metadata.tdCls = 'icon-offline';
             metadata.tdAttr = 'data-qtip="' + app.msg['unregistered'] + '"';
-        }
+         }
         if (value == 'busy')
-        {
-            metadata.tdCls = 'icon-busy';
+        {  
             metadata.tdAttr = 'data-qtip="' + app.msg[value] + '"';
         }
-        return '&nbsp;';
+  return '<img src="js/app/images/'+value+'.gif">';
     }
     return value;
 }
