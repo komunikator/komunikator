@@ -84,7 +84,7 @@ Ext.define('app.module.DID_Grid', {
         this.callParent(arguments);
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        // при внесении изменений в хранилище groups
+        // при внесении изменений в хранилище sources_exception
         // повторная загрузка (обновление записей) хранилища groups_extended
 
         this.store.on('load',
@@ -100,7 +100,7 @@ Ext.define('app.module.DID_Grid', {
                     store.removeAll();
                     if (store.autorefresh != undefined)
                         store.autorefresh = false;
-                    console.log('ERROR: ' + store.storeId + ' fail_load [code of ...]');
+                    console.log('ERROR: ' + store.storeId + ' fail_load [code of DID_Grid.js]');
                 }
                 
                 
@@ -109,7 +109,7 @@ Ext.define('app.module.DID_Grid', {
                 if (repository_exists)
                     repository_exists.load()
                 else
-                    console.log('ERROR: sources_exception - fail_load [code of ...]');
+                    console.log('ERROR: sources_exception - fail_load [code of DID_Grid.js]');
             }
 
         );
