@@ -40,12 +40,30 @@ Ext.define('app.module.DID_Grid', {
             vtype: 'fds'
         })
     } ,
+    
     { 
-        width: 160,
-        editor :  app.get_Source_Combo({/*validator:{}*/
+        width   : 160,
+        
+        // - - - - -
+        editor  : {
+            xtype  : 'combobox',
+            store  : Ext.create('app.Store', {
+                fields   : ['id', 'name'],
+                storeId  : 'sources_exception'
+            }),
+             editable: false,
+            displayField  : 'name',
+            valueField    : 'name',
+
+            queryMode     : 'local'
+        }
+        // - - - - -
+        
+        //editor :  app.get_Source_Combo({/*validator:{}*/
         //allowBlank: false
-            })//TODO validator
-    } ,
+            //})//TODO validator
+    },
+    
     { 
         editor :  {
             xtype: 'textfield'
