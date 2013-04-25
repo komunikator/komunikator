@@ -51,7 +51,8 @@ Ext.define('app.module.DID_Grid', {
                 fields   : ['id', 'name'],
                 storeId  : 'sources_exception'
             }),
-             editable: false,
+            
+            editable: false,
             displayField  : 'name',
             valueField    : 'name',
 
@@ -80,6 +81,39 @@ Ext.define('app.module.DID_Grid', {
         return value;
     },
     initComponent : function () {
-        this.callParent(arguments); 
+        this.callParent(arguments);
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // при внесении изменений в хранилище groups
+        // повторная загрузка (обновление записей) хранилища groups_extended
+
+        this.store.on('load',
+
+            function(store, records, success) {
+
+                var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID
+                if (grid && !this.autoLoad)
+                    grid.ownerCt.body.unmask();  // «серый» экран – блокировка действий пользователя
+                this.Total_sync();  // количество записей
+                this.dirtyMark = false;  // измененных записей нет
+                if (!success && store.storeId) {
+                    store.removeAll();
+                    if (store.autorefresh != undefined)
+                        store.autorefresh = false;
+                    console.log('ERROR: ' + store.storeId + ' fail_load [code of ...]');
+                }
+                
+                
+                var repository_exists = Ext.StoreMgr.lookup('sources_exception');
+                
+                if (repository_exists)
+                    repository_exists.load()
+                else
+                    console.log('ERROR: sources_exception - fail_load [code of ...]');
+            }
+
+        );
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -        
+
     }
 })
