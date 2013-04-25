@@ -44,21 +44,26 @@ Ext.define('app.module.DID_Grid', {
     { 
         width   : 160,
         
-        // - - - - -
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // было создано отдельное хранилище sources_exception
+        // в котором отсутствуют: Автосекретарь, Голосовая почта
+        
         editor  : {
-            xtype  : 'combobox',
-            store  : Ext.create('app.Store', {
+            xtype         : 'combobox',
+            
+            store         : Ext.create('app.Store', {
                 fields   : ['id', 'name'],
                 storeId  : 'sources_exception'
             }),
             
-            editable: false,
+            editable      : false,
+            
             displayField  : 'name',
             valueField    : 'name',
 
             queryMode     : 'local'
         }
-        // - - - - -
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         
         //editor :  app.get_Source_Combo({/*validator:{}*/
         //allowBlank: false
@@ -84,8 +89,8 @@ Ext.define('app.module.DID_Grid', {
         this.callParent(arguments);
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        // при внесении изменений в хранилище sources_exception
-        // повторная загрузка (обновление записей) хранилища groups_extended
+        // при внесении изменений в хранилище sources
+        // повторная загрузка (обновление записей) хранилища sources_exception
 
         this.store.on('load',
 
