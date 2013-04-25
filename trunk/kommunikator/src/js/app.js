@@ -282,7 +282,8 @@ app.online_offline_renderer = function(value, metadata, record, rowIndex, colInd
         }
   return '<img src="js/app/images/'+value+'.gif">';
     }
-    return value;
+    return   value;
+;
 }
 app.get_Source_Combo = function(cfg) {
     var obj = {
