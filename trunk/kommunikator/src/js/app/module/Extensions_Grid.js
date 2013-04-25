@@ -7,9 +7,9 @@ Ext.define('app.module.Extensions_Grid', {
         fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group_name', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
         storeId: 'extensions',
         sorters: [{
-                direction: 'DESC',
-                property: 'group_name'
-            }]        
+            direction: 'DESC',
+            property: 'group_name'
+        }]        
     },
     advanced: ['forward'], //'forward_busy','forward_noanswer','noanswer_timeout'],	
     not_create_column: true,
@@ -75,12 +75,26 @@ Ext.define('app.module.Extensions_Grid', {
 
             editor  : {
                 xtype         : 'combobox',
+
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                // так, как хранилище создается только здесь,
+                // код был поправлен
+
+                /*
                 store         : Ext.StoreMgr.lookup('groups_extended') ?
                     Ext.StoreMgr.lookup('groups_extended') :
                     Ext.create('app.Store', {
                         fields   : ['id', 'group', 'description', 'extension'],
                         storeId  : 'groups_extended'
                     }),
+                */
+
+               store         : Ext.create('app.Store', {
+                    fields   : ['id', 'group', 'description', 'extension'],
+                    storeId  : 'groups_extended'
+                }),                            
+
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
                 // queryCaching: false,
                 // triggerAction: 'query',
@@ -90,7 +104,8 @@ Ext.define('app.module.Extensions_Grid', {
                 queryMode     : 'local',
                 
                 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                // Customized combobox
+                // настройка combobox под «себя»
+                // «нормальное» отображение пустых полей в выпадающем списке
                 
                 // displayField  : 'group', <- заменено кодом ниже
 
@@ -170,7 +185,7 @@ Ext.define('app.module.Extensions_Grid', {
                             local: true,
                             type: 'list',
                             local: true,
-                                    options: [['online', app.msg['registered']], ['offline', app.msg['unregistered']]],
+                            options: [['online', app.msg['registered']], ['offline', app.msg['unregistered']]],
                             dataIndex: 'status'
                         }, {
                             type: 'string',
