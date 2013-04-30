@@ -152,14 +152,14 @@ function get_space() {
 $f_data[] = array('space_use',get_space());
 
 function get_uptime() {
-    $uptime=exec("uptime");
-    $uptime=explode(",",substr($uptime,strpos($uptime,"up")+3));
-    $time=explode(":",$uptime[1]);
-    if(!isset($time[1])) {
-        $time[1]=str_replace(" min","",$time[0]);
-        $time[0]=0;
+    $uptime = exec("uptime");
+    $uptime = explode( ",", substr( $uptime, strpos($uptime, "up")+3 ) );
+    $time = explode(":", $uptime[1]);
+    if ( !isset($time[1]) ) {
+        $time[1] = str_replace(" min", "", $time[0]);
+        $time[0] = 0;
     }
-    $uptime=$uptime[0]." ".$time[0]."h ".$time[1]."m";
+    $uptime = $uptime[0]." ".trim($time[0])."h ".trim($time[1])."m";  // добавил функцию trim к двум переменным
     return $uptime;
 }
 //$f_data[] = array('uptime',get_uptime());
@@ -205,7 +205,8 @@ function get_yate_last_restart(){
 return $days.' day '.$hours.':'.$mins;//.':'.$seconds;
 }
 
-$f_data[] = array('uptime',get_yate_last_restart());
+// $f_data[] = array('uptime',get_yate_last_restart());  // мой комментарий
+$f_data[] = array('uptime', get_uptime());
 
 //$f_data[] = array('active_user',get_active_user());
 //$f_data[] = array('active_extension',get_active_user('extension'));
