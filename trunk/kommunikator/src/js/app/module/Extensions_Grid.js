@@ -68,7 +68,7 @@ Ext.define('app.module.Extensions_Grid', {
                 vtype: 'email',
                 xtype: 'textfield'
             }
-    },
+        },
                 
         {  // 'group_name'
             text    : app.msg['group'],

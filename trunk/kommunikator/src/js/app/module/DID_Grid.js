@@ -1,5 +1,5 @@
 Ext.apply(Ext.form.field.VTypes, {
-    fds: function(val, field) {
+    fds : function(val, field) {
         if (val !== app.msg.attendant)
         {
             console.log(field.ownerCt.items.items[3].setVisible(false));
@@ -12,66 +12,83 @@ Ext.apply(Ext.form.field.VTypes, {
 });
 
 Ext.define('app.module.DID_Grid', {
-    extend: 'app.Grid',
-    store_cfg: {
-        fields: ['id', 'number', 'destination', 'default_dest', 'description'],
-        storeId: 'dids'
+    extend     : 'app.Grid',
+            
+    store_cfg  : {
+        fields   : ['id', 'number', 'destination', 'default_dest', 'description'],
+        storeId  : 'dids'
     },
+            
     advanced: ['description'],
+    
     columns: [
-        {
-            hidden: true
+
+        {  // 'id'
+            hidden : true
         },
-        {
-            editor: {
-                xtype: 'textfield',
-                regex: /^\d+$/,
-                allowBlank: false
+        
+        {  // 'number'
+            editor : {
+                xtype       : 'textfield',
+                regex       : /^\d+$/,
+                allowBlank  : false
 
             }
         },
-        {
-            editor: app.get_Source_Combo({
-                allowBlank: false,
-                editable: false,
-                vtype: 'fds'
+        
+        {  // 'destination'
+            editor : app.get_Source_Combo({
+                allowBlank  : false,
+                editable    : false,
+                vtype       : 'fds'
             })
         },
-        {
-            width: 160,
-            // - - - - -
-            editor: {
-                xtype: 'combobox',
-                store: Ext.create('app.Store', {
-                    fields: ['id', 'name'],
-                    storeId: 'sources_exception'
+        
+        {  // 'default_dest'
+            width   : 160,
+
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            // было создано отдельное хранилище sources_exception
+            // в котором отсутствуют: Автосекретарь, Голосовая почта
+            
+            editor  : {
+                xtype         : 'combobox',
+                
+                store         : Ext.create('app.Store', {
+                    fields   : ['id', 'name'],
+                    storeId  : 'sources_exception'
                 }),
-                editable: false,
-                displayField: 'name',
-                valueField: 'name',
-                queryMode: 'local'
+                
+                editable      : false,
+                displayField  : 'name',
+                valueField    : 'name',
+                queryMode     : 'local'
             }
-            // - - - - -
+            
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
             //editor :  app.get_Source_Combo({/*validator:{}*/
             //allowBlank: false
             //})//TODO validator
         },
-        {
-            editor: {
-                xtype: 'textfield'
+        
+        {  // 'description'
+            editor : {
+                xtype : 'textfield'
             }
         }
+        
     ],
-    columns_renderer:
-            function(value, metaData, record, rowIndex, colIndex, store) {
-                if (colIndex == 2 && app.msg[value])
-                {
-                    return app.msg[value];
-                }
-                return value;
-            },
-    initComponent: function() {
+            
+    columns_renderer :
+        function(value, metaData, record, rowIndex, colIndex, store) {
+            if (colIndex == 2 && app.msg[value]) {
+                return app.msg[value];
+            }
+            return value;
+        },
+                
+    initComponent : function() {
         this.callParent(arguments);
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -79,6 +96,7 @@ Ext.define('app.module.DID_Grid', {
         // повторная загрузка (обновление записей) хранилища groups_extended
 
         this.store.on('load',
+        
                 function(store, records, success) {
 
                     var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID

@@ -1,18 +1,20 @@
-app.source_tip = function(values){
+app.source_tip = function(values) {
     if (Ext.isObject(values) && values.id && values.name)
         return values.id.length==2?app.msg.group+"&nbsp;"+values.name:(values.id.length==3?app.msg.extension+"&nbsp;"+values.id:(app.msg[values.name]?app.msg[values.name]:values.name));
     return null;
 }
 
-//values.id.length==2?app.msg.group+"&nbsp;"+values.id:(values.id.length==3?app.msg.extension+"&nbsp;"+values.id:(app.msg[values.name]?app.msg[values.name]:values.name))
+// values.id.length==2?app.msg.group+"&nbsp;"+values.id:(values.id.length==3?app.msg.extension+"&nbsp;"+values.id:(app.msg[values.name]?app.msg[values.name]:values.name))
 
 Ext.define('app.module.Keys_Grid', {
-    extend : 'app.Grid',
-    store_cfg:{ 
-        fields : ['id','status','key', 'destination','description'],
-        storeId : 'keys'
+    extend            : 'app.Grid',
+    
+    store_cfg         : { 
+        fields   : ['id', 'status', 'key', 'destination', 'description'],
+        storeId  : 'keys'
     },
-    columns_renderer :
+    
+    columns_renderer  :
     function(value, metaData, record, rowIndex, colIndex, store) {
         if (colIndex==2 && app.msg[value])
         {
@@ -20,38 +22,37 @@ Ext.define('app.module.Keys_Grid', {
         }
         return value;
     },
-    columns : [
-    {
-        hidden: true
+            
+    columns           : [
+
+    {  // 'id'
+        hidden : true
     },
 
-    { 
-        editor :  {
-            xtype: 'combobox',
-            store: [['online',app.msg['online']?app.msg['online']:'online'],['offline',app.msg['offline']?app.msg['offline']:'offline']],
-            //displayField: 'group',
-            //valueField: 'group',
-            value :'online',	
-            queryMode: 'local'
-            ,
-            allowBlank: false 
+    {  // 'status'
+        editor : {
+            xtype         : 'combobox',
+            store         : [['online',app.msg['online']?app.msg['online']:'online'],['offline',app.msg['offline']?app.msg['offline']:'offline']],
+            // displayField  : 'group',
+            // valueField    : 'group',
+            value         : 'online',
+            queryMode     : 'local',
+            allowBlank    : false 
         }
 
-    } ,
-        
+    },
 
-    { 
-        editor :  {
-            xtype: 'textfield',
-            regex: /^\d$/
-            ,
-            allowBlank: false 
+    {  // 'key'
+        editor : {
+            xtype       : 'textfield',
+            regex       : /^\d$/,
+            allowBlank  : false 
         }
     },
 
-    { 
+    {  // 'destination'
         editor :  app.get_Source_Combo({
-            allowBlank: false
+            allowBlank : false
         })
 
     /*{
@@ -80,21 +81,26 @@ Ext.define('app.module.Keys_Grid', {
             queryMode: 'remove'
         } */
 
-    } ,
-    { 
-        editor :  {
-            xtype: 'textfield'
+    },
+    
+    {  // 'description'
+        editor : {
+            xtype : 'textfield'
         }
     }
-    ], 
-    columns_renderer : function(value, metadata, record, rowIndex, colIndex, store) {
-        if (colIndex == 1 || colIndex == 3){
+    
+    ],
+
+    columns_renderer :
+    function(value, metadata, record, rowIndex, colIndex, store) {
+        if (colIndex == 1 || colIndex == 3) {
             metadata.tdAttr = 'data-qtip="' + app.msg[value]?app.msg[value]:value + '"';
             return app.msg[value]?app.msg[value]:value;
         }
         return value;		
     },
-    initComponent : function () {
+            
+    initComponent : function() {
         this.callParent(arguments); 
     }
 })
