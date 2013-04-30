@@ -219,5 +219,5 @@ app.msg = {
     server_internal_erro: 'внутренняя ошибка сервера',
     request_timeout: 'время ожидания истекло',
     'unallocated_(unassigned)_number': 'недопустимы номер',
-    normal_call_clearing: 'вызов отклонен'
+    normal_call_clearing: 'сбой вызова'
 };

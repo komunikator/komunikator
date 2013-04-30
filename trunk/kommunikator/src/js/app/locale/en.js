@@ -185,5 +185,5 @@ app.msg = {
     server_internal_erro: 'internal server error',
     request_timeout: 'request timeout',
     'unallocated_(unassigned)_number': 'wrong number',
-    normal_call_clearing: 'the call is rejected'
+    normal_call_clearing: 'call failed'
 };
