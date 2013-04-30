@@ -267,7 +267,7 @@ app.checked_render = function(value) {
 
 app.online_offline_renderer = function(value, metadata, record, rowIndex, colIndex, store) {
     if (colIndex == 1) {
-        if (value == 'online')
+        if (value == 'online') 
         {
            // metadata.tdCls = 'icon-online';
             metadata.tdAttr = 'data-qtip="' + app.msg['registered'] + '"';
@@ -275,14 +275,19 @@ app.online_offline_renderer = function(value, metadata, record, rowIndex, colInd
         if (value == 'offline')
         {
             metadata.tdAttr = 'data-qtip="' + app.msg['unregistered'] + '"';
+           //  return '<img src="js/app/images/online.gif">';
          }
         if (value == 'busy')
         {  
             metadata.tdAttr = 'data-qtip="' + app.msg[value] + '"';
         }
-  return '<img src="js/app/images/'+value+'.gif">';
+         if (value == 0)
+ {    
+      return '&nbsp'; 
+  }
+ return '<img src="js/app/images/'+value+'.gif">';
     }
-    return   value;
+  return   value;
 ;
 }
 app.get_Source_Combo = function(cfg) {
