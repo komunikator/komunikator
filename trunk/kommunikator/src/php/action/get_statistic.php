@@ -151,6 +151,7 @@ function get_space() {
 }
 $f_data[] = array('space_use',get_space());
 
+// получение времени работы системы (сервера) - функция не используется
 function get_uptime() {
     $uptime = exec("uptime");
     $uptime = explode( ",", substr( $uptime, strpos($uptime, "up")+3 ) );
@@ -162,7 +163,7 @@ function get_uptime() {
     $uptime = $uptime[0]." ".trim($time[0])."h ".trim($time[1])."m";  // добавил функцию trim к двум переменным
     return $uptime;
 }
-//$f_data[] = array('uptime',get_uptime());
+// $f_data[] = array('uptime', get_uptime());
 
 function get_active_user($name='user') {
     $path = realpath(session_save_path());
@@ -191,6 +192,37 @@ function get_yate_version(){
   return $ver;
 }
 
+// получение времени работы yate
+function get_yate_last_restart() {
+    $time_system = time();
+
+    $file_name = "/var/run/yate/yate.pid";
+    $time_file = fileatime($file_name);
+
+
+    $time_difference = $time_system - $time_file;
+
+    $minutes = floor($time_difference / 60) % 60;
+    $watch = floor($time_difference / (60 * 60) ) % 24;
+    $days = floor($time_difference / (60 * 60 * 24) );
+
+
+    $assembly = "";
+
+    $assembly = $assembly . $days . " дн., ";
+
+    if ($watch < 10) { $assembly = $assembly . "0" . $watch . " ч. "; }
+    else { $assembly = $assembly . $watch . " ч. "; };
+
+    if ($minutes < 10) { $assembly = $assembly . "0" . $minutes . " мин."; }
+    else { $assembly = $assembly . $minutes . " мин."; };
+
+
+    return $assembly;
+}
+$f_data[] = array('uptime', get_yate_last_restart());
+
+/* функция заменена (см. выше)
 function get_yate_last_restart(){
  $time = time()-fileatime('/var/run/yate/yate.pid');
  //return date("d H:i",$s);
