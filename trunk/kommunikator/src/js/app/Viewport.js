@@ -1,9 +1,9 @@
 Ext.define('app.Viewport', {
     extend  : 'Ext.container.Viewport',
-   
+    
     style   : 'padding : 2px 10px',  // отступы: верх, низ - 2; право, лево - 10
     layout  : 'border',
-   
+    
     items   : [{
         region   : 'north',  // верх
         // autoHeight : true,
@@ -22,12 +22,12 @@ Ext.define('app.Viewport', {
         // height : 100,
         width        : 270,
         // collapsed : true,
-       
+        
         listeners    : {
             afterrender : function() {
                 this.fireEvent('expand', this);
             },
-                   
+                    
             expand      : function(i) {
                 i.items.each(function(s) {
                     if (s && s.store) {
@@ -36,23 +36,25 @@ Ext.define('app.Viewport', {
                     }
                 })
             },
-                   
+                    
             collapse    : function(i) {
                 i.items.each(function(s) {
                     if (s && s.store) {
                         app.set_autorefresh(s, false);
                     // console.log('owner collapse for: '+s.store.storeId);
-                    }       
+                    }		
                 })
             }
         },
+
         // split : true,
+
         items        : [
             Ext.create('app.module.Status_Grid', {
                 title : app.msg.statistic  // Статистика АТС
             })
         ]
-   
+	
     }, {
         region     : 'center',  // центр
         // resizable : true,
@@ -67,11 +69,11 @@ Ext.define('app.Viewport', {
         // style : 'padding : 2px',
         // defaults : {
         //     layout : 'fit'
-        // },   
+        // },	
         // activeTab : 0,
-       
+        
         listeners  : {
-           
+            
             afterrender : function() {
                 var f = this.setActiveTab(0);
                 // if (f && f.items) ;
@@ -79,20 +81,21 @@ Ext.define('app.Viewport', {
                 // console.log(
                 f.items.items[0].fireEvent('activate', f.items.items[0]);  // f.setActiveItem(0);
             },
-                   
+                    
             tabchange   : function(c, f, o) {
                 if (f && f.items) {
                     f.getLayout().setActiveItem(0);
                     f.items.items[0].fireEvent('activate', f.items.items[0]);  // f.setActiveItem(0);
                 }
             }
+
         },
-               
+                
         items      : [
-   
+    
         // Ext.create('app.module.Attendant_Panel'),
         // Ext.create('app.module.Extensions_Panel'),
-       
+        
         Ext.create('app.Card_Panel', {
             title: app.msg.directory,  // Справочники
             items: [
@@ -107,7 +110,7 @@ Ext.define('app.Viewport', {
             })
             ]
         }),
-       
+        
         Ext.create('app.Card_Panel', {
             title: app.msg.attendant,  // Автосекретарь
             items: [
@@ -123,7 +126,7 @@ Ext.define('app.Viewport', {
             })
             ]
         }),
-       
+        
         Ext.create('app.Card_Panel', {
             title: app.msg.routing,  // Маршрутизация
             items: [
@@ -141,7 +144,7 @@ Ext.define('app.Viewport', {
             })
             ]
         }),
-       
+        
         Ext.create('app.Card_Panel', {
             title: app.msg.music_on_hold,  // Музыка на удержании
             items: [         
@@ -153,7 +156,7 @@ Ext.define('app.Viewport', {
             }) 
             ]
         }),
-       
+        
         Ext.create('app.Card_Panel', {
             title: app.msg.call_logs,  // История звонков
             items: [
@@ -165,7 +168,7 @@ Ext.define('app.Viewport', {
             })
             ]
         }),
-       
+        
         Ext.create('app.Card_Panel', {
             title: app.msg.settings,  // Настройки
             items: [ 
@@ -181,13 +184,14 @@ Ext.define('app.Viewport', {
             /*
             Ext.create('app.module.Ntn_Settings_Grid',{
                 title:app.msg.notification_settings
-            }), 
+            }),  
             Ext.create('app.module.Update_Panel',{
                 title:app.msg.update
             }),  */
+
             {
                 title    : app.msg.reboot_pbx,  // Перезагрузка АТС
-               
+                
                 handler  : function() {
                     var fn = function(btn) {
                         if (btn == 'yes') {
@@ -213,12 +217,13 @@ Ext.define('app.Viewport', {
                         animEl   : 'mb4',
                         icon     : Ext.MessageBox.QUESTION
                     });
+
                 }
             },
-           
+            
             {
                 title    : app.msg.update,   // Обновление
-               
+                
                 handler  : function() {
                     var fn = function(btn) {
                         if (btn == 'yes') {
@@ -239,7 +244,7 @@ Ext.define('app.Viewport', {
                                             // Пожалуйста, подождите пока происходит установка обновлений
                                             // Выполнение действий
                                             var polling_time = 5000;
-                                            // Ext.MessageBox.maxHeight = 400; 
+                                            // Ext.MessageBox.maxHeight = 400;	
                                             var intervalID = setInterval(function() {
                                                 app.request(
                                                 {
@@ -250,6 +255,7 @@ Ext.define('app.Viewport', {
                                                         box.updateText(app.msg.wait_update+'<br>'+result.data);
                                                 }
                                                 );
+
                                             }, polling_time);
                                             app.request(
                                             {
@@ -275,7 +281,7 @@ Ext.define('app.Viewport', {
                                 }
                             });
                         }
-                    };       
+                    };        
                     Ext.MessageBox.show({
                         title    : app.msg.performing_actions,  // Выполнение действий
                         msg      : app.msg.checkforupdates,  // Проверить на наличие обновлений?
@@ -284,20 +290,21 @@ Ext.define('app.Viewport', {
                         animEl   : 'mb4',
                         icon     : Ext.MessageBox.QUESTION
                     });
+
                 }
             }
-           
+            
             ]
         })
-       
-        //{
-        //    title: app.msg.attendant,layout: 'anchor',
+        
+        //{ 
+        //    title: app.msg.attendant,layout: 'anchor', 
         //    items: [{height:100,border: false,html:'test message'},Ext.create('app.module.Prompts_Grid'/*,{height:300})]
         //}
-   
-        ] 
+	
+        ]  
     }],
-   
+    
     initComponent : function() {
         this.items[0].title =
         // '<div class="x-box-inner" style="padding-left: 20px; padding-right: 20px; height: 60px; background-color: #D5EAF3">'+
@@ -309,12 +316,12 @@ Ext.define('app.Viewport', {
         '</div>';
  
         this.callParent(arguments);
-       
+        
         Ext.TaskManager.start({
             run : function() {
                 Ext.StoreMgr.each(function(item, index, length) {
                     if (item.storeId == 'statistic') {
-                        if (item.autorefresh) item.load(); 
+                        if (item.autorefresh) item.load();	
                     // console.log(item.storeId + ":item.autorefresh-:" + item.autorefresh);
                     };
                     if (Ext.getCmp(item.storeId + '_grid'))
@@ -323,5 +330,5 @@ Ext.define('app.Viewport', {
             },
             interval : app.refreshTime
         });
-    }   
+    }    
 });
