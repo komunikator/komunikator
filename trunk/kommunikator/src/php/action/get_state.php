@@ -48,9 +48,6 @@ if ($data["data"][0] && ($_SESSION['last_call']!=$data["data"][0][2]))
   session_write_close();
  }
 echo out($obj);
-if(!$_SESSION['user']) {
-    echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
-    
 $sql=
 <<<EOD
 select * from (
