@@ -13,7 +13,8 @@ $values = array();
     foreach ($row as $key=>$value)
         if ($key == 'id') $id = $key;
 	else
-            $values[$key]="'$value'"; 
+            $values[$key]="'$value'";
+        $values['modified'] = 1;
 $rows[] = $values;
 }
 

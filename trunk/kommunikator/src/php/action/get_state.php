@@ -29,7 +29,8 @@ if (isset($_SESSION['extension']))
     $obj["status"] = $status['data'][0][1]; 
 else
     $obj["status"] = $status['data'];
-$data  =  compact_array(query_to_array ("SELECT time-($time_offset)*60,caller,time FROM call_logs where ".time()."-time < $period and (/*caller in ($extension) or*/ called in ($extension)) and direction='outgoing' LIMIT $limit OFFSET 0"));
+//$data  =  compact_array(query_to_array ("SELECT time-($time_offset)*60,caller,time FROM call_logs where ".time()."-time < $period and (/*caller in ($extension) or*/ called in ($extension)) and direction='outgoing' LIMIT $limit OFFSET 0"));
+$data  =  compact_array(query_to_array ("SELECT a.time-($time_offset)*60,a.caller,a.time,case when b.called = a.called then null  when c.description !='' then c.description else b.called end FROM call_logs a left join call_logs b on b.billid=a.billid and b.direction='incoming' and b.ended=0 left join gateways c on c.authname=b.called where ".time()."-a.time < $period and (/*caller in ($extension) or*/ a.called in ($extension)) and a.direction='outgoing' and a.ended=0 LIMIT $limit OFFSET 0"));
 /*
 $f_data = array();
 foreach ($data["data"] as $row) {
@@ -42,10 +43,12 @@ foreach ($data["data"] as $row) {
 */
 if ($data["data"][0] && ($_SESSION['last_call']!=$data["data"][0][2]))
  {
-  $obj["incoming_call"] = array('time'=>date($date_format,$data["data"][0][0]),'number'=>$data["data"][0][1]); 
+  //$obj["incoming_call"] = array('time'=>date($date_format,$data["data"][0][0]),'number'=>$data["data"][0][1]); 
+  $obj["incoming_call"] = array('time'=>date($date_format,$data["data"][0][0]),'number'=>$data["data"][0][1],'incoming_trunk'=>$data["data"][0][3]); 
     session_start();
     $_SESSION['last_call']=$data["data"][0][2];
   session_write_close();
  }
 echo out($obj);
+
 ?>
