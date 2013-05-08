@@ -236,9 +236,8 @@ function get_yate_last_restart(){
 
 return $days.' day '.$hours.':'.$mins;//.':'.$seconds;
 }
-
-// $f_data[] = array('uptime',get_yate_last_restart());  // мой комментарий
-$f_data[] = array('uptime', get_uptime());
+$f_data[] = array('uptime', get_yate_last_restart());
+ */
 
 //$f_data[] = array('active_user',get_active_user());
 //$f_data[] = array('active_extension',get_active_user('extension'));
