@@ -1,38 +1,44 @@
 Ext.apply(Ext.form.field.VTypes, {
-    
-    //  vtype validation function
+    // vtype validation function
     file : function(val, field) {
         var fileName = /^.*\.mp3$/i;
         return fileName.test(val);
     },
     // vtype Text property to display error Text
     // when the validation function returns false
-    fileText : app.msg.wav_file_type,
+    fileText : app.msg.wav_file_type,  // формат звукового файла должен быть MP3
     // vtype Mask property for keystroke filter mask
-    fileMask : /[a-z_\.]/i 
- 
+    fileMask : /[a-z_\.]/i
 });
 
 Ext.define('app.module.Prompts_Panel', {
-    extend : 'Ext.Panel',
-    defaults:{
-        style:'padding:5px;'
-    },
-    bodyStyle:'padding:10px;',
-    autoScroll: true,
+    extend      : 'Ext.Panel',
+            
+    bodyStyle   : 'padding: 10px;',
+    autoScroll  : true,
+    
+    // style       : 'padding: 10px;',  // не работает в отличии от bodyStyle (для справки)
+            
+    defaults : {
+        // minWidth : 320,  // не имеет смысла если width задана напрямую
+        style  : 'padding: 5px;',
+        width  : 925
+   },
+    
     listeners : {
-        activate: function(i){
+        activate : function(i) {
             app.active_store = null;
         }
     },
-    reset : function () {
+            
+    reset : function() {
         var me = this;
         app.request(
         {
-            action:'get_prompts'
+            action : 'get_prompts'
         },
-        function(result){
-            var status = ['online','offline']
+        function(result) {
+            var status = ['online', 'offline']
             me.removeAll(true);
             me.doLayout();
             if (result && result.data)
@@ -43,25 +49,26 @@ Ext.define('app.module.Prompts_Panel', {
                             file_name = result.data[p][4];
                     var item = me.add(
                     {
-                        height: 52,
-                        xype:'container',
-                        layout: 'column',
-                        bodyStyle: 'padding:5px',
-                        defaults: {
-                            border:false,
-                            style:'padding:5px'
+                        height : 52,
+                        // xtype : 'container',  // !
+                        xtype      : 'panel',
+                        layout : 'column',
+                        bodyStyle : 'padding: 5px',
+                        defaults : {
+                            border : false,
+                            style : 'padding: 5px'
                         },
-                        items: [{
-                            width: 120,
-                            style:'padding:5px',
-                            html: '<b style="color:'+(file_name?'green"':'red"')+'>'+app.msg[status[i]] +'</b>'
+                        items : [{
+                            width : 120,
+                            style : 'padding: 5px',
+                            html : '<b style="color:'+(file_name ? 'green"' : 'red"')+'>'+app.msg[status[i]] +'</b>'
                         },{
-                            //width: 300,
-                            layout: 'column',
-                            fileUpload: true,
-                            xtype:'form',
-                            itemId:'form',
-                            items:[
+                            // width : 300,
+                            layout : 'column',
+                            fileUpload : true,
+                            xtype : 'form',
+                            itemId : 'form',
+                            items : [
                             //{xtype:'textfield',filelabel:'comment'},
                             {
                                 xtype: 'filefield',
@@ -147,35 +154,36 @@ Ext.define('app.module.Prompts_Panel', {
                             )
                         }
                     })
-			*/
+		*/
                 }
             me.doLayout();
         });
     },
 
-    initComponent :function () {
+    initComponent : function() {
         this.reset();
         app.Loader.load('js/app/prompts.css');
-        var key_info = app.get_array_key(app.msg,this.title);
+        var key_info = app.get_array_key(app.msg, this.title);
         if (app.msg[key_info+'_info']) 
         {
             if (!this.dockedItems) 
                 this.dockedItems = [];
             this.dockedItems.push({
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items: [
+                xtype  : 'toolbar',
+                dock   : 'bottom',
+                items  : [
                 { 
-                    xtype : 'panel',
-                    width: '100%', 
-                    border:false,
-                    bodyStyle:'padding:10px 50px;', 
-                    style : {
-                    //textAlign : 'center', 
-                    //padding:'0px'
-                    }, 
-                    html:app.msg[key_info+'_info']
-                }] 
+                    xtype      : 'panel',
+                    width      : '100%', 
+                    border     : false,
+                    bodyStyle  : 'padding: 10px 50px;', 
+                    // style : {
+                    //     textAlign  : 'center', 
+                    //     padding    : '0px'
+                    // }, 
+                    html        : app.msg[key_info+'_info']
+                }
+                ]
             });            
          
         }

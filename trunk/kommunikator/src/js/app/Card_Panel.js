@@ -1,7 +1,7 @@
 Ext.define('app.Card_Panel', {
     extend : 'Ext.Panel',
     frame:true,
-    //autoScroll: true,
+    // autoScroll: true,
     //autoHeight: true,
     //scroll: 'vertical',
     defaults:{

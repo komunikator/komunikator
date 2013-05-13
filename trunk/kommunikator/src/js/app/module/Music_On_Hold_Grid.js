@@ -1,20 +1,22 @@
 Ext.create('Ext.Window', {
-    id: 'upload_win',
-    width: 300,
-    border: false,
-    modal: true,
-    closable: false,
-    resizable: false,
-    draggable: false,
-    open: function() {
-        //this.getComponent('form').getForm().reset();
+    id         : 'upload_win',
+    width      : 300,
+    border     : false,
+    modal      : true,
+    closable   : false,
+    resizable  : false,
+    draggable  : false,
+    
+    open : function() {
+        // this.getComponent('form').getForm().reset();
         this.show();
     },
-    items:
-            Ext.create('Ext.form.Panel', {
+            
+    items      :
+        Ext.create('Ext.form.Panel', {
         title: 'Upload Windows',
         fileUpload: true,
-        bodyStyle: 'padding:10px; background: transparent;border-top: 0px none;',
+        bodyStyle: 'padding: 10px;  background: transparent;  border-top: 0px none;',
         xtype: 'form',
         itemId: 'form',
         defaults:
@@ -59,68 +61,74 @@ Ext.create('Ext.Window', {
             }]
 
     })
-}
-);
+});
 
 Ext.define('app.module.Music_On_Hold_Grid', {
-    extend: 'app.Grid',
-    store_cfg: {
-        //groupField: 'playlist',
-        fields: ['id', 'music_on_hold', 'file', 'playlist'],
-        storeId: 'music_on_hold',
-        sorters: [{
-                direction: 'DESC',
-                property: 'playlist'
+    extend    : 'app.Grid',
+    
+    autoScroll : false,
+    
+    store_cfg : {
+        // groupField : 'playlist',
+        fields   : ['id', 'music_on_hold', 'file', 'playlist'],
+        storeId  : 'music_on_hold',
+        sorters  : [{
+                direction  : 'DESC',
+                property   : 'playlist'
             }]
     },
-    requires: ['Ext.ux.upload.Dialog', 'Ext.ux.grid.FiltersFeature'],
-    features: [{
-            ftype: 'grouping'
-        }],
-    columns:
-            [
-                {
-                    hidden: true
+    
+    requires  : ['Ext.ux.upload.Dialog', 'Ext.ux.grid.FiltersFeature'],
+    features  : [{
+            ftype : 'grouping'
+    }],
+    columns   : [
+                {  // 'id'
+                    hidden : true
                 },
-                {
-                    groupable: false,
-                    text: app.msg['name'],
-                    editor: {
-                        xtype: 'textfield'
-                                ,
-                        allowBlank: false
+                {  // 'music_on_hold'
+                    groupable  : false,
+                    text       : app.msg['name'],
+                    
+                    editor     : {
+                        xtype       : 'textfield',
+                        allowBlank  : false
                     },
-                    width: 320
+                    
+                    width      : 320
                 },
-                {
-                    groupable: false,
-                    sortable: false,
-                    width: 320
+                {  // 'file'
+                    groupable  : false,
+                    sortable   : false,
+                    width      : 320
                 },
-                {
-                    editor: {
-                        xtype: 'combobox',
-                        store: Ext.StoreMgr.lookup('playlists') ?
-                                Ext.StoreMgr.lookup('playlists') :
-                                Ext.create('app.Store', {
-                            fields: ['id', 'playlist', 'in_use'],
-                            storeId: 'playlists'
-                        }),
-                        //queryCaching: false,
-                        displayField: 'playlist',
-                        valueField: 'playlist',
-                        queryMode: 'local',
-                        listeners: {
-                            afterrender: function() {
+                {  // 'playlist'
+                    editor : {
+                        xtype  : 'combobox',
+                        
+                        store  : Ext.StoreMgr.lookup('playlists') ?
+                                     Ext.StoreMgr.lookup('playlists') :
+                                     Ext.create('app.Store', {
+                                         fields   : ['id', 'playlist', 'in_use'],
+                                         storeId  : 'playlists'
+                                     }),
+                                     
+                        // queryCaching : false,
+                        displayField  : 'playlist',
+                        valueField    : 'playlist',
+                        queryMode     : 'local',
+                        
+                        listeners     : {
+                            afterrender : function() {
                                 this.store.load();
                             }
                         }
-                        //queryMode: 'remove'
+                        // queryMode : 'remove'
                     }
-
                 }
 
-            ],
+    ],
+    
     initComponent: function() {
         this.columns_renderer = function(value, metaData, record, rowIndex, colIndex, store) {
             if (colIndex == 2)
@@ -183,4 +191,4 @@ Ext.define('app.module.Music_On_Hold_Grid', {
         };
         this.callParent(arguments);
     }
-})
+});
