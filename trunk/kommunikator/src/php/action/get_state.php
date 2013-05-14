@@ -79,15 +79,6 @@ $sql =
 		) a	
 EOD;
 query($sql);
-$data = compact_array(query_to_array($sql . get_filter()));
-if (!is_array($data["data"]))
-    echo out(array("success" => false, "message" => $data));
-$total = count($data["data"]);
-
-$data = compact_array(query_to_array($sql . get_sql_order_limit()));
-if (!is_array($data["data"]))
-    echo out(array("success" => false, "message" => $data));
-
 $obj = array("success" => true);
 $obj["total"] = $total;
 $obj["data"] = $data['data'];
