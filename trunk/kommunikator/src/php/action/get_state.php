@@ -78,6 +78,6 @@ EOD;
 
 $data = compact_array(query_to_array($sql));
 if ($data["data"][0]) 
-    $obj["extensions"] = $data["data"][0]; 
+    $obj["extensions"] = $data["data"]; 
 echo out($obj);
 ?>
