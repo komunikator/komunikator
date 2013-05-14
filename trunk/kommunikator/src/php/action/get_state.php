@@ -59,10 +59,7 @@ if ($data["data"][0] && ($_SESSION['last_call'] != $data["data"][0][2])) {
     $_SESSION['last_call'] = $data["data"][0][2];
     session_write_close();
 }
-if (!$_SESSION['user']) {
-    echo (out(array("success" => false, "message" => "User is undefined")));
-    exit;
-}
+
 
 $sql =
         <<<EOD
@@ -78,9 +75,9 @@ $sql =
  FROM extensions ex  
 		) a	
 EOD;
-query($sql);
-$obj = array("success" => true);
-$obj["total"] = $total;
-$obj["data"] = $data['data'];
+
+$data = compact_array(query_to_array($sql));
+if ($data["data"][0]) 
+    $obj["extensions"] = $data["data"][0]; 
 echo out($obj);
 ?>
