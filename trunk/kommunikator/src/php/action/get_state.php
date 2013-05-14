@@ -78,7 +78,7 @@ $sql =
  FROM extensions ex  
 		) a	
 EOD;
-
+query($sql);
 $data = compact_array(query_to_array($sql . get_filter()));
 if (!is_array($data["data"]))
     echo out(array("success" => false, "message" => $data));
