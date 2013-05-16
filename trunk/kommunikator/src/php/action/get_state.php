@@ -59,5 +59,5 @@ if ($data["data"][0] && ($_SESSION['last_call'] != $data["data"][0][2])) {
     $_SESSION['last_call'] = $data["data"][0][2];
     session_write_close();
 }
-
+echo out($obj);
 ?>
