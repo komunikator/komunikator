@@ -107,7 +107,7 @@ Ext.define('app.module.Music_On_Hold_Grid', {
           xtype         : 'combobox',
           store         : Ext.create('app.Store', {
                     fields   : ['id', 'playlist', 'in_use'],
-                    storeId  : 'playlist'
+                    storeId  : 'playlists'
                 }),
                 valueField    : 'playlist',
 
