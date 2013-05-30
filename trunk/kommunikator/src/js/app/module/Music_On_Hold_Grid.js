@@ -103,31 +103,27 @@ Ext.define('app.module.Music_On_Hold_Grid', {
                     width      : 320
                 },
                 {  // 'playlist'
-                    editor : {
-                        xtype  : 'combobox',
-                        
-                        store  : Ext.StoreMgr.lookup('playlists') ?
-                                     Ext.StoreMgr.lookup('playlists') :
-                                     Ext.create('app.Store', {
-                                         fields   : ['id', 'playlist', 'in_use'],
-                                         storeId  : 'playlists'
-                                     }),
-                                     
-                        // queryCaching : false,
-                        displayField  : 'playlist',
-                        valueField    : 'playlist',
-                        queryMode     : 'local',
-                        
-                        listeners     : {
-                            afterrender : function() {
-                                this.store.load();
-                            }
-                        }
-                        // queryMode : 'remove'
-                    }
-                }
+                  editor  : {  
+          xtype         : 'combobox',
+          store         : Ext.create('app.Store', {
+                    fields   : ['id', 'playlist', 'in_use'],
+                    storeId  : 'playlist'
+                }),
+                valueField    : 'playlist',
 
-    ],
+                queryMode     : 'local',
+                tpl           : Ext.create('Ext.XTemplate',
+                    '<tpl for=".">',
+                        '<div class="x-boundlist-item" style="min-height: 22px">{playlist}</div>',
+                    '</tpl>'
+                ),
+
+                displayTpl    : Ext.create('Ext.XTemplate',
+                    '<tpl for=".">',
+                        '{playlist}',
+                    '</tpl>'
+                ),
+                  }  }],
     
     initComponent: function() {
         this.columns_renderer = function(value, metaData, record, rowIndex, colIndex, store) {
