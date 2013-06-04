@@ -116,8 +116,6 @@ Ext.define('app.module.Music_On_Hold_Grid', {
                         queryMode     : 'local',
                         
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                        // displayField  : 'playlist',
-                        
                         tpl           : Ext.create('Ext.XTemplate',
                             '<tpl for=".">',
                                 '<div class="x-boundlist-item" style="min-height: 22px">{playlist}</div>',
@@ -130,6 +128,8 @@ Ext.define('app.module.Music_On_Hold_Grid', {
                             '</tpl>'
                         ),
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        
+                        editable      : false
                         
                     }
                 }
