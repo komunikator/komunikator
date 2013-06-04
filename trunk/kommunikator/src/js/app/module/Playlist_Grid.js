@@ -3,8 +3,8 @@ Ext.define('app.module.Playlist_Grid', {
     load_after_edit: true,
     store_cfg : {
         fields : ['id', 'playlist', 'in_use'],
-        //storeId : 'playlists'
-        storeId : 'playlist_extended'
+        storeId : 'playlists'
+        // storeId : 'playlist_extended'
     },
     columns : [
     { //id

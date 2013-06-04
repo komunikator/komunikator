@@ -103,27 +103,21 @@ Ext.define('app.module.Music_On_Hold_Grid', {
                     width      : 320
                 },
                 {  // 'playlist'
-                  editor  : {  
-          xtype         : 'combobox',
-          store         : Ext.create('app.Store', {
-                    fields   : ['id', 'playlist', 'in_use'],
-                    storeId  : 'playlists'
-                }),
-                valueField    : 'playlist',
-
-                queryMode     : 'local',
-                tpl           : Ext.create('Ext.XTemplate',
-                    '<tpl for=".">',
-                        '<div class="x-boundlist-item" style="min-height: 22px">{playlist}</div>',
-                    '</tpl>'
-                ),
-
-                displayTpl    : Ext.create('Ext.XTemplate',
-                    '<tpl for=".">',
-                        '{playlist}',
-                    '</tpl>'
-                ),
-                  }  }],
+                    editor : {
+                        xtype         : 'combobox',
+                        
+                        store : Ext.create('app.Store', {
+                            fields   : ['id', 'playlist', 'in_use'],
+                            storeId  : 'playlist_extended'
+                        }),
+                        
+                        displayField  : 'playlist',
+                        valueField    : 'playlist',                        
+                        
+                        queryMode     : 'local',
+                    }  
+                }
+                ],
     
     initComponent: function() {
         this.columns_renderer = function(value, metaData, record, rowIndex, colIndex, store) {
