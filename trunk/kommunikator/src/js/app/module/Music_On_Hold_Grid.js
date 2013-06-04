@@ -111,11 +111,27 @@ Ext.define('app.module.Music_On_Hold_Grid', {
                             storeId  : 'playlist_extended'
                         }),
                         
-                        displayField  : 'playlist',
-                        valueField    : 'playlist',                        
+                        valueField    : 'playlist',
                         
                         queryMode     : 'local',
-                    }  
+                        
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        // displayField  : 'playlist',
+                        
+                        tpl           : Ext.create('Ext.XTemplate',
+                            '<tpl for=".">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{playlist}</div>',
+                            '</tpl>'
+                        ),
+
+                        displayTpl    : Ext.create('Ext.XTemplate',
+                            '<tpl for=".">',
+                                '{playlist}',
+                            '</tpl>'
+                        ),
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        
+                    }
                 }
                 ],
     
