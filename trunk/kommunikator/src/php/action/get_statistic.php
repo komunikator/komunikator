@@ -286,7 +286,8 @@ function get_time_current() {
 
     return $time_current;
 }
-$f_data[] = array('time_current', get_time_current());
+// $f_data[] = array('time_current', get_time_current());
+$f_data[] = array('yate_version', get_time_current());
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /* функция заменена (см. выше)
