@@ -96,11 +96,12 @@ app.logout = function() {
 };
 
 app.login = function() {
-    Ext.Msg.hide();
-    if (Ext.getCmp('loginWindow'))
+  
+   /* if (Ext.getCmp('loginWindow'))
         Ext.getCmp('loginWindow').show();
-    else
-        Ext.create('app.LoginWindow').show()
+    else*/
+        Ext.create('app.LoginWindow').show();
+   Ext.Msg.hide()     
 };
 app.msgShow = function(msg, type, cb) {
     Ext.Msg.show({
@@ -115,9 +116,16 @@ app.msgShow = function(msg, type, cb) {
 }
 
 app.main = function(msg_login) {
+  if(typeof msg_login !== 'undefined' ) { //если user неопределен, тогда грузим viewport_user для обыч. польз-ля
     Ext.create('app.Viewport', {
         user_name: msg_login
     });
+} else
+{
+    Ext.create('app.Viewport_user', {
+        user_name: msg_login
+    });
+}
 }
 
 Ext.application({

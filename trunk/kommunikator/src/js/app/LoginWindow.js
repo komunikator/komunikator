@@ -8,9 +8,9 @@ Ext.define('app.LoginWindow', {
     layout : 'border',
     border : false,
     modal : true,
-    closable : false,
-    resizable : false,
-    draggable : false,
+    closable : false,        //убирает крестик, закрывающий окно
+    resizable : false,       // нельзя изменить размеры окна
+    draggable : false,       //перемещение объекта по экрану
 
     initComponent : function () {
         this.items = [/*{
@@ -20,8 +20,8 @@ Ext.define('app.LoginWindow', {
         //bodyCls : 'app_header'
         }, */{
             id : 'login_form',
-            title: app.msg.auth_title,	
-            region : 'center',
+            title: app.msg.auth_title,	//получаем название титула окна
+            region : 'center',          //расположена форма по центру
             xtype : 'form',
             url: 'data.php',
             method: 'POST',

@@ -9,6 +9,10 @@ $username = getparam("user");
 $extension = getparam("extension");
 $password = getparam("password");
 
+//- - - - - - - - - - - - -  --  - - - - - 
+if ($username)
+  $extension = $username ;
+//- - - - - -  - - - - - -  - - - -  - -  -
 if ($username)
     $username = $conn->escapeSimple($username);
 if ($extension)
@@ -28,7 +32,7 @@ if ($password && ($username || $extension)) {
             $sql = "insert into actionlogs (date,performer,log,ip) values (" . time() . ",\"{$_SESSION['user']}\",\"username $username logged in\", \"{$_SERVER['REMOTE_ADDR']}\")";
             query($sql);
         }
-    } else
+    } /*else*/
     if ($extension) {
         $sql = "SELECT * from extensions where extension = '$extension' and password = '$password'";
         if (query_to_array($sql)) {
