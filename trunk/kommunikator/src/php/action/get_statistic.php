@@ -3,7 +3,70 @@
 if (!$_SESSION['user']) {
     echo ( out(array("success"=>false, "message"=>"User is undefined")) );
     exit;
-} 
+}
+
+// - текущее время на сервере  - - - - - - - - - - - - - - - - - - - - - - - - -
+function get_time_current() {
+    $v_time = exec("date '+%H ч. %M мин.'");
+    $v_day = exec("date '+%w'");
+
+    if ($v_day == "0")
+     { $v_day = "Вс."; }
+    else
+     {
+
+      if ($v_day == "1")
+       { $v_day = "Пн."; }
+      else
+       {
+
+        if ($v_day == "2")
+         { $v_day = "Вт."; }
+        else
+         {
+
+          if ($v_day == "3")
+           { $v_day = "Ср."; }
+          else
+           {
+
+            if ($v_day == "4")
+             { $v_day = "Чт."; }
+            else
+             {
+
+              if ($v_day == "5")
+               { $v_day = "Пт."; }
+              else
+               {
+
+                if ($v_day == "6")
+                 { $v_day = "Сб."; }
+                else
+                 { $v_day = ""; }
+
+               }
+
+             }
+
+           }
+
+         }
+
+       }
+
+     }
+
+    if ($v_day <> "")
+     { $time_current = $v_time.", ".$v_day; }
+    else
+     { $time_current = $v_time; }
+
+
+    return $time_current;
+}
+$f_data[] = array('time_current', get_time_current());
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function lastDayToTimestamp() {
 //returns an array containing day start and day end timestamps
@@ -223,71 +286,6 @@ function get_yate_last_restart() {
     return $assembly;
 }
 $f_data[] = array('uptime', get_yate_last_restart());
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// - текущее время на сервере  - - - - - - - - - - - - - - - - - - - - - - - - -
-function get_time_current() {
-
-    $v_time = exec("date '+%H ч. %M мин.'");
-    $v_day = exec("date '+%w'");
-
-    if ($v_day == "0")
-     { $v_day = "Вс."; }
-    else
-     {
-
-      if ($v_day == "1")
-       { $v_day = "Пн."; }
-      else
-       {
-
-        if ($v_day == "2")
-         { $v_day = "Вт."; }
-        else
-         {
-
-          if ($v_day == "3")
-           { $v_day = "Ср."; }
-          else
-           {
-
-            if ($v_day == "4")
-             { $v_day = "Чт."; }
-            else
-             {
-
-              if ($v_day == "5")
-               { $v_day = "Пт."; }
-              else
-               {
-
-                if ($v_day == "6")
-                 { $v_day = "Сб."; }
-                else
-                 { $v_day = ""; }
-
-               }
-
-             }
-
-           }
-
-         }
-
-       }
-
-     }
-
-    if ($v_day <> "")
-     { $time_current = $v_time.", ".$v_day; }
-    else
-     { $time_current = $v_time; }
-
-
-    return $time_current;
-}
-$f_data[] = array('time_current', get_time_current());
-// $f_data[] = array('yate_version', get_time_current());
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /* функция заменена (см. выше)
