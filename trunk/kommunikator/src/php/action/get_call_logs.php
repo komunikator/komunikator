@@ -1,11 +1,8 @@
 <?
 //sleep(10);
-if(!$_SESSION['user']) {
-   echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
-// - - - - - -  - - - - - - - - - -
-   if(!$_SESSION['extension']) {
-   echo (out(array("success"=>false,"message"=>"extension is undefined"))); exit;}
-//- - - - - - - - - - - - - - - - -
+if(!$_SESSION['user']&&!$_SESSION['extension']) {
+   echo (out(array("success"=>false,"message"=>"auth_failed"))); exit;} 
+
    $sql=
 <<<EOD
 select * from (

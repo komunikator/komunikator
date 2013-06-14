@@ -221,5 +221,7 @@ app.msg = {
     request_timeout: 'время ожидания истекло',
     'unallocated_(unassigned)_number': 'недопустимы номер',
     normal_call_clearing: 'сбой вызова',
-    update_password: 'Изменить пароль'
+    update_password: 'Изменить пароль',
+    new_password: 'Новый пароль',
+    private_office: 'Личный кабинет'
 };

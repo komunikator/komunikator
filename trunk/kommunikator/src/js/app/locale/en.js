@@ -186,5 +186,7 @@ app.msg = {
     request_timeout: 'request timeout',
     'unallocated_(unassigned)_number': 'wrong number',
     normal_call_clearing: 'call failed',
-    update_password: 'Update_password'
+    update_password: 'Update password',
+    new_password: 'New password',
+    private_office: 'Private office'
 };
