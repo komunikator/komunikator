@@ -14,7 +14,7 @@ if (window['app'] == undefined)
     app = {};
 app.lang = 'ru';
 app.msg = {
-    auth_title: 'D&T PBX авторизация',
+    auth_title: 'Авторизация',
     login: 'Логин',
     password: 'Пароль',
     error: 'Ошибка',

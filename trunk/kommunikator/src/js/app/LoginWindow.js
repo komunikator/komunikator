@@ -26,7 +26,8 @@ Ext.define('app.LoginWindow', {
             url: 'data.php',
             method: 'POST',
             bodyStyle : 'padding:10px; background: transparent;border-top: 0px none;',
-            labelWidth : 75,
+           // labelWidth : 75,
+            labelAlign: 'center',
             defaultType : 'textfield',
             items : [{
                 fieldLabel : app.msg.login,
