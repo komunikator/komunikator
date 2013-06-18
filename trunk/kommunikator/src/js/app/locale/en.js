@@ -188,5 +188,10 @@ app.msg = {
     normal_call_clearing: 'call failed',
     update_password: 'Update password',
     new_password: 'New password',
-    private_office: 'Private office'
+    private_office: 'Private office',
+    current_password: 'Current password',
+    repeat_new_password: 'Repeat new password',
+    warning_pwd: 'Enter 2 times the same password!',
+    pwd_change:'Password has been changed',
+    pwd_incorrect: 'The password is incorrect'
 };

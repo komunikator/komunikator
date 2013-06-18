@@ -2,11 +2,11 @@ Ext.apply(Ext.form.field.VTypes, {
     fds : function(val, field) {
         if (val !== app.msg.attendant)
         {
-            console.log(field.ownerCt.items.items[3].setVisible(false));
-            console.log(field.ownerCt.items.items[3].setValue(null));            
+            console.log(field.ownerCt.items.items[4].setVisible(false));
+            console.log(field.ownerCt.items.items[4].setValue(null));            
             return true;
         } 
-        console.log(field.ownerCt.items.items[3].setVisible(true));
+        console.log(field.ownerCt.items.items[4].setVisible(true));
         return true;
     }
 });
@@ -15,7 +15,7 @@ Ext.define('app.module.DID_Grid', {
     extend     : 'app.Grid',
             
     store_cfg  : {
-        fields   : ['id', 'number', 'destination', 'default_dest', 'description'],
+        fields   : ['id', 'number', 'destination', 'description', 'default_dest' ],
         storeId  : 'dids'
     },
             
@@ -43,7 +43,11 @@ Ext.define('app.module.DID_Grid', {
                 vtype       : 'fds'
             })
         },
-        
+          {  // 'description'
+            editor : {
+                xtype : 'textfield'
+            }
+        },
         {  // 'default_dest'
             width   : 160,
 
@@ -70,13 +74,9 @@ Ext.define('app.module.DID_Grid', {
             //editor :  app.get_Source_Combo({/*validator:{}*/
             //allowBlank: false
             //})//TODO validator
-        },
-        
-        {  // 'description'
-            editor : {
-                xtype : 'textfield'
-            }
         }
+        
+      
         
     ],
             

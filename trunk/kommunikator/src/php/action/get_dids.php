@@ -11,12 +11,13 @@ $sql=
 	  WHEN d.destination = '{$source["attendant"]}' THEN 'attendant'
 	  WHEN d.destination = '{$source["voicemail"]}'  THEN 'voicemail'
   	  ELSE d.destination
-	END as destination,  	
+	END as destination, 
+            d.description ,
 	CASE
 		 WHEN e.extension is not null THEN e.extension 
 		 WHEN g.group is not null THEN g.group 
-	 END as default_dest,
-	d.description 
+	 END as default_dest
+	
 	FROM dids d  
 		left join  extensions e 
 			on e.extension_id = d.extension_id

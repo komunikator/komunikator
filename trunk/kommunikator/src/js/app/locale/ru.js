@@ -223,5 +223,10 @@ app.msg = {
     normal_call_clearing: 'сбой вызова',
     update_password: 'Изменить пароль',
     new_password: 'Новый пароль',
-    private_office: 'Личный кабинет'
+    private_office: 'Личный кабинет',
+    current_password: 'Текущий пароль',
+    repeat_new_password: 'Повторите новый пароль',
+    warning_pwd: 'Новый пароль повторен неправильно',
+    pwd_change:'Пароль был изменен',
+    pwd_incorrect: 'Пароль введён неверно'
 };

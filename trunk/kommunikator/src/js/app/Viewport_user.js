@@ -14,41 +14,12 @@ Ext.define('app.Viewport_user', {
             margins: '10 0 10 0'
         }, {
             region: 'center', // центр
-            // resizable : true,
-            // split : true,
-            // layout : 'anchor',
             layout: 'fit',
-            // autoHeight : true,
             xtype: 'tabpanel',
-            // layout : 'accordion',
             id: 'main_tabpanel',
             bodyStyle: 'padding : 15px', // отступы: верх, низ, право, лево - 15
-            // style : 'padding : 2px',
-            // defaults : {
-            //     layout : 'fit'
-            // },	
-            // activeTab : 0,
 
-            /*   listeners  : {
-             
-             afterrender : function() {
-             var f = this.setActiveTab(0);
-             // if (f && f.items) ;
-             // grid.ownerCt.layout.setActiveItem(grid.ownerCt.items.indexOf(grid));
-             // console.log(
-             f.items.items[0].fireEvent('activate', f.items.items[0]);  // f.setActiveItem(0);
-             },
-             
-             tabchange   : function(c, f, o) {
-             if (f && f.items) {
-             f.getLayout().setActiveItem(0);
-             f.items.items[0].fireEvent('activate', f.items.items[0]);  // f.setActiveItem(0);
-             }
-             }
-             
-             },*/
-
-        items: [
+            items: [
                 Ext.create('app.Card_Panel', {
                     title: app.msg.private_office, // Личный кабинет
                     items: [
@@ -72,17 +43,15 @@ Ext.define('app.Viewport_user', {
                             }
                         },
                     ]
-         }),
+                }),
             ]
         }],
     initComponent: function() {
         this.items[0].title =
-                // '<div class="x-box-inner" style="padding-left: 20px; padding-right: 20px; height: 60px; background-color: #D5EAF3">'+
                 '<div class="x-box-inner" style="padding-left: 20px; padding-right: 20px; height: 60px">' +
                 '<img class="logo" src="js/app/images/logo.png" height="60px" alt="TS" border="0" align="left">' +
                 '<p align="right"><a href="#" onclick="app.logout(); return false">' + app.msg.logout + '</a></p>' +
-                '<p align="right">' + app.msg.user + ': ' + '</p>' +
-                // '<p align="right"><a target="_blank" href="http://ats.digt.local/bugtracker/">BUG TRACKER</a></p>'+
+                '<p align="right">' + app.msg.user + ': ' + this.extension + '</p>' +
                 '</div>';
 
         this.callParent(arguments);
