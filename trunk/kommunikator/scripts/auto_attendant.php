@@ -31,7 +31,7 @@ set_time_limit($time_out);
 $ourcallid = "auto_attendant/" . uniqid(rand(),1);
 
 $wait_time = 4; //number of seconds that script has to wait after user input in order to see if another digit will be pressed
-$hold_keys = '0';
+//$hold_keys = '0';
 $count = false; //start to count seconds since a digit has been pressed
 $state = "enter";
 
