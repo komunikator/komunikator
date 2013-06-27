@@ -5,9 +5,9 @@
  * @assert ('admin','admin')==true
  */
 $newpasswd = getparam("newpasswd");
-$extension = getparam("ExtensionChange");
-$password = getparam("pass");
 
+$password = getparam("pass");
+$extension= $_SESSION['extension'] ;
 if ($extension)
     $extension = $conn->escapeSimple($extension);
 if ($password)

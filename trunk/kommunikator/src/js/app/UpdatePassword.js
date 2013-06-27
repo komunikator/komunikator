@@ -15,31 +15,31 @@ Ext.define('app.UpdatePassword', {
     id: 'UpdatePassword',
     autoShow: true,
     width: 300,
-    height: 230,
+    height: 200,
     layout: 'border',
     border: false,
     modal: true,
     closable: true, //убирает крестик, закрывающий окно
     resizable: false, // нельзя изменить размеры окна
     draggable: false, //перемещение объекта по экрану
-
+  //closeAction: 'hide',
+          
     initComponent: function() {
         this.items = [{
                 id: 'update_password',
                 title: app.msg.update_password, //получаем название титула окна
                 region: 'center', //расположена форма по центру
                 xtype: 'form',
-                //url: 'data.php',
                 method: 'POST',
                 bodyStyle: 'padding:10px; background: transparent;border-top: 0px none;',
-                labelWidth: 75,
+                labelWidth: 100,
                 defaultType: 'textfield',
-                items: [{
+                items: [/*{
                         fieldLabel: app.msg.login,
                         name: 'ExtensionChange',
                         id: 'ExtensionChange',
                         allowBlank: false
-                    }, {
+                    },*/ {
                         fieldLabel: app.msg.password,
                         name: 'pass',
                         inputType: 'password',
@@ -97,13 +97,18 @@ Ext.define('app.UpdatePassword', {
                                 update_password.getForm().getValues(),
                                 function(result) {
                                     update_password.getForm().reset();
-                                    Ext.getCmp('UpdatePassword').hide();
+                                    Ext.getCmp('UpdatePassword').close();
                                     update_password.body.unmask();
                                 }, function(result) {
                             update_password.body.unmask();
                         });
                     }
                 }
+            },
+        {
+                text: app.msg.cancel,
+                scope: this,
+                handler: this.close
             }];
         this.callParent(arguments);
     }

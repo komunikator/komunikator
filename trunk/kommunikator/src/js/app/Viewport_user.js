@@ -42,6 +42,9 @@ Ext.define('app.Viewport_user', {
 
                             }
                         },
+                                
+                           
+                                
                     ]
                 }),
             ]
@@ -51,7 +54,7 @@ Ext.define('app.Viewport_user', {
                 '<div class="x-box-inner" style="padding-left: 20px; padding-right: 20px; height: 60px">' +
                 '<img class="logo" src="js/app/images/logo.png" height="60px" alt="TS" border="0" align="left">' +
                 '<p align="right"><a href="#" onclick="app.logout(); return false">' + app.msg.logout + '</a></p>' +
-                '<p align="right">' + app.msg.user + ': ' + this.extension + '</p>' +
+                '<p align="right">' + app.msg.user + ': ' + + '</p>' +
                 '</div>';
 
         this.callParent(arguments);

@@ -65,7 +65,8 @@ Ext.define('app.module.Call_logs_Grid', {
             value: {
                 //after: new Date(),
                 //before: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
-                on: new Date()
+              on: new Date()
+           //   before: new Date ()
             }
         }, {
             type: 'string',

@@ -1,68 +1,73 @@
 Ext.define('app.Call_Forwarding', {
     extend: 'Ext.window.Window',
+    
     // alias : 'widget.login',
     id: 'CallForwarding',
-    autoShow: true,
-    width: 330,
-    height: 220,
-    layout: 'border',
-    border: false,
-    modal: true,
+    //  autoShow: true,
+    width: 400,
+    height: 300,
+    layout: 'fit',
+   // border: false,
+    modal: false,
     closable: true, //убирает крестик, закрывающий окно
     resizable: false, // нельзя изменить размеры окна
-    draggable: false, //перемещение объекта по экрану
-
-    initComponent: function() {
-        this.items = [{
-                id: 'call_forwarding',
+    draggable: true, //перемещение объекта по экрану
+    storeId: 'user_forwarding',
+  //  closeAction: 'hide',
+ 
+              
                 title: app.msg.forward, //получаем название титула окна
-                region: 'center', //расположена форма по центру
-                xtype: 'form',
-                //   url: 'data.php',
-                method: 'POST',
-                bodyStyle: 'padding:10px; background: transparent;border-top: 0px none;',
-                labelWidth: 75,
-                defaultType: 'textfield',
-                items: [
-                    {
-                        fieldLabel: app.msg.always,
-                        name: 'forward',
-                        id: 'forward',
-                        height: 20
-                    },
-                    {
-                        fieldLabel: app.msg.forward_busy,
-                        name: 'forward_busy',
-                        id: 'forward_busy',
-                        height: 20
-                    }, {
-                        fieldLabel: app.msg.forward_noanswer,
-                        name: 'forward_noanswer',
-                        id: 'forward_noanswer',
-                        height: 20
-                    },
-                    {
-                        fieldLabel: app.msg.noanswer_timeout,
-                        name: 'noanswer_timeout',
-                        id: 'noanswer_timeout',
-                        height: 20,
-                        editor: {
-                            xtype: 'textfield',
-                            regex: /^\d{1,3}$/
-                        }
-                    }
-                ]
+                 
+               
+  initComponent : function () {
+       this.items= [ Ext.create('app.module.Farwarding_Panel', {
+            
+            })
+            ],
+         /* buttons : [{
+                id: 'close_forward',
+                text: app.msg.close,
+                handler: function() { Ext.getCmp('CallForwarding').close(); }
+                                   
+                               
+                    }]*/
+      this.buttons = [
+           {  text: app.msg.save,
+             /* handler  : function() {
+                    var fn = function(btn) {
+                      
+                            app.request(
+                            {
+                                action : 'change_forwardd'
+                            },
+                            function(result) {
+                                if (!result.message)
+                                    box.hide();
+                            // console.log(result)
+                            });
+                        
+                    };
+                    Ext.MessageBox.show({
+                        title    : app.msg.performing_actions,  
+                        msg      : app.msg.change_redirect,  
+                        buttons  : Ext.MessageBox.YESNOCANCEL,
+                        fn       : fn,
+                       // animEl   : 'mb4',
+                        icon     : Ext.MessageBox.QUESTION
+                    });
+
+                }*/
+            
+            
+             },
+            
+            {
+                text: app.msg.cancel,
+                scope: this,
+                handler: this.close
             }
         ];
-        this.buttons = [{
-                id: 'update_pass',
-                text: app.msg.OK,
-                handler: function() {
-
-                }
-            }];
-
-
-        this.callParent(arguments);
-    }
+    this.callParent(arguments);             
+  }  
+      
 });
