@@ -25,12 +25,14 @@ foreach ($data as $row) {
                 }
                 break;
             case 'destination':
-                if (preg_match('/\d{2,3}/', $value)) {
+                if (preg_match('/\d{3}/', $value)) {
                     $values[$key] = "'$value'";
-                    
+                } else {
+                    if (in_array($value, $key_source))
+                        $values[$key] = "'$source[$value]'";
+                    else
+                        $values[$key] = " (select extension from groups where groups.group = '$value') ";
                 }
-                else
-                    $values[$key] = "'$source[$value]'";
                 break;
             default:
                 $values[$key] = "'$value'";
