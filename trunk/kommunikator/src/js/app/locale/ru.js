@@ -228,5 +228,6 @@ app.msg = {
     repeat_new_password: 'Повторите новый пароль',
     warning_pwd: 'Новый пароль повторен неправильно',
     pwd_change:'Пароль был изменен',
-     change_redirect: 'Изменить переадресацию?'
+     change_redirect: 'Изменить переадресацию?',
+     example_email: 'Ввод нескольких адресов: example@first.ru;example@second.ru'
 };

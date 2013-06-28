@@ -194,5 +194,6 @@ app.msg = {
     warning_pwd: 'Enter 2 times the same password!',
     pwd_change:'Password has been changed',
     pwd_incorrect: 'The password is incorrect',
-    change_redirect: 'Change redirect?'
+    change_redirect: 'Change redirect?',
+     example_email: 'Several email: example@first.ru;example@second.ru'
 };
