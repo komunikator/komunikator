@@ -125,7 +125,7 @@ app.msg = {
     swap_use: 'Виртуальная память',
     space_use: 'Место на диске',
     uptime: 'Работа сервера',
-    copyright: 'Komunikator© 2013',
+    copyright: 'Komunikator © 2013',
     //first_step	: "<div></div><p><b>The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours.</b></p>"
     for_edit: "Для изменения настроек кликните по нужному пункту два раза",
     extensions_info: "Настройка внутренних телефонных номеров АТС",
