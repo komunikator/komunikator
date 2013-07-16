@@ -56,7 +56,9 @@ class Yate
      */
     static function Output($str)
     {
-	global $yate_stderr, $yate_output;
+	$date_format = "d.m.Y H:i:s";
+        $str = date($date_format)." ".$str;
+        global $yate_stderr, $yate_output;
 	if ($str === true)
 	    $yate_output = true;
 	else if ($str === false)
@@ -503,6 +505,9 @@ function _yate_error_handler($errno, $errstr, $errfile, $errline)
 	case E_USER_NOTICE:
 	    Yate::Output("PHP warning: $str");
 	    break;
+        case E_STRICT:
+            //Yate::Output("PHP runtime notice: $str");
+            break;
 	default:
 	    Yate::Output("PHP unknown error: $str");
     }
