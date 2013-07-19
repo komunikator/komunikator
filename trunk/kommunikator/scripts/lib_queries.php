@@ -42,7 +42,7 @@ function query_to_array($query) {
     global $conn;
     $array  = $conn->getAll($query);
     Yate::Output("Executed: $query");
-    Yate::Output("Result:".json_encode($array));
+    Yate::Output("Result:".json_encode($array)."\n");
     //$res->free();
     return $array;
 }
@@ -73,7 +73,7 @@ function query($query) {
             break; 
     } 
     if($query_on)
-        Yate::Output("Executed: $query");
+        Yate::Output("Executed: $query"."\n");
     return $res;
 }
 
