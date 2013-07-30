@@ -13,12 +13,24 @@ select
 	case when x.firstname is null then a.caller else concat(x.firstname,' ',x.lastname,' (',a.caller,')') end caller,
 	case when x2.firstname is null then b.called else concat(x2.firstname,' ',x2.lastname,' (',b.called,')') end called,
 	b.duration,
-	case when a.reason="" then a.status else replace(lower(a.reason),' ','_') end status
+       case 
+	 when g.description is not null and g.description !='' then g.description 
+	 when g.gateway     is not null                        then g.gateway	
+	 when g.authname    is not null                        then g.authname
+	else null 
+        end gateway,
+      case when a.reason="" then a.status else replace(lower(a.reason),' ','_') end status
+        /*,
+         case 
+	 when x.extension is not null then 'outcoming'
+	else 'incoming'
+ end type */
 from call_logs a  
 join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
 left join extensions x on x.extension=a.caller
 left join extensions x2 on x2.extension=b.called
-where a.ended=0 and a.direction='incoming' and a.status!='unknown') a
+left join gateways g  on g.authname=a.called
+   where a.ended=0 and a.direction='incoming' and a.status!='unknown') a
 EOD;
 
 $data = compact_array(query_to_array($sql . get_filter()));

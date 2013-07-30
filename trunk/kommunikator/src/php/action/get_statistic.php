@@ -1,4 +1,10 @@
 <?
+/*  for Windows
+$obj = array("success"=>true);
+$obj["total"] = count($f_data);
+$obj["data"] = array(); 
+echo out($obj);return;
+ */
 // ini_set("display_errors", 1);
 if (!$_SESSION['user']) {
     echo ( out(array("success"=>false, "message"=>"User is undefined")) );

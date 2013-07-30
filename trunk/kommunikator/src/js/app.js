@@ -24,7 +24,7 @@ Ext.require([
 if (window['app'] == undefined)
     app = {};
 
-app.pageSize = 200;//50;//50;
+app.pageSize = 50;//50;//50;
 app.date_format = 'd.m.y H:i:s';
 //2010/08/11 06:33:00
 app.php_date_format = 'Y/m/d H:i:s';

@@ -2,7 +2,7 @@ Ext.define('app.module.Active_calls_Grid', {
     extend : 'app.Grid',
     store_cfg: {
         autorefresh : false,  
-        fields : ['time', 'caller', 'called', 'duration', 'status'],
+        fields : ['time', 'caller', 'called', 'duration','gateway', 'status'],
         storeId :'active_calls'
     },
     columns : [
@@ -16,6 +16,7 @@ Ext.define('app.module.Active_calls_Grid', {
     {
         width:160
     },
+    {},
     {
         width:100
     },
