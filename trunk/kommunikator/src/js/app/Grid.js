@@ -417,35 +417,35 @@ Ext.define('app.Grid', {
             app.Loader.load('js/app/editor.css');
         }
         ;
-    /*
-        if (!this['status_grid'])
-        {
-            if (!this.dockedItems)
-                this.dockedItems = [];
-
-            this.dockedItems.push({
-                xtype: 'toolbar',
-                dock: 'top',
-                items: []
-            });
-
-            this.dockedItems[0].items.push(
-                    {
-                        iconCls: 'x-tbar-loading',
-                        text: app.msg.refresh ? app.msg.refresh : 'Refresh',
-                        //disabled: true,
-                        itemId: 'refresh',
-                        scope: this,
-                        handler: this.onRefresh
-                    });
-            this.dockedItems[0].items.push('->');
-            this.dockedItems[0].items.push({
-                xtype: 'tbtext',
-                id: this.store_cfg.storeId + '_displayItem',
-                text: ''
-            });
-        }
-        */
+        /*
+         if (!this['status_grid'])
+         {
+         if (!this.dockedItems)
+         this.dockedItems = [];
+         
+         this.dockedItems.push({
+         xtype: 'toolbar',
+         dock: 'top',
+         items: []
+         });
+         
+         this.dockedItems[0].items.push(
+         {
+         iconCls: 'x-tbar-loading',
+         text: app.msg.refresh ? app.msg.refresh : 'Refresh',
+         //disabled: true,
+         itemId: 'refresh',
+         scope: this,
+         handler: this.onRefresh
+         });
+         this.dockedItems[0].items.push('->');
+         this.dockedItems[0].items.push({
+         xtype: 'tbtext',
+         id: this.store_cfg.storeId + '_displayItem',
+         text: ''
+         });
+         }
+         */
         var key_info = app.get_array_key(app.msg, this.title);
 
         if (false && app.msg[key_info + '_info'])
@@ -480,19 +480,20 @@ Ext.define('app.Grid', {
             }
         };
         var me = this;
-        if (this.advanced)
+
+        //  if (!this.dockedItems)
+        //      this.dockedItems = [];
+
+        if (this.dockedItems && this.dockedItems[0] && this.advanced)
         {
-            if (!this.dockedItems)
-                this.dockedItems = [];
-            this.dockedItems.push({
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items: [
+//            if (!this.dockedItems)
+//                this.dockedItems = [];
+            this.dockedItems[0].items.push(
                     {
-                        xtype: 'button',
+                        //xtype: 'button',
                         text: app.msg.advanced,
                         enableToggle: true,
-                        style: 'padding: 5px;',
+                        //style: 'padding: 5px;',
                         labelWidth: 160,
                         listeners: {
                             toggle: function(b, newVal, eOpts) {
@@ -504,8 +505,7 @@ Ext.define('app.Grid', {
                                 }
                             }
                         }
-                    }]
-            });
+                    });
 
         }
 
@@ -516,20 +516,23 @@ Ext.define('app.Grid', {
         if (!this.dockedItems)
             this.dockedItems = [];
         if (!this['status_grid'])
-        this.dockedItems.push({
-            xtype: 'pagingtoolbar',
-            displayInfo: true,
-            dock: 'bottom',
-            pageSizes: app.pageSize,
-            //width: 50,
-            store: this.store
+            this.dockedItems.push({
+                xtype: 'pagingtoolbar',
+                displayInfo: true,
+                dock: 'bottom',
+                pageSizes: app.pageSize,
+                //width: 50,
+                store: this.store//,
+                //plugins: Ext.create('Ext.ux.ProgressBarPager',{
+                //    width: 400
+                //})
 
-        }/*,
-         '->',
-         {
-         xtype: 'text',
-         itemId: 'displayItem'
-         }*/);
+            }/*,
+             '->',
+             {
+             xtype: 'text',
+             itemId: 'displayItem'
+             }*/);
 
         if (this.title)
             this.title = '<center>' + this.title + '</center>';
