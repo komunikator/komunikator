@@ -292,6 +292,8 @@ function get_yate_last_restart() {
     return $assembly;
 }
 $f_data[] = array('uptime', get_yate_last_restart());
+$f_data[] = array('version', $cur_ver);
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /* функция заменена (см. выше)
