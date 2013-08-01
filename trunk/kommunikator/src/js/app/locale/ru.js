@@ -146,11 +146,13 @@ app.msg = {
     users_info: "Используйте эту вкладку для управления пользователями системы. По возможности используйте сложные пароли.",
     accepted: "принятый",
     answered: "отвеченный",
+    cancelled: "отменен",
     ringing: "вызов",
     rejected: "отклоненный",
     outgoing: "исходящий",
     address_incomplete: "неполный номер",
     incoming: "входящий",
+    internal: "внутренний",
     request_terminated: "отменен",
     busy_here: "занят",
     transfer: "переведённый",
@@ -228,6 +230,7 @@ app.msg = {
     repeat_new_password: 'Повторите новый пароль',
     warning_pwd: 'Новый пароль повторен неправильно',
     pwd_change:'Пароль был изменен',
-     change_redirect: 'Изменить переадресацию?',
-     example_email: 'Ввод нескольких адресов: example@first.ru;example@second.ru'
+    change_redirect: 'Изменить переадресацию?',
+    example_email: 'Ввод нескольких адресов: example@first.ru;example@second.ru',
+    version:'Версия'    
 };

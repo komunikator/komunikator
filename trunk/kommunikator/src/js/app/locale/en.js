@@ -195,5 +195,6 @@ app.msg = {
     pwd_change:'Password has been changed',
     pwd_incorrect: 'The password is incorrect',
     change_redirect: 'Change redirect?',
-     example_email: 'Several email: example@first.ru;example@second.ru'
+    example_email: 'Several email: example@first.ru;example@second.ru',
+    version:'Version'
 };

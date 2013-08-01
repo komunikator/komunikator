@@ -12,7 +12,7 @@ Ext.define('app.module.Call_logs_Grid', {
                 name: 'time',
                 type: 'date',
                 dateFormat: app.date_format
-            }, 'caller', 'called', 'duration', 'gateway', 'status'],
+            }, 'type', 'caller', 'called', 'duration', 'gateway', 'status'],
         storeId: 'call_logs',
         sorters: [{
                 direction: 'DESC',
@@ -32,20 +32,23 @@ Ext.define('app.module.Call_logs_Grid', {
             format: app.date_format
         },
         {
-            width: 160
+            renderer: app.msg_renderer
         },
         {
             width: 160
         },
-        {},
+        {
+            width: 160
+        },
+        {
+            //align: 'right',
+            //width: 160,
+            renderer: app.dhms
+        },
         {
         },
         {
-            renderer: function(value) {
-                if (app.msg[value])
-                    value = app.msg[value];
-                return value
-            }
+            renderer: app.msg_renderer
         }
     ],
     requires: 'Ext.ux.grid.FiltersFeature',
@@ -75,6 +78,13 @@ Ext.define('app.module.Call_logs_Grid', {
                                         //   before: new Date ()
                             }
                         }, {
+                            encode: 'encode',
+                            local: true,
+                            type: 'list',
+                            local: true,
+                                    options: [['internal', app.msg['internal']], ['incoming', app.msg['incoming']], ['outgoing', app.msg['outgoing']]],
+                            dataIndex: 'type'
+                        }, {
                             type: 'string',
                             dataIndex: 'caller'
                         }, {
@@ -86,10 +96,10 @@ Ext.define('app.module.Call_logs_Grid', {
                         }, {
                             type: 'string',
                             dataIndex: 'gateway'
-                        }, {
-                            type: 'string',
-                            dataIndex: 'status'
-                        }]
+                        }/*, {
+                         type: 'string',
+                         dataIndex: 'status'
+                         }*/]
         }],
     //viewConfig:{loadMask :true},
     initComponent: function() {

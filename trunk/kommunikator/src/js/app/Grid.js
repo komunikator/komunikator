@@ -492,6 +492,7 @@ Ext.define('app.Grid', {
                     {
                         //xtype: 'button',
                         text: app.msg.advanced,
+                        iconCls: 'icon-advanced',
                         enableToggle: true,
                         //style: 'padding: 5px;',
                         labelWidth: 160,
@@ -523,9 +524,9 @@ Ext.define('app.Grid', {
                 pageSizes: app.pageSize,
                 //width: 50,
                 store: this.store//,
-                //plugins: Ext.create('Ext.ux.ProgressBarPager',{
-                //    width: 400
-                //})
+                        //plugins: Ext.create('Ext.ux.ProgressBarPager',{
+                        //    width: 400
+                        //})
 
             }/*,
              '->',

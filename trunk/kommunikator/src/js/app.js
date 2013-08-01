@@ -96,12 +96,12 @@ app.logout = function() {
 };
 
 app.login = function() {
-  
-   /* if (Ext.getCmp('loginWindow'))
-        Ext.getCmp('loginWindow').show();
-    else*/
-        Ext.create('app.LoginWindow').show();
-   Ext.Msg.hide()     
+
+    /* if (Ext.getCmp('loginWindow'))
+     Ext.getCmp('loginWindow').show();
+     else*/
+    Ext.create('app.LoginWindow').show();
+    Ext.Msg.hide()
 };
 app.msgShow = function(msg, type, cb) {
     Ext.Msg.show({
@@ -116,16 +116,16 @@ app.msgShow = function(msg, type, cb) {
 }
 
 app.main = function(msg_login) {
-  if(typeof msg_login !== 'undefined' ) { //если user неопределен, тогда грузим viewport_user для обыч. польз-ля
-    Ext.create('app.Viewport', {
-        user_name: msg_login
-    });
-} else
-{
-    Ext.create('app.Viewport_user', {
-        user_name: msg_login
-    });
-}
+    if (typeof msg_login !== 'undefined') { //если user неопределен, тогда грузим viewport_user для обыч. польз-ля
+        Ext.create('app.Viewport', {
+            user_name: msg_login
+        });
+    } else
+    {
+        Ext.create('app.Viewport_user', {
+            user_name: msg_login
+        });
+    }
 }
 
 Ext.application({
@@ -275,28 +275,28 @@ app.checked_render = function(value) {
 
 app.online_offline_renderer = function(value, metadata, record, rowIndex, colIndex, store) {
     if (colIndex == 1) {
-        if (value == 'online') 
+        if (value == 'online')
         {
-           // metadata.tdCls = 'icon-online';
+            // metadata.tdCls = 'icon-online';
             metadata.tdAttr = 'data-qtip="' + app.msg['registered'] + '"';
         }
         if (value == 'offline')
         {
             metadata.tdAttr = 'data-qtip="' + app.msg['unregistered'] + '"';
-           //  return '<img src="js/app/images/online.gif">';
-         }
+            //  return '<img src="js/app/images/online.gif">';
+        }
         if (value == 'busy')
-        {  
+        {
             metadata.tdAttr = 'data-qtip="' + app.msg[value] + '"';
         }
-         if (value == 0)
- {    
-      return '&nbsp'; 
-  }
- return '<img src="js/app/images/'+value+'.gif">';
+        if (value == 0)
+        {
+            return '&nbsp';
+        }
+        return '<img src="js/app/images/' + value + '.gif">';
     }
-  return   value;
-;
+    return   value;
+    ;
 }
 app.get_Source_Combo = function(cfg) {
     var obj = {
@@ -350,6 +350,42 @@ app.set_autorefresh = function(s, active) {
         }
     }
 };
+app.msg_renderer = function(value) {
+    if (app.msg[value])
+        value = app.msg[value];
+    return value
+}
+
+
+app.dhms = function(s) { 
+    var f = 'hh:mm:ss'
+    var d = h = m = 0;
+    switch (true) {
+        case (s > 86400):
+            d = Math.floor(s / 86400);
+            s -= d * 86400;
+        case (s > 3600):
+            h = Math.floor(s / 3600);
+            s -= h * 3600;
+        case (s > 60):
+            m = Math.floor(s / 60);
+            s -= m * 60;
+    }
+    if (f != null) {
+        var f = f.replace('dd', (d < 10) ? "0" + d : d);
+        f = f.replace('d', d);
+        f = f.replace('hh', (h < 10) ? "0" + h : h);
+        f = f.replace('h', h);
+        f = f.replace('mm', (m < 10) ? "0" + m : m);
+        f = f.replace('m', m);
+        f = f.replace('ss', (s < 10) ? "0" + s : s);
+        f = f.replace('s', s);
+    }
+    else {
+        f = d + ':' + h + ':' + m + ':' + s;
+    }
+    return f
+}
 //alert(Ext.LoadMask.prototype.msg);             
 //Ext.view.AbstractView.prototype.loadingText = Ext.LoadMask.prototype.msg;
    

@@ -11,10 +11,15 @@ $sql =
 select * from (
 select
 	"" id,
-	a.time,
+	b.time,
+        case 
+          when x.extension is not null and x2.extension is not null then 'internal'
+          when x.extension is not null then 'outgoing'
+	  else 'incoming'
+        end type,
 	case when x.firstname is null then a.caller else concat(x.firstname,' ',x.lastname,' (',a.caller,')') end caller,
 	case when x2.firstname is null then b.called else concat(x2.firstname,' ',x2.lastname,' (',b.called,')') end called,
-	b.duration,
+	round(b.billtime) duration,
         case 
 	 when g.description is not null and g.description !='' then g.description 
 	 when g.gateway     is not null                        then g.gateway	
@@ -22,16 +27,11 @@ select
 	else null 
         end gateway,
         case when b.reason="" then b.status else replace(lower(b.reason),' ','_') end status
-        /*,
-         case 
-	 when x.extension is not null then 'outcoming'
-	else 'incoming'
- end type */
 from call_logs a  
 join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
 left join extensions x on x.extension=a.caller
 left join extensions x2 on x2.extension=b.called
-left join gateways g  on g.authname=a.called
+left join gateways g  on g.authname=a.called or g.authname=b.caller
    where a.ended=1 and a.direction='incoming' and a.status!='unknown') a
 EOD;
 
