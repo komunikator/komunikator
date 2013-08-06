@@ -4,7 +4,7 @@ Ext.define('app.module.Extensions_Grid', {
         //groupField: 'group_name',
         autorefresh: false,
         loadmask: true,
-        fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group', 'priority', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
+        fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group_name', 'priority', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
         storeId: 'extensions',
         sorters: [{
                 direction: 'DESC',
@@ -63,11 +63,11 @@ Ext.define('app.module.Extensions_Grid', {
             }
         },
         {
-            header: app.msg.group,
-            dataIndex: 'group',
+            header: app.msg.group,            
             columns: [
                 {
                     text: app.msg.nomination,
+                    dataIndex: 'group_name',
                     editor: {
                         xtype: 'combobox',
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

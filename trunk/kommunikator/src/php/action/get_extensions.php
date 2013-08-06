@@ -28,7 +28,7 @@ select * from (
 			left join groups m 
 				on gm.group_id = m.group_id 
         left join group_priority gp
-        on ex.extension_id = gp.extension_id 
+        on ex.extension_id = gp.extension_id and gp.group_id = m.group_id
 				left join pbx_settings fwd 
 					on fwd.extension_id = ex.extension_id and fwd.param = "forward"
 					left join pbx_settings fwd_busy 
