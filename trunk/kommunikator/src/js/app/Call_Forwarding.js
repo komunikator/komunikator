@@ -20,7 +20,7 @@ Ext.define('app.Call_Forwarding', {
                  
                
   initComponent : function () {
-       this.items= [ Ext.create('app.module.Farwarding_Panel', {
+       this.items= [ Ext.create('app.module.Forwarding_Panel', {
             
             })
             ],

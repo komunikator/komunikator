@@ -4,27 +4,24 @@ Ext.define('app.module.Extensions_Grid', {
         //groupField: 'group_name',
         autorefresh: false,
         loadmask: true,
-        fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group_name', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
+        fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group', 'priority', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
         storeId: 'extensions',
         sorters: [{
-            direction: 'DESC',
-            property: 'group_name'
-        }]        
+                direction: 'DESC',
+                property: 'group_name'
+            }]
     },
     advanced: ['forward'], //'forward_busy','forward_noanswer','noanswer_timeout'],	
     not_create_column: true,
     columns: [
-        
-        {  // 'id'
+        {// 'id'
             hidden: true
-            // hidden: false <- не работает т.к. было скрыто раньше
+                    // hidden: false <- не работает т.к. было скрыто раньше
         },
-        
-        {  // 'status'
+        {// 'status'
             width: 70
         },
-        
-        {  // 'extension'
+        {// 'extension'
             width: 130,
             groupable: false,
             editor: {
@@ -33,8 +30,7 @@ Ext.define('app.module.Extensions_Grid', {
                 allowBlank: false
             }
         },
-        
-        {  // 'password'
+        {// 'password'
             sortable: false,
             groupable: false,
             renderer: function() {
@@ -48,20 +44,17 @@ Ext.define('app.module.Extensions_Grid', {
                 allowBlank: false
             }
         },
-                
-        {  // 'firstname'
+        {// 'firstname'
             editor: {
                 xtype: 'textfield'
             }
         },
-                
-        {  // 'lastname'
+        {// 'lastname'
             editor: {
                 xtype: 'textfield'
             }
         },
-                
-        {  // 'address'
+        {// 'address'
             width: 130,
             groupable: false,
             editor: {
@@ -69,94 +62,95 @@ Ext.define('app.module.Extensions_Grid', {
                 xtype: 'textfield'
             }
         },
-                
-        {  // 'group_name'
-            text    : app.msg['group'],
+        {
+            header: app.msg.group,
+            dataIndex: 'group',
+            columns: [
+                {
+                    text: app.msg.nomination,
+                    editor: {
+                        xtype: 'combobox',
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        // так, как хранилище создается только здесь,
+                        // код был поправлен
 
-            editor  : {
-                xtype         : 'combobox',
+                        /*
+                         store         : Ext.StoreMgr.lookup('groups_extended') ?
+                         Ext.StoreMgr.lookup('groups_extended') :
+                         Ext.create('app.Store', {
+                         fields   : ['id', 'group', 'description', 'extension'],
+                         storeId  : 'groups_extended'
+                         }),
+                         */
 
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                // так, как хранилище создается только здесь,
-                // код был поправлен
+                        store: Ext.create('app.Store', {
+                            fields: ['id', 'group', 'description', 'extension'],
+                            storeId: 'groups_extended'
+                        }),
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-                /*
-                store         : Ext.StoreMgr.lookup('groups_extended') ?
-                    Ext.StoreMgr.lookup('groups_extended') :
-                    Ext.create('app.Store', {
-                        fields   : ['id', 'group', 'description', 'extension'],
-                        storeId  : 'groups_extended'
-                    }),
-                */
+                        // queryCaching: false,
+                        // triggerAction: 'query',
 
-               store         : Ext.create('app.Store', {
-                    fields   : ['id', 'group', 'description', 'extension'],
-                    storeId  : 'groups_extended'
-                }),                            
+                        valueField: 'group',
+                        queryMode: 'local',
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        // настройка combobox под «себя»
+                        // «нормальное» отображение пустых полей в выпадающем списке
 
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-                // queryCaching: false,
-                // triggerAction: 'query',
-
-                valueField    : 'group',
-
-                queryMode     : 'local',
-                
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                // настройка combobox под «себя»
-                // «нормальное» отображение пустых полей в выпадающем списке
-                
-                // displayField  : 'group', <- заменено кодом ниже
+                        // displayField  : 'group', <- заменено кодом ниже
 
 
-                tpl           : Ext.create('Ext.XTemplate',
-                    '<tpl for=".">',
-                        '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
-                    '</tpl>'
-                ),
+                        tpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
+                                '</tpl>'
+                                ),
+                        displayTpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '{group}',
+                                '</tpl>'
+                                ),
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-                displayTpl    : Ext.create('Ext.XTemplate',
-                    '<tpl for=".">',
-                        '{group}',
-                    '</tpl>'
-                ),
-
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                
-                editable      : false,
-
-                listeners: {
-                    afterrender: function() {
-                        this.store.load();
+                        editable: false,
+                        listeners: {
+                            afterrender: function() {
+                                this.store.load();
+                            }
+                        }
+                    }
+                },
+                {
+                    header: app.msg.priority,
+                    dataIndex: 'priority',
+                    width: 120,
+                    editor: {
+                        xtype: 'textfield',
+                        regex: /^\d{1,3}$/
                     }
                 }
-            }
-        },
-                
-        {  // 'forward'
+
+            ]},
+        {// 'forward'
             header: app.msg.forward,
             dataIndex: 'forward',
             headers: [
-        
                 {
                     header: app.msg.number,
                     dataIndex: 'forward',
                     width: 120
                 },
-                
                 {
                     header: app.msg.forward_busy,
                     dataIndex: 'forward_busy',
                     width: 120
                 },
-                
                 {
                     header: app.msg.forward_noanswer,
                     dataIndex: 'forward_noanswer',
                     width: 120
                 },
-                
                 {
                     header: app.msg.noanswer_timeout,
                     dataIndex: 'noanswer_timeout',
@@ -185,7 +179,7 @@ Ext.define('app.module.Extensions_Grid', {
                             local: true,
                             type: 'list',
                             local: true,
-                            options: [['online', app.msg['registered']], ['offline', app.msg['unregistered']]],
+                                    options: [['online', app.msg['registered']], ['offline', app.msg['unregistered']]],
                             dataIndex: 'status'
                         }, {
                             type: 'string',

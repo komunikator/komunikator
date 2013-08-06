@@ -1,6 +1,6 @@
 
 
-Ext.define('app.module.Farwarding_Panel', {
+Ext.define('app.module.Forwarding_Panel', {
     extend : 'Ext.form.Panel',	
     url:'data.php?action=get_user_forwarding',
     //autoLoad: true,

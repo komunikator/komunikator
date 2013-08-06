@@ -192,9 +192,10 @@ app.msg = {
     current_password: 'Current password',
     repeat_new_password: 'Repeat new password',
     warning_pwd: 'Enter 2 times the same password!',
-    pwd_change:'Password has been changed',
+    pwd_change: 'Password has been changed',
     pwd_incorrect: 'The password is incorrect',
     change_redirect: 'Change redirect?',
     example_email: 'Several email: example@first.ru;example@second.ru',
-    version:'Version'
+    designation: 'designation',
+     nomination:' Name'
 };

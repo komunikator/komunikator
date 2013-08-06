@@ -17,6 +17,7 @@ select * from (
 	lastname,
 	ex.address,
 	m.group as group_name,
+        priority,
 	fwd.value as forward,
 	fwd_busy.value as forward_busy,
 	fwd_no_answ.value as forward_noanswer,
@@ -26,6 +27,8 @@ select * from (
 			on ex.extension_id = gm.extension_id
 			left join groups m 
 				on gm.group_id = m.group_id 
+        left join group_priority gp
+        on ex.extension_id = gp.extension_id 
 				left join pbx_settings fwd 
 					on fwd.extension_id = ex.extension_id and fwd.param = "forward"
 					left join pbx_settings fwd_busy 

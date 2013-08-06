@@ -7,6 +7,7 @@ $data = json_decode($HTTP_RAW_POST_DATA);
 $rows = array();
 $values = array();
 $pbx_values=array(); 
+$prior_values = array();
 
 if ($data && !is_array($data)) $data = array($data);
     foreach ($data as $row) {
@@ -15,15 +16,19 @@ if ($data && !is_array($data)) $data = array($data);
             if ($key == 'group_name') $group = ($value==null)?'null':$value;
             else {
                 if ($key == 'id') $extension_id = $value;
-	        if (!in_array($key ,array('forward','forward_busy','forward_noanswer','noanswer_timeout')))
+	        if (!in_array($key ,array('forward','forward_busy','forward_noanswer','noanswer_timeout','priority')))
                 $values[$key]="'$value'"; 
 		else {
-                $pbx_values[$key]="'$value'"; 
+                    if (!in_array($key ,array('forward','forward_busy','forward_noanswer','noanswer_timeout')))
+                 $prior_values[$key]  ="'$value'"; 
     		/*$sql="update pbx_settings set value = '$value' where extension_id = $extension_id and param = '$key'";
     		print_r(q	uery ($sql));
 		/*$sql= "insert into pbx_settings (extension_id,param,value) values (select $extension_id,'$key' where not exists (select 1 from pbx_settings where extension_id = $extension_id and param = '$key'))";
     		query ($sql);
 		*/
+                    else {
+                      $pbx_values[$key]="'$value'"; 
+                    };
 		};
             }
         $rows[] = $values;
@@ -37,9 +42,22 @@ if ($pbx_values)
     		query ($sql);
 }
 
-$id_name = 'extension_id';
+
+if ($prior_values) 
+    
+	foreach ($prior_values as $prior_key=>$prior_value) {
+   
+    		$sql="update group_priority set priority = $prior_value where extension_id = $extension_id and group_id = (select group_id from group_members where extension_id = $extension_id)";
+    		query ($sql);
+    		$sql="insert into group_priority (group_id, extension_id, priority) VALUES ((select group_id from group_members where extension_id = $extension_id), $extension_id, $prior_value) ";
+    		query ($sql);
+//select group_id, $extension_id, priority from dual where not exists (select 1 from  group_priority where extension_id = $extension_id and param = '$pbx_key' and value = $pbx_value) 
+        }
+
+        $id_name = 'extension_id';
 if ($group) $need_out = false; 
 include ("update.php");
+
 
 
 if (!$group) return;

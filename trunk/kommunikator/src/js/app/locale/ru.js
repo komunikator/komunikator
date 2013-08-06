@@ -232,5 +232,6 @@ app.msg = {
     pwd_change:'Пароль был изменен',
     change_redirect: 'Изменить переадресацию?',
     example_email: 'Ввод нескольких адресов: example@first.ru;example@second.ru',
-    version:'Версия'    
+    version:'Версия',
+    nomination: 'Наименование'
 };
