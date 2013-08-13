@@ -258,7 +258,7 @@ function get_active_user($name='user') {
     }
     return $i;
 }
-
+echo $i;
 function get_yate_version(){
     exec('yate --version',$ver);
   return $ver;
