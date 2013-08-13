@@ -37,7 +37,7 @@ if ($password && ($username || $extension)) {
         $sql = "SELECT * from extensions where extension = '$extension' and password = '$password'";
         if (query_to_array($sql)) {
             $_SESSION['extension'] = $extension;
-            $sql = "insert into actionlogs (date,performer,log,ip) values (" . time() . ",\"{$_SESSION['user']}\",\"extension $extension logged in\", \"{$_SERVER['REMOTE_ADDR']}\")";
+            $sql = "insert into actionlogs (date,performer,log,ip) values (" . time() . ",\"{$_SESSION['extension']}\",\"extension $extension logged in\", \"{$_SERVER['REMOTE_ADDR']}\")";
             query($sql);
         }
     }
