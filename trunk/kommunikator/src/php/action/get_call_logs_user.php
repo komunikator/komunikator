@@ -6,7 +6,7 @@ if (!$_SESSION['user'] && !$_SESSION['extension']) {
     exit;
 }
 $exten = $_SESSION['extension'];
-echo $exten;
+//echo $exten;
 $sql =
         <<<EOD
 select * from (
