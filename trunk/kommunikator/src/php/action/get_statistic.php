@@ -11,6 +11,7 @@ if (!$_SESSION['user']) {
     exit;
 }
 
+
 // - текущее время на сервере  - - - - - - - - - - - - - - - - - - - - - - - - -
 function get_time_current() {
     $v_time = exec("date '+%H ч. %M мин.'");
