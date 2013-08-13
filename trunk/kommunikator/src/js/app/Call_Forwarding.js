@@ -32,7 +32,25 @@ Ext.define('app.Call_Forwarding', {
                                
                     }]*/
       this.buttons = [
-           {  text: app.msg.save,
+           {  
+                    id: 'change_forw',
+               text: app.msg.save,
+                handler: function() {
+                    var update_password = Ext.getCmp('change_forwardd');
+                    if (update_password.getForm().isValid()) {
+                        update_password.body.mask();
+                        app.request(
+                                update_password.getForm().getValues(),
+                                function(result) {
+                                    update_password.getForm().reset();
+                                    Ext.getCmp('ForwardingPanel').close();
+                                    update_password.body.unmask();
+                                }, function(result) {
+                            update_password.body.unmask();
+                        });
+                    }
+                }
+            },
              /* handler  : function() {
                     var fn = function(btn) {
                       
@@ -59,7 +77,7 @@ Ext.define('app.Call_Forwarding', {
                 }*/
             
             
-             },
+           
             
             {
                 text: app.msg.cancel,
@@ -69,5 +87,5 @@ Ext.define('app.Call_Forwarding', {
         ];
     this.callParent(arguments);             
   }  
-      
-});
+        }
+);

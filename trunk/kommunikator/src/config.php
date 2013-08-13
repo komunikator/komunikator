@@ -1,5 +1,5 @@
 <?php
-$cur_ver = '1.0.0-2';
+$cur_ver = '0.5.0';
 $updates_url = "http://172.17.2.147/repos/checkforupdates.php?cur_ver=$cur_ver";
 
 $updates_url = "http://172.17.2.147/repos/checkforupdates.php";

@@ -8,7 +8,7 @@ $extension =   $_SESSION['extension'];
              $sql=sprintf("UPDATE  pbx_settings SET  param=[forward]= $extension WHERE extension = '$extension' " );
         query($sql); 
         
-          
+        //  $sql="update pbx_settings set value = $pbx_value where extension_id = $extension_id and param = '$pbx_key'";
    echo (out(array("success" => true, "message" => $id)));
    
         } else {

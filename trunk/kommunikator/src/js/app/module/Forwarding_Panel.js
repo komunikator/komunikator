@@ -4,7 +4,7 @@ Ext.define('app.module.Forwarding_Panel', {
     extend : 'Ext.form.Panel',	
     url:'data.php?action=get_user_forwarding',
     //autoLoad: true,
-    id:'FarwardingPanel',
+    id:'ForwardingPanel',
     style:'padding:40px;',
     frame: true,
     waitMsgTarget: true,
@@ -15,25 +15,41 @@ width:400,
 
 
     initComponent : function () {
-         
+     
         this.items = [
       {
           id: 'update_forward',
             xtype: 'fieldset',
             border: true,
+            
             //disabled: true,
             items: [{ 
+                    
+                    
                        // url: 'data.php?action=get_user_forwarding',
+                     //   editor: this.forward_editor1,
+                
                                 xtype: 'textfield',
                                 fieldLabel: app.msg.always,
                                 name: 'change_forward',
                                 id: 'forward',
                                 height: 20,
+                                //vtype: 'fds'
                                  //  value:'лаборант',
                               /*         listeners:
                                 {
                                     specialkey: function(t, e) {
                                         var change_pass = Ext.getCmp('change_forwarddd');
+                                        if (e.getKey() == e.ENTER && !change_pass.disabled) {
+                                            e.stopEvent();
+                                            change_pass.handler();
+                                        }
+                                    }
+                                }*//*
+                         listeners:
+                                {
+                                    specialkey: function(t, e) {
+                                        var change_pass = Ext.getCmp('change_forw');
                                         if (e.getKey() == e.ENTER && !change_pass.disabled) {
                                             e.stopEvent();
                                             change_pass.handler();

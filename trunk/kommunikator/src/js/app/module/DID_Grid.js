@@ -1,94 +1,80 @@
-Ext.apply(Ext.form.field.VTypes, {
-    fds : function(val, field) {
-        if (val !== app.msg.attendant)
-        {
-            console.log(field.ownerCt.items.items[4].setVisible(false));
-            console.log(field.ownerCt.items.items[4].setValue(null));            
-            return true;
-        } 
-        console.log(field.ownerCt.items.items[4].setVisible(true));
-        return true;
-    }
-});
-
 Ext.define('app.module.DID_Grid', {
-    extend     : 'app.Grid',
-            
-    store_cfg  : {
-        fields   : ['id', 'number', 'destination', 'description', 'default_dest' ],
-        storeId  : 'dids'
+    extend: 'app.Grid',
+    store_cfg: {
+        fields: ['id', 'number', 'destination', 'description', 'default_dest'],
+        storeId: 'dids'
     },
-            
     advanced: ['description'],
-    
     columns: [
-
-        {  // 'id'
-            hidden : true
+        {// 'id'
+            hidden: true
         },
-        
-        {  // 'number'
-            editor : {
-                xtype       : 'textfield',
-                regex       : /^\d+$/,
-                allowBlank  : false
+        {// 'number'
+            editor: {
+                xtype: 'textfield',
+                regex: /^\d+$/,
+                allowBlank: false
 
             }
         },
-        
-        {  // 'destination'
-            editor : app.get_Source_Combo({
-                allowBlank  : false,
-                editable    : false,
-                vtype       : 'fds'
+        {// 'destination'
+            editor: app.get_Source_Combo({
+                allowBlank: false,
+                editable: false,
+                listeners: {
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+                    //при изменении  значения в поле "Назначение" 
+                    //меняется значение поля "Назначение по умолчанию"
+                    change: function(f, val) {
+                        var dest = f.ownerCt.items.items[4];
+                        if (val !== app.msg.attendant) {
+                            dest.setVisible(false);
+                            dest.setValue(null);
+                            return true;
+                        }
+                        (dest.setVisible(true));
+                        return true;
+                    }
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
+                }
             })
         },
-          {  // 'description'
-            editor : {
-                xtype : 'textfield'
+        {// 'description'
+            editor: {
+                xtype: 'textfield'
             }
         },
-        {  // 'default_dest'
-            width   : 160,
-
+        {// 'default_dest'
+            width: 160,
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             // было создано отдельное хранилище sources_exception
             // в котором отсутствуют: Автосекретарь, Голосовая почта
-            
-            editor  : {
-                xtype         : 'combobox',
-                
-                store         : Ext.create('app.Store', {
-                    fields   : ['id', 'name'],
-                    storeId  : 'sources_exception'
-                }),
-                
-                editable      : false,
-                displayField  : 'name',
-                valueField    : 'name',
-                queryMode     : 'local'
-            }
-            
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+            editor: {
+                xtype: 'combobox',
+                store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    storeId: 'sources_exception'
+                }),
+                editable: false,
+                displayField: 'name',
+                valueField: 'name',
+                queryMode: 'local'
+            }
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             //editor :  app.get_Source_Combo({/*validator:{}*/
             //allowBlank: false
             //})//TODO validator
         }
-        
-      
-        
     ],
-            
-    columns_renderer :
-        function(value, metaData, record, rowIndex, colIndex, store) {
-            if (colIndex == 2 && app.msg[value]) {
-                return app.msg[value];
-            }
-            return value;
-        },
-                
-    initComponent : function() {
+    columns_renderer:
+            function(value, metaData, record, rowIndex, colIndex, store) {
+                if (colIndex == 2 && app.msg[value]) {
+                    return app.msg[value];
+                }
+                return value;
+            },
+    initComponent: function() {
         this.callParent(arguments);
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -96,7 +82,6 @@ Ext.define('app.module.DID_Grid', {
         // повторная загрузка (обновление записей) хранилища sources
 
         this.store.on('load',
-        
                 function(store, records, success) {
 
                     var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID

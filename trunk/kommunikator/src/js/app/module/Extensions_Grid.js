@@ -1,3 +1,4 @@
+
 Ext.define('app.module.Extensions_Grid', {
     extend: 'app.Grid',
     store_cfg: {
@@ -11,7 +12,7 @@ Ext.define('app.module.Extensions_Grid', {
                 property: 'group_name'
             }]
     },
-    advanced: ['forward'], //'forward_busy','forward_noanswer','noanswer_timeout'],	
+ //    advanced: ['group_name','forward'], //'forward_busy','forward_noanswer','noanswer_timeout'],	
     not_create_column: true,
     columns: [
         {// 'id'
@@ -45,6 +46,7 @@ Ext.define('app.module.Extensions_Grid', {
             }
         },
         {// 'firstname'
+
             editor: {
                 xtype: 'textfield'
             }
@@ -63,79 +65,24 @@ Ext.define('app.module.Extensions_Grid', {
             }
         },
         {
-            header: app.msg.group,            
+            header: app.msg.group,
+            dataIndex: 'group',
             columns: [
                 {
-                    text: app.msg.nomination,
+                    text: app.msg.group,
                     dataIndex: 'group_name',
-                    editor: {
-                        xtype: 'combobox',
-                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                        // так, как хранилище создается только здесь,
-                        // код был поправлен
-
-                        /*
-                         store         : Ext.StoreMgr.lookup('groups_extended') ?
-                         Ext.StoreMgr.lookup('groups_extended') :
-                         Ext.create('app.Store', {
-                         fields   : ['id', 'group', 'description', 'extension'],
-                         storeId  : 'groups_extended'
-                         }),
-                         */
-
-                        store: Ext.create('app.Store', {
-                            fields: ['id', 'group', 'description', 'extension'],
-                            storeId: 'groups_extended'
-                        }),
-                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-                        // queryCaching: false,
-                        // triggerAction: 'query',
-
-                        valueField: 'group',
-                        queryMode: 'local',
-                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                        // настройка combobox под «себя»
-                        // «нормальное» отображение пустых полей в выпадающем списке
-
-                        // displayField  : 'group', <- заменено кодом ниже
-
-
-                        tpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
-                                '</tpl>'
-                                ),
-                        displayTpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '{group}',
-                                '</tpl>'
-                                ),
-                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-                        editable: false,
-                        listeners: {
-                            afterrender: function() {
-                                this.store.load();
-                            }
-                        }
-                    }
                 },
                 {
                     header: app.msg.priority,
                     dataIndex: 'priority',
-                    width: 120,
-                    editor: {
-                        xtype: 'textfield',
-                        regex: /^\d{1,3}$/
-                    }
+                    //width: 120,
                 }
 
             ]},
         {// 'forward'
             header: app.msg.forward,
             dataIndex: 'forward',
-            headers: [
+           columns: [
                 {
                     header: app.msg.number,
                     dataIndex: 'forward',
@@ -221,6 +168,90 @@ Ext.define('app.module.Extensions_Grid', {
             if (app['lang'] == 'ru')
                 app.Loader.load(['js/app/locale/filter.ru.js']);
         };
+
+        this.columns[7] = {
+            header: app.msg.group,
+            dataIndex: 'group',
+            defaults: {
+                //               hidden: true                                            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            },
+            columns: [
+                {
+                    text: app.msg.group,
+                    dataIndex: 'group_name',
+                    editor: {
+                        //  vtype:'dds',
+                        xtype: 'combobox',
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        // так, как хранилище создается только здесь,
+                        // код был поправлен
+
+                        /*
+                         store         : Ext.StoreMgr.lookup('groups_extended') ?
+                         Ext.StoreMgr.lookup('groups_extended') :
+                         Ext.create('app.Store', {
+                         fields   : ['id', 'group', 'description', 'extension'],
+                         storeId  : 'groups_extended'
+                         }),
+                         */
+
+                        store: Ext.create('app.Store', {
+                            fields: ['id', 'group', 'description', 'extension'],
+                            storeId: 'groups_extended'
+                        }),
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+                        // queryCaching: false,
+                        // triggerAction: 'query',
+
+                        valueField: 'group',
+                        queryMode: 'local',
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        // настройка combobox под «себя»
+                        // «нормальное» отображение пустых полей в выпадающем списке
+
+                        // displayField  : 'group', <- заменено кодом ниже
+
+
+                        tpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
+                                '</tpl>'
+                                ),
+                        displayTpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '{group}',
+                                '</tpl>'
+                                ),
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+                        editable: false,
+                        listeners: {
+                            afterrender: function() {
+                                this.store.load();
+                            },
+                            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+                            //при изменении  значения в поле группы "наименование" 
+                            //сбрасывается значение поля "Приоритет"
+                            change: function(f, new_val) {
+                                f.ownerCt.items.items[8].setValue(null);
+                            }
+                            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
+                        }
+                    }
+                },
+                {
+                    header: app.msg.priority,
+                    dataIndex: 'priority',
+                    width: 120,
+                    editor: {
+                        xtype: 'numberfield',
+                        minValue: 1
+                    }
+                }
+
+            ]};
+
         this.forward_editor = {
             xtype: 'combobox',
             mode: 'local',
@@ -242,12 +273,13 @@ Ext.define('app.module.Extensions_Grid', {
             groupable: false,
             sortable: false,
             menuDisabled: true,
+            //   hidden: true,
             defaults: {
                 editor: this.forward_editor,
                 renderer: this.forward_renderer,
                 menuDisabled: true,
                 groupable: false,
-                hidden: true
+                //     hidden: true
             },
             columns: [
                 {
