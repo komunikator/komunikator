@@ -96,7 +96,8 @@ Ext.define('app.module.Mail_Settings_Panel', {
                 anchor: '100%',                
                 name : 'email',
                 fieldLabel: app.msg.email,
-                vtype: 'mailVal'
+                vtype: 'mailVal',
+                emptyText: app.msg.example_email
             },
             {
                 xtype: 'textareafield',

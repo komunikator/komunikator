@@ -26,6 +26,10 @@
     background-image: url(images/delete.png) !important;
 }
 
+.icon-advanced {
+    background-image: url(images/cog.png) !important;
+}
+
 .icon-online {
     background-image: url(images/online.gif) !important;
     background-repeat: no-repeat;

@@ -14,7 +14,7 @@ if (window['app'] == undefined)
     app = {};
 app.lang = 'ru';
 app.msg = {
-    auth_title: 'D&T PBX авторизация',
+    auth_title: 'Авторизация',
     login: 'Логин',
     password: 'Пароль',
     error: 'Ошибка',
@@ -125,7 +125,7 @@ app.msg = {
     swap_use: 'Виртуальная память',
     space_use: 'Место на диске',
     uptime: 'Работа сервера',
-    copyright: 'Телефонные системы®PBX © 2012',
+    copyright: 'Komunikator © 2013',
     //first_step	: "<div></div><p><b>The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours.</b></p>"
     for_edit: "Для изменения настроек кликните по нужному пункту два раза",
     extensions_info: "Настройка внутренних телефонных номеров АТС",
@@ -146,11 +146,13 @@ app.msg = {
     users_info: "Используйте эту вкладку для управления пользователями системы. По возможности используйте сложные пароли.",
     accepted: "принятый",
     answered: "отвеченный",
+    cancelled: "отменен",
     ringing: "вызов",
     rejected: "отклоненный",
     outgoing: "исходящий",
     address_incomplete: "неполный номер",
     incoming: "входящий",
+    internal: "внутренний",
     request_terminated: "отменен",
     busy_here: "занят",
     transfer: "переведённый",
@@ -220,5 +222,16 @@ app.msg = {
     server_internal_erro: 'внутренняя ошибка сервера',
     request_timeout: 'время ожидания истекло',
     'unallocated_(unassigned)_number': 'недопустимы номер',
-    normal_call_clearing: 'сбой вызова'
+    normal_call_clearing: 'сбой вызова',
+    update_password: 'Изменить пароль',
+    new_password: 'Новый пароль',
+    private_office: 'Личный кабинет',
+    current_password: 'Текущий пароль',
+    repeat_new_password: 'Повторите новый пароль',
+    warning_pwd: 'Новый пароль повторен неправильно',
+    pwd_change:'Пароль был изменен',
+    change_redirect: 'Изменить переадресацию?',
+    example_email: 'Ввод нескольких адресов: example@first.ru;example@second.ru',
+    version:'Версия',
+    nomination: 'Наименование'
 };

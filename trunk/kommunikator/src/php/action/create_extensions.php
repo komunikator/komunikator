@@ -16,7 +16,7 @@ $values = array();
     foreach ($row as $key=>$value)
         if ($key == 'id') $id = $key;
 	else
-        if (in_array($key ,array('status','forward','forward_busy','forward_noanswer','noanswer_timeout')));
+        if (in_array($key ,array('status','priority','forward','forward_busy','forward_noanswer','noanswer_timeout')));
 	//else
         //if ($key == "extension" && !$value) $values[$key]=" (SELECT MAX(extension)+1 FROM (SELECT * FROM extensions)as x) ";
         else

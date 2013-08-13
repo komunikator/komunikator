@@ -3,7 +3,7 @@ require_once("config.php");
 require_once("lib/phpmailer.inc.php");
 
 mb_internal_encoding("utf-8");
-define('TIME_FMT', '%H.%M.%S %d.%m.%Y');
+define('TIME_FMT', '%d.%m.%Y %H:%M:%S');
 
 
 class myMail extends phpmailer {

@@ -110,7 +110,7 @@ app.msg = {
     swap_use: 'Virtual memory',
     space_use: 'Free disk space',
     uptime: 'Server uptime',
-    copyright: 'Телефонные системы®PBX © 2012',
+    copyright: 'Komunikator © 2013',
     //first_step  : "The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours."
     for_edit: "To change the settings, click on the desired item twice",
     extensions_info: "Extensions - Internal phones attached to the IP PBX",
@@ -185,5 +185,17 @@ app.msg = {
     server_internal_erro: 'internal server error',
     request_timeout: 'request timeout',
     'unallocated_(unassigned)_number': 'wrong number',
-    normal_call_clearing: 'call failed'
+    normal_call_clearing: 'call failed',
+    update_password: 'Update password',
+    new_password: 'New password',
+    private_office: 'Private office',
+    current_password: 'Current password',
+    repeat_new_password: 'Repeat new password',
+    warning_pwd: 'Enter 2 times the same password!',
+    pwd_change: 'Password has been changed',
+    pwd_incorrect: 'The password is incorrect',
+    change_redirect: 'Change redirect?',
+    example_email: 'Several email: example@first.ru;example@second.ru',
+    designation: 'designation',
+     nomination:' Name'
 };

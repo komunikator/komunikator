@@ -160,11 +160,11 @@ Ext.define('app.Viewport', {
         Ext.create('app.Card_Panel', {
             title: app.msg.call_logs,  // История звонков
             items: [
-            Ext.create('app.module.Active_calls_Grid', {
-                title: app.msg.active_calls  // Активные звонки
-            }),
             Ext.create('app.module.Call_logs_Grid', {
                 title: app.msg.call_logs  // История звонков
+            }),
+            Ext.create('app.module.Active_calls_Grid', {
+                title: app.msg.active_calls  // Активные звонки
             })
             ]
         }),
@@ -220,7 +220,7 @@ Ext.define('app.Viewport', {
 
                 }
             },
-            
+           
             {
                 title    : app.msg.update,   // Обновление
                 
@@ -292,8 +292,8 @@ Ext.define('app.Viewport', {
                     });
 
                 }
-            }
-            
+            },
+      
             ]
         })
         

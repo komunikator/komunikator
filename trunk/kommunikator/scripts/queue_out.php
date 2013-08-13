@@ -108,10 +108,13 @@ for (;;) {
 		case "chan.disconnected":
 		    // operator hung up or did not answer
 		    if ($ev->GetValue("reason")) {
-			$ev->name = "chan.hangup";
-			$ev->params["notify"] = $partycallid;
-			$ev->params["queue"] = $queue;
-			$ev->params["cdrtrack"] = "false";
+                        $m = new Yate("chan.hangup");
+                        $m->id = "";
+                        $m->params["id"] = $ev->GetValue("id");
+                        $m->params["notify"] = $partycallid;
+                        $m->params["queue"] = $queue;
+                        $m->params["cdrtrack"] = "false";
+                        $m->Dispatch();
 		    }
 		    break;
 		case "chan.hangup":

@@ -5,10 +5,10 @@ Ext.define('app.Store', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-                pageSize: 50, //app.pageSize,
-                leadingBufferZone: 50,
+                pageSize:app.pageSize,
+                ////leadingBufferZone: 50,
                 remoteSort: true,
-                buffered: true,
+                ////buffered: true,
                 remoteFilter: true,
                 autoLoad: true,
                 //restful: true,
@@ -63,7 +63,7 @@ Ext.define('app.Store', {
                             grid.ownerCt.body.mask(Ext.view.AbstractView.prototype.loadingText);
                         setTimeout(function() {
                             if (grid && grid.ownerCt && grid.ownerCt.body) {
-                                console.log(grid.getId());
+                                //console.log(grid.getId());
                                 grid.ownerCt.body.unmask();
                             }
                             ;
@@ -72,10 +72,13 @@ Ext.define('app.Store', {
                     },
                     load: function(store, records, success) {
                         //console.log (store.storeId+' loaded '+ store.getTotalCount());
-                        var grid = Ext.getCmp(this.storeId + '_grid');
+                        var grid = Ext.getCmp(store.storeId + '_grid');
                         if (grid && !this.autoLoad)
                             grid.ownerCt.body.unmask();
-                        this.Total_sync();
+                      if (grid && store.reselect){
+                          store.reselect(grid);                     
+                        }     
+                        //this.Total_sync();
                         this.dirtyMark = false;
                         if (!success && store.storeId) {
                             store.removeAll();
