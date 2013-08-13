@@ -446,31 +446,6 @@ Ext.define('app.Grid', {
          });
          }
          */
-        var key_info = app.get_array_key(app.msg, this.title);
-
-        if (false && app.msg[key_info + '_info'])
-        {
-            if (!this.dockedItems)
-                this.dockedItems = [];
-            this.dockedItems.push({
-                xtype: 'toolbar',
-                dock: 'bottom',
-                items: [
-                    {
-                        xtype: 'panel',
-                        width: '100%',
-                        border: false,
-                        bodyStyle: 'padding:10px 50px;',
-                        style: {
-                            //textAlign : 'center', 
-                            //padding:'0px'
-                        },
-                        html: app.msg[key_info + '_info']
-                    }]
-            });
-
-        }
-        ;
         app.getColumnIndex = function(grid, dataIndex) {
             var gridColumns = grid.headerCt.getGridColumns();
             for (var i = 0; i < gridColumns.length; i++) {
@@ -534,7 +509,30 @@ Ext.define('app.Grid', {
              xtype: 'text',
              itemId: 'displayItem'
              }*/);
+        var key_info = app.get_array_key(app.msg, this.title);
 
+        if (app.msg[key_info + '_info'])
+        {
+            if (!this.dockedItems)
+                this.dockedItems = [];
+            this.dockedItems.push({
+                xtype: 'toolbar',
+                dock: 'bottom',
+                items: [
+                    {
+                        xtype: 'panel',
+                        width: '100%',
+                        border: false,
+                        bodyStyle: 'padding:10px 50px;',
+                        style: {
+                            //textAlign : 'center', 
+                            //padding:'0px'
+                        },
+                        html: app.msg[key_info + '_info']
+                    }]
+            });
+
+        }
         if (this.title)
             this.title = '<center>' + this.title + '</center>';
 
