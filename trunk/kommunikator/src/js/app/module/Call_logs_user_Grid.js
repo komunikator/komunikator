@@ -4,7 +4,7 @@ var tomorrow = new Date();
 tomorrow.setDate((new Date()).getDate() + 1);
 tomorrow.setHours(0, 0, 0, 0);
 
-Ext.define('app.module.Call_logs_Grid', {
+Ext.define('app.module.Call_logs_user_Grid', {
     extend: 'app.Grid',
     store_cfg: {
         autoLoad: false,
