@@ -116,13 +116,13 @@ app.msgShow = function(msg, type, cb) {
 }
 
 app.main = function(user, extension) {
-    if (user) { alert(1)
+    if (user) { 
         Ext.create('app.Viewport', {
             user_name: user
         });
     }
     if (extension) 
-    {alert(2)
+    {
         Ext.create('app.Viewport_user', {
             extension_name: extension
         });
