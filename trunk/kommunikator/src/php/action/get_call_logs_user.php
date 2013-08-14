@@ -5,7 +5,22 @@ if (!$_SESSION['user'] && !$_SESSION['extension']) {
     echo (out(array("success" => false, "message" => "auth_failed")));
     exit;
 }
-$exten = $_SESSION['extension'];
+/*if ($_SESSION['extension']) {
+$exten = $_SESSION['extension']; 
+echo out($exten); return;
+}
+//echo $exten;
+if ($_SESSION['user']) {
+    $exten = a.caller;
+}
+/*$extension = $_SESSION['extension'];
+  
+echo out($extension); return;*/
+//$rez = preg_replace("/^(\S+)\s+/","",$extension);
+//$number = $_SESSION['extension'] ;
+//echo $number; return;
+
+$exten = $_SESSION['extension']; 
 $sql =
         <<<EOD
 select * from (
@@ -30,9 +45,9 @@ select
 from call_logs a  
 join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
 left join extensions x on x.extension=a.caller 
-left join extensions x2 on x2.extension=b.called
+left join extensions x2 on x2.extension=b.called 
 left join gateways g  on g.authname=a.called or g.authname=b.caller
-   where a.ended=1 and a.direction='incoming' and a.status!='unknown' and b.called = '125'  ) a
+   where a.ended=1 and a.direction='incoming' and a.status!='unknown' and (a.caller = '$exten' OR b.called = '$exten')  ) a
 EOD;
 
 $data = compact_array(query_to_array($sql . get_filter()));

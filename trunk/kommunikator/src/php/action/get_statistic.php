@@ -10,7 +10,7 @@ if (!$_SESSION['user']) {
     echo ( out(array("success"=>false, "message"=>"User is undefined")) );
     exit;
 }
-
+//$extension = getparam("extension");
 
 // - текущее время на сервере  - - - - - - - - - - - - - - - - - - - - - - - - -
 function get_time_current() {
@@ -258,7 +258,7 @@ function get_active_user($name='user') {
     }
     return $i;
 }
-
+echo $i;
 function get_yate_version(){
     exec('yate --version',$ver);
   return $ver;

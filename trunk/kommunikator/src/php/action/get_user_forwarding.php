@@ -3,7 +3,7 @@ if(!$_SESSION['extension']) {
     echo (out(array("success"=>false,"message"=>"Extension is undefined"))); exit;} 
  
 $number = $_SESSION['extension'] ;
-
+echo $number;
      
 $sql=
 <<<EOD

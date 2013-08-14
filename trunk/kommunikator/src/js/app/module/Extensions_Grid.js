@@ -67,7 +67,7 @@ Ext.define('app.module.Extensions_Grid', {
         {
             header: app.msg.group,
             dataIndex: 'group',
-            columns: [
+            headers: [
                 {
                     text: app.msg.group,
                     dataIndex: 'group_name',
@@ -82,7 +82,7 @@ Ext.define('app.module.Extensions_Grid', {
         {// 'forward'
             header: app.msg.forward,
             dataIndex: 'forward',
-           columns: [
+           headers: [
                 {
                     header: app.msg.number,
                     dataIndex: 'forward',
