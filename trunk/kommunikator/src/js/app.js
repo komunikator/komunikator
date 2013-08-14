@@ -115,15 +115,16 @@ app.msgShow = function(msg, type, cb) {
     });
 }
 
-app.main = function(msg_login) {
-    if (typeof msg_login !== 'undefined') { //если user неопределен, тогда грузим viewport_user для обыч. польз-ля
+app.main = function(user, extension) {
+    if (user) { alert(1)
         Ext.create('app.Viewport', {
-            user_name: msg_login
+            user_name: user
         });
-    } else
-    {
+    }
+    if (extension) 
+    {alert(2)
         Ext.create('app.Viewport_user', {
-            user_name: msg_login
+            extension_name: extension
         });
     }
 }
@@ -145,11 +146,20 @@ Ext.application({
                 },
         function(result) {
             if (result['user'])
-                app.main(result['user']);
-            else
-                app.login();
-        }, app.login);
-    }/*,
+                app.main(result['user'], null);
+            if (result['extension'])
+                app.main(null, result['extension']);
+    
+        },
+                app.login);
+    }
+
+
+    /*else
+     app.login();
+     }, app.login);
+     }*/
+    /*,
      controllers: ['Controller']*/
 
 });
@@ -357,7 +367,7 @@ app.msg_renderer = function(value) {
 }
 
 
-app.dhms = function(s) { 
+app.dhms = function(s) {
     var f = 'hh:mm:ss'
     var d = h = m = 0;
     switch (true) {
