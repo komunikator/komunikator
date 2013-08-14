@@ -20,7 +20,7 @@ echo out($extension); return;*/
 //$number = $_SESSION['extension'] ;
 //echo $number; return;
 
-$exten = $_SESSION['extension']; return;
+$exten = $_SESSION['extension']; 
 $sql =
         <<<EOD
 select * from (
@@ -47,8 +47,7 @@ join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' a
 left join extensions x on x.extension=a.caller 
 left join extensions x2 on x2.extension=b.called 
 left join gateways g  on g.authname=a.called or g.authname=b.caller
-   where a.ended=1 and a.direction='incoming' and a.status!='unknown' and (a.caller = '$exten' OR b.called = '$exten') 
-       ) a
+   where a.ended=1 and a.direction='incoming' and a.status!='unknown' and (a.caller = '$exten' OR b.called = '$exten')  ) a
 EOD;
 
 $data = compact_array(query_to_array($sql . get_filter()));
