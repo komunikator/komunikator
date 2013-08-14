@@ -20,7 +20,7 @@ echo out($extension); return;*/
 //$number = $_SESSION['extension'] ;
 //echo $number; return;
 
-$exten = $_SESSION['extension'];
+$exten = $_SESSION['extension']; return;
 $sql =
         <<<EOD
 select * from (
