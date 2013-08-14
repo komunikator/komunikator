@@ -17,7 +17,8 @@ if ($_SESSION['user']) {
   
 echo out($extension); return;*/
 //$rez = preg_replace("/^(\S+)\s+/","",$extension);
-$ext == '125' ;
+$number = $_SESSION['extension'] ;
+echo $number;
 $sql =
         <<<EOD
 select * from (
@@ -41,10 +42,10 @@ select
         case when b.reason="" then b.status else replace(lower(b.reason),' ','_') end status
 from call_logs a  
 join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
-left join extensions x on x.extension=a.caller 
+left join extensions x on x.extension=a.caller  
 left join extensions x2 on x2.extension=b.called 
 left join gateways g  on g.authname=a.called or g.authname=b.caller
-   where a.ended=1 and a.direction='incoming' and a.status!='unknown'  ) a
+   where a.caller = $number and a.ended=1 and a.direction='incoming' and a.status!='unknown'  ) a
 EOD;
 
 $data = compact_array(query_to_array($sql . get_filter()));
