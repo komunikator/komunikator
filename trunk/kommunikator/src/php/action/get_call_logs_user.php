@@ -6,11 +6,18 @@ if (!$_SESSION['user'] && !$_SESSION['extension']) {
     exit;
 }
 if ($_SESSION['extension']) {
-$exten = $_SESSION['extension']; }
+$exten = $_SESSION['extension']; 
+echo out($extension); return;
+}
 //echo $exten;
 if ($_SESSION['user']) {
     $exten = a.caller;
 }
+/*$extension = $_SESSION['extension'];
+  
+echo out($extension); return;*/
+//$rez = preg_replace("/^(\S+)\s+/","",$extension);
+
 $sql =
         <<<EOD
 select * from (

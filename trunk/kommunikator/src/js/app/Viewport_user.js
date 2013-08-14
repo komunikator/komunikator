@@ -56,7 +56,7 @@ Ext.define('app.Viewport_user', {
                 '<p align="right"><a href="#" onclick="app.logout(); return false">' + app.msg.logout + '</a></p>' +
                 '<p align="right">' + app.msg.user + ': ' +this.extension_name+ '</p>' +
                 '</div>';
-
+//alert(this.extension_name);
         this.callParent(arguments);
 
         Ext.TaskManager.start({
