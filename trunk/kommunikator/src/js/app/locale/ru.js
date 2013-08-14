@@ -233,5 +233,6 @@ app.msg = {
     change_redirect: 'Изменить переадресацию?',
     example_email: 'Ввод нескольких адресов: example@first.ru;example@second.ru',
     version:'Версия',
-    nomination: 'Наименование'
+    nomination: 'Наименование',
+    export:'Экспорт'
 };

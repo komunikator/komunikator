@@ -66,7 +66,7 @@ foreach ($data["data"] as $row) {
     $row[1] = date($date_format, $row[1]);
     $f_data[] = $row;
 }
-
+$obj["header"] = $data["header"];
 $obj["data"] = $f_data;
 echo out($obj);
 ?>
