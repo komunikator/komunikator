@@ -18,7 +18,7 @@ if ($_SESSION['user']) {
 echo out($extension); return;*/
 //$rez = preg_replace("/^(\S+)\s+/","",$extension);
 $number = $_SESSION['extension'] ;
-echo $number;
+echo $number; return;
 $sql =
         <<<EOD
 select * from (
