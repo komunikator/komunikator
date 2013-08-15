@@ -119,76 +119,10 @@ Ext.define('app.module.Call_logs_Grid', {
     initComponent: function() {
         app.Loader.load(['js/ux/grid/css/GridFilters.css', 'js/ux/grid/css/RangeMenu.css']);
         this.listeners.beforerender = function() {
-            Ext.ux.grid.filter.DateFilter.override({
-                init: function() {
-                    this.callOverridden();
-                    this.on('update', this.updateValues);
-                },
-                updateValues: function() {
-                    var me = this, key, picker;
-                    for (key in me.fields) {
-                        if (me.fields[key].checked) {
-                            picker = me.getPicker(key);
-                            me.values[key] = picker.getValue();
-                        }
-                    }
-                }
-            });
-
             //console.log(this.store.storeId);
             //this.store.guaranteeRange(0, app.pageSize-1);
             if (app['lang'] == 'ru')
                 app.Loader.load(['js/app/locale/filter.ru.js']);
-            var me = this;
-            var get_grid_filter = function(name) {
-                return me.filters.getFilter(name);
-            };
-
-            this.addDocked(
-                    {
-                        xtype: 'toolbar',
-                        dock: 'top',
-                        items: [
-                            {
-                                xtype: 'button',
-                                text: app.msg.last_week ? app.msg.last_week : 'Last week',
-                                handler: function() {
-                                    var week = GetDateInWeek(-1);
-                                    get_grid_filter('time').setValue(
-                                            {after: week.begin, on: null, before: week.end}
-                                    );
-                                    get_grid_filter('time').setActive(true, false);
-                                }
-                            }, {
-                                xtype: 'button',
-                                text: app.msg.cur_week ? app.msg.cur_week : 'Current week',
-                                handler: function() {
-                                    var week = GetDateInWeek();
-                                    get_grid_filter('time').setValue(
-                                            {after: week.begin, on: null, before: week.end}
-                                    );
-                                    get_grid_filter('time').setActive(true, false);
-                                }
-                            },
-                            '|',
-                            {
-                                xtype: 'button',
-                                text: app.msg.yesterday ? app.msg.yesterday : 'Уesterday',
-                                handler: function() {
-                                    get_grid_filter('time').setValue({on: yesterday});
-                                    get_grid_filter('time').setActive(true, false);
-                                }
-                            }, {
-                                xtype: 'button',
-                                text: app.msg.today ? app.msg.today : 'Today',
-                                handler: function() {
-                                    get_grid_filter('time').setValue({on: today});
-                                    get_grid_filter('time').setActive(true, false);
-                                }
-                            }
-
-                        ]
-                    });
 
         };
 
@@ -212,5 +146,55 @@ Ext.define('app.module.Call_logs_Grid', {
          
          */
         this.callParent(arguments);
+        var me = this;
+        var get_grid_filter = function(name) {
+            return me.filters.getFilter(name);
+        };
+        this.addDocked(
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [
+                        {
+                            xtype: 'button',
+                            text: app.msg.last_week ? app.msg.last_week : 'Last week',
+                            handler: function() {
+                                var week = GetDateInWeek(-1);
+                                get_grid_filter('time').setValue(
+                                        {after: week.begin, on: null, before: week.end}
+                                );
+                                get_grid_filter('time').setActive(true, false);
+                            }
+                        }, {
+                            xtype: 'button',
+                            text: app.msg.cur_week ? app.msg.cur_week : 'Current week',
+                            handler: function() {
+                                var week = GetDateInWeek();
+                                get_grid_filter('time').setValue(
+                                        {after: week.begin, on: null, before: week.end}
+                                );
+                                get_grid_filter('time').setActive(true, false);
+                            }
+                        },
+                        '|',
+                        {
+                            xtype: 'button',
+                            text: app.msg.yesterday ? app.msg.yesterday : 'Уesterday',
+                            handler: function() {
+                                get_grid_filter('time').setValue({on: yesterday});
+                                get_grid_filter('time').setActive(true, false);
+                            }
+                        }, {
+                            xtype: 'button',
+                            text: app.msg.today ? app.msg.today : 'Today',
+                            handler: function() {
+                                get_grid_filter('time').setValue({on: today});
+                                get_grid_filter('time').setActive(true, false);
+                            }
+                        }
+
+                    ]
+                });
+
     }
 })
