@@ -1,8 +1,21 @@
 var today = new Date();
 today.setHours(0, 0, 0, 0);
-var tomorrow = new Date();
-tomorrow.setDate((new Date()).getDate() + 1);
-tomorrow.setHours(0, 0, 0, 0);
+var yesterday = new Date();
+yesterday.setDate((new Date()).getDate() - 1);
+yesterday.setHours(0, 0, 0, 0);
+
+function GetDateInWeek(WeekOffset) {
+    if (!WeekOffset)
+        WeekOffset = 0;
+    var NowDate = new Date();
+    var CurrentDay = NowDate.getDay();
+    var LeftOffset = CurrentDay - 1 - 7 * WeekOffset;
+    var RightOffset = 7 - CurrentDay + 7 * WeekOffset;
+    var First = new Date(NowDate.getFullYear(), NowDate.getMonth(), NowDate.getDate() - LeftOffset);
+    var Last = new Date(NowDate.getFullYear(), NowDate.getMonth(), NowDate.getDate() + RightOffset)
+    return({begin: First, end: Last});
+    // alert(First.getDate() + '.'+First.getMonth()+'.'+First.getFullYear()+' - ' + Last.getDate()+'.'+Last.getMonth()+'.'+Last.getFullYear());
+}
 
 Ext.define('app.module.Call_logs_Grid', {
     extend: 'app.Grid',
@@ -110,6 +123,56 @@ Ext.define('app.module.Call_logs_Grid', {
             //this.store.guaranteeRange(0, app.pageSize-1);
             if (app['lang'] == 'ru')
                 app.Loader.load(['js/app/locale/filter.ru.js']);
+            var me = this;
+            var get_grid_filter = function(name) {
+                return me.filters.getFilter(name);
+            };
+
+            this.addDocked(
+                    {
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: [
+                            {
+                                xtype: 'button',
+                                text: app.msg.last_week ? app.msg.last_week : 'Last week',
+                                handler: function() {
+                                    var week = GetDateInWeek(-1);
+                                    get_grid_filter('time').setValue(
+                                            {after: week.begin, on: null, before: week.end}
+                                    );
+                                    get_grid_filter('time').setActive(true, false);
+                                }
+                            }, {
+                                xtype: 'button',
+                                text: app.msg.cur_week ? app.msg.cur_week : 'Current week',
+                                handler: function() {
+                                    var week = GetDateInWeek();
+                                    get_grid_filter('time').setValue(
+                                            {after: week.begin, on: null, before: week.end}
+                                    );
+                                    get_grid_filter('time').setActive(true, false);
+                                }
+                            },
+                            '|',
+                            {
+                                xtype: 'button',
+                                text: app.msg.yesterday ? app.msg.yesterday : 'Уesterday',
+                                handler: function() {
+                                    get_grid_filter('time').setValue({on: yesterday});
+                                    get_grid_filter('time').setActive(true, false);
+                                }
+                            }, {
+                                xtype: 'button',
+                                text: app.msg.today ? app.msg.today : 'Today',
+                                handler: function() {
+                                    get_grid_filter('time').setValue({on: today});
+                                    get_grid_filter('time').setActive(true, false);
+                                }
+                            }
+
+                        ]
+                    });
 
         };
 
