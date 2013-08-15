@@ -446,6 +446,109 @@ Ext.define('app.Grid', {
          });
          }
          */
+
+
+        //this.export = true;
+        if (!this['status_grid'] && this.export) {
+
+            if (!this.dockedItems)
+                this.dockedItems = [];
+
+            this.dockedItems.push({
+                xtype: 'toolbar',
+                dock: 'top',
+                items: []
+            });
+
+            this.dockedItems[0].items.push(
+                    {
+                        xtype: 'button',
+                        text: app.msg.export ? app.msg.export : 'Export',
+                        iconCls: 'icon-csv',
+                        //enableToggle: true,
+                        //style: 'padding: 5px;',
+                        labelWidth: 160,
+                        handler: function() {
+
+                            function getParamsObject(store) {
+                                var options = {
+                                    groupers: store.groupers.items,
+                                    //page: store.currentPage,
+                                    //start: (store.currentPage - 1) * store.pageSize,
+                                    //limit: store.pageSize,
+                                    addRecords: false,
+                                    action: 'read',
+                                    sorters: store.getSorters()
+                                };
+                                var operation = new Ext.data.Operation(options);
+
+                                var fakeRequest = store.getProxy().buildRequest(operation);
+                                var params = fakeRequest.params;
+                                //params.action = store.getProxy().api.read;
+                                return params;
+                            }
+
+                            //var store = Ext.StoreMgr.lookup(me.store_cfg.storeId);
+                            var params = getParamsObject(me.store);
+                            var filters = me.filters.getFilterData();
+
+                            if (filters)
+                            {
+                                //console.log(Ext.encode(filters));
+                                var filters_ = [];
+                                for (var i in filters)
+                                {
+                                    var filter_ = {};
+                                    for (var key in filters[i])
+                                    {
+                                        if (key != 'data')
+                                            filter_[key] = filters[i][key]
+                                        else
+                                            for (var j in filters[i][key])
+                                                filter_[j] = filters[i][key][j]
+                                    }
+                                    filters_.push(filter_);
+                                }
+                                //console.log(Ext.encode(filters_));
+                                params.filter = Ext.encode(filters_);
+                            }
+                            params.action = 'get_' + me.store_cfg.storeId;
+                            params.export = true;
+                            //console.log(Ext.encode(params));
+                            //return;
+                            return app.request(
+                                    params,
+                                    function(result) {
+                                        if (result['request_id'])
+                                            window.open("data.php?action=get_export_data&request_id=" + result['request_id']);
+                                    })
+
+                            /*
+                             Ext.StoreMgr.lookup(me.store_cfg.storeId).load({
+                             params: {export: true},
+                             callback: function(rec,operation) {
+                             //if (operation.response && operation.response.responseText)
+                             //var result = Ext.decode(operation.response.responseText);
+                             //if (result && result.request_id)
+                             //window.open ("data.php?action=get_export_data&request_id="+result.request_id);
+                             }
+                             })
+                             */
+                        }
+                    }/*,
+                     {
+                     xtype: 'component',
+                     autoEl: {
+                     tag: 'a',
+                     href: 'data.php?action=load',
+                     html: 'download'
+                     }
+                     }*/
+            );
+
+        }
+        ;
+
         app.getColumnIndex = function(grid, dataIndex) {
             var gridColumns = grid.headerCt.getGridColumns();
             for (var i = 0; i < gridColumns.length; i++) {
@@ -484,7 +587,6 @@ Ext.define('app.Grid', {
                     });
 
         }
-
 
         this.store = Ext.StoreMgr.lookup(this.store_cfg.storeId) ?
                 Ext.StoreMgr.lookup(this.store_cfg.storeId) :

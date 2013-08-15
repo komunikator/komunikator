@@ -6,6 +6,7 @@ tomorrow.setHours(0, 0, 0, 0);
 
 Ext.define('app.module.Call_logs_Grid', {
     extend: 'app.Grid',
+    export: true,
     store_cfg: {
         autoLoad: false,
         fields: ['id', {

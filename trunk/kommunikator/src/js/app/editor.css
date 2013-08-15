@@ -45,3 +45,8 @@
     background-repeat: no-repeat;
     background-position:center; 
 }
+.icon-csv {
+    background-image: url(images/doc_excel_csv.png) !important;
+    background-repeat: no-repeat;
+    background-position:center; 
+}
