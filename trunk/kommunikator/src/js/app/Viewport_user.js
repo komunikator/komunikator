@@ -23,7 +23,7 @@ Ext.define('app.Viewport_user', {
                 Ext.create('app.Card_Panel', {
                     title: app.msg.private_office, // Личный кабинет
                     items: [
-                        Ext.create('app.module.Call_logs_user_Grid', {
+                        Ext.create('app.module.Call_logs_Grid', {
                             title: app.msg.call_logs  // История звонков
                         }),
                         {
