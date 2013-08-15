@@ -119,6 +119,22 @@ Ext.define('app.module.Call_logs_Grid', {
     initComponent: function() {
         app.Loader.load(['js/ux/grid/css/GridFilters.css', 'js/ux/grid/css/RangeMenu.css']);
         this.listeners.beforerender = function() {
+            Ext.ux.grid.filter.DateFilter.override({
+                init: function() {
+                    this.callOverridden();
+                    this.on('update', this.updateValues);
+                },
+                updateValues: function() {
+                    var me = this, key, picker;
+                    for (key in me.fields) {
+                        if (me.fields[key].checked) {
+                            picker = me.getPicker(key);
+                            me.values[key] = picker.getValue();
+                        }
+                    }
+                }
+            });
+
             //console.log(this.store.storeId);
             //this.store.guaranteeRange(0, app.pageSize-1);
             if (app['lang'] == 'ru')
