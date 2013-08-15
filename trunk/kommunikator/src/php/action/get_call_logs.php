@@ -6,17 +6,14 @@ if (!$_SESSION['user'] && !$_SESSION['extension']) {
     exit;
 }
 if ($_SESSION['user']) {
-    $usersess = $_SESSION['user'];
-    $acall = 'is Null';
-    $bcall = 'is Null';
-  $call === NULL;
+    $call === NULL;
 }
 
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
     $acall = '$exten';
     $bcall = '$exten';
-   $call = "and (a.caller = '$exten' OR b.called ='$exten')";
+    $call = "and (a.caller = '$exten' OR b.called ='$exten')";
 }
 
 $sql =
