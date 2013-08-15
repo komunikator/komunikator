@@ -5,6 +5,16 @@ if (!$_SESSION['user'] && !$_SESSION['extension']) {
     echo (out(array("success" => false, "message" => "auth_failed")));
     exit;
 }
+if ($_SESSION['user']) {
+    $call === NULL;
+}
+
+if ($_SESSION['extension']) {
+    $exten = $_SESSION['extension'];
+    $acall = '$exten';
+    $bcall = '$exten';
+    $call = "and (a.caller = '$exten' OR b.called ='$exten')";
+}
 
 $sql =
         <<<EOD
@@ -32,7 +42,7 @@ join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' a
 left join extensions x on x.extension=a.caller 
 left join extensions x2 on x2.extension=b.called
 left join gateways g  on g.authname=a.called or g.authname=b.caller
-   where a.ended=1 and a.direction='incoming' and a.status!='unknown' ) a
+   where a.ended=1 and a.direction='incoming' and a.status!='unknown'  $call ) a
 EOD;
 
 $data = compact_array(query_to_array($sql . get_filter()));
@@ -66,7 +76,7 @@ foreach ($data["data"] as $row) {
     $row[1] = date($date_format, $row[1]);
     $f_data[] = $row;
 }
-
+$obj["header"] = $data["header"];
 $obj["data"] = $f_data;
 echo out($obj);
 ?>

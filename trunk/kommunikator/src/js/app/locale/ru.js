@@ -229,11 +229,14 @@ app.msg = {
     current_password: 'Текущий пароль',
     repeat_new_password: 'Повторите новый пароль',
     warning_pwd: 'Новый пароль повторен неправильно',
-    pwd_change:'Пароль был изменен',
+    pwd_change: 'Пароль был изменен',
     change_redirect: 'Изменить переадресацию?',
     example_email: 'Ввод нескольких адресов: example@first.ru;example@second.ru',
     version: 'Версия',
     nomination: 'Наименование',
-    ip_transport: 'Протокол',
-    callerid: 'ID звонящего'
+    export: 'Экспорт',
+    last_week: 'На прошлой неделе',
+    cur_week: 'На этой неделе',
+    yesterday: 'Вчера',
+    today: 'Сегодня'
 };

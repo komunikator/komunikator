@@ -23,7 +23,7 @@ Ext.define('app.Viewport_user', {
                 Ext.create('app.Card_Panel', {
                     title: app.msg.private_office, // Личный кабинет
                     items: [
-                        Ext.create('app.module.Call_logs_user_Grid', {
+                        Ext.create('app.module.Call_logs_Grid', {
                             title: app.msg.call_logs  // История звонков
                         }),
                         {
@@ -42,9 +42,6 @@ Ext.define('app.Viewport_user', {
 
                             }
                         },
-                                
-                           
-                                
                     ]
                 }),
             ]
@@ -54,9 +51,9 @@ Ext.define('app.Viewport_user', {
                 '<div class="x-box-inner" style="padding-left: 20px; padding-right: 20px; height: 60px">' +
                 '<img class="logo" src="js/app/images/logo.png" height="60px" alt="TS" border="0" align="left">' +
                 '<p align="right"><a href="#" onclick="app.logout(); return false">' + app.msg.logout + '</a></p>' +
-                '<p align="right">' + app.msg.user + ': ' +this.extension + '</p>' +
+                '<p align="right">' + app.msg.user + ': ' + this.extension_name + '</p>' +
                 '</div>';
-
+//alert(this.extension_name);
         this.callParent(arguments);
 
         Ext.TaskManager.start({
