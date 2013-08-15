@@ -15,7 +15,7 @@ Ext.define('app.module.Gateways_Grid', {
         storeId      : 'gateways'
     },
     
-    advanced  : ['ip_transport', 'authname', 'domain', 'callerid'],
+    // advanced  : ['ip_transport', 'authname', 'domain', 'callerid'],
     
     columns   : [
     {  // 'id'

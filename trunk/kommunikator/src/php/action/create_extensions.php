@@ -1,31 +1,28 @@
 <?
 need_user();
 
-$values = array();
 $data = json_decode($HTTP_RAW_POST_DATA);
-//file_put_contents('a',print_r($data,true));
+// file_put_contents('a',print_r($data,true));
 $rows = array();
-$values = array();
 $extensions = array();
 
 if ($data && !is_array($data)) $data = array($data);
+
 foreach ($data as $row)
 {
-$values = array();
-	$id = null;
-    foreach ($row as $key=>$value)
+    $values = array();
+    
+    foreach ($row as $key => $value)
         if ($key == 'id') $id = $key;
 	else
-        if (in_array($key ,array('status','priority','forward','forward_busy','forward_noanswer','noanswer_timeout')));
-	//else
-        //if ($key == "extension" && !$value) $values[$key]=" (SELECT MAX(extension)+1 FROM (SELECT * FROM extensions)as x) ";
-        else
-        if ($key == 'group_name') {if ($value && $row->extension) ;
-                                  $extensions[$row->extension] = $value;}
-        else
-            $values[$key]="'$value'"; 
+            if (in_array($key ,array('status','priority','forward','forward_busy','forward_noanswer','noanswer_timeout')));
+            // else
+            // if ($key == "extension" && !$value) $values[$key]=" (SELECT MAX(extension)+1 FROM (SELECT * FROM extensions)as x) ";
+            else
+                if ($key == 'group_name') { if ($value && $row->extension); $extensions[$row->extension] = $value; }
+                else $values[$key] = "'$value'";
 
-$rows[] = $values;
+    $rows[] = $values;
 }
 
 $need_out = false;
@@ -49,7 +46,7 @@ if ($result['data'] && $groups)
       if ($value==$row[0]) $rows[] = array('extension_id'=>$key,'group_id'=>$row[1]);
 
 
-file_put_contents('b',print_r($rows,true));
+// file_put_contents('b',print_r($rows,true));
 $action = 'create_group_members';
 include("create.php");
 ?>
