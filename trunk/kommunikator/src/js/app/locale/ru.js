@@ -238,5 +238,7 @@ app.msg = {
     last_week: 'На прошлой неделе',
     cur_week: 'На этой неделе',
     yesterday: 'Вчера',
-    today: 'Сегодня'
+    today: 'Сегодня',
+    ip_transport: 'Протокол',
+    callerid: 'ID звонящего'    
 };
