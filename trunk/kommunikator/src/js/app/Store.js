@@ -67,7 +67,7 @@ Ext.define('app.Store', {
                                 grid.ownerCt.body.unmask();
                             }
                             ;
-                        }, 5000);
+                        }, 30000);
 
                     },
                     load: function(store, records, success) {
