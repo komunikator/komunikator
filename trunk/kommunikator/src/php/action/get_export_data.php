@@ -42,7 +42,7 @@ function download_send_headers($filename) {
 }
 
 download_send_headers("data_export_" . date("Y-m-d_H_i_s") . ".csv");
-echo array2csv($data);
+echo iconv("utf-8", "windows-1251",array2csv($data));
 unlink($tmp);
 die();
 ?>
