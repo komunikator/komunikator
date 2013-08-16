@@ -48,7 +48,7 @@ $obj["total"] = $total;
 $f_data = array();
 foreach ($data["data"] as $row) {
     $row[0] -= $_SESSION['time_offset'] * 60;
-    $row[3] = round(time() - $_SESSION['time_offset'] * 60 - $row[0]);
+    $row[4] = round(time() - $_SESSION['time_offset'] * 60 - $row[0]);
     $row[0] = date($date_format, $row[0]);
     $f_data[] = $row;
 }
