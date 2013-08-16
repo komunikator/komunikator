@@ -1,26 +1,29 @@
 Ext.define('app.module.DID_Grid', {
-    extend: 'app.Grid',
-    store_cfg: {
-        fields: ['id', 'number', 'destination', 'description', 'default_dest'],
-        storeId: 'dids'
+    extend : 'app.Grid',
+    
+    store_cfg : {
+        fields   : ['id', 'number', 'destination', 'description', 'default_dest'],
+        storeId  : 'dids'
     },
-    advanced: ['description'],
-    columns: [
+    
+    // advanced : ['description'],
+    
+    columns : [
         {// 'id'
-            hidden: true
+            hidden : true
         },
         {// 'number'
-            editor: {
-                xtype: 'textfield',
-                regex: /^\d+$/,
-                allowBlank: false
-
+            editor : {
+                xtype       : 'textfield',
+                regex       : /^\d+$/,
+                allowBlank  : false
             }
         },
         {// 'destination'
-            editor: app.get_Source_Combo({
-                allowBlank: false,
-                editable: false,
+            editor : app.get_Source_Combo({
+                allowBlank  : false,
+                editable    : false,
+                
                 listeners: {
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
                     //при изменении  значения в поле "Назначение" 
@@ -40,8 +43,8 @@ Ext.define('app.module.DID_Grid', {
             })
         },
         {// 'description'
-            editor: {
-                xtype: 'textfield'
+            editor : {
+                xtype : 'textfield'
             }
         },
         {// 'default_dest'
@@ -67,6 +70,7 @@ Ext.define('app.module.DID_Grid', {
             //})//TODO validator
         }
     ],
+    
     columns_renderer:
             function(value, metaData, record, rowIndex, colIndex, store) {
                 if (colIndex == 2 && app.msg[value]) {

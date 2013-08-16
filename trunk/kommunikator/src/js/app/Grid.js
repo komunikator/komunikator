@@ -450,6 +450,8 @@ Ext.define('app.Grid', {
 
         //this.export = true;
         if (!this['status_grid'] && this.export) {
+            //if (!need_editor)
+                app.Loader.load('js/app/editor.css');
 
             if (!this.dockedItems)
                 this.dockedItems = [];

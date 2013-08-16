@@ -6,7 +6,7 @@
             <file>valid_actionTest.php</file>
             <file>get_statusTest.php</file>
             <file>get_active_callsTest.php</file>      
-            <file>get_call_logsTest.php</file>
+            <!-- <file>get_call_logsTest.php</file> -->
             <file>get_conferencesTest.php</file>
             <file>get_dial_plansTest.php</file>
             <file>get_didsTest.php</file>

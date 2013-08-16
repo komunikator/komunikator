@@ -1,22 +1,48 @@
 <?
 need_user();
 
-$values = array();
 $data = json_decode($HTTP_RAW_POST_DATA);
-$rows = array();
-$values = array();
 
 if ($data && !is_array($data)) $data = array($data);
+
+
 foreach ($data as $row)
 {
-$values = array();
-    foreach ($row as $key=>$value)
-        if ($key == 'id') $id = $key;
-	else
-            $values[$key]="'$value'";
-        $values['modified'] = 1;
-$rows[] = $values;
+    $values_1 = array();
+    $values_2 = array();  // для таблицы - incoming_gateways
+    
+    foreach ($row as $key => $value)
+    {
+      if ($key == 'id') $id = $key;
+      else
+      {
+          $values_1[$key] = "'$value'";
+          
+          if ($key == 'gateway') $values_2['incoming_gateway'] = "'$value'";
+          if ($key == 'server') $values_2['ip'] = "'$value'";
+      }
+    }
+        
+    $values_1['modified'] = 1;
+    
+    // $values_2['gateway_id'] = "(SELECT gateway_id FROM gateways WHERE gateway=".$values_2['incoming_gateway']." AND server=".$values_2['ip'].")";
+    $values_2['gateway_id'] = "(SELECT gateway_id FROM gateways WHERE gateway=".$values_2['incoming_gateway']." AND server=".$values_2['ip']." ORDER BY gateway_id DESC LIMIT 1)";
 }
 
-require_once("create.php");
+
+$need_out = false;
+
+
+$rows = array();
+$rows[] = $values_1;
+
+$action = 'create_gateways';
+include("create.php");
+
+
+$rows = array();
+$rows[] = $values_2;
+
+$action = 'create_incoming_gateways';
+include("create.php");
 ?>
