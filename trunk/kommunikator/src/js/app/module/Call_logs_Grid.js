@@ -146,6 +146,25 @@ Ext.define('app.module.Call_logs_Grid', {
          
          */
         this.callParent(arguments);
+
+
+        Ext.ux.grid.filter.DateFilter.override({
+            init: function() {
+                this.callOverridden();
+                this.on('update', this.updateValues);
+            },
+            updateValues: function() {
+                var me = this, key, picker;
+                for (key in me.fields) {
+                    if (me.fields[key].checked) {
+                        picker = me.getPicker(key);
+                        me.values[key] = picker.getValue();
+                    }
+                }
+            }
+        });
+
+
         var me = this;
         var get_grid_filter = function(name) {
             return me.filters.getFilter(name);
@@ -159,9 +178,12 @@ Ext.define('app.module.Call_logs_Grid', {
                             xtype: 'button',
                             text: app.msg.last_week ? app.msg.last_week : 'Last week',
                             handler: function() {
+                                //me.filters.resumeEvents();
+                                //me.filters.reload()
                                 var week = GetDateInWeek(-1);
+                                get_grid_filter('time').setActive(false, false);
                                 get_grid_filter('time').setValue(
-                                        {after: week.begin, on: null, before: week.end}
+                                        {after: week.begin, before: week.end}
                                 );
                                 get_grid_filter('time').setActive(true, false);
                             }
@@ -170,8 +192,9 @@ Ext.define('app.module.Call_logs_Grid', {
                             text: app.msg.cur_week ? app.msg.cur_week : 'Current week',
                             handler: function() {
                                 var week = GetDateInWeek();
+                                get_grid_filter('time').setActive(false, false);
                                 get_grid_filter('time').setValue(
-                                        {after: week.begin, on: null, before: week.end}
+                                        {after: week.begin, before: week.end}
                                 );
                                 get_grid_filter('time').setActive(true, false);
                             }
@@ -181,14 +204,18 @@ Ext.define('app.module.Call_logs_Grid', {
                             xtype: 'button',
                             text: app.msg.yesterday ? app.msg.yesterday : 'Уesterday',
                             handler: function() {
-                                get_grid_filter('time').setValue({on: yesterday});
+                                var d = new Date();
+                                d.setDate(d.getDate() - 1);
+                                get_grid_filter('time').setActive(false, false);
+                                get_grid_filter('time').setValue({on: d});
                                 get_grid_filter('time').setActive(true, false);
                             }
                         }, {
                             xtype: 'button',
                             text: app.msg.today ? app.msg.today : 'Today',
                             handler: function() {
-                                get_grid_filter('time').setValue({on: today});
+                                get_grid_filter('time').setActive(false, false);
+                                get_grid_filter('time').setValue({on: new Date()});
                                 get_grid_filter('time').setActive(true, false);
                             }
                         }
