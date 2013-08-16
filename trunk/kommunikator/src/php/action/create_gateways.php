@@ -25,7 +25,8 @@ foreach ($data as $row)
         
     $values_1['modified'] = 1;
     
-    $values_2['gateway_id'] = "(SELECT gateway_id FROM gateways WHERE gateway=".$values_2['incoming_gateway']." AND server=".$values_2['ip'].")";
+    // $values_2['gateway_id'] = "(SELECT gateway_id FROM gateways WHERE gateway=".$values_2['incoming_gateway']." AND server=".$values_2['ip'].")";
+    $values_2['gateway_id'] = "(SELECT gateway_id FROM gateways WHERE gateway=".$values_2['incoming_gateway']." AND server=".$values_2['ip']." ORDER BY gateway_id DESC LIMIT 1)";
 }
 
 
