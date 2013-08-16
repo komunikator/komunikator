@@ -12,7 +12,7 @@ Ext.define('app.module.Extensions_Grid', {
                 property: 'group_name'
             }]
     },
- //    advanced: ['group_name','forward'], //'forward_busy','forward_noanswer','noanswer_timeout'],	
+    //    advanced: ['group_name','forward'], //'forward_busy','forward_noanswer','noanswer_timeout'],	
     not_create_column: true,
     columns: [
         {// 'id'
@@ -82,7 +82,7 @@ Ext.define('app.module.Extensions_Grid', {
         {// 'forward'
             header: app.msg.forward,
             dataIndex: 'forward',
-           headers: [
+            headers: [
                 {
                     header: app.msg.number,
                     dataIndex: 'forward',
@@ -172,15 +172,12 @@ Ext.define('app.module.Extensions_Grid', {
         this.columns[7] = {
             header: app.msg.group,
             dataIndex: 'group',
-            defaults: {
-                //               hidden: true                                            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            },
             columns: [
-                {
+                {sortable: true,
+                    groupable: true,
                     text: app.msg.group,
                     dataIndex: 'group_name',
                     editor: {
-                        //  vtype:'dds',
                         xtype: 'combobox',
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         // так, как хранилище создается только здесь,
@@ -241,6 +238,8 @@ Ext.define('app.module.Extensions_Grid', {
                     }
                 },
                 {
+                    sortable: true,
+                    groupable: false,
                     header: app.msg.priority,
                     dataIndex: 'priority',
                     width: 120,
