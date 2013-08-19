@@ -12,6 +12,7 @@ Ext.onReady(function() {
 
 if (window['app'] == undefined)
     app = {};
+
 app.lang = 'ru';
 app.msg = {
     auth_title: 'Авторизация',
@@ -240,5 +241,9 @@ app.msg = {
     yesterday: 'Вчера',
     today: 'Сегодня',
     ip_transport: 'Протокол',
-    callerid: 'ID звонящего'    
+    callerid: 'ID звонящего',
+    
+    // --------------------------------------------------
+    db_error_number_1062: 'Такая запись уже существует.'
+    // --------------------------------------------------
 };
