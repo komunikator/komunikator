@@ -24,6 +24,37 @@ function array2csv(array &$array) {
     return ob_get_clean();
 }
 
+function translate($data, $lang = 'ru') {
+    $file = "js/app/locale/" . $lang . ".js";
+    if (!file_exists($file))
+        return $data;
+    //echo ('!!!!');
+    $text = file_get_contents($file);
+// удаляем строки начинающиеся с #
+    $text = preg_replace('/#.*/', '', $text);
+// удаляем строки начинающиеся с //
+    $text = preg_replace('#//.*#', '', $text);
+// удаляем многострочные комментарии /* */
+    $text = preg_replace('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#', '', $text);
+
+    $text = str_replace("\r\n", '', $text);
+    $text = str_replace("\n", '', $text);
+
+    $text = preg_replace('/(.*app\.msg\s*=\s*)({.*})(\s*;.*)/', '$2', $text);
+    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)]+)([\s\"\']*):\s*\"([^"]*)\"/', '$1"$3":"$5"', $text);
+    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)]+)([\s\"\']*):\s*\'([^\']*)\'/', '$1"$3":"$5"', $text);
+
+    $words = json_decode($text, true);
+    if ($data && $words)
+        foreach ($data as &$row)
+            foreach ($row as $key => $el)
+                foreach ($words as $word => $value) {
+                    if ($word == $el)
+                        $row[$key] = $value;
+                }
+    return $data;
+}
+
 function download_send_headers($filename) {
     // disable caching
     $now = gmdate("D, d M Y H:i:s");
@@ -42,7 +73,8 @@ function download_send_headers($filename) {
 }
 
 download_send_headers("data_export_" . date("Y-m-d_H_i_s") . ".csv");
-echo iconv("utf-8", "windows-1251",array2csv($data));
+$data = translate($data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');
+echo iconv("utf-8", "windows-1251", array2csv($data));
 unlink($tmp);
 die();
 ?>
