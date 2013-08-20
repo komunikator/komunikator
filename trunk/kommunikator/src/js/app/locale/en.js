@@ -116,8 +116,7 @@ app.msg = {
     extensions_info: "Extensions - Internal phones attached to the IP PBX",
     groups_info: "Groups - organise extensions in groups, in order to use the call hunting and queues functionality",
     prompts_info: "The Auto Attendant has two states: online and offline.<br>Each of these states has its own prompt",
-    keys_info: "If your online prompt says: Press 1 for Sales, then you must select type: online, key: 1, and insert group: Sales (you must have Sales defined in the Groups section). Same for offline state." +
-            "<br><br>If you want to send a call directly to an extension or another number, you should insert the number in the Destination field from Define Keys section.",
+    keys_info: "If your online prompt says: Press 1 for Sales, then you must select type: online, key: 1, and insert group: Sales (you must have Sales defined in the Groups section). Same for offline state.<br><br>If you want to send a call directly to an extension or another number, you should insert the number in the Destination field from Define Keys section.",
     timeframes_info: "When scheduling the Auto Attendant you set the time frames for each day during which ATT will be online. For periods not included in this time frames the offline mode will be used.",
     routing_rules_info: "DIDs - A call can go directly to a phone from inside the FreeSentral, by defining the destination as a DID. The destination can be an extension, a group of extensions, a voicemail, etc.",
     address_book_info: "In the address book are aliases for all telephone numbers (incoming and outgoing). You can add and modify them.",
@@ -197,5 +196,5 @@ app.msg = {
     change_redirect: 'Change redirect?',
     example_email: 'Several email: example@first.ru;example@second.ru',
     designation: 'designation',
-     nomination:' Name'
+    nomination: ' Name'
 };
