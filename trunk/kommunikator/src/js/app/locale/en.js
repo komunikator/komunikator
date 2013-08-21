@@ -138,6 +138,7 @@ app.msg = {
     forward_noanswer: 'No Answer',
     noanswer_timeout: 'Timeout (sec)',
     request_terminated: 'request terminated',
+    busy: 'Busy',
     busy_here: 'busy here',
     transfer: "transfer",
     temporarily_unavailable: "unavailable",

@@ -51,7 +51,7 @@ app.msg = {
     refresh: 'Обновить',
     online: 'Рабочее время',
     offline: 'Нерабочее время',
-    busy: '',
+    busy: 'Занят',
     registered: 'Зарегистрирован',
     unregistered: 'Не зарегистрирован',
     previous: 'Предыдущий',

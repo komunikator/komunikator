@@ -126,7 +126,7 @@ Ext.define('app.module.Extensions_Grid', {
                             local: true,
                             type: 'list',
                             local: true,
-                                    options: [['online', app.msg['registered']], ['offline', app.msg['unregistered']]],
+                                    options: [['online', app.msg['registered']], ['offline', app.msg['unregistered']], ['busy', app.msg['busy']]],
                             dataIndex: 'status'
                         }, {
                             type: 'string',
