@@ -1,7 +1,7 @@
 <?
 
 function need_user() {
-    if (!$_SESSION['user']) {
+    if (!$_SESSION['user'] && !$_SESSION['extension']) {
         echo (out(array("success" => false, "message" => "User is undefined")));
         exit;
     }

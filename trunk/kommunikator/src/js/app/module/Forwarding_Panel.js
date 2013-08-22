@@ -2,7 +2,10 @@
 
 Ext.define('app.module.Forwarding_Panel', {
     extend: 'Ext.form.Panel',
-    url: 'data.php?action=get_user_forwarding',
+    
+    // storeId:'forwarding',
+    url: 'data.php?action=get_forwarding',
+   
     //autoLoad: true,
     id: 'ForwardingPanel',
     style: 'padding:40px;',
@@ -10,6 +13,7 @@ Ext.define('app.module.Forwarding_Panel', {
     waitMsgTarget: true,
     width: 400,
     height: 600,
+    //method: 'POST',
     //  closeAction: 'hide',
 
 
@@ -18,17 +22,23 @@ Ext.define('app.module.Forwarding_Panel', {
 
 
         this.items = [
-            {
-                id: 'change_forwardd',
+            { 
+                id: 'change_forward',
                 xtype: 'fieldset',
                 border: true,
+                 //  storeId:'user_forwarding',
                 //disabled: true,
-                items: [{
-                        // url: 'data.php?action=get_user_forwarding',
-                        //editor: this.forward_editor,
+                items: [
+                    {// 'id'
                        
+                        id: 'id',
+                        xtype: 'textfield',
+                        name: 'id',
+                        hidden: true
+                    },
+                    {
                         fieldLabel: app.msg.always,
-                        name: 'change_forward',
+                        name: 'forward',
                         id: 'forward',
                         height: 20,
                         xtype: 'combobox',
@@ -39,32 +49,19 @@ Ext.define('app.module.Forwarding_Panel', {
                         store: [
                             ['vm', app.msg.voicemail],
                         ],
-                             listeners:
+                        listeners:
                                 {
                                     specialkey: function(t, e) {
-                                        var change_pass = Ext.getCmp('change_forw');
-                                        if (e.getKey() == e.ENTER && !change_pass.disabled) {
+                                        var change_forw = Ext.getCmp('change_forw');
+                                        if (e.getKey() == e.ENTER && !change_forw.disabled) {
                                             e.stopEvent();
-                                            change_pass.handler();
+                                            change_forw.handler();
                                         }
                                     }
                                 }
-                                //  vtype: 'ttr'
-
-                                //  value:'лаборант',
-                                /*         listeners:
-                                 {
-                                 specialkey: function(t, e) {
-                                 var change_pass = Ext.getCmp('change_forwarddd');
-                                 if (e.getKey() == e.ENTER && !change_pass.disabled) {
-                                 e.stopEvent();
-                                 change_pass.handler();
-                                 }
-                                 }
-                                 }*/
                     }, {
                         fieldLabel: app.msg.forward_busy,
-                        name: 'change_forward_busy',
+                        name: 'forward_busy',
                         id: 'forward_busy',
                         height: 20,
                         xtype: 'combobox',
@@ -75,10 +72,10 @@ Ext.define('app.module.Forwarding_Panel', {
                         store: [
                             ['vm', app.msg.voicemail],
                         ]
-                        //  value:'forward_busy',
+                                //  value:'forward_busy',
                     }, {
                         fieldLabel: app.msg.forward_noanswer,
-                        name: 'change_forward_noanswer',
+                        name: 'forward_noanswer',
                         id: 'forward_noanswer',
                         height: 20,
                         xtype: 'combobox',
@@ -92,7 +89,7 @@ Ext.define('app.module.Forwarding_Panel', {
                     }, {
                         xtype: 'textfield',
                         fieldLabel: app.msg.noanswer_timeout,
-                        name: 'change_noanswer_timeout',
+                        name: 'noanswer_timeout',
                         id: 'noanswer_timeout',
                         height: 20,
                         editor: {
@@ -100,9 +97,16 @@ Ext.define('app.module.Forwarding_Panel', {
                             regex: /^\d{1,3}$/
                         }
                     }]
-            }];
+            },
+            {
+                xtype: 'textfield',
+                // fieldLabel: 'action',
+                name: 'action',
+                value: 'update_extensions',
+                hidden: true,
+            }, ];
 
-          
+
         this.callParent(arguments);
         var form = this.getForm();
         form.load();

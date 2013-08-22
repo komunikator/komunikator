@@ -11,8 +11,6 @@ if ($_SESSION['user']) {
 
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
-    $acall = '$exten';
-    $bcall = '$exten';
     $call = "and (a.caller = '$exten' OR b.called ='$exten')";
 }
 

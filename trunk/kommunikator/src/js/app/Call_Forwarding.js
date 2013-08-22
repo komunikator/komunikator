@@ -22,116 +22,35 @@ Ext.define('app.Call_Forwarding', {
         this.items = [Ext.create('app.module.Forwarding_Panel', {
             })
         ],
-                /* buttons : [{
-                 id: 'close_forward',
-                 text: app.msg.close,
-                 handler: function() { Ext.getCmp('CallForwarding').close(); }
-                 
-                 
-                 }]*/
-         /*       this.buttons = [
-            {
-                id: 'change_forw',
-                text: app.msg.save,
-                handler: function() {
-                    var update_password = Ext.getCmp('update_extensions');
-                    if (update_password.getForm().isValid()) {
-                        update_password.body.mask();
-                        app.request(
-                                update_password.getForm().getValues(),
-                                function(result) {
-                                    update_password.getForm().reset();
-                                    Ext.getCmp('CallForwarding').close();
-                                    update_password.body.unmask();
-                                }, function(result) {
-                            update_password.body.unmask();
-                        });
-                    }
-                }
-            },
-            /* handler  : function() {
-             var fn = function(btn) {
-             
-             app.request(
-             {
-             action : 'change_forwardd'
-             },
-             function(result) {
-             if (!result.message)
-             box.hide();
-             // console.log(result)
-             });
-             
-             };
-             Ext.MessageBox.show({
-             title    : app.msg.performing_actions,  
-             msg      : app.msg.change_redirect,  
-             buttons  : Ext.MessageBox.YESNOCANCEL,
-             fn       : fn,
-             // animEl   : 'mb4',
-             icon     : Ext.MessageBox.QUESTION
-             });
-             
-             }*/
-
-
-
-
-     /*       {
-                text: app.msg.cancel,
-                scope: this,
-                handler: this.close
-            }
-        ];*/
+    
+    
            this.buttons = [
-            {
+     {
                 id: 'change_forw',
                 text: app.msg.save,
-                handler: function() {
-                    var update_password = Ext.getCmp('change_forwardd');
-                    if (update_password.getForm().isValid()) {
-                        update_password.body.mask();
-                        app.request(
-                                update_password.getForm().getValues(),
-                                function(result) {
-                                    update_password.getForm().reset();
-                                    Ext.getCmp('CallForwarding').close();
-                                   
-                                    update_password.body.unmask();
-                                }, function(result) {
-                            update_password.body.unmask();
-                        });
+                handler: function() { 
+                    var change_forward = Ext.getCmp('ForwardingPanel');
+                    
+                    if (change_forward.getForm().isValid()) {     
+                        change_forward.body.mask();
+                    
+                       app.request(  
+                 change_forward.getForm().getValues(),
+                     
+                                function(result) {    
+                             change_forward.getForm().reset(); 
+                           
+                              
+                                }, function(result) { 
+                            change_forward.body.unmask(); 
+                        }, true
+                           
+                            
+                    );
                     }
-                }
+                } 
             },
-            /* handler  : function() {
-             var fn = function(btn) {
-             
-             app.request(
-             {
-             action : 'change_forwardd'
-             },
-             function(result) {
-             if (!result.message)
-             box.hide();
-             // console.log(result)
-             });
-             
-             };
-             Ext.MessageBox.show({
-             title    : app.msg.performing_actions,  
-             msg      : app.msg.change_redirect,  
-             buttons  : Ext.MessageBox.YESNOCANCEL,
-             fn       : fn,
-             // animEl   : 'mb4',
-             icon     : Ext.MessageBox.QUESTION
-             });
-             
-             }*/
-
-
-
-
+            
             {
                 text: app.msg.cancel,
                 scope: this,

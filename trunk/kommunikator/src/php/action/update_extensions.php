@@ -6,7 +6,6 @@ $table_name = 'extensions';
 $values = array();
 $data = json_decode($HTTP_RAW_POST_DATA);
 $rows = array();
-$values = array();
 $pbx_values = array();
 $prior_values = array();
 

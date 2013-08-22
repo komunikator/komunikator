@@ -15,6 +15,7 @@ if ($password)
 
     if ($extension) {
         $sql = "SELECT * from extensions where extension = '$extension' and password = '$password'";
+       
         if (query_to_array($sql)) {
              $sql=sprintf("UPDATE  extensions SET  password = '$newpasswd' WHERE extension = '$extension' and password = '$password'" );
         query($sql); 

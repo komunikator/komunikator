@@ -241,6 +241,7 @@ app.msg = {
     today: 'Сегодня',
     ip_transport: 'Протокол',
     callerid: 'ID звонящего',
+    'busy_here_[call_processibg_released]':"занят",
     
     // --------------------------------------------------
     db_error_number_1062: 'Такая запись уже существует.'
