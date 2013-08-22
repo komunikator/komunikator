@@ -26,7 +26,6 @@ Ext.define('app.Call_Forwarding', {
                         app.request(
                                 change_forward.getForm().getValues(),
                                 function(result) {
-                                    change_forward.getForm().reset();
                                     Ext.getCmp('CallForwarding').close();
                                 }, function(result) {
                             change_forward.body.unmask();
