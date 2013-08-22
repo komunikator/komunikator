@@ -1,37 +1,21 @@
-
-
 Ext.define('app.module.Forwarding_Panel', {
     extend: 'Ext.form.Panel',
-    
-    // storeId:'forwarding',
     url: 'data.php?action=get_forwarding',
-   
-    //autoLoad: true,
     id: 'ForwardingPanel',
     style: 'padding:40px;',
     frame: true,
     waitMsgTarget: true,
     width: 400,
     height: 600,
-    //method: 'POST',
-    //  closeAction: 'hide',
-
-
-
+   
     initComponent: function() {
 
-
-        this.items = [
-            { 
+        this.items = [{
                 id: 'change_forward',
                 xtype: 'fieldset',
                 border: true,
-                 //  storeId:'user_forwarding',
-                //disabled: true,
                 items: [
-                    {// 'id'
-                       
-                        id: 'id',
+                    { id: 'id',
                         xtype: 'textfield',
                         name: 'id',
                         hidden: true
@@ -72,8 +56,8 @@ Ext.define('app.module.Forwarding_Panel', {
                         store: [
                             ['vm', app.msg.voicemail],
                         ]
-                                //  value:'forward_busy',
-                    }, {
+                    }, 
+                            {
                         fieldLabel: app.msg.forward_noanswer,
                         name: 'forward_noanswer',
                         id: 'forward_noanswer',
@@ -86,25 +70,25 @@ Ext.define('app.module.Forwarding_Panel', {
                         store: [
                             ['vm', app.msg.voicemail],
                         ]
-                    }, {
+                    }, 
+                            {
                         xtype: 'textfield',
                         fieldLabel: app.msg.noanswer_timeout,
                         name: 'noanswer_timeout',
                         id: 'noanswer_timeout',
                         height: 20,
                         editor: {
-                            xtype: 'textfield',
-                            regex: /^\d{1,3}$/
+                            xtype: 'numberfield',
+                            minValue: 1
                         }
                     },
-                        {
-                xtype: 'textfield',
-                // fieldLabel: 'action',
-                name: 'action',
-                value: 'update_extensions',
-                hidden: true
-            }]
-            } ];
+                    {
+                        xtype: 'textfield',
+                        name: 'action',
+                        value: 'update_extensions',
+                        hidden: true
+                    }]
+            }];
 
 
         this.callParent(arguments);

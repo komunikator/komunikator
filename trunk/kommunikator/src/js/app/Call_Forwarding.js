@@ -1,8 +1,6 @@
 Ext.define('app.Call_Forwarding', {
     extend: 'Ext.window.Window',
-    // alias : 'widget.login',
     id: 'CallForwarding',
-    //  autoShow: true,
     width: 400,
     height: 300,
     layout: 'fit',
@@ -11,46 +9,31 @@ Ext.define('app.Call_Forwarding', {
     closable: true, //убирает крестик, закрывающий окно
     resizable: false, // нельзя изменить размеры окна
     draggable: false, //перемещение объекта по экрану
-   // storeId: 'user_forwarding',
-    //  closeAction: 'hide',
-
-
     title: app.msg.forward, //получаем название титула окна
-
 
     initComponent: function() {
         this.items = [Ext.create('app.module.Forwarding_Panel', {
             })
         ],
-    
-    
-           this.buttons = [
-     {
+                this.buttons = [
+            {
                 id: 'change_forw',
                 text: app.msg.save,
-                handler: function() { 
+                handler: function() {
                     var change_forward = Ext.getCmp('ForwardingPanel');
-                    
-                    if (change_forward.getForm().isValid()) {     
+                    if (change_forward.getForm().isValid()) {
                         change_forward.body.mask();
-                    
-                       app.request(  
-                 change_forward.getForm().getValues(),
-                     
-                                function(result) {    
-                             change_forward.getForm().reset(); 
-                           
-                              
-                                }, function(result) { 
-                            change_forward.body.unmask(); 
-                        }, true
-                           
-                            
-                    );
+                        app.request(
+                                change_forward.getForm().getValues(),
+                                function(result) {
+                                    change_forward.getForm().reset();
+                                    Ext.getCmp('CallForwarding').close();
+                                }, function(result) {
+                            change_forward.body.unmask();
+                        }, true);
                     }
-                } 
+                }
             },
-            
             {
                 text: app.msg.cancel,
                 scope: this,
