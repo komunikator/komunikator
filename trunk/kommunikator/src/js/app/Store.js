@@ -61,6 +61,7 @@ Ext.define('app.Store', {
                         var grid = Ext.getCmp(this.storeId + '_grid');
                         if (grid && !this.autoLoad)
                             grid.ownerCt.body.mask(Ext.view.AbstractView.prototype.loadingText);
+                        /*
                         setTimeout(function() {
                             if (grid && grid.ownerCt && grid.ownerCt.body) {
                                 //console.log(grid.getId());
@@ -68,6 +69,7 @@ Ext.define('app.Store', {
                             }
                             ;
                         }, 30000);
+                        */
 
                     },
                     load: function(store, records, success) {
