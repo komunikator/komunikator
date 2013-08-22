@@ -5,7 +5,7 @@ Ext.define('app.Store', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-                pageSize:app.pageSize,
+                pageSize: app.pageSize,
                 ////leadingBufferZone: 50,
                 remoteSort: true,
                 ////buffered: true,
@@ -60,26 +60,28 @@ Ext.define('app.Store', {
                     beforeload: function(s) {
                         var grid = Ext.getCmp(this.storeId + '_grid');
                         if (grid && !this.autoLoad)
-                            grid.ownerCt.body.mask(Ext.view.AbstractView.prototype.loadingText);
+                            //grid.ownerCt.body.
+                            Ext.getBody().mask(Ext.view.AbstractView.prototype.loadingText);
                         /*
-                        setTimeout(function() {
-                            if (grid && grid.ownerCt && grid.ownerCt.body) {
-                                //console.log(grid.getId());
-                                grid.ownerCt.body.unmask();
-                            }
-                            ;
-                        }, 30000);
-                        */
+                         setTimeout(function() {
+                         if (grid && grid.ownerCt && grid.ownerCt.body) {
+                         //console.log(grid.getId());
+                         grid.ownerCt.body.unmask();
+                         }
+                         ;
+                         }, 30000);
+                         */
 
                     },
                     load: function(store, records, success) {
                         //console.log (store.storeId+' loaded '+ store.getTotalCount());
                         var grid = Ext.getCmp(store.storeId + '_grid');
                         if (grid && !this.autoLoad)
-                            grid.ownerCt.body.unmask();
-                      if (grid && store.reselect){
-                          store.reselect(grid);                     
-                        }     
+                            Ext.getBody().unmask(Ext.view.AbstractView.prototype.loadingText);
+                        //grid.ownerCt.body.unmask();
+                        if (grid && store.reselect) {
+                            store.reselect(grid);
+                        }
                         //this.Total_sync();
                         this.dirtyMark = false;
                         if (!success && store.storeId) {
@@ -91,6 +93,7 @@ Ext.define('app.Store', {
                         }
                     },
                     exception: function(proxy, response, options) {
+                        Ext.getBody().unmask(Ext.view.AbstractView.prototype.loadingText);
                         this.removeAll();
                         console.log('exception: ', proxy, response, options);
                     }
