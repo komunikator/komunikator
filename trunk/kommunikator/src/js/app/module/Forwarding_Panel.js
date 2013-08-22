@@ -96,15 +96,15 @@ Ext.define('app.module.Forwarding_Panel', {
                             xtype: 'textfield',
                             regex: /^\d{1,3}$/
                         }
-                    }]
-            },
-            {
+                    },
+                        {
                 xtype: 'textfield',
                 // fieldLabel: 'action',
                 name: 'action',
                 value: 'update_extensions',
-                hidden: true,
-            }, ];
+                hidden: true
+            }]
+            } ];
 
 
         this.callParent(arguments);

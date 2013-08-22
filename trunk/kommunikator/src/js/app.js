@@ -88,7 +88,12 @@ app.request = function(params, onSuccess, onFail, jsonData) {
     if (!jsonData)
         data.params = params;
     else
+    {
+        var action = params['action'];
+        delete(params.action);
         data.jsonData = Ext.encode(params);
+        data.url += '?' + action;
+    }
     Ext.Ajax.request(data);
 
 };
