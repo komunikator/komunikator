@@ -172,6 +172,9 @@ Ext.define('app.module.Extensions_Grid', {
         this.columns[7] = {
             header: app.msg.group,
             dataIndex: 'group',
+            groupable: false,
+            sortable: false,
+            menuDisabled: true,
             columns: [
                 {sortable: true,
                     groupable: true,
