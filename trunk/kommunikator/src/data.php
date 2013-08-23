@@ -8,7 +8,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //ini_set('session.use_cookies', 0);
 ini_set('session.use_only_cookies', 0);
 session_start();
-session_write_close();
+//session_write_close(); //Запросы будут выполняться последовательно
 //ini_set("error_reporting",'');
 //ini_set("display_errors",true);
 
