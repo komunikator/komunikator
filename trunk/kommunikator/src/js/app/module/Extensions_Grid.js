@@ -251,11 +251,11 @@ Ext.define('app.module.Extensions_Grid', {
                         xtype: 'numberfield',
                         minValue: 1
                     },
-                    listeners: {
+                   /* listeners: {
                         change: function(f, new_val) {
                             f.ownerCt.items.items[8].setValue(null);
                         }
-                    }
+                    }*/
                 }
 
             ]};

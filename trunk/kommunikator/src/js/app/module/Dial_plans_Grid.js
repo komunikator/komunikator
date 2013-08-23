@@ -16,7 +16,7 @@ Ext.define('app.module.Dial_plans_Grid', {
             width: 120,
             editor: {
                 xtype: 'textfield',
-                regex: /^[a-zA-Zа-яА-Я0-9_-]{1,16}$/,
+            //   regex: /^[a-zA-Zа-яА-Я0-9_-]{1,16}$/,
                 allowBlank: false
             }
         },
