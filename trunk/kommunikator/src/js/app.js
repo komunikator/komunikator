@@ -42,18 +42,63 @@ Ext.Ajax.on('requestexception', function(conn, response, options) {
 Ext.Ajax.on('requestcomplete', function(conn, response, options) {
     try {
         var jsonData = Ext.decode(response.responseText);
-        if (jsonData.message)
-        {
+        
+        if (jsonData.message) {
             var cb = Ext.emptyFn;
+            
             if (jsonData.message == 'session_failed')
                 cb = function() {
                     window.location.reload();
                 };
+                
             app.msgShow(app.msg[jsonData.message] ? app.msg[jsonData.message] : jsonData.message, jsonData.success ? 'info' : 'error', cb);
         }
     }
-    catch (err) {
-        app.msgShow(response.responseText);
+    catch(err) {
+
+        var check_string, string_rule;
+
+
+        check_string = response.responseText;
+
+        string_rule = /^DB Error:/;
+
+
+        switch(  String( check_string.match(string_rule) )  )
+          {
+
+            case "DB Error:" :
+              // --------------------------------------------------  BEGIN
+              string_rule = /nativecode=\d{1,}/;
+
+
+              switch(  String( check_string.match(string_rule) )  )
+                {
+
+                  case "nativecode=1062" :
+                    app.msgShow(app.msg.db_error_number_1062 ? app.msg.db_error_number_1062 : check_string);
+                    break;
+
+                  // case "nativecode=<номер_ошибки>" :
+                    // <событие>
+                    // break;
+
+                  default :
+                    app.msgShow(check_string);  // в случае если ни один из nativecode=<номер_ошибки> не был выполнен
+                    break;
+
+                }
+
+              break;
+              // --------------------------------------------------  END
+
+            default :
+              app.msgShow(check_string);  // в случае если case "DB Error:" не был выполнен
+              break;
+
+          }
+
+        // app.msgShow(response.responseText);  // было до перехвата ошибок
     }
 });
 
