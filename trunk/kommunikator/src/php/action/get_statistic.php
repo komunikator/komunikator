@@ -80,7 +80,8 @@ function lastDayToTimestamp() {
     return array('start' => $day_start, 'end' => $day_end);
 }
 
-$cur_date = lastDayToTimestamp(); {
+$cur_date = lastDayToTimestamp();
+{
     $status = 'offline';
     $query = "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames";
     $res = query_to_array($query);
@@ -100,21 +101,14 @@ $cur_date = lastDayToTimestamp(); {
 $f_data[] = array('status', $status);
 $sql =
         <<<EOD
-  select count(*)
+select count(*)
   from call_logs a
   join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
   left join extensions x on x.extension=a.caller
   left join extensions x2 on x2.extension=b.called
   where a.ended=1 and a.direction='incoming' and a.status!='unknown'
   and a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
-  EOD;
-
-$sql =
-        <<<EOD
-     select count(*) from extensions 
-	 where coalesce(inuse_count,0)!=0;
 EOD;
-
 
 $data = compact_array(query_to_array($sql));
 $f_data[] = array('day_total_calls', $data["data"][0][0]);
