@@ -176,7 +176,8 @@ Ext.define('app.module.Extensions_Grid', {
             sortable: false,
             menuDisabled: true,
             columns: [
-                {sortable: true,
+                {
+                    sortable: true,
                     groupable: true,
                     text: app.msg.group,
                     dataIndex: 'group_name',
@@ -250,12 +251,11 @@ Ext.define('app.module.Extensions_Grid', {
                         xtype: 'numberfield',
                         minValue: 1
                     },
-                            listeners: {
-                            
-                            change: function(f, new_val) {
-                                f.ownerCt.items.items[8].setValue(null);
-                            } 
+                    listeners: {
+                        change: function(f, new_val) {
+                            f.ownerCt.items.items[8].setValue(null);
                         }
+                    }
                 }
 
             ]};

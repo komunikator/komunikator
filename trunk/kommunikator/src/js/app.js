@@ -70,8 +70,6 @@ app.onSuccessOrFail = function(result, request, onSuccess, onFail) {
 }
 
 app.request = function(params, onSuccess, onFail, jsonData) {
-    console.log(jsonData);
-    console.log(params);
     var data = {
         url: 'data.php',
         method: 'post',
@@ -84,7 +82,6 @@ app.request = function(params, onSuccess, onFail, jsonData) {
             app.onSuccessOrFail(result, request, onSuccess, onFail)
         }
     };
-
     if (!jsonData)
         data.params = params;
     else
@@ -94,8 +91,7 @@ app.request = function(params, onSuccess, onFail, jsonData) {
         data.jsonData = Ext.encode(params);
         data.url += '?action=' + action;
     }
-    Ext.Ajax.request(data);
-
+    Ext.Ajax.request(data)
 };
 
 app.logout = function() {
