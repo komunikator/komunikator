@@ -157,6 +157,7 @@ app.msg = {
     busy_here: "занят",
     transfer: "переведённый",
     temporarily_unavailable: "недоступен",
+    'temporarily_unavailable_[call_processing_released]':"временно недоступен",
     performing_actions: "Выполнение действий",
     wait_reboot: "Пожалуйста, подождите пока происходит перезагрузка АТС",
     wait_checkforupdates: "Пожалуйста, подождите пока происходит проверка обновлений АТС",
@@ -219,9 +220,9 @@ app.msg = {
     not_found: 'не найден',
     progressing: 'ожидание ответа',
     hold: 'удержанный',
-    server_internal_erro: 'внутренняя ошибка сервера',
+    server_internal_error: 'внутренняя ошибка сервера',
     request_timeout: 'время ожидания истекло',
-    'unallocated_(unassigned)_number': 'недопустимы номер',
+    'unallocated_(unassigned)_number': 'недопустимый номер',
     normal_call_clearing: 'сбой вызова',
     update_password: 'Изменить пароль',
     new_password: 'Новый пароль',
@@ -242,6 +243,8 @@ app.msg = {
     ip_transport: 'Протокол',
     callerid: 'ID звонящего',
     'busy_here_[call_processibg_released]':"занят",
+    'normal,_unspecified':"отвеченный",
+    pickup:'перехваченный',
     
     // --------------------------------------------------
     db_error_number_1062: 'Такая запись уже существует.'

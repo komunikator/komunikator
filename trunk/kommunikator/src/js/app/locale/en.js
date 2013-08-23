@@ -143,6 +143,7 @@ app.msg = {
     busy_here: 'busy here',
     transfer: "transfer",
     temporarily_unavailable: "unavailable",
+    'temporarily_unavailable_[call_processing_released]':"unavailable",
     always: 'Always',
     network_settings: 'Network settings',
     auto_dhcp: 'Auto DHCP',
@@ -183,7 +184,7 @@ app.msg = {
     not_found: 'not found',
     progressing: 'progressing',
     hold: 'hold',
-    server_internal_erro: 'internal server error',
+    server_internal_error: 'internal server error',
     request_timeout: 'request timeout',
     'unallocated_(unassigned)_number': 'wrong number',
     normal_call_clearing: 'call failed',
@@ -198,5 +199,11 @@ app.msg = {
     change_redirect: 'Change redirect?',
     example_email: 'Several email: example@first.ru;example@second.ru',
     designation: 'designation',
-    nomination: ' Name'
+    nomination: ' Name',
+    'normal,_unspecified':'answered',
+    pickup:'pickup',
+    
+     // --------------------------------------------------
+    db_error_number_1062: 'This entry already exists.'
+    // --------------------------------------------------
 };

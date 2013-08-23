@@ -246,7 +246,13 @@ Ext.define('app.module.Extensions_Grid', {
                     editor: {
                         xtype: 'numberfield',
                         minValue: 1
-                    }
+                    },
+                            listeners: {
+                            
+                            change: function(f, new_val) {
+                                f.ownerCt.items.items[8].setValue(null);
+                            } 
+                        }
                 }
 
             ]};
