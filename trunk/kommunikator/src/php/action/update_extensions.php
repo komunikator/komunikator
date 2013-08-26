@@ -16,6 +16,7 @@ foreach ($data as $row) {
     foreach ($row as $key => $value)
         if ($key == 'group_name')
             $group = ($value == null) ? 'null' : $value;
+     
         else {
             if ($key == 'id')
                 $extension_id = $value;
@@ -76,8 +77,7 @@ print_r();
         $rows[] = array('id' => $row[0], 'group_id' => $row[1]);
         if ($group != 'null') {
             $action = 'update_group_members';
-            
-            include ("update.php");
+             include ("update.php");
         } else {
             $action = 'destroy_group_members';
             include ("destroy.php");
@@ -88,17 +88,18 @@ print_r();
         include ("create.php");
     }
 }
+ 
 if ($prior_values)
-    
+     
     foreach ($prior_values as $prior_key => $prior_value) {
    //and group_id = (select group_id from group_members where extension_id = $extension_id)
-       $sql = "update group_priority set priority = $prior_value and group_id = (SELECT group_id FROM groups WHERE groups.group = '$group') where extension_id = $extension_id ";
+       $sql = "update group_priority set priority = $prior_value, group_id = (SELECT group_id FROM groups WHERE groups.group = '$group') where extension_id = $extension_id";
         query($sql); 
        
-      //  $sql = "insert into group_priority (group_id, extension_id, priority) select (select group_id from group_members where extension_id = $extension_id), $extension_id, $prior_value from dual where not exists (select 1 from group_priority where extension_id = $extension_id and group_id = (select group_id from group_members where extension_id = $extension_id))";
+   /* $sql = "insert into group_priority (group_id, extension_id, priority) select group_id=(SELECT group_id FROM groups WHERE groups.group = '$group'), $extension_id, $prior_value from dual where not exists (select 1 from group_priority where extension_id = $extension_id)";
         
      //   print_r($sql);
-      //  query($sql);
+        query($sql);
       /*  if($prior_value = 'null'){
        $sql = "delete from group_priority where extension_id = $extension_id ";
         query($sql);      
