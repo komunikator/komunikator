@@ -249,7 +249,7 @@ Ext.define('app.module.Extensions_Grid', {
                     width: 120,
                     editor: {
                         xtype: 'numberfield',
-                        minValue: 1
+                        //minValue: 1
                     },
                    /* listeners: {
                         change: function(f, new_val) {
