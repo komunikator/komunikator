@@ -79,7 +79,7 @@ Ext.define('app.module.Forwarding_Panel', {
                         height: 20,
                         editor: {
                             xtype: 'numberfield',
-                            minValue: 0
+                            minValue: 1
                         }
                     },
                     {

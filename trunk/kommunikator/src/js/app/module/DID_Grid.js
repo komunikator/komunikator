@@ -1,3 +1,15 @@
+Ext.apply(Ext.form.field.VTypes, {
+    fds : function(val, field) {
+        if (val !== app.msg.attendant)
+        {
+            console.log(field.ownerCt.items.items[4].setVisible(false));
+            console.log(field.ownerCt.items.items[4].setValue(null));            
+            return true;
+        } 
+        console.log(field.ownerCt.items.items[4].setVisible(true));
+        return true;
+    }
+});
 Ext.define('app.module.DID_Grid', {
     extend : 'app.Grid',
     
@@ -23,8 +35,8 @@ Ext.define('app.module.DID_Grid', {
             editor : app.get_Source_Combo({
                 allowBlank  : false,
                 editable    : false,
-                
-                listeners: {
+                vtype:'fds'
+                /*listeners: {
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
                     //при изменении  значения в поле "Назначение" 
                     //меняется значение поля "Назначение по умолчанию"
@@ -39,12 +51,13 @@ Ext.define('app.module.DID_Grid', {
                         return true;
                     }
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
-                }
+                }*/
             })
         },
         {// 'description'
             editor : {
-                xtype : 'textfield'
+                xtype : 'textfield',
+                
             }
         },
         {// 'default_dest'
