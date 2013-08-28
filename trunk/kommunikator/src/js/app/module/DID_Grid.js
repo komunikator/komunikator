@@ -35,7 +35,7 @@ Ext.define('app.module.DID_Grid', {
             editor : app.get_Source_Combo({
                 allowBlank  : false,
                 editable    : false,
-                
+                vtype:'fds'
                 /*listeners: {
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
                     //при изменении  значения в поле "Назначение" 
@@ -57,7 +57,7 @@ Ext.define('app.module.DID_Grid', {
         {// 'description'
             editor : {
                 xtype : 'textfield',
-                vtype:'fds'
+                
             }
         },
         {// 'default_dest'
