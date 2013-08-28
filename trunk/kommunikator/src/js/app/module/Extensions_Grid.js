@@ -158,7 +158,6 @@ Ext.define('app.module.Extensions_Grid', {
                      yesText: app.msg.online,     // default
                      noText:  app.msg.online,        // default
                      dataIndex: 'status'
-                     
                      */
         }],
     columns_renderer: app.online_offline_renderer,
@@ -186,7 +185,6 @@ Ext.define('app.module.Extensions_Grid', {
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         // так, как хранилище создается только здесь,
                         // код был поправлен
-
                         /*
                          store         : Ext.StoreMgr.lookup('groups_extended') ?
                          Ext.StoreMgr.lookup('groups_extended') :
@@ -195,7 +193,6 @@ Ext.define('app.module.Extensions_Grid', {
                          storeId  : 'groups_extended'
                          }),
                          */
-
                         store: Ext.create('app.Store', {
                             fields: ['id', 'group', 'description', 'extension'],
                             storeId: 'groups_extended'
@@ -212,8 +209,6 @@ Ext.define('app.module.Extensions_Grid', {
                         // «нормальное» отображение пустых полей в выпадающем списке
 
                         // displayField  : 'group', <- заменено кодом ниже
-
-
                         tpl: Ext.create('Ext.XTemplate',
                                 '<tpl for=".">',
                                 '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
@@ -248,15 +243,10 @@ Ext.define('app.module.Extensions_Grid', {
                     dataIndex: 'priority',
                     width: 120,
                     editor: {
-                        xtype: 'textfield'
-                    },
-                   /* listeners: {
-                        change: function(f, new_val) {
-                            f.ownerCt.items.items[8].setValue(null);
+                            xtype: 'numberfield',
+                            minValue: 1
                         }
-                    }*/
                 }
-
             ]};
 
         this.forward_editor = {
@@ -274,7 +264,6 @@ Ext.define('app.module.Extensions_Grid', {
                 return app.msg.voicemail;
             return value;
         };
-        //console.log(this.columns);	
         this.columns[8] = {
             text: app.msg.forward,
             groupable: false,
