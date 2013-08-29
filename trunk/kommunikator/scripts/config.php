@@ -1,9 +1,13 @@
 <?php
+
+$cur_ver = '0.5.0';
+$updates_base = "http://4yate.ru/repos";
+$updates_url = "$updates_base/checkforupdates.php?cur_ver=$cur_ver";
+$updates_data_url = "$updates_base/update.tar.gz";
+
 error_reporting(E_ALL & ~(E_STRICT | E_NOTICE | E_WARNING));
 
-/* File created by FreeSentral v1.2 */
-
-date_default_timezone_set("Europe/London");
+date_default_timezone_set("UTC");
 
 require_once("DB.php");
 
@@ -41,8 +45,10 @@ $uploaded_prompts = "/var/lib/misc";
 $query_on = false;
 $max_resets_conn = 5;
 
-$calls_email  = "root@localhost";
-$fax_call = "root@localhost";
+//$calls_email  = "root@localhost";
+//$fax_call = "root@localhost";
+//$calls_email = "info@digt.ru";
+//$fax_call = "info@digt.ru";
 
 $source = array(
     'voicemail' => 'external/nodata/voicemail.php',
