@@ -1,6 +1,6 @@
 #!/bin/bash
 name=komunikator
-ver=05001 
+ver=050001 
 build_path="./build" 
 p=`pwd`
 cd $ver

@@ -1,10 +1,11 @@
 <?php
-$cur_ver = '0.5.1';
-$updates_url = "http://4yate.ru/repos/checkforupdates.php?cur_ver=$cur_ver";
+
+$cur_ver = '0.5.0.001';
+$updates_base = "http://4yate.ru/repos";
+$updates_url = "$updates_base/checkforupdates.php?cur_ver=$cur_ver";
+$updates_data_url = "$updates_base/update.tar.gz";
 
 error_reporting(E_ALL & ~(E_STRICT | E_NOTICE | E_WARNING));
-
-/* File created by FreeSentral v1.2 */
 
 date_default_timezone_set("UTC");
 
@@ -19,9 +20,9 @@ require_once 'PEAR.php';
 
 $db_type_sql = "mysql";
 $db_host = "localhost";
-$db_user = "user";
-$db_passwd = "user";
-$db_database = "PBX";
+$db_user = "kommunikator";
+$db_passwd = "kommunikator";
+$db_database = "kommunikator";
 
 $dsn = "$db_type_sql://$db_user:$db_passwd@$db_host/$db_database";
 $conn = DB::connect($dsn);
@@ -46,9 +47,8 @@ $max_resets_conn = 5;
 
 //$calls_email  = "root@localhost";
 //$fax_call = "root@localhost";
-
-$calls_email = "info@digt.ru";
-$fax_call = "info@digt.ru";
+//$calls_email = "info@digt.ru";
+//$fax_call = "info@digt.ru";
 
 $source = array(
     'voicemail' => 'external/nodata/voicemail.php',
