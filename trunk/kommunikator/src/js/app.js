@@ -111,8 +111,8 @@ app.onSuccessOrFail = function(result, request, onSuccess, onFail) {
     if (result && result.success == false && onFail)
         onFail(result);
     else
-        app.msgShow()
-}
+        app.msgShow();
+};
 
 app.request = function(params, onSuccess, onFail, jsonData) {
     var data = {
@@ -121,10 +121,10 @@ app.request = function(params, onSuccess, onFail, jsonData) {
         //params: jsonData ? null: params,
         //jsonData: jsonData ? params: null,
         success: function(result, request) {
-            app.onSuccessOrFail(result, request, onSuccess, onFail)
+            app.onSuccessOrFail(result, request, onSuccess, onFail);
         },
         failure: function(result, request) {
-            app.onSuccessOrFail(result, request, onSuccess, onFail)
+            app.onSuccessOrFail(result, request, onSuccess, onFail);
         }
     };
     if (!jsonData)
@@ -136,7 +136,7 @@ app.request = function(params, onSuccess, onFail, jsonData) {
         data.jsonData = Ext.encode(params);
         data.url += '?action=' + action;
     }
-    Ext.Ajax.request(data)
+    Ext.Ajax.request(data);
 };
 
 app.logout = function() {
@@ -148,7 +148,7 @@ app.logout = function() {
         window.location.reload();
         //Ext.getCmp('app.container').hide();if (Ext.getCmp('loginWindow')) Ext.getCmp('loginWindow').show(); else Ext.create('app.LoginWindow').show();
     }
-    )
+    );
 };
 
 app.login = function() {
@@ -169,7 +169,7 @@ app.msgShow = function(msg, type, cb) {
         } : Ext.emptyFn,
         icon: (type == 'info') ? Ext.Msg.INFO : Ext.Msg.ERROR
     });
-}
+};
 
 app.main = function(user, extension) {
     if (user) {
@@ -183,7 +183,7 @@ app.main = function(user, extension) {
             extension_name: extension
         });
     }
-}
+};
 
 Ext.application({
     name: 'app',
@@ -209,15 +209,12 @@ Ext.application({
         },
                 app.login);
     }
-
-
     /*else
      app.login();
      }, app.login);
      }*/
     /*,
      controllers: ['Controller']*/
-
 });
 
 /*

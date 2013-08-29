@@ -24,7 +24,7 @@ if ($password && ($username || $extension)) {
     session_start();
     $_SESSION = array();
 //echo ($extension);
-    if ($username) {
+    if ($username) {        
         $sql = "SELECT * from users where username = '$username' and password = '$password'";
         if (query_to_array($sql)) {
             $_SESSION['user'] = $username;

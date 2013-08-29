@@ -75,11 +75,12 @@ Ext.define('app.LoginWindow', {
 
                                     login_form.getForm().reset();
                                     Ext.getCmp('loginWindow').hide();
-                                   /* if (result['user'])
-                                        app.main(result['user']);
-                                    if (result['extension'])*/
-                                        app.main(result['user']);
-                                    //Ext.getCmp('app.container').onShowFn(result['user']);
+                                    if (result['user'])
+                                        app.main(result['user'], null);
+                                    if (result['extension'])
+                                        app.main(null, result['extension']);
+                                    //app.View;
+
                                     login_form.body.unmask();
                                 }, function(result) {
 
