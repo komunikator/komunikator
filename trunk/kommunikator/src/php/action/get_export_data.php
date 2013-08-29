@@ -41,8 +41,8 @@ function translate($data, $lang = 'ru') {
     $text = str_replace("\n", '', $text);
 
     $text = preg_replace('/(.*app\.msg\s*=\s*)({.*})(\s*;.*)/', '$2', $text);
-    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)]+)([\s\"\']*):\s*\"([^"]*)\"/', '$1"$3":"$5"', $text);
-    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)]+)([\s\"\']*):\s*\'([^\']*)\'/', '$1"$3":"$5"', $text);
+    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)\[\]\,\_]+)([\s\"\']*):\s*\"([^"]*)\"/', '$1"$3":"$5"', $text);
+    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)\[\]\,\_]+)([\s\"\']*):\s*\'([^\']*)\'/', '$1"$3":"$5"', $text);
 
     $words = json_decode($text, true);
     if ($data && $words)
