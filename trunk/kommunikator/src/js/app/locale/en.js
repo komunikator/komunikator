@@ -38,7 +38,7 @@ app.msg = {
     unregistered: 'Unregistered',
     registered: 'Registered',
     busy: 'Busy',
-    'busy_here_[call_processibg_released]':'Busy',
+    'busy_here_[call_processing_released]':'Busy',
     previous: 'Previous',
     next: 'Next',
     routing_rules: 'Routing rules',

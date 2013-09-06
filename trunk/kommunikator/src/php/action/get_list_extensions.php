@@ -11,8 +11,9 @@ $sql =
  select * from (
 	SELECT 
 	CASE 
-		WHEN (SELECT count(*) FROM call_logs where caller =ex.extension and status!='unknown' and ended = false) > 1 THEN 'busy' 
-		WHEN expires is not NULL THEN 'online' 
+		-- WHEN (SELECT count(*) FROM call_logs where caller =ex.extension and status!='unknown' and ended = false) > 1 THEN 'busy' 
+		WHEN coalesce(inuse_count,0)!=0 THEN 'busy'
+                WHEN expires is not NULL THEN 'online' 
 		ELSE 'offline' END as status, 
 	ex.extension,
 	firstname, 
