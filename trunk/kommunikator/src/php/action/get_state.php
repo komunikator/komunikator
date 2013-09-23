@@ -41,12 +41,8 @@ if (isset($_SESSION['extension']))
 else
     $obj["status"] = $status['data'];
 
-
-$st = compact_array(query_to_array("select inuse_count from extensions where extension = $extension"));
-
-    $obj["st"] = $st['data'];
-
-
+$inuse_count = compact_array(query_to_array("select inuse_count from extensions where extension = $extension"));
+$obj["inuse_count"] = $inuse_count['data'];
 //$data  =  compact_array(query_to_array ("SELECT time-($time_offset)*60,caller,time FROM call_logs where ".time()."-time < $period and (/*caller in ($extension) or*/ called in ($extension)) and direction='outgoing' LIMIT $limit OFFSET 0"));
 $data = compact_array(query_to_array("SELECT a.time-($time_offset)*60,a.caller,a.time,case when b.called = a.called then null  when c.description !='' then c.description else b.called end FROM call_logs a left join call_logs b on b.billid=a.billid and b.direction='incoming' and b.ended=0 left join gateways c on c.authname=b.called where " . time() . "-a.time < $period and (/*caller in ($extension) or*/ a.called in ($extension)) and a.direction='outgoing' and a.ended=0 LIMIT $limit OFFSET 0"));
 /*
