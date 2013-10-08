@@ -157,7 +157,7 @@ app.msg = {
     busy_here: "занят",
     transfer: "переведённый",
     temporarily_unavailable: "недоступен",
-    'temporarily_unavailable_[call_processing_released]':"временно недоступен",
+    'temporarily_unavailable_[call_processing_released]': "временно недоступен",
     performing_actions: "Выполнение действий",
     wait_reboot: "Пожалуйста, подождите пока происходит перезагрузка АТС",
     wait_checkforupdates: "Пожалуйста, подождите пока происходит проверка обновлений АТС",
@@ -242,11 +242,11 @@ app.msg = {
     today: 'Сегодня',
     ip_transport: 'Протокол',
     callerid: 'ID звонящего',
-    'busy_here_[call_processing_released]':"занят",
-    'normal,_unspecified':"отвеченный",
-    pickup:'перехваченный',
-    
+    'busy_here_[call_processing_released]': "занят",
+    'normal,_unspecified': "отвеченный",
+    pickup: 'перехваченный',
+    temporarily_not_available: 'недоступен',
     // --------------------------------------------------
     db_error_number_1062: 'Такая запись уже существует.'
-    // --------------------------------------------------
+            // --------------------------------------------------
 };

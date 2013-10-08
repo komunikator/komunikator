@@ -202,6 +202,7 @@ app.msg = {
     nomination: ' Name',
     'normal,_unspecified':'answered',
     pickup:'pickup',
+    temporarily_not_available: 'Not available',
     
      // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
