@@ -1,4 +1,3 @@
-﻿
 /**
  * Russian translation
  * By ZooKeeper (utf-8 encoding)

@@ -1,7 +1,7 @@
 Source: kommunikator
 Section: web
 Priority: extra
-Maintainer: Digt Inc <info@digt.ru>
+Maintainer: "Telephonnyie sistemy" Ltd. <support@4yate.ru>
 Build-Depends: debhelper (>= 7), autotools-dev
 Standards-Version: 3.8.3
 Homepage:
