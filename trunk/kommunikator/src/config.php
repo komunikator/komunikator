@@ -55,6 +55,11 @@
 
 ?><?php
 
+/*
+*  Данный файл config.php - ИСПОЛЬЗОВАЛСЯ РАНЕЕ
+*  Теперь же необходимо использовать файл config.php по адресу kommunikator\scripts\
+*/
+
 $cur_ver = '0.6.0';
 $updates_base = "http://4yate.ru/repos";
 $updates_url = "$updates_base/checkforupdates.php?cur_ver=$cur_ver";
