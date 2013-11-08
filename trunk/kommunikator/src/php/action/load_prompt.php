@@ -65,7 +65,11 @@ if(isset($_FILES)) {
     $time = date("Y-m-d_H:i:s");
     //global $vm_base;
     
-    $file_name    = "$vm_base/auto_attendant/$status"."_".$time.".tmp";
+//    $file_name    = "$vm_base/auto_attendant/$status"."_".$time.".tmp";
+    $file_name    = "$vm_base/auto_attendant/$status.mp3";
+
+    if (file_exists($file_name))
+	unlink($file_name);
     $cn_file_name = "$vm_base/auto_attendant/$status.wav";;
     if(is_uploaded_file($file_tmp)) {
         if(move_uploaded_file($file_tmp, $file_name)) {         

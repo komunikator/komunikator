@@ -192,7 +192,7 @@ Ext.define('app.module.Music_On_Hold_Grid', {
         this.columns_renderer = function(value, metaData, record, rowIndex, colIndex, store) {
             if (colIndex == 2)
                 if (value)
-                    return '<audio type="audio/wav" src="moh/' + value + '?dc_=' + new Date().getTime() + '" controls autobuffer>Your browser does not support the audio element.</audio>';
+                    return '<audio type="audio/wav" '+(Ext.isIE?'style="width: 300px; margin:-6px 0px -9px 0px;" ':'style="margin-bottom:-3px;" ')+' src="moh/' + value + '?dc_=' + new Date().getTime() + '" controls autobuffer>Your browser does not support the audio element.</audio>';
                 else
                     '';
             return value;

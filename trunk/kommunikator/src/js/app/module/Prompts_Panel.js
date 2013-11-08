@@ -99,21 +99,21 @@ Ext.define('app.module.Prompts_Panel', {
                     var file_name = '';
                     for (var p in result.data)
                         if (status[i] == result.data[p][1])
-                            file_name = result.data[p][4];
+                            file_name = result.data[p][4].replace('wav','mp3');
                     var item = me.add(
                     {
                         height : 52,
                         // xtype : 'container',  // !
                         xtype      : 'panel',
                         layout : 'column',
-                        bodyStyle : 'padding: 5px',
+                        //bodyStyle : 'padding: 5px;',
                         defaults : {
                             border : false,
-                            style : 'padding: 5px'
+                            style : 'padding: 10px 5px 10px 5px'
                         },
                         items : [{
                             width : 120,
-                            style : 'padding: 5px',
+                            //style : 'padding: 5px',
                             html : '<b style="color:'+(file_name ? 'green"' : 'red"')+'>'+app.msg[status[i]] +'</b>'
                         },{
                             // width : 300,
@@ -145,7 +145,7 @@ Ext.define('app.module.Prompts_Panel', {
                                 status_val : status[i]
                             },
                             {
-                                width: 60,
+                                //width: 60,
                                 monitorValid: true,
                                 formBind:true, 
                                 xtype: 'button',
@@ -178,11 +178,11 @@ Ext.define('app.module.Prompts_Panel', {
                             ]
                         },{
                             //columnWidth: .2,
-                            style:'padding:0px',
-                            'html': (file_name && app.support_audio())?'<audio type="audio/wav" src="'+file_name+'?dc_='+new Date().getTime()+'" controls autobuffer>Your browser does not support the audio element.</audio>':''
+                            style:Ext.isIE?'':'padding:5px',
+                            'html': (file_name && app.support_audio())?'<audio type="audio/wav" '+(Ext.isIE?'style="width: 300px; margin-top:-6px;" ':'')+' src="'+file_name+'?dc_='+new Date().getTime()+'" controls autobuffer>Your browser does not support the audio element.</audio>':''
                         },
                         {
-                            style:'padding:5px',
+                            //style:'padding:5px',
                             'html': file_name?'<a TARGET="_blank" href="'+file_name+'">'+app.msg.download+'</a>':''
                         }] 
                     });

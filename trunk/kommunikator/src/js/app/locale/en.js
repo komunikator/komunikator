@@ -1,25 +1,25 @@
 /*
 *  | RUS | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-*    «Komunikator» – Web-интерфейс для настройки и управления программной IP-АТС «YATE»
-*    Copyright (C) 2012-2013, ООО «Телефонные системы»
+*    <Komunikator> - Web-интерфейс для настройки и управления программной IP-АТС <YATE>
+*    Copyright (C) 2012-2013, ООО <Телефонные системы>
 
-*    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
+*    ЭТОТ ФАЙЛ является частью проекта <Komunikator>
 
-*    Сайт проекта «Komunikator»: http://4yate.ru/
-*    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+*    Сайт проекта <Komunikator>: http://4yate.ru/
+*    Служба технической поддержки проекта <Komunikator>: E-mail: support@4yate.ru
 
-*    В проекте «Komunikator» используются:
-*      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
-*      исходные коды проекта «FREESENTRAL», http://www.freesentral.com/
-*      библиотеки проекта «Sencha Ext JS», http://www.sencha.com/products/extjs
+*    В проекте <Komunikator> используются:
+*      исходные коды проекта <YATE>, http://yate.null.ro/pmwiki/
+*      исходные коды проекта <FREESENTRAL>, http://www.freesentral.com/
+*      библиотеки проекта <Sencha Ext JS>, http://www.sencha.com/products/extjs
 
-*    Web-приложение «Komunikator» является свободным и открытым программным обеспечением. Тем самым
+*    Web-приложение <Komunikator> является свободным и открытым программным обеспечением. Тем самым
 *  давая пользователю право на распространение и (или) модификацию данного Web-приложения (а также
 *  и иные права) согласно условиям GNU General Public License, опубликованной
 *  Free Software Foundation, версии 3.
 
-*    В случае отсутствия файла «License» (идущего вместе с исходными кодами программного обеспечения)
+*    В случае отсутствия файла <License> (идущего вместе с исходными кодами программного обеспечения)
 *  описывающего условия GNU General Public License версии 3, можно посетить официальный сайт
 *  http://www.gnu.org/licenses/ , где опубликованы условия GNU General Public License
 *  различных версий (в том числе и версии 3).
@@ -170,7 +170,7 @@ app.msg = {
     swap_use: 'Virtual memory',
     space_use: 'Free disk space',
     uptime: 'Server uptime',
-    copyright: 'Komunikator Copyright (C) 2012-2013, "Telephonnyie sistemy" Ltd.',
+    copyright: "Komunikator Copyright (C) 2012-2013, 'Telephonnyie sistemy' Ltd.",
     //first_step  : "The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours."
     for_edit: "To change the settings, click on the desired item twice",
     extensions_info: "Extensions - Internal phones attached to the IP PBX",
