@@ -51,8 +51,8 @@
 
 #!/bin/bash
 
-ver=0.6.01 
-source="./data/var/www/kommunikator/" 
-target="/var/www"
+ver=0.6.1 
+source="./data/" 
+target="/"
 
 sudo yes | cp -R $source $target
