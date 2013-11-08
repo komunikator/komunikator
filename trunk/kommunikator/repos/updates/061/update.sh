@@ -52,7 +52,7 @@
 #!/bin/bash
 
 ver=0.6.1 
-source="./data/" 
+source="./data" 
 target="/"
 
 sudo yes | cp -R $source $target
