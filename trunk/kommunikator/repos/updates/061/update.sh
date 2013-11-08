@@ -52,7 +52,13 @@
 #!/bin/bash
 
 ver=0.6.1 
-source="./data" 
-target="/"
+
+source="./data/var/www/kommunikator/"
+target="/var/www"
+
+sudo yes | cp -R $source $target
+
+source="./data/usr/share/yate/"
+target="/usr/share"
 
 sudo yes | cp -R $source $target
