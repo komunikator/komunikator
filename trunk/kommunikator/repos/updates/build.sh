@@ -51,11 +51,18 @@
 
 #!/bin/bash
 
+   if [ $# -ne 1 ]
+   then
+   echo "Usage $0 ver"
+   exit 2
+   fi
+
 name=komunikator
-ver=050001 
+ver=$1 
 build_path="./build" 
 p=`pwd`
 cd $ver
+chmod +x ./update.sh
 tar --exclude-caches -zcvf $p/$name.$ver.tar.gz .
 cd $p
 cp $name.$ver.tar.gz $build_path
