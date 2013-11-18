@@ -348,7 +348,21 @@ Ext.define('app.Viewport', {
             },
       
             ]
-        })
+        }),
+        Ext.create('app.Card_Panel', {
+            title: 'call',  // История звонков
+      items: [  Ext.create('app.module.Call_website_Grid', {
+                title: 'call' // История звонков
+            }), ]  
+        /*items: [
+            Ext.create('app.module.Call_logs_Grid', {
+                title: app.msg.call_logs  // История звонков
+            }),
+            Ext.create('app.module.Active_calls_Grid', {
+                title: app.msg.active_calls  // Активные звонки
+            })
+            ]*/
+        }),
         
         //{ 
         //    title: app.msg.attendant,layout: 'anchor', 
