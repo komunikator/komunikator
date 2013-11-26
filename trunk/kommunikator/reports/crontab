@@ -1,0 +1,5 @@
+SHELL=/bin/bash
+MAILTO=alexander.elkin@digt.ru
+
+10 8 1-7 * 1 /root/report/ats_report.sh _month
+0 8 * * 1 /root/report/ats_report.sh
