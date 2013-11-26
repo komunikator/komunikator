@@ -1,9 +1,9 @@
 USE PBX;
 
-
+-- http://tigor.com.ua/blog/2008/08/23/date_comparison_by_between_operator_of_mysql/
 SELECT "Дата",
-       DATE_FORMAT(DATE_ADD(CURDATE(),INTERVAL -7 DAY)-weekday(DATE_ADD(CURDATE(),INTERVAL -7 DAY)),'%d.%m.%Y') "Начало",
-       DATE_FORMAT(curdate()-weekday(curdate()),'%d.%m.%Y') "Окончание",
+       DATE_ADD(LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 2 MONTH)),INTERVAL 1 DAY) "Начало",
+       DATE_ADD(LAST_DAY(CURDATE() - INTERVAL 1 MONTH), INTERVAL 1 DAY) "Окончание",
        "DIGT АТС",
        "Отчет",
        "по",
@@ -89,7 +89,7 @@ FROM
         AND a.direction='incoming'
         AND a.status!='unknown') a
    WHERE -- gateway is not null and
-time BETWEEN UNIX_TIMESTAMP(DATE_ADD(CURDATE(),INTERVAL -7 DAY)-weekday(DATE_ADD(CURDATE(),INTERVAL -7 DAY))) AND UNIX_TIMESTAMP(curdate()-weekday(curdate()))
+time BETWEEN UNIX_TIMESTAMP(DATE_ADD(LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 2 MONTH)),INTERVAL 1 DAY)) AND UNIX_TIMESTAMP(DATE_ADD(LAST_DAY(CURDATE() - INTERVAL 1 MONTH), INTERVAL 1 DAY))
    GROUP BY gateway
    UNION SELECT "        Статусы",
                 "",
@@ -130,7 +130,7 @@ time BETWEEN UNIX_TIMESTAMP(DATE_ADD(CURDATE(),INTERVAL -7 DAY)-weekday(DATE_ADD
         AND a.status!='unknown') a
    WHERE -- duration > 0 and
 -- gateway is not null and
-time BETWEEN UNIX_TIMESTAMP(DATE_ADD(CURDATE(),INTERVAL -7 DAY)-weekday(DATE_ADD(CURDATE(),INTERVAL -7 DAY))) AND UNIX_TIMESTAMP(curdate()-weekday(curdate()))
+time BETWEEN UNIX_TIMESTAMP(DATE_ADD(LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 2 MONTH)),INTERVAL 1 DAY)) AND UNIX_TIMESTAMP(DATE_ADD(LAST_DAY(CURDATE() - INTERVAL 1 MONTH), INTERVAL 1 DAY))
    GROUP BY status HAVING count(*) > 0) a 
 INTO OUTFILE '/tmp/ats_report.tmp'
 FIELDS TERMINATED BY ';'
