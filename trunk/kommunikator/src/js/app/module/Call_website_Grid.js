@@ -51,103 +51,74 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 
+var colorr = ['Gray', 'blue', 'azure', 'yellow', 'red', 'dark gray'];
+//var tpl3=new Ext.Template(«<div class='domexample'><b>{f}</b> {i} {o}</div>»);
+/*var tpll = new Ext.XTemplate(
+ '<tpl for="."><div class="x-combo-list-item" style="color: #ffffc0;">{color}</div></tpl>'
+ );*/
 Ext.define('app.module.Call_website_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'group', 'name', 'description'],
+        fields: ['id', 'description', 'destination', 'short_name', 'color', 'button_code'],
         storeId: 'call_button'
     },
     columns: [
         {// 'id'
             hidden: true
         },
-        {// 'group'
+        {// 'description'  - описание
             editor: {
-                xtype: 'textfield',
+                xtype: 'textfield'
+            }
+        },
+        {// 'destination' - назначение
+
+            editor: app.get_Source_Combo({
                 allowBlank: false
-            }
+            })
         },
-        {// 'name'
+        {// 'short_name' - псевдоним
             editor: {
                 xtype: 'textfield'
             }
         },
-        {// 'description'
-            editor: {
-                xtype: 'textfield'
-            }
+        {//'button_color' - цвет кнопки
         },
-        {
+        {//'button_code' - код кнопки
             xtype: 'actioncolumn',
-            width: 50,
+            sortable: false,
+            groupable: false,
             icon: 'js/app/images/add.png', // Use a URL in the icon config
-            tooltip: 'Generate code',
+            tooltip: 'Get code',
             handler: function() {
                 Ext.create('app.Page_Code').show();
-                alert('Generate code');
             }
-
-        }],
+        }
+    ],
     initComponent: function() {
-        // this.title = app.msg.extensions;
-        this.columns[1] = {
-            header: app.msg.group,
-            sortable: true,
-            groupable: true,
-            text: app.msg.group,
-            dataIndex: 'group_name',
+        this.columns[4] = {
             editor: {
                 xtype: 'combobox',
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                // так, как хранилище создается только здесь,
-                // код был поправлен
-                /*
-                 store         : Ext.StoreMgr.lookup('groups_extended') ?
-                 Ext.StoreMgr.lookup('groups_extended') :
-                 Ext.create('app.Store', {
-                 fields   : ['id', 'group', 'description', 'extension'],
-                 storeId  : 'groups_extended'
-                 }),
-                 */
-                store: Ext.create('app.Store', {
-                    fields: ['id', 'group', 'description', 'extension'],
-                    storeId: 'groups_extended'
-                }),
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-                // queryCaching: false,
-                // triggerAction: 'query',
-
-                valueField: 'group',
+                fields: ['color'],
+                valueField: 'color',
                 queryMode: 'local',
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                // настройка combobox под «себя»
-                // «нормальное» отображение пустых полей в выпадающем списке
-
-                // displayField  : 'group', <- заменено кодом ниже
+                storeId: colorr,
+                // tpl: tpll
                 tpl: Ext.create('Ext.XTemplate',
                         '<tpl for=".">',
-                        '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
+                        '<div class="x-combo-list-item">',
+                        '<span style="color:red"> {color}  </span>',
+                        '</div>',
                         '</tpl>'
                         ),
                 displayTpl: Ext.create('Ext.XTemplate',
                         '<tpl for=".">',
-                        '{group}',
+                        '{color}', 
                         '</tpl>'
                         ),
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-                editable: false,
-                listeners: {
-                    afterrender: function() {
-                        this.store.load();
-                    }}
+                editable: false
             }
-        }
-        ;
+        },
         this.callParent(arguments);
-
-
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     }
 });
