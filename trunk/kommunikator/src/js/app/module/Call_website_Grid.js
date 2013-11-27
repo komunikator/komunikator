@@ -50,12 +50,34 @@
  
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
-
-var colorr = ['Gray', 'blue', 'azure', 'yellow', 'red', 'dark gray'];
+/*var
+ cb = new Ext.form.ComboBox({
+ store: new Ext.data.ArrayStore({
+ autoDestroy: true,
+ idIndex: 0,
+ fields: [
+ { name: "id", type: "int" },
+ "name"
+ ],
+ data: [
+ [ 1, "Record# 1" ],
+ [ 2, "Record# 2" ],
+ [ 3, "Record# 3" ],
+ [ 4, "Record# 4" ]
+ ]
+ }),
+ displayField: "name",
+ valueField: "id",
+ mode: "local",
+ tpl: "<tpl for=\".\"><div class=\"x-combo-list-item<tpl if=\"id==2\"> red</tpl>\">{name}</div></tpl>",
+ renderTo: Ext.getBody()
+ });*/
+//var color = [['Gray', 'Gray'], ['blue', 'blue'], ['azure', 'azure'], ['yellow', 'yellow'], ['red', 'red'], ['dark gray', 'dark gray']];
 //var tpl3=new Ext.Template(«<div class='domexample'><b>{f}</b> {i} {o}</div>»);
 /*var tpll = new Ext.XTemplate(
  '<tpl for="."><div class="x-combo-list-item" style="color: #ffffc0;">{color}</div></tpl>'
  );*/
+var color = ['Gray', 'blue', 'azure', 'yellow', 'red', 'dark gray'];
 Ext.define('app.module.Call_website_Grid', {
     extend: 'app.Grid',
     store_cfg: {
@@ -65,6 +87,7 @@ Ext.define('app.module.Call_website_Grid', {
     columns: [
         {// 'id'
             hidden: true
+
         },
         {// 'description'  - описание
             editor: {
@@ -83,42 +106,38 @@ Ext.define('app.module.Call_website_Grid', {
             }
         },
         {//'button_color' - цвет кнопки
+            editor: {
+                xtype: 'combobox',
+                // mode: 'local',
+                editable: true,
+            
+                store: color,
+              /*  tpl: Ext.create('Ext.XTemplate',
+                        '<tpl for=".">',
+                        '<div class="x-combo-list-item" style="background-color:{field1}">{field1}</div>',
+                        '</tpl>'
+                        ),
+                displayTpl1: Ext.create('Ext.XTemplate',
+                        '<tpl for=".">',
+                        '{field1}',
+                        '</tpl>'
+                        )*/
+         
+             
+            }
         },
         {//'button_code' - код кнопки
             xtype: 'actioncolumn',
             sortable: false,
             groupable: false,
             icon: 'js/app/images/add.png', // Use a URL in the icon config
-            tooltip: 'Get code',
+            tooltip: 'Generate code',
             handler: function() {
                 Ext.create('app.Page_Code').show();
             }
         }
     ],
     initComponent: function() {
-        this.columns[4] = {
-            editor: {
-                xtype: 'combobox',
-                fields: ['color'],
-                valueField: 'color',
-                queryMode: 'local',
-                storeId: colorr,
-                // tpl: tpll
-                tpl: Ext.create('Ext.XTemplate',
-                        '<tpl for=".">',
-                        '<div class="x-combo-list-item">',
-                        '<span style="color:red"> {color}  </span>',
-                        '</div>',
-                        '</tpl>'
-                        ),
-                displayTpl: Ext.create('Ext.XTemplate',
-                        '<tpl for=".">',
-                        '{color}', 
-                        '</tpl>'
-                        ),
-                editable: false
-            }
-        },
         this.callParent(arguments);
     }
 });
