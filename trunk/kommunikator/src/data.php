@@ -56,8 +56,8 @@
 ?><?php
 
 //ini_set('session.save_path', $_SERVER['DOCUMENT_ROOT'] .'/tmp/');
-//ini_set('session.gc_maxlifetime', 2592000); //30 day
-//ini_set('session.cookie_lifetime', 2592000); //30 day
+//ini_set('session.gc_maxlifetime', 2592000);  // 30 day
+//ini_set('session.cookie_lifetime', 2592000);  // 30 day
 
 ini_set('session.name', 'session');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
