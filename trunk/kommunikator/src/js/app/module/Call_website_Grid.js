@@ -72,12 +72,12 @@
  tpl: "<tpl for=\".\"><div class=\"x-combo-list-item<tpl if=\"id==2\"> red</tpl>\">{name}</div></tpl>",
  renderTo: Ext.getBody()
  });*/
-//var color = [['Gray', 'Gray'], ['blue', 'blue'], ['azure', 'azure'], ['yellow', 'yellow'], ['red', 'red'], ['dark gray', 'dark gray']];
+var color = [['#e6e6e6', 'Gray'], ['#0044cc', 'blue'], ['#2f96b4', 'azure'], ['#f89406', 'yellow'], ['#bd362f', 'red'], ['#444444', 'dark gray']];
 //var tpl3=new Ext.Template(«<div class='domexample'><b>{f}</b> {i} {o}</div>»);
 /*var tpll = new Ext.XTemplate(
  '<tpl for="."><div class="x-combo-list-item" style="color: #ffffc0;">{color}</div></tpl>'
  );*/
-var color = ['Gray', 'blue', 'azure', 'yellow', 'red', 'dark gray'];
+//var color = ['Gray', 'blue', 'azure', 'yellow', 'red', 'dark gray'];
 Ext.define('app.module.Call_website_Grid', {
     extend: 'app.Grid',
     store_cfg: {
@@ -110,20 +110,29 @@ Ext.define('app.module.Call_website_Grid', {
                 xtype: 'combobox',
                 // mode: 'local',
                 editable: true,
-            
                 store: color,
-              /*  tpl: Ext.create('Ext.XTemplate',
-                        '<tpl for=".">',
-                        '<div class="x-combo-list-item" style="background-color:{field1}">{field1}</div>',
-                        '</tpl>'
-                        ),
-                displayTpl1: Ext.create('Ext.XTemplate',
-                        '<tpl for=".">',
-                        '{field1}',
-                        '</tpl>'
-                        )*/
-         
-             
+                listConfig: {
+                    getInnerTpl: function() {
+// here you place the images in your combo
+                        var tpl = '<div class="x-combo-list-item" style="background-color:{field1}">' +
+// '<img src="images/flags/{field1}.png" align="left">&nbsp;&nbsp;'+
+                                '{field1}</div>';
+                        return tpl;
+                       
+                    }}
+
+                /*  tpl: Ext.create('Ext.XTemplate',
+                 '<tpl for=".">',
+                 '<div class="x-combo-list-item" style="background-color:{field1}">{field1}</div>',
+                 '</tpl>'
+                 ),
+                 displayTpl1: Ext.create('Ext.XTemplate',
+                 '<tpl for=".">',
+                 '{field1}',
+                 '</tpl>'
+                 )*/
+
+
             }
         },
         {//'button_code' - код кнопки
