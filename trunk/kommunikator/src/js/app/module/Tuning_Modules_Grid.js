@@ -80,7 +80,7 @@ Ext.define('app.module.Tuning_Modules_Grid', {
     },
     {// 'description'
         editor    : {
-        xtype       : 'textfield' }
+        xtype       : 'textareafield' }
     },
     {// 'version'
         editor    : {
