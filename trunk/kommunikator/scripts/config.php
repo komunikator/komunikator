@@ -99,7 +99,7 @@ else {
 
 
 // - - - - -  старый вариант (НАЧАЛО)  - - - - -
-
+/*
 $db_type_sql = "mysql";
 
 $db_host = "localhost";
@@ -108,7 +108,7 @@ $db_passwd = "kommunikator";
 $db_database = "kommunikator";
 
 $dsn = "$db_type_sql://$db_user:$db_passwd@$db_host/$db_database";
-
+*/
 // - - - - -  старый вариант (КОНЕЦ)  - - - - -
 
 
