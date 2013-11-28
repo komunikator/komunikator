@@ -209,18 +209,20 @@ Ext.define('app.Viewport', {
                     ]
                 }),
                 Ext.create('app.Card_Panel', {
-                    title: 'call', // Звонок с сайта
-                    items: [Ext.create('app.module.Call_website_Grid', {
-                            title: 'call' // Звонок с сайта
-                        })]
-
+                    title: 'call',  // Звонок с сайта
+                    items: [
+                        Ext.create('app.module.Call_website_Grid', {
+                            title: 'call'  // Звонок с сайта
+                        })
+                    ]
                 }),
                 Ext.create('app.Card_Panel', {
-                    title: app.msg.mail_settings, // Почтовые уведомления
-                    items: [Ext.create('app.module.Mail_Settings_Panel', {
+                    title: app.msg.mail_settings,  // Почтовые уведомления
+                    items: [
+                        Ext.create('app.module.Mail_Settings_Panel', {
                             title: app.msg.mail_settings  // Почтовые уведомления
-                        }) ]
-
+                        })
+                    ]
                 }),
                 Ext.create('app.Card_Panel', {
                     title: app.msg.settings, // Настройки
