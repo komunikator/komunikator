@@ -80,9 +80,23 @@ require_once 'PEAR.php';
 if ( in_array( $action, array('get_call_button') ) ) {
     $db_type_sql = "sqlite3";
     
-    $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";
+    $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";  // абсолютный путь к файлу БД
     
-    $dsn = "sqlite3:///".$db_sqlite3_path;
+    
+    // - - - - - - - - - - - - - - - - - - - -
+    
+    // для работы на локальном компьютере под Windows, посредствам Denwer
+
+    // Denwer необходима библиотека sqlite3.php (должна находится c:\WebServers\usr\local\php5\pear\DB\)
+    // библиотеку можно скопировать с «тестовой» машины (находится /usr/share/php/DB)
+    
+    // $db_sqlite3_path = "C:\WebServers\DB_SQLite\c2c_sqlite.db";
+    
+    // - - - - - - - - - - - - - - - - - - - -    
+
+    
+    $dsn = $db_type_sql.":///".$db_sqlite3_path;
+    
 }
 else {
     $db_type_sql = "mysql";

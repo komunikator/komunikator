@@ -70,7 +70,17 @@ session_start();
 
 $log_file = 'log.log';
 ini_set("log_errors",true);
-ini_set("error_log",$log_file); 
+ini_set("error_log",$log_file);
+
+
+// - - - - - - - - - - - - - - - - - - - -
+
+require_once "php/util.php";
+
+$action = getparam("action");
+
+// - - - - - - - - - - - - - - - - - - - -
+
 
 require_once("libyate.php");
 require_once("lib_queries.php");
@@ -89,9 +99,18 @@ PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error2');
 
 //ini_set("session.use_only_cookies", "0");
 
-require_once "php/util.php";
 
-$action = getparam("action"); 
+// - - - - - - - - - - - - - - - - - - - -
+
+// переместили на вверх
+// до загрузки файла config.php (который, загружается из файла lib_queries.php)
+
+// require_once "php/util.php";
+
+// $action = getparam("action");
+
+// - - - - - - - - - - - - - - - - - - - -
+
 
 if ($action!='auth' && !(isset($_SESSION['user']) || isset($_SESSION['extension']))) {
     echo out(array("success"=>false,"message"=>"session_failed"));
