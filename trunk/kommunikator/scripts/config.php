@@ -64,6 +64,7 @@ error_reporting(E_ALL & ~(E_STRICT | E_NOTICE | E_WARNING));
 
 date_default_timezone_set("UTC");
 
+
 require_once("DB.php");
 
 function handle_pear_error($e) {
@@ -73,13 +74,44 @@ function handle_pear_error($e) {
 require_once 'PEAR.php';
 //PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error');
 
+
+// - - - - -  новый вариант (НАЧАЛО)  - - - - -
+
+if ( in_array( $action, array('get_call_button') ) ) {
+    $db_type_sql = "sqlite3";
+    
+    $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";
+    
+    $dsn = "sqlite3:///".$db_sqlite3_path;
+}
+else {
+    $db_type_sql = "mysql";
+    
+    $db_host = "localhost";
+    $db_user = "kommunikator";
+    $db_passwd = "kommunikator";
+    $db_database = "kommunikator";
+    
+    $dsn = "$db_type_sql://$db_user:$db_passwd@$db_host/$db_database";
+}
+
+// - - - - -  новый вариант (КОНЕЦ)  - - - - -
+
+
+// - - - - -  старый вариант (НАЧАЛО)  - - - - -
+
 $db_type_sql = "mysql";
+
 $db_host = "localhost";
 $db_user = "kommunikator";
 $db_passwd = "kommunikator";
 $db_database = "kommunikator";
 
 $dsn = "$db_type_sql://$db_user:$db_passwd@$db_host/$db_database";
+
+// - - - - -  старый вариант (КОНЕЦ)  - - - - -
+
+
 $conn = DB::connect($dsn);
 $debug_info = true;
 
@@ -92,6 +124,7 @@ if (PEAR::isError($conn)) {
 }
 
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
+
 
 $vm_base = "/var/lib/misc";
 $no_groups = false;
