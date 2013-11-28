@@ -208,22 +208,7 @@ Ext.define('app.Viewport', {
                         })
                     ]
                 }),
-                Ext.create('app.Card_Panel', {
-                    title: 'call',  // Звонок с сайта
-                    items: [
-                        Ext.create('app.module.Call_website_Grid', {
-                            title: 'call'  // Звонок с сайта
-                        })
-                    ]
-                }),
-                Ext.create('app.Card_Panel', {
-                    title: app.msg.mail_settings,  // Почтовые уведомления
-                    items: [
-                        Ext.create('app.module.Mail_Settings_Panel', {
-                            title: app.msg.mail_settings  // Почтовые уведомления
-                        })
-                    ]
-                }),
+           
                 Ext.create('app.Card_Panel', {
                     title: app.msg.settings, // Настройки
                     items: [
@@ -232,6 +217,9 @@ Ext.define('app.Viewport', {
                         }),
                         Ext.create('app.module.Network_Settings_Panel', {
                             title: app.msg.network_settings  // Сетевые настройки
+                        }),
+                        Ext.create('app.module.Tuning_Modules_Grid', {
+                            title: app.msg.modules  // Модули
                         }),
                         /*
                          Ext.create('app.module.Ntn_Settings_Grid',{
@@ -342,17 +330,23 @@ Ext.define('app.Viewport', {
                                     icon: Ext.MessageBox.QUESTION
                                 });
 
-                            }
-                        },
+                            } }
                     ]
+                }),
+                Ext.create('app.Card_Panel', {
+                    title: app.msg.modules, // Почтовые уведомления
+                    items: [Ext.create('app.module.Mail_Settings_Panel', {
+                            title: app.msg.mail_settings  // Почтовые уведомления
+                        }),
+                    Ext.create('app.module.Call_website_Grid', {
+                            title: 'call' // Звонок с сайта
+                        })]
                 })
-
                         //{ 
                         //    title: app.msg.attendant,layout: 'anchor', 
                         //    items: [{height:100,border: false,html:'test message'},Ext.create('app.module.Prompts_Grid'/*,{height:300})]
                         //}
-
-            ]
+ ]
         }],
     initComponent: function() {
         this.items[0].title =
@@ -378,7 +372,7 @@ Ext.define('app.Viewport', {
                     if (Ext.getCmp(item.storeId + '_grid'))
                         if (app.active_store == item.storeId && item.autorefresh && !this.dirtyMark)
                             item.load();
-                })
+                });
             },
             interval: app.refreshTime
         });
