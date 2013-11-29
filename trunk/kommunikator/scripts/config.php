@@ -80,9 +80,23 @@ require_once 'PEAR.php';
 if ( in_array( $action, array('get_call_button') ) ) {
     $db_type_sql = "sqlite3";
     
-    $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";
+    $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";  // абсолютный путь к файлу БД
     
-    $dsn = "sqlite3:///".$db_sqlite3_path;
+    
+    // - - - - - - - - - - - - - - - - - - - -
+    
+    // для работы на локальном компьютере под Windows, посредствам Denwer
+
+    // Denwer необходима библиотека sqlite3.php (должна находится c:\WebServers\usr\local\php5\pear\DB\)
+    // библиотеку можно скопировать с «тестовой» машины (находится /usr/share/php/DB)
+    
+    // $db_sqlite3_path = "C:\WebServers\DB_SQLite\c2c_sqlite.db";
+    
+    // - - - - - - - - - - - - - - - - - - - -    
+
+    
+    $dsn = $db_type_sql.":///".$db_sqlite3_path;
+    
 }
 else {
     $db_type_sql = "mysql";
@@ -133,7 +147,7 @@ $uploaded_prompts = "/var/lib/misc";
 $query_on = false;
 $max_resets_conn = 5;
 
-//$calls_email  = "root@localhost";
+//$calls_email  = "root@localhost"; 
 //$fax_call = "root@localhost";
 //$calls_email = "info@digt.ru";
 //$fax_call = "info@digt.ru";
@@ -142,7 +156,7 @@ $source = array(
     'voicemail' => 'external/nodata/voicemail.php',
     'attendant' => 'external/nodata/auto_attendant.php'
 );
-
+ 
 $key_source = array();
 foreach ($source as $key => $value)
     $key_source[$value] = $key;

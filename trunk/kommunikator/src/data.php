@@ -56,21 +56,31 @@
 ?><?php
 
 //ini_set('session.save_path', $_SERVER['DOCUMENT_ROOT'] .'/tmp/');
-//ini_set('session.gc_maxlifetime', 2592000); //30 day
-//ini_set('session.cookie_lifetime', 2592000); //30 day
+//ini_set('session.gc_maxlifetime', 2592000);  // 30 day
+//ini_set('session.cookie_lifetime', 2592000);  // 30 day
 
 ini_set('session.name', 'session');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //ini_set('session.use_cookies', 0);
 ini_set('session.use_only_cookies', 0);
 session_start();
-//session_write_close(); //Запросы будут выполняться последовательно
+//session_write_close();  // Запросы будут выполняться последовательно
 //ini_set("error_reporting",'');
 //ini_set("display_errors",true);
 
 $log_file = 'log.log';
 ini_set("log_errors",true);
-ini_set("error_log",$log_file); 
+ini_set("error_log",$log_file);
+
+
+// - - - - - - - - - - - - - - - - - - - -
+
+require_once "php/util.php";
+
+$action = getparam("action");
+
+// - - - - - - - - - - - - - - - - - - - -
+
 
 require_once("libyate.php");
 require_once("lib_queries.php");
@@ -87,11 +97,20 @@ function handle_pear_error2($e) {
 require_once 'PEAR.php';
 PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error2');
 
-//ini_set("session.use_only_cookies", "0");
+// ini_set("session.use_only_cookies", "0");
 
-require_once "php/util.php";
 
-$action = getparam("action"); 
+// - - - - - - - - - - - - - - - - - - - -
+
+// переместили на вверх
+// до загрузки файла config.php (который, загружается из файла lib_queries.php)
+
+// require_once "php/util.php";
+
+// $action = getparam("action");
+
+// - - - - - - - - - - - - - - - - - - - -
+
 
 if ($action!='auth' && !(isset($_SESSION['user']) || isset($_SESSION['extension']))) {
     echo out(array("success"=>false,"message"=>"session_failed"));
