@@ -97,7 +97,7 @@ function handle_pear_error2($e) {
 require_once 'PEAR.php';
 PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error2');
 
-//ini_set("session.use_only_cookies", "0");
+// ini_set("session.use_only_cookies", "0");
 
 
 // - - - - - - - - - - - - - - - - - - - -

@@ -147,7 +147,7 @@ $uploaded_prompts = "/var/lib/misc";
 $query_on = false;
 $max_resets_conn = 5;
 
-//$calls_email  = "root@localhost";
+//$calls_email  = "root@localhost"; 
 //$fax_call = "root@localhost";
 //$calls_email = "info@digt.ru";
 //$fax_call = "info@digt.ru";
