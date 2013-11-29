@@ -57,7 +57,10 @@
  ]);
  */
 
-//app.Loader.load('js/ux/css/CheckHeader.css');
+//app.Loader.load('js/ux/css/CheckHeader.css')
+
+
+
 
 Ext.define('app.module.Tuning_Modules_Grid', {
     extend: 'app.Grid',
@@ -89,7 +92,8 @@ Ext.define('app.module.Tuning_Modules_Grid', {
         {// 'version'
             editor: {
                 xtype: 'textfield',
-                disabled: true}
+                disabled: true
+            }
         },
         {//'condition'
             renderer: app.checked_render,
@@ -97,8 +101,19 @@ Ext.define('app.module.Tuning_Modules_Grid', {
                 xtype: 'checkbox',
                 style: {
                     textAlign: 'center'
+                },
+                           listeners: {
+               change: function(f, val) { alert(val)
+                   if (val == false )
+                cr = Ext.getCmp('Users_Grid');
+cr.hide();
+                    
                 }
+        }
             }
+          
+                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
+     
         }
 
     ],

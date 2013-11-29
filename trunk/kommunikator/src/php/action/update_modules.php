@@ -58,26 +58,21 @@
  * @param string password
  * @assert ('admin','admin')==true
  */
-$newpasswd = getparam("condition");
+$newcondition= getparam("condition");
+$module_name_id = getparam("id");
 
-$password = getparam("pass");
-$extension= $_SESSION['extension'] ;
-if ($extension)
-    $extension = $conn->escapeSimple($extension);
-if ($password)
-    $password = $conn->escapeSimple($password);
-
-    if ($extension) {
-        $sql = "SELECT * from extensions where extension = '$extension' and password = '$password'";
+echo (out(array("success" =>false, "message" => $newcondition)));
+  
+        $sql = "SELECT * from modules where module_name_id = '$module_name_id' ";
        
         if (query_to_array($sql)) {
-             $sql=sprintf("UPDATE  extensions SET  password = '$newpasswd' WHERE extension = '$extension' and password = '$password'" );
+             $sql=sprintf("UPDATE  modules SET  condition = '$newcondition' WHERE module_name_id = '$module_name_id'" );
         query($sql); 
         
           
-   echo (out(array("success" => true, "message" => 'pwd_change')));
+   /*echo (out(array("success" => true, "message" => 'pwd_change')));
    
         } else {
-        echo (out(array("success" => false, "message" => 'pwd_incorrect'))); }
-    } 
+        echo (out(array("success" => false, "message" => 'pwd_incorrect'))); */}
+    
 ?>

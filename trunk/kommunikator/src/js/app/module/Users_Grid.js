@@ -52,6 +52,7 @@
 */
 
 Ext.define('app.module.Users_Grid', {
+    id:'Users_Grid',
     extend : 'app.Grid',
     store_cfg : { 
         fields : ['id','username', 'password'],

@@ -91,6 +91,7 @@ var color = [['btn', '#e6e6e6'], ['btn btn-primary', '#0044cc'], ['btn btn-info'
  );*/
 //var color = ['Gray', 'blue', 'azure', 'yellow', 'red', 'dark gray'];
 Ext.define('app.module.Call_website_Grid', {
+    id: 'Call_website',
     extend: 'app.Grid',
     store_cfg: {
         fields: ['id', 'description', 'destination', 'short_name', 'color', 'button_code'],
@@ -99,7 +100,6 @@ Ext.define('app.module.Call_website_Grid', {
     columns: [
         {// 'id'
             hidden: true
-
         },
         {// 'description'  - описание
             editor: {
@@ -108,9 +108,18 @@ Ext.define('app.module.Call_website_Grid', {
         },
         {// 'destination' - назначение
 
-            editor: app.get_Source_Combo({
-                allowBlank: false
-            })
+            editor: {
+                xtype: 'combobox',
+                store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    storeId: 'sources_exception'
+                }),
+                editable: false,
+                displayField: 'name',
+                valueField: 'name',
+                queryMode: 'local'
+
+            }
         },
         {// 'short_name' - псевдоним
             editor: {
@@ -119,11 +128,32 @@ Ext.define('app.module.Call_website_Grid', {
         },
         {//'button_color' - цвет кнопки
             renderer: function(v) {
-
                 if (v == 'btn')
-                    return app.msg.voicemail;
+                    return app.msg.gray;
+                else
+                if (v == 'btn btn-primary')
+                    return app.msg.blue;
+                else
+                if (v == 'btn btn-info')
+                    return app.msg.azure;
+                else
+                if (v == 'btn btn-success')
+                    return app.msg.green;
+                else
+                if (v == 'btn btn-warning')
+                    return app.msg.orange;
+                else
+                if (v == 'btn btn-danger')
+                    return app.msg.red;
+                else
+                if (v == 'btn btn-inverse')
+                    return app.msg.dark_gray;
+                return v;
+
             },
             editor: {
+                displayField: 'field1',
+                valueField: 'field1',
                 xtype: 'combobox',
                 mode: 'local',
                 groupable: false,
@@ -133,9 +163,9 @@ Ext.define('app.module.Call_website_Grid', {
                 listConfig: {
                     getInnerTpl: function() {
 
-                        var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">' +
+                        var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">' + //;color:{field2};
 // '<img src="images/flags/{field1}.png" align="left">&nbsp;&nbsp;'+
-                                '{field2}</div>';
+                                '{field1}</div>';
                         return tpl;
                     }}
                 // vtype: 'picture',
@@ -170,6 +200,31 @@ Ext.define('app.module.Call_website_Grid', {
          renderer: this.color_renderer
          } },*/
         this.callParent(arguments);
+        this.store.on('load',
+                function(store, records, success) {
+
+                    var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID
+                    if (grid && !this.autoLoad)
+                        grid.ownerCt.body.unmask();  // «серый» экран – блокировка действий пользователя
+                    this.Total_sync();  // количество записей
+                    this.dirtyMark = false;  // измененных записей нет
+                    if (!success && store.storeId) {
+                        store.removeAll();
+                        if (store.autorefresh != undefined)
+                            store.autorefresh = false;
+                        console.log('ERROR: ' + store.storeId + ' fail_load [code of Call_website_Grid.js]');
+                    }
+
+
+                    var repository_exists = Ext.StoreMgr.lookup('sources_exception');
+
+                    if (repository_exists)
+                        repository_exists.load();
+                    else
+                        console.log('ERROR: sources_exception - fail_load [code of Call_website_Grid.js]');
+                }
+
+        );
     }
 });
 

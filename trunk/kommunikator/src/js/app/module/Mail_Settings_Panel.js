@@ -59,11 +59,13 @@ Ext.apply(Ext.form.field.VTypes, {
         }
         return false;
     },
-    mailValText: app.msg.invalid_email,
+    mailValText: app.msg.invalid_email
 });
 
 Ext.define('app.module.Mail_Settings_Panel', {
-    extend : 'Ext.form.Panel',	
+    id: 'Mail_Settings',
+    extend : 'Ext.form.Panel',
+    hidden: true,
     url:'data.php?action=mail_settings',
     //autoLoad: true,
     style:'padding:40px;',
