@@ -72,7 +72,19 @@
  tpl: "<tpl for=\".\"><div class=\"x-combo-list-item<tpl if=\"id==2\"> red</tpl>\">{name}</div></tpl>",
  renderTo: Ext.getBody()
  });*/
-var color = [['#e6e6e6', 'Gray'], ['#0044cc', 'blue'], ['#2f96b4', 'azure'], ['#f89406', 'yellow'], ['#bd362f', 'red'], ['#444444', 'dark gray']];
+Ext.apply(Ext.form.field.VTypes, {
+    picture: function(val, field) {
+        if (val === 'btn')
+        {
+            //console.log(field.ownerCt.items.items[4].setVisible(false));
+            console.log(field.ownerCt.items.items[5].setValue('js/app/images/logo.png'));
+            return true;
+        }
+        //   console.log(field.ownerCt.items.items[4].setVisible(true));
+        return true;
+    }
+});
+var color = [['btn', '#e6e6e6'], ['btn btn-primary', '#0044cc'], ['btn btn-info', '#2f96b4'], ['btn btn-success', '#51a351'], ['btn btn-warning', '#f89406'], ['btn btn-danger', '#bd362f'], ['btn btn-inverse', '#444444']];
 //var tpl3=new Ext.Template(«<div class='domexample'><b>{f}</b> {i} {o}</div>»);
 /*var tpll = new Ext.XTemplate(
  '<tpl for="."><div class="x-combo-list-item" style="color: #ffffc0;">{color}</div></tpl>'
@@ -106,33 +118,33 @@ Ext.define('app.module.Call_website_Grid', {
             }
         },
         {//'button_color' - цвет кнопки
+            renderer: function(v) {
+
+                if (v == 'btn')
+                    return app.msg.voicemail;
+            },
             editor: {
                 xtype: 'combobox',
-                // mode: 'local',
-                editable: true,
+                mode: 'local',
+                groupable: false,
+                sortable: false,
+                editable: false,
                 store: color,
                 listConfig: {
                     getInnerTpl: function() {
-// here you place the images in your combo
-                        var tpl = '<div class="x-combo-list-item" style="background-color:{field1}">' +
+
+                        var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">' +
 // '<img src="images/flags/{field1}.png" align="left">&nbsp;&nbsp;'+
-                                '{field1}</div>';
+                                '{field2}</div>';
                         return tpl;
-                       
                     }}
+                // vtype: 'picture',
+                /* renderer: function() {
+                 
+                 return value;
+                 }*/
 
-                /*  tpl: Ext.create('Ext.XTemplate',
-                 '<tpl for=".">',
-                 '<div class="x-combo-list-item" style="background-color:{field1}">{field1}</div>',
-                 '</tpl>'
-                 ),
-                 displayTpl1: Ext.create('Ext.XTemplate',
-                 '<tpl for=".">',
-                 '{field1}',
-                 '</tpl>'
-                 )*/
-
-
+                // renderer: this.color_renderer
             }
         },
         {//'button_code' - код кнопки
@@ -147,6 +159,27 @@ Ext.define('app.module.Call_website_Grid', {
         }
     ],
     initComponent: function() {
+
+        /* this.color_renderer = function(value) {
+         if (value == '#e6e6e6')
+         return app.msg.voicemail;
+         return value;
+         },
+         this.columns[5] = {
+         defaults: {
+         renderer: this.color_renderer
+         } },*/
         this.callParent(arguments);
     }
 });
+
+/*  tpl: Ext.create('Ext.XTemplate',
+ '<tpl for=".">',
+ '<div class="x-combo-list-item" style="background-color:{field1}">{field1}</div>',
+ '</tpl>'
+ ),
+ displayTpl1: Ext.create('Ext.XTemplate',
+ '<tpl for=".">',
+ '{field1}',
+ '</tpl>'
+ )*/
