@@ -115,7 +115,7 @@ for (;;) {
                         if(count($res)) {
                             $params = array();
                             $params['incoming_trunk'] = $incoming_trunks[$ev->GetValue('billid')];
-                            $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time'));
+                            $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time')+60*60*$def_time_offset);
                             $params['caller'] = $ev->GetValue('caller');
                             $params['called'] = $ev->GetValue('called');
 
@@ -147,7 +147,7 @@ for (;;) {
                     $params['username'] = $ev->GetValue('username');
                     $params['caller'] = ($params['username'])? $params['username'] : $ev->GetValue('caller');
                     $params['called'] = $ev->GetValue('called');
-                    $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time'));
+                    $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time')+60*60*$def_time_offset);
                     // Do not log internal calls
                     //if (strlen($params['caller']) <= 3 && strlen($params['called']) <= 3)
                     //	return;

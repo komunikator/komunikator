@@ -23,6 +23,7 @@
 ?>
 <?php
 require_once("config.php");
+require_once("libyate.php");
 
 function query_to_array($query) {
     /*
