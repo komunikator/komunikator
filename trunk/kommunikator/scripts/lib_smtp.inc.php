@@ -114,10 +114,10 @@ function send_mail($text=null,$subject=null,$is_fax=null,$filename=null,$from=nu
 function send_voicemail($address, $filename, $caller, $ftime = false) {
     if (!$address)
         return;
-        
-    if (!$ftime) 
-        $ftime = strftime(TIME_FMT, time());
-        
+            global $def_time_offset;
+    if (!$ftime)
+        $ftime = strftime(TIME_FMT, time()+60*60*$def_time_offset);
+
     $text =<<<EOD
     Абонент: $caller
     Дата: $ftime
