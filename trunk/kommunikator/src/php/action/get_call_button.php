@@ -54,24 +54,126 @@
 */
 
 ?><?
+
+/* - - - - -  функция – получение внутреннего номера от SIP-адреса (НАЧАЛО)  - - - - - */
+
+function extension_number_from_SIP_addresses($s) {
+
+    $p = '~^sip\:(\d+)@~';
+
+    if ( preg_match($p, $s, $a) ) {
+
+        $result = $a[1];
+
+    }
+    else {
+
+        $result = 'ERROR - function extension_number_from_SIP_addresses( '.$s.' )';
+
+    }
+
+
+    return $result;
+
+}
+
+/* - - - - -  функция – получение внутреннего номера от SIP-адреса (КОНЕЦ)  - - - - - */
+
+
+
+
 if (!$_SESSION['user']) {
     echo ( out(array("success"=>false,"message"=>"User is undefined")) );
     exit;
 } 
 
-$total = compact_array(query_to_array("SELECT * FROM account"));
+
+$total = compact_array(query_to_array("SELECT count(*) FROM account_sip_caller"));
 
 if (!is_array($total["data"])) echo out(array("success"=>false,"message"=>$total));
 
-print_r($total);
-exit;
-    
-$data = compact_array(query_to_array("SELECT group_id as id, groups.group, description, extension FROM groups WHERE group_id!=1 ".get_sql_order_limit()));
 
-if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
+$sda_query = <<<EOD
+SELECT
+    tasc.id as id,
+    ta.name as description,
+    tas.address as destination,
+    tasc.impi as short_name
+FROM account_sip_caller tasc
+LEFT JOIN account_sip tas
+    ON tas.id = tasc.account_sip_id
+LEFT JOIN account ta
+    ON ta.id = tas.account_id
+EOD;
+
+$data = compact_array(query_to_array($sda_query));
+
+if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+/*
+сопоставление номеров групп их символьным обозначениям
+скрытие несуществующих номеров
+*/
+
+
+$sda_get_groups = $_SESSION["get_groups"];  // 1 - group, 3 - extension
+
+$sda_get_extensions = $_SESSION["get_extensions"];  // 2 - extension
+
+
+foreach ($data["data"] as &$row_x) {
     
-$obj=array("success"=>true);
-$obj["total"] = $total['data'][0][0]; 
-$obj["data"] = $data['data']; 
+    $row_x[2] = extension_number_from_SIP_addresses( base64_decode( $row_x[2] ) );  // 2 - destination
+    
+    
+    $sda_tick_groups = "NO";
+    $sda_tick_extensions = "NO";
+    
+    foreach ($sda_get_groups as $row_y) {
+        
+        if ($row_x[2] == $row_y[3]) {
+            
+            $row_x[2] = $row_y[1];
+            
+            $sda_tick_groups = "YES";
+            
+            break;
+            
+        }
+        
+    }
+    
+    foreach ($sda_get_extensions as $row_z) {
+        
+        if ($row_x[2] == $row_z[2]) {
+            
+            $sda_tick_extensions = "YES";
+            
+            break;
+            
+        }
+        
+    }
+    
+    if ( $sda_tick_groups == "NO" && $sda_tick_extensions == "NO" ) {
+        
+        $row_x[2] = "";
+        
+    }
+    
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+$obj = array("success"=>true);
+
+$obj["total"] = $total['data'][0][0];
+$obj["data"] = $data['data'];
+
 echo out($obj);
+
 ?>
