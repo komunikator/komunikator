@@ -307,7 +307,7 @@ app.msg = {
     modules: 'Модули',
     module_name: 'Название модуля',
     condition: 'Состояние',
-    color: 'цвет',
+    color: 'Цвет кнопки',
     gray: 'серый',
     blue: 'синий',
     azure: 'голубой',

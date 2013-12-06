@@ -84,7 +84,7 @@ Ext.define('app.module.Forwarding_Panel', {
                         triggerAction: 'all',
                         regex: new RegExp('(^\\d{1,11}$)|(^' + app.msg.voicemail + '$)'),
                         store: [
-                            ['vm', app.msg.voicemail],
+                            ['vm', app.msg.voicemail]
                         ],
                         listeners:
                                 {
@@ -107,7 +107,7 @@ Ext.define('app.module.Forwarding_Panel', {
                         triggerAction: 'all',
                         regex: new RegExp('(^\\d{1,11}$)|(^' + app.msg.voicemail + '$)'),
                         store: [
-                            ['vm', app.msg.voicemail],
+                            ['vm', app.msg.voicemail]
                         ]
                     }, 
                             {
@@ -121,7 +121,7 @@ Ext.define('app.module.Forwarding_Panel', {
                         triggerAction: 'all',
                         regex: new RegExp('(^\\d{1,11}$)|(^' + app.msg.voicemail + '$)'),
                         store: [
-                            ['vm', app.msg.voicemail],
+                            ['vm', app.msg.voicemail]
                         ]
                     }, 
                             {

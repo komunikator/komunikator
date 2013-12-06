@@ -211,15 +211,18 @@ Ext.define('app.Viewport', {
            
                 Ext.create('app.Card_Panel', {
                     title: app.msg.settings, // Настройки
+               
                     items: [
                         Ext.create('app.module.Users_Grid', {
                             title: app.msg.users  // Управление доступом
                         }),
                         Ext.create('app.module.Network_Settings_Panel', {
-                            title: app.msg.network_settings  // Сетевые настройки
+                            title: app.msg.network_settings,  // Сетевые настройки
+                          
                         }),
                         Ext.create('app.module.Tuning_Modules_Grid', {
-                            title: app.msg.modules  // Модули
+                            title: app.msg.modules,
+                            id:'id_Tuning_Modules'
                         }),
                         /*
                          Ext.create('app.module.Ntn_Settings_Grid',{
@@ -335,9 +338,11 @@ Ext.define('app.Viewport', {
                 }),
                 Ext.create('app.Card_Panel', {
                     title: app.msg.modules, // Почтовые уведомления
+                    id: 'id_modules',
                     items: [
                     Ext.create('app.module.Call_website_Grid', {
-                            title: app.msg.Call_website // Звонок с сайта
+                            title: app.msg.Call_website, // Звонок с сайта
+                            id: 'ID_Call_website'
                         }),
                     Ext.create('app.module.Mail_Settings_Panel', {
                             title: app.msg.mail_settings  // Почтовые уведомления

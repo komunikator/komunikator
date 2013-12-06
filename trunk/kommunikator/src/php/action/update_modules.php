@@ -53,26 +53,20 @@
 *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 */
 ?><?
-/**
- * @param string user
- * @param string password
- * @assert ('admin','admin')==true
- */
-$newcondition= getparam("condition");
-$module_name_id = getparam("id");
+need_user();
 
-echo (out(array("success" =>false, "message" => $newcondition)));
-  
-        $sql = "SELECT * from modules where module_name_id = '$module_name_id' ";
-       
-        if (query_to_array($sql)) {
-             $sql=sprintf("UPDATE  modules SET  condition = '$newcondition' WHERE module_name_id = '$module_name_id'" );
-        query($sql); 
-        
-          
-   /*echo (out(array("success" => true, "message" => 'pwd_change')));
-   
-        } else {
-        echo (out(array("success" => false, "message" => 'pwd_incorrect'))); */}
-    
+$data = json_decode($HTTP_RAW_POST_DATA);
+$rows = array();
+$values = array();
+
+if ($data && !is_array($data)) $data = array($data);
+foreach ($data as $row)
+{
+$values = array();
+    foreach ($row as $key=>$value)
+            $values[$key]="'$value'"; 
+$rows[] = $values;
+}
+$id_name = 'module_name_id';
+require_once("update.php");
 ?>

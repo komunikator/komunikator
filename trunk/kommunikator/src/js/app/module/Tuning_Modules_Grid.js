@@ -97,20 +97,33 @@ Ext.define('app.module.Tuning_Modules_Grid', {
         },
         {//'condition'
             renderer: app.checked_render,
+            renderer: function(v) {
+                if (v == false )
+                cr = Ext.getCmp('id_Tuning_Modules');
+               cr.hide();
+                cr.doLayout();
+
+            },
             editor: {
                 xtype: 'checkbox',
                 style: {
                     textAlign: 'center'
                 },
-                           listeners: {
-               change: function(f, val) { alert(val)
-                   if (val == false )
-                cr = Ext.getCmp('Users_Grid');
-cr.hide();
-                    
-                }
-        }
+                           /*listeners: {
+               change: function(f, val) { 
+                   if (val === false )
+                  {
+                cr = Ext.getCmp('id_modules');
+               cr.hide();
+               /* dr.hide();
+               // cr.show();
+                dr.doLayout();
+              //  + надо уеще скрыть кнопки
+                cr.doLayout();
+                }}
+        }*/
             }
+                    
           
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
      
