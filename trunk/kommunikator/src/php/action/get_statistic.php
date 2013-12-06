@@ -61,14 +61,19 @@
   $obj["data"] = array();
   echo out($obj);return;
  */
+
 // ini_set("display_errors", 1);
+
 if (!$_SESSION['user']) {
     echo ( out(array("success" => false, "message" => "User is undefined")) );
     exit;
 }
 
 //$extension = getparam("extension");
+
+
 // - текущее время на сервере  - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function get_time_current() {
     $v_time = exec("date '+%H ч. %M мин.'");
     $v_day = exec("date '+%w'");
@@ -122,6 +127,7 @@ function get_time_current() {
 $f_data[] = array('time_current', get_time_current());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 function lastDayToTimestamp() {
 //returns an array containing day start and day end timestamps
@@ -327,7 +333,9 @@ function get_yate_version() {
     return $ver;
 }
 
+
 // - получение времени работы yate - - - - - - - - - - - - - - - - - - - - - - -
+
 function get_yate_last_restart() {
     $time_system = time();
 
@@ -366,7 +374,48 @@ $f_data[] = array('uptime', get_yate_last_restart());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+
+// - состояние webrtc2sip (ВКЛ. или выкл.) - - - - - - - - - - - - - - - - - - -
+
+function get_state_webrtc2sip() {
+
+    $sda_command_ps = 'ps axu | grep webrtc2sip';
+    $sda_output_ps = array();
+
+    exec( $sda_command_ps, $sda_output_ps );
+
+
+    $sda_tick = 'выкл.';
+
+    foreach( $sda_output_ps as $value ) {
+
+        $sda_row = strtolower($value);
+
+        $sda_result = strpos( $sda_row, 'screen -dms webrtc2sip webrtc2sip' );
+
+
+        if ($sda_result) {
+        
+            $sda_tick = 'ВКЛ.';
+
+            break;
+
+        }
+
+    }
+    
+    
+    return $sda_tick;
+    
+}
+
+$f_data[] = array('webrtc2sip', get_state_webrtc2sip());
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
 $f_data[] = array('version', $cur_ver);
+
 
 /* функция заменена (см. выше)
   function get_yate_last_restart(){
@@ -393,7 +442,9 @@ $f_data[] = array('version', $cur_ver);
 
 
 $obj = array("success" => true);
+
 $obj["total"] = count($f_data);
 $obj["data"] = $f_data;
+
 echo out($obj);
 ?>
