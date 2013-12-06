@@ -109,7 +109,7 @@ Ext.define('app.module.DID_Grid', {
         },
         {// 'description'
             editor : {
-                xtype : 'textfield',
+                xtype : 'textfield'
                 
             }
         },
@@ -170,7 +170,7 @@ Ext.define('app.module.DID_Grid', {
                     var repository_exists = Ext.StoreMgr.lookup('sources_exception');
 
                     if (repository_exists)
-                        repository_exists.load()
+                        repository_exists.load();
                     else
                         console.log('ERROR: sources_exception - fail_load [code of DID_Grid.js]');
                 }
@@ -179,4 +179,4 @@ Ext.define('app.module.DID_Grid', {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -        
 
     }
-})
+});

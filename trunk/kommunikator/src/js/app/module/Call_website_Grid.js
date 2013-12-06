@@ -49,92 +49,79 @@
  *  version (version 3 as well).
  
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
- */
-
-/*var
- cb = new Ext.form.ComboBox({
- store: new Ext.data.ArrayStore({
- autoDestroy: true,
- idIndex: 0,
- fields: [
- { name: "id", type: "int" },
- "name"
- ],
- data: [
- [ 1, "Record# 1" ],
- [ 2, "Record# 2" ],
- [ 3, "Record# 3" ],
- [ 4, "Record# 4" ]
- ]
- }),
- displayField: "name",
- valueField: "id",
- mode: "local",
- tpl: "<tpl for=\".\"><div class=\"x-combo-list-item<tpl if=\"id==2\"> red</tpl>\">{name}</div></tpl>",
- renderTo: Ext.getBody()
- });*/
-
+*/
 Ext.apply(Ext.form.field.VTypes, {
     picture: function(val, field) {
-        if (val === 'btn')
-        {
-            //console.log(field.ownerCt.items.items[4].setVisible(false));
-            console.log(field.ownerCt.items.items[5].setValue('js/app/images/logo.png'));
+        if (val == '#e6e6e6') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Grey_button.png" >'));
             return true;
         }
-        //   console.log(field.ownerCt.items.items[4].setVisible(true));
-        return true;
+        if (val == '#0044cc') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Cyan_button.png" >'));
+            return true;
+        }
+        if (val == '#2f96b4') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Blue_button.png" >'));
+            return true;
+        }
+        if (val == '#51a351') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Green_button.png" >'));
+            return true;
+        }
+        if (val == '#f89406') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Yellow_button.png" >'));
+            return true;
+        }
+        if (val == '#bd362f') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Red_button.png" >'));
+            return true;
+        }
+        if (val == '#444444') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Black_button.png" >'));
+            return true;
+        }
+
     }
 });
 var color = [['btn', '#e6e6e6'], ['btn btn-primary', '#0044cc'], ['btn btn-info', '#2f96b4'], ['btn btn-success', '#51a351'], ['btn btn-warning', '#f89406'], ['btn btn-danger', '#bd362f'], ['btn btn-inverse', '#444444']];
-//var tpl3=new Ext.Template(«<div class='domexample'><b>{f}</b> {i} {o}</div>»);
-/*var tpll = new Ext.XTemplate(
- '<tpl for="."><div class="x-combo-list-item" style="color: #ffffc0;">{color}</div></tpl>'
- );*/
-//var color = ['Gray', 'blue', 'azure', 'yellow', 'red', 'dark gray'];
 
 Ext.define('app.module.Call_website_Grid', {
-    id       : 'Call_website',
-    extend   : 'app.Grid',
-    
+    id: 'ID_Call_website',
+    extend: 'app.Grid',
     store_cfg: {
-        fields   : ['id', 'description', 'destination', 'short_name', 'color', 'button_code'],
-        storeId  : 'call_button'
+        fields: ['id', 'description', 'destination', 'short_name', 'color', 'button_code'],
+        storeId: 'call_button'
     },
-
-    columns  : [
-        {  // 'id'
+    columns: [
+        {// 'id'
             hidden: true
         },
-        {  // 'description' - описание
+        {// 'description'  - описание
             editor: {
                 xtype: 'textfield'
             }
         },
-        {  // 'destination' - назначение
+        {// 'destination' - назначение
+
             editor: {
-                xtype         : 'combobox',
-                
-                store         : Ext.create('app.Store', {
-                    fields   : ['id', 'name'],
-                    storeId  : 'sources_exception'
+                xtype: 'combobox',
+                store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    storeId: 'sources_exception'
                 }),
-                
-                editable      : false,
-                
-                displayField  : 'name',
-                valueField    : 'name',
-                
-                queryMode     : 'local'
+                editable: false,
+                displayField: 'name',
+                valueField: 'name',
+                queryMode: 'local'
 
             }
         },
-        {  // 'short_name' - псевдоним
+        {// 'short_name' - псевдоним
             editor: {
                 xtype: 'textfield'
             }
         },
-        {  // 'button_color' - цвет кнопки
+        {//'button_color' - цвет кнопки
             renderer: function(v) {
                 if (v == 'btn')
                     return app.msg.gray;
@@ -172,42 +159,33 @@ Ext.define('app.module.Call_website_Grid', {
                     getInnerTpl: function() {
 
                         var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">' + //;color:{field2};
-                // '<img src="images/flags/{field1}.png" align="left">&nbsp;&nbsp;'+
+// '<img src="images/flags/{field1}.png" align="left">&nbsp;&nbsp;'+
                                 '{field1}</div>';
                         return tpl;
-                    }}
-                // vtype: 'picture',
-                /* renderer: function() {
-                 
-                 return value;
-                 }*/
+                    }},
+                defaultValue: 1,
+                vtype: 'picture',
+                listeners: {
+                    afterrender: function() {
 
-                // renderer: this.color_renderer
-            }
+                        this.setValue(this.defaultValue);
+                    }
+                }}
         },
-        {  // 'button_code' - код кнопки
+        {//'button_code' - код кнопки
             xtype: 'actioncolumn',
             sortable: false,
             groupable: false,
-            icon: 'js/app/images/add.png', // Use a URL in the icon config
+            //value:'<img src= "js/app/images/Grey_button.png" >',
+             icon: 'js/app/images/Grey_button.png', // Use a URL in the icon config
             tooltip: 'Generate code',
-            handler: function() {
-                Ext.create('app.Page_Code').show();
-            }
+                     handler: function() {
+               Ext.create('app.Page_Code').show();
+           }
         }
     ],
-    
     initComponent: function() {
 
-        /* this.color_renderer = function(value) {
-         if (value == '#e6e6e6')
-         return app.msg.voicemail;
-         return value;
-         },
-         this.columns[5] = {
-         defaults: {
-         renderer: this.color_renderer
-         } },*/
         this.callParent(arguments);
         this.store.on('load',
                 function(store, records, success) {

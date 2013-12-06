@@ -374,9 +374,9 @@ app.format_msg = function(s, p) {
     if (!Ext.isArray(p))
         p = [p];
     for (var k in p)
-        s = s.replace('{' + k + '}', p[k])
+        s = s.replace('{' + k + '}', p[k]);
     return s;
-}
+};
 app.checked_render = function(value) {
     value = (value == '1' || value == 'true') ? true : false;
     var cssPrefix = Ext.baseCSSPrefix,
@@ -386,7 +386,7 @@ app.checked_render = function(value) {
         cls.push(cssPrefix + 'grid-checkheader-checked');
     }
     return '<div class="' + cls.join(' ') + '">&#160;</div>';
-}
+};
 
 
 app.online_offline_renderer = function(value, metadata, record, rowIndex, colIndex, store) {
@@ -413,7 +413,7 @@ app.online_offline_renderer = function(value, metadata, record, rowIndex, colInd
     }
     return   value;
     ;
-}
+};
 app.get_Source_Combo = function(cfg) {
     var obj = {
         xtype: 'combo',
@@ -444,12 +444,12 @@ app.get_Source_Combo = function(cfg) {
                 this.store.load();
             }
         }
-    }
+    };
     if (cfg)
         for (var key in cfg)
-            obj[key] = cfg[key]
+            obj[key] = cfg[key];
     return obj;
-}
+};
 
 app.set_autorefresh = function(s, active) {
     if (s && s.store) {
@@ -500,7 +500,7 @@ app.dhms = function(s) {
     else {
         f = d + ':' + h + ':' + m + ':' + s;
     }
-    return f
-}
+    return f;
+};
 //alert(Ext.LoadMask.prototype.msg);             
 //Ext.view.AbstractView.prototype.loadingText = Ext.LoadMask.prototype.msg;
