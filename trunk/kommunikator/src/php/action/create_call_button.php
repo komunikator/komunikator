@@ -173,6 +173,8 @@ $sda_query = "SELECT * FROM sqlite_sequence";
         
 $data = compact_array(query_to_array($sda_query));
 
+if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+
 
 $sda_sequence_number_table_account = 0;
 $sda_sequence_number_table_account_sip = 0;
@@ -305,7 +307,7 @@ $rows = array();
 $rows[] = $sda_query_table_account;
 
 $action = 'create_account';
-include("create_sqlite.php");
+include("create.php");
 
 
 $need_out = false;
@@ -315,12 +317,12 @@ $rows = array();
 $rows[] = $sda_query_table_account_sip;
 
 $action = 'create_account_sip';
-include("create_sqlite.php");
+include("create.php");
 
 
 $rows = array();
 $rows[] = $sda_query_table_account_sip_caller;
 
 $action = 'create_account_sip_caller';
-include("create_sqlite.php");
+include("create.php");
 ?>

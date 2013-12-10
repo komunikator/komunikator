@@ -54,4 +54,102 @@
 */
 
 ?><?
+
+need_user();
+
+$data = json_decode($HTTP_RAW_POST_DATA);
+
+if ( $data && !is_array($data) ) $data = array($data);
+
+
+
+/* - - - - -  получение ключевых переменных (начало)  - - - - - */
+
+foreach ($data as $row) {
+    
+    foreach ( $row as $key => $value ) {
+        
+        if ($key == 'id') { $sda_id = $value; }  // значение поля «id»
+        
+    }
+    
+}
+
+
+
+// получение значений id удаляемой записи из всех трех таблиц
+
+$sda_query = <<<EOD
+SELECT
+    tasc.id as tasc_id,
+    tas.id as tas_id,
+    ta.id as ta_id
+FROM account_sip_caller tasc
+LEFT JOIN account_sip tas
+    ON tas.id = tasc.account_sip_id
+LEFT JOIN account ta
+    ON ta.id = tas.account_id
+WHERE tasc.id = '$sda_id'
+EOD;
+
+$data = compact_array(query_to_array($sda_query));
+
+if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+
+
+
+foreach ($data["data"] as $row) {
+    
+    $sda_id_table_account_sip_caller = $row[0];
+    $sda_id_table_account_sip = $row[1];
+    $sda_id_table_account = $row[2];
+    
+}
+
+/* - - - - -  получение ключевых переменных (конец)  - - - - - */
+
+
+
+/* - - - - -  преобразование данных в требуемый формат (начало)  - - - - - */
+
+$sda_query_table_account_sip_caller[id] = $sda_id_table_account_sip_caller;
+
+$sda_query_table_account_sip[id] = $sda_id_table_account_sip;
+
+$sda_query_table_account[id] = $sda_id_table_account;
+
+/* - - - - -  преобразование данных в требуемый формат (конец)  - - - - - */
+
+
+
+
+$need_out = false;
+
+
+$rows = array();
+$rows[] = $sda_query_table_account_sip_caller;
+
+$id_name = 'id';  // DELETE FROM $table_name WHERE $id_name = $id
+$action = 'destroy_account_sip_caller';
+include("destroy.php");
+
+
+$need_out = false;
+
+
+$rows = array();
+$rows[] = $sda_query_table_account_sip;
+
+$id_name = 'id';
+$action = 'destroy_account_sip';
+include("destroy.php");
+
+
+$rows = array();
+$rows[] = $sda_query_table_account;
+
+$id_name = 'id';
+$action = 'destroy_account';
+include("destroy.php");
+
 ?>
