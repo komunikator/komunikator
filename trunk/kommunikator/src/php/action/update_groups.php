@@ -56,54 +56,19 @@
 ?><?
 need_user();
 
+$values = array();
 $data = json_decode($HTTP_RAW_POST_DATA);
-
-if ( $data && !is_array($data) ) { $data = array($data); }
-
-
-// - - - - - - - - - -
-
-// print_r($data);
-// exit;
-
-/*
-Array ( 
-    [0] => stdClass Object ( [group] => g47 [description] => d47 [id] => 2 ) 
-)
-
-Array ( 
-    [0] => stdClass Object ( [group] => g47 [description] => d47 [extension] => 47 [id] => 2 ) 
-)
-*/
-
-// - - - - - - - - - -
-
-
 $rows = array();
+$values = array();
 
-foreach ($data as $row) {
-    $values = array();
-
-    foreach ($row as $key=>$value) { $values[$key]="'$value'"; }
-
-    $rows[] = $values;
+if ($data && !is_array($data)) $data = array($data);
+ foreach ($data as $row)
+{
+$values = array();
+    foreach ($row as $key=>$value)
+            $values[$key]="'$value'"; 
+$rows[] = $values;
 }
-
-
-// - - - - - - - - - -
-
-// print_r($rows);
-// exit;
-
-/*
-Array ( 
-    [0] => Array ( [group] => 'g47' [description] => 'd47' [extension] => '47' [id] => '62' ) 
-)
-*/
-
-// - - - - - - - - - -
-
-
 $id_name = 'group_id';
 require_once("update.php");
 ?>

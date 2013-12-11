@@ -85,7 +85,6 @@ if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data))
     
 $obj = array("success"=>true);
 
-
 $obj["total"] = $total['data'][0][0];
 $obj["data"] = $data['data']; 
 

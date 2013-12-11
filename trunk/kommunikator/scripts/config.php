@@ -82,7 +82,7 @@ if ( in_array( $action, array('get_call_button', 'create_call_button', 'create_a
     
     // $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";  // абсолютный путь к файлу БД
     
-    $db_sqlite3_path = "/var/www/sda/sqlite.ru/c2c_sqlite.db";
+    // $db_sqlite3_path = "/var/www/sda/sqlite.ru/c2c_sqlite.db";
     
     
     // - - - - - - - - - - - - - - - - - - - -
@@ -92,7 +92,7 @@ if ( in_array( $action, array('get_call_button', 'create_call_button', 'create_a
     // Denwer необходима библиотека sqlite3.php (должна находится c:\WebServers\usr\local\php5\pear\DB\)
     // библиотеку можно скопировать с «тестовой» машины (находится /usr/share/php/DB)
     
-    // $db_sqlite3_path = "Z:\DB_SQLite\c2c_sqlite.db";
+    $db_sqlite3_path = "Z:\DB_SQLite\c2c_sqlite.db";
     
     // - - - - - - - - - - - - - - - - - - - -    
 
