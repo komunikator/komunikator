@@ -337,7 +337,7 @@ Ext.define('app.Viewport', {
                     ]
                 }),
                 Ext.create('app.Card_Panel', {
-                    title: app.msg.modules, // 
+                    title: app.msg.modules, // Модули
                     id: 'id_modules',
                     items: [
                     Ext.create('app.module.Call_website_Grid', {

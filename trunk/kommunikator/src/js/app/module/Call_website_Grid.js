@@ -180,7 +180,18 @@ Ext.define('app.module.Call_website_Grid', {
              icon: 'js/app/images/Grey_button.png', // Use a URL in the icon config
             tooltip: 'Generate code',
                      handler: function() {
-               Ext.create('app.Page_Code').show();
+              // Ext.create('app.Page_Code').show();
+              Ext.create('widget.window',{
+           title: 'Пример 1',
+    html: 'Оболочка Windows является  на  сегодня  самым',
+                        
+    width: 400,
+    height: 400,
+    autoHeight: true,
+    autoScroll: true,           // скроллинг если текст не влезает.
+    maximizable: true         // значок «раскрыть окно на весь экран»
+    
+              }).show();
            }
         }
     ],
