@@ -86,7 +86,7 @@ Ext.apply(Ext.form.field.VTypes, {
 var color = [['btn', '#e6e6e6'], ['btn btn-primary', '#0044cc'], ['btn btn-info', '#2f96b4'], ['btn btn-success', '#51a351'], ['btn btn-warning', '#f89406'], ['btn btn-danger', '#bd362f'], ['btn btn-inverse', '#444444']];
 
 Ext.define('app.module.Call_website_Grid', {
-    id: 'ID_Call_website',
+    //id: 'ID_Call_website',
     extend: 'app.Grid',
     store_cfg: {
         fields: ['id', 'description', 'destination', 'short_name', 'color', 'button_code'],

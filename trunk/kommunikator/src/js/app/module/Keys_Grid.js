@@ -99,6 +99,7 @@ Ext.define('app.module.Keys_Grid', {
         },
         {// 'destination'
             editor: app.get_Source_Combo({
+                editable: false,
                 allowBlank: false
             })
 
@@ -147,4 +148,4 @@ Ext.define('app.module.Keys_Grid', {
             initComponent: function() {
         this.callParent(arguments);
     }
-})
+});

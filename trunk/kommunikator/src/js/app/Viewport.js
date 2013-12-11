@@ -211,7 +211,7 @@ Ext.define('app.Viewport', {
            
                 Ext.create('app.Card_Panel', {
                     title: app.msg.settings, // Настройки
-               
+               id:'asd',
                     items: [
                         Ext.create('app.module.Users_Grid', {
                             title: app.msg.users  // Управление доступом
@@ -337,12 +337,12 @@ Ext.define('app.Viewport', {
                     ]
                 }),
                 Ext.create('app.Card_Panel', {
-                    title: app.msg.modules, // Почтовые уведомления
+                    title: app.msg.modules, // 
                     id: 'id_modules',
                     items: [
                     Ext.create('app.module.Call_website_Grid', {
                             title: app.msg.Call_website, // Звонок с сайта
-                            id: 'ID_Call_website'
+                            //id: 'ID_Call_website'
                         }),
                     Ext.create('app.module.Mail_Settings_Panel', {
                             title: app.msg.mail_settings  // Почтовые уведомления
