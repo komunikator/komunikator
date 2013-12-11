@@ -55,7 +55,7 @@
 
 ?><?
 
-/* - - - - -  функция – генератор паролей (начало)  - - - - - */
+/* - - - - -  функция – генератор паролей (НАЧАЛО)  - - - - - */
 
 function password_generator() {
 
@@ -80,11 +80,11 @@ function password_generator() {
 
 }
 
-/* - - - - -  функция – генератор паролей (конец)  - - - - - */
+/* - - - - -  функция – генератор паролей (КОНЕЦ)  - - - - - */
 
 
 
-/* - - - - -  функция – генератор UUID (Universally Unique Identifier) (начало)  - - - - - */
+/* - - - - -  функция – генератор UUID (Universally Unique Identifier) (НАЧАЛО)  - - - - - */
 
 function UUID_generator() {
 
@@ -114,7 +114,7 @@ function UUID_generator() {
 
 }
 
-/* - - - - -  функция – генератор UUID (Universally Unique Identifier) (конец)  - - - - - */
+/* - - - - -  функция – генератор UUID (Universally Unique Identifier) (КОНЕЦ)  - - - - - */
 
 
 
@@ -127,7 +127,7 @@ if ( $data && !is_array($data) ) $data = array($data);
 
 
 
-/* - - - - -  получение ключевых переменных (начало)  - - - - - */
+/* - - - - -  получение ключевых переменных (НАЧАЛО)  - - - - - */
 
 foreach ($data as $row) {
     
@@ -143,11 +143,11 @@ foreach ($data as $row) {
 
 $sda_ip_address = $_SERVER['SERVER_ADDR'];  // IP-адрес IP-АТС
 
-/* - - - - -  получение ключевых переменных (конец)  - - - - - */
+/* - - - - -  получение ключевых переменных (КОНЕЦ)  - - - - - */
 
 
 
-/* - - - - -  сопоставление символьных обозначений номерам групп (начало)  - - - - - */
+/* - - - - -  сопоставление символьных обозначений номерам групп (НАЧАЛО)  - - - - - */
 
 $sda_get_groups = $_SESSION["get_groups"];  // 1 - group, 3 - extension
 
@@ -163,11 +163,11 @@ foreach ($sda_get_groups as $row) {
         
 }
 
-/* - - - - -  сопоставление символьных обозначений номерам групп (конец)  - - - - - */
+/* - - - - -  сопоставление символьных обозначений номерам групп (КОНЕЦ)  - - - - - */
 
 
 
-/* - - - - -  получение значений инкрементов (начало)  - - - - - */
+/* - - - - -  получение значений инкрементов (НАЧАЛО)  - - - - - */
 
 $sda_query = "SELECT * FROM sqlite_sequence";
         
@@ -188,11 +188,11 @@ foreach ($data["data"] as $row) {
     
 }
 
-/* - - - - -  получение значений инкрементов (конец)  - - - - - */
+/* - - - - -  получение значений инкрементов (КОНЕЦ)  - - - - - */
 
 
 
-/* - - - - -  добавление записи в таблицу account (начало)  - - - - - */
+/* - - - - -  добавление записи в таблицу account (НАЧАЛО)  - - - - - */
 
 $sda_id_table_account = $sda_sequence_number_table_account + 1;
 
@@ -237,11 +237,11 @@ $sda_query_table_account[activation_code] = "'$sda_activation_code_table_account
 
 $sda_query_table_account[epoch] = "'$sda_epoch_table_account'";
 
-/* - - - - -  добавление записи в таблицу account (конец)  - - - - - */
+/* - - - - -  добавление записи в таблицу account (КОНЕЦ)  - - - - - */
 
 
 
-/* - - - - -  добавление записи в таблицу account_sip (начало)  - - - - - */
+/* - - - - -  добавление записи в таблицу account_sip (НАЧАЛО)  - - - - - */
 
 $sda_id_table_account_sip = $sda_sequence_number_table_account_sip + 1;
 
@@ -258,11 +258,11 @@ $sda_query_table_account_sip[address] = "'$sda_address_table_account_sip'";
 
 $sda_query_table_account_sip[account_id] = "'$sda_account_id_table_account_sip'";
 
-/* - - - - -  добавление записи в таблицу account_sip (конец)  - - - - - */
+/* - - - - -  добавление записи в таблицу account_sip (КОНЕЦ)  - - - - - */
 
 
 
-/* - - - - -  добавление записи в таблицу account_sip_caller (начало)  - - - - - */
+/* - - - - -  добавление записи в таблицу account_sip_caller (НАЧАЛО)  - - - - - */
 
 $sda_id_table_account_sip_caller = $sda_sequence_number_table_account_sip_caller + 1;
 
@@ -295,7 +295,7 @@ $sda_query_table_account_sip_caller[ha1] = "'$sda_ha1_table_account_sip_caller'"
 
 $sda_query_table_account_sip_caller[account_sip_id] = "'$sda_account_sip_id_table_account_sip_caller'";
 
-/* - - - - -  добавление записи в таблицу account_sip_caller (конец)  - - - - - */
+/* - - - - -  добавление записи в таблицу account_sip_caller (КОНЕЦ)  - - - - - */
 
 
 
@@ -325,4 +325,5 @@ $rows[] = $sda_query_table_account_sip_caller;
 
 $action = 'create_account_sip_caller';
 include("create.php");
+
 ?>

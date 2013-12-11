@@ -155,6 +155,8 @@ function get_sql_field($name) {
     global $db_type_sql;
     if ($db_type_sql == 'mysql')
         return "`$name`";
+    if ($db_type_sql == 'sqlite3')
+        return "`$name`";
     return $name;
 }
 
