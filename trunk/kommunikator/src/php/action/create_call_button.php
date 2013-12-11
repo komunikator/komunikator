@@ -126,25 +126,8 @@ $data = json_decode($HTTP_RAW_POST_DATA);
 if ( $data && !is_array($data) ) $data = array($data);
 
 
-// - - - - - - - - - - - - - - -
 
-// print_r($data);
-// exit;
-
-/*
-Array ( [0] => stdClass Object ( [id] => [description] => text E [destination] => 127 [short_name] => red.ru [color] => [button_code] => ) )
-
-[id] => 
-[description] => text E 
-[destination] => 127 
-[short_name] => red.ru 
-[color] => 
-[button_code] => 
-*/
-        
-// - - - - - - - - - - - - - - -
-/* сбор необходимых данных */
-
+/* - - - - -  получение ключевых переменных (начало)  - - - - - */
 
 foreach ($data as $row) {
     
@@ -160,10 +143,11 @@ foreach ($data as $row) {
 
 $sda_ip_address = $_SERVER['SERVER_ADDR'];  // IP-адрес IP-АТС
 
+/* - - - - -  получение ключевых переменных (конец)  - - - - - */
 
-// - - - - - - - - - - - - - - -
-/* сопоставление символьных обозначений номерам групп */
 
+
+/* - - - - -  сопоставление символьных обозначений номерам групп (начало)  - - - - - */
 
 $sda_get_groups = $_SESSION["get_groups"];  // 1 - group, 3 - extension
 
@@ -179,31 +163,38 @@ foreach ($sda_get_groups as $row) {
         
 }
 
+/* - - - - -  сопоставление символьных обозначений номерам групп (конец)  - - - - - */
 
-// - - - - - - - - - - - - - - -
 
-// $for_print = array(
-//    'description' => $sda_description,
-//    'destination' => $sda_extension_number,
-//    'short_name' => $sda_from_whom,
-//    'ip_address' => $sda_ip_address
-// );
 
-// print_r($for_print);
-// exit;
+/* - - - - -  получение значений инкрементов (начало)  - - - - - */
 
-/*
-Array ( [description] => text E [destination] => 127 [short_name] => red.ru [ip_address] => 127.0.0.1 )
-*/
+$sda_query = "SELECT * FROM sqlite_sequence";
+        
+$data = compact_array(query_to_array($sda_query));
 
-// - - - - - - - - - - - - - - -
+if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+
+
+$sda_sequence_number_table_account = 0;
+$sda_sequence_number_table_account_sip = 0;
+$sda_sequence_number_table_account_sip_caller = 0;
+
+foreach ($data["data"] as $row) {
+    
+    if ($row[0] == 'account') { $sda_sequence_number_table_account = $row[1]; };
+    if ($row[0] == 'account_sip') { $sda_sequence_number_table_account_sip = $row[1]; };
+    if ($row[0] == 'account_sip_caller') { $sda_sequence_number_table_account_sip_caller = $row[1]; };
+    
+}
+
+/* - - - - -  получение значений инкрементов (конец)  - - - - - */
+
 
 
 /* - - - - -  добавление записи в таблицу account (начало)  - - - - - */
 
-// $sda_id_table_account = $sda_sequence_number_table_account + 1;
-
-$sda_id_table_account = 7;
+$sda_id_table_account = $sda_sequence_number_table_account + 1;
 
 $sda_softVersion_table_account = 1;
 
@@ -223,7 +214,6 @@ $sda_activated_table_account = 1;
 $sda_activation_code_table_account = UUID_generator();
 
 $sda_epoch_table_account = time();
-
 
 
 
@@ -247,53 +237,18 @@ $sda_query_table_account[activation_code] = "'$sda_activation_code_table_account
 
 $sda_query_table_account[epoch] = "'$sda_epoch_table_account'";
 
-
-// - - - - - - - - - - - - - - -
-
-// $rows = array();
-// $rows[] = $sda_query_table_account;
-
-// print_r($rows);
-// exit;
-
-/*
-Array ( [0] => Array ( [id] => '7' [softVersion] => '1' [databaseVersion] => '1' [name] => 'text E' [email] => 'komunikator@red.ru' [password] => 'rPNWtJU0' [auth_token] => '3a34ae3594ee96d21607c0b33ad556a4' [activated] => '1' [activation_code] => '3249eeb4-69b7-812f-d3de-fcd1a0d52e4d' [epoch] => '1386240861' ) )
-
-Array ( 
-    [0] => Array ( 
-        [id] => '7' 
-        [softVersion] => '1' 
-        [databaseVersion] => '1' 
-        [name] => 'text E' 
-        [email] => 'komunikator@red.ru' 
-        [password] => 'rPNWtJU0' 
-        [auth_token] => '3a34ae3594ee96d21607c0b33ad556a4' 
-        [activated] => '1' 
-        [activation_code] => '3249eeb4-69b7-812f-d3de-fcd1a0d52e4d' 
-        [epoch] => '1386240861' 
-    ) 
-)
-*/
-
-// - - - - - - - - - - - - - - -
-
-
 /* - - - - -  добавление записи в таблицу account (конец)  - - - - - */
+
 
 
 /* - - - - -  добавление записи в таблицу account_sip (начало)  - - - - - */
 
-// $sda_id_table_account_sip = $sda_sequence_number_table_account_sip + 1;
-
-$sda_id_table_account_sip = 7;
+$sda_id_table_account_sip = $sda_sequence_number_table_account_sip + 1;
 
 $sda_auxiliary_variable = 'sip:' . $sda_extension_number . '@' . $sda_ip_address;
 $sda_address_table_account_sip = base64_encode( $sda_auxiliary_variable );
 
-// $sda_account_id_table_account_sip = $sda_id_table_account;
-
-$sda_account_id_table_account_sip = 7;
-
+$sda_account_id_table_account_sip = $sda_id_table_account;
 
 
 
@@ -303,57 +258,71 @@ $sda_query_table_account_sip[address] = "'$sda_address_table_account_sip'";
 
 $sda_query_table_account_sip[account_id] = "'$sda_account_id_table_account_sip'";
 
-
-// - - - - - - - - - - - - - - -
-
-// $rows = array();
-// $rows[] = $sda_query_table_account_sip;
-
-// print_r($rows);
-// exit;
-
-/*
-Array ( [0] => Array ( [id] => '7' [address] => 'c2lwOjEyN0AxMjcuMC4wLjE=' [account_id] => '7' ) )
-
-Array ( 
-    [0] => Array ( 
-        [id] => '7' 
-        [address] => 'c2lwOjEyN0AxMjcuMC4wLjE=' 
-        [account_id] => '7' 
-    ) 
-)
-*/
-
-// - - - - - - - - - - - - - - -
-
-
 /* - - - - -  добавление записи в таблицу account_sip (конец)  - - - - - */
 
 
 
+/* - - - - -  добавление записи в таблицу account_sip_caller (начало)  - - - - - */
+
+$sda_id_table_account_sip_caller = $sda_sequence_number_table_account_sip_caller + 1;
+
+$sda_display_name_table_account_sip_caller = $sda_from_whom;
+
+$sda_impu_table_account_sip_caller = 'sip:' . $sda_from_whom . '@' . $sda_ip_address;
+
+$sda_impi_table_account_sip_caller = $sda_from_whom;
+
+$sda_realm_table_account_sip_caller = $sda_ip_address;
+
+$sda_auxiliary_variable = $sda_from_whom . ':' . $sda_ip_address . ':' . $sda_from_whom;
+$sda_ha1_table_account_sip_caller = MD5( $sda_auxiliary_variable );
+
+$sda_account_sip_id_table_account_sip_caller = $sda_id_table_account_sip;
+
+
+        
+$sda_query_table_account_sip_caller[id] = "'$sda_id_table_account_sip_caller'";
+
+$sda_query_table_account_sip_caller[display_name] = "'$sda_display_name_table_account_sip_caller'";
+
+$sda_query_table_account_sip_caller[impu] = "'$sda_impu_table_account_sip_caller'";
+
+$sda_query_table_account_sip_caller[impi] = "'$sda_impi_table_account_sip_caller'";
+
+$sda_query_table_account_sip_caller[realm] = "'$sda_realm_table_account_sip_caller'";
+
+$sda_query_table_account_sip_caller[ha1] = "'$sda_ha1_table_account_sip_caller'";
+
+$sda_query_table_account_sip_caller[account_sip_id] = "'$sda_account_sip_id_table_account_sip_caller'";
+
+/* - - - - -  добавление записи в таблицу account_sip_caller (конец)  - - - - - */
 
 
 
 
+$need_out = false;
 
 
+$rows = array();
+$rows[] = $sda_query_table_account;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+$action = 'create_account';
+include("create.php");
 
 
-// $need_out = false;
-
-
-// $rows = array();
-// $rows[] = $sda_query_table_account;
-
-// $action = 'create_account';
-// include("create.php");
+$need_out = false;
 
 
 $rows = array();
 $rows[] = $sda_query_table_account_sip;
 
 $action = 'create_account_sip';
+include("create.php");
+
+
+$rows = array();
+$rows[] = $sda_query_table_account_sip_caller;
+
+$action = 'create_account_sip_caller';
 include("create.php");
 ?>
