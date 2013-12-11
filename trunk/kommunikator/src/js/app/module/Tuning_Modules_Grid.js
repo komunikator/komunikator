@@ -64,6 +64,7 @@
 
 Ext.define('app.module.Tuning_Modules_Grid', {
     extend: 'app.Grid',
+    id:'asddd',
     no_adddelbuttons: true,
     store_cfg: {
         autorefresh: false,
@@ -97,33 +98,19 @@ Ext.define('app.module.Tuning_Modules_Grid', {
         },
         {//'condition'
             renderer: app.checked_render,
-            renderer: function(v) {
-                if (v == false )
-                cr = Ext.getCmp('id_Tuning_Modules');
-               cr.hide();
-                cr.doLayout();
-
-            },
+       
             editor: {
                 xtype: 'checkbox',
                 style: {
                     textAlign: 'center'
                 },
-                           /*listeners: {
-               change: function(f, val) { 
-                   if (val === false )
-                  {
-                cr = Ext.getCmp('id_modules');
-               cr.hide();
-               /* dr.hide();
-               // cr.show();
-                dr.doLayout();
-              //  + надо уеще скрыть кнопки
-                cr.doLayout();
-                }}
-        }*/
+                store: Ext.create('app.Store', {
+              //      fields: ['id', 'name'],
+                    storeId: 'condition'
+                }),
+            queryMode: 'local'
             }
-                    
+              
           
                     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
      
@@ -132,5 +119,31 @@ Ext.define('app.module.Tuning_Modules_Grid', {
     ],
     initComponent: function() {
         this.callParent(arguments);
+        var i = Ext.getCmp('asddd');
+        var r= this.ownerCt;
+       // alert(r);
+       // var i =this.ownerCt.items.items[5]; 
+        // alert(i);
+            this.store.on('load',
+                function(store, records, success) {
+
+                    var g = Ext.getCmp('asd');  // поиск объекта по ID
+                   
+ // if (this.ownerCt.items.items[4] == false) {   
+ 
+/*g.hide();
+              
+               // cr.show();
+                g.doLayout();*/
+//}
+                    var repository_exists = Ext.StoreMgr.lookup('condition');
+
+                    if (repository_exists)
+                        repository_exists.load();
+                    else
+                        console.log('ERROR: sources_exception - fail_load [code of DID_Grid.js]');
+                }
+
+        );
     }
 });
