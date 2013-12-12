@@ -49,7 +49,7 @@
  *  version (version 3 as well).
  
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-*/
+ */
 Ext.apply(Ext.form.field.VTypes, {
     picture: function(val, field) {
         if (val == '#e6e6e6') {
@@ -112,13 +112,15 @@ Ext.define('app.module.Call_website_Grid', {
                 editable: false,
                 displayField: 'name',
                 valueField: 'name',
-                queryMode: 'local'
+                queryMode: 'local',
+                allowBlank: false
 
             }
         },
         {// 'short_name' - псевдоним
             editor: {
-                xtype: 'textfield'
+                xtype: 'textfield',
+                allowBlank: false
             }
         },
         {//'button_color' - цвет кнопки
@@ -158,7 +160,7 @@ Ext.define('app.module.Call_website_Grid', {
                 listConfig: {
                     getInnerTpl: function() {
 
-                        var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">' + //;color:{field2};
+                        var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">' + 
 // '<img src="images/flags/{field1}.png" align="left">&nbsp;&nbsp;'+
                                 '{field1}</div>';
                         return tpl;
@@ -177,22 +179,26 @@ Ext.define('app.module.Call_website_Grid', {
             sortable: false,
             groupable: false,
             //value:'<img src= "js/app/images/Grey_button.png" >',
-             icon: 'js/app/images/Grey_button.png', // Use a URL in the icon config
+            icon: 'js/app/images/Grey_button.png', // Use a URL in the icon config
             tooltip: 'Generate code',
-                     handler: function() {
-              // Ext.create('app.Page_Code').show();
-              Ext.create('widget.window',{
-           title: 'Пример 1',
-    html: 'Оболочка Windows является  на  сегодня  самым',
-                        
-    width: 400,
-    height: 400,
-    autoHeight: true,
-    autoScroll: true,           // скроллинг если текст не влезает.
-    maximizable: true         // значок «раскрыть окно на весь экран»
-    
-              }).show();
-           }
+            handler: function() {
+                Ext.create('widget.window', {
+                    title: app.msg.button_code,
+                    width: 400,
+                    height: 400,
+                    autoHeight: true,
+                    autoScroll: true, // скроллинг если текст не влезает.
+                    maximizable: true, // значок «раскрыть окно на весь экран»
+                    modal: true, //блокирует всё, что на заднем фоне
+                    draggable: true, //перемещение объекта по экрану
+                    loader: {
+                        url: 'data.php?action=get_code',
+                        loadMask: false,
+                        autoLoad: true, // important
+                        renderer: 'html' // this is also the default option, other options are data | component
+                    }
+                }).show();
+            }
         }
     ],
     initComponent: function() {
@@ -203,9 +209,9 @@ Ext.define('app.module.Call_website_Grid', {
 
                     var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID
                     if (grid && !this.autoLoad)
-                        grid.ownerCt.body.unmask();  // «серый» экран – блокировка действий пользователя
-                    this.Total_sync();  // количество записей
-                    this.dirtyMark = false;  // измененных записей нет
+                        grid.ownerCt.body.unmask();     // «серый» экран – блокировка действий пользователя
+                    this.Total_sync();                  // количество записей
+                    this.dirtyMark = false;             // измененных записей нет
                     if (!success && store.storeId) {
                         store.removeAll();
                         if (store.autorefresh != undefined)
