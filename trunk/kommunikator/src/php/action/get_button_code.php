@@ -55,112 +55,115 @@
 
 ?><?php
 
-$cur_ver = '0.6.1';
-$updates_base = "http://4yate.ru/repos";
-$updates_url = "$updates_base/checkforupdates.php?cur_ver=$cur_ver";
-$updates_data_url = "$updates_base/update.tar.gz";
-
-error_reporting(E_ALL & ~(E_STRICT | E_NOTICE | E_WARNING));
-
-date_default_timezone_set("UTC");
-$def_time_offset = 4;//Смещение метки времени по умолчанию (в часах) при отправке писем   
-
-require_once("DB.php");
-
-function handle_pear_error($e) {
-    Yate::Output($e->getMessage() . ' ' . print_r($e->getUserInfo(), true));
-}
-
-require_once 'PEAR.php';
-//PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error');
-
-
-// - - - - -  новый вариант (НАЧАЛО)  - - - - -
-
-if ( in_array( $action, array('get_call_button', 'create_call_button', 'create_account', 'create_account_sip', 'create_account_sip_caller', 'destroy_call_button', 'update_call_button', 'update_account', 'update_account_sip', 'update_account_sip_caller') ) ) {
-    $db_type_sql = "sqlite3";
-    
-    // $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";  // абсолютный путь к файлу БД
-    
-    $db_sqlite3_path = "/var/www/sda/sqlite.ru/c2c_sqlite.db";
-    
-    
-    // - - - - - - - - - - - - - - - - - - - -
-    
-    // для работы на локальном компьютере под Windows, посредствам Denwer
-
-    // Denwer необходима библиотека sqlite3.php (должна находится c:\WebServers\usr\local\php5\pear\DB\)
-    // библиотеку можно скопировать с «тестовой» машины (находится /usr/share/php/DB)
-    
-    // $db_sqlite3_path = "Z:\DB_SQLite\c2c_sqlite.db";
-    
-    // - - - - - - - - - - - - - - - - - - - -    
-
-    
-    $dsn = $db_type_sql.":///".$db_sqlite3_path;
-}
-else {
-    $db_type_sql = "mysql";
-    
-    $db_host = "localhost";
-    $db_user = "kommunikator";
-    $db_passwd = "kommunikator";
-    $db_database = "kommunikator";
-    
-    $dsn = "$db_type_sql://$db_user:$db_passwd@$db_host/$db_database";
-}
-
-// - - - - -  новый вариант (КОНЕЦ)  - - - - -
-
-
-// - - - - -  старый вариант (НАЧАЛО)  - - - - -
-/*
-$db_type_sql = "mysql";
-
-$db_host = "localhost";
-$db_user = "kommunikator";
-$db_passwd = "kommunikator";
-$db_database = "kommunikator";
-
-$dsn = "$db_type_sql://$db_user:$db_passwd@$db_host/$db_database";
-*/
-// - - - - -  старый вариант (КОНЕЦ)  - - - - -
-
-
-$conn = DB::connect($dsn);
-$debug_info = true;
-
-if (PEAR::isError($conn)) {
-    if ($debug_info)
-        echo 'DBMS/Debug Message: ' . $conn->getDebugInfo() . "<br>";
-    else
-        echo 'Standard Message: ' . $conn->getMessage() . "<br>";
+if (!$_SESSION['user']) {
+    echo (out(array("success"=>false,"message"=>"User is undefined")));
     exit;
 }
 
-$conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
 
-$vm_base = "/var/lib/misc";
-$no_groups = false;
-$no_pbx = false;
-$uploaded_prompts = "/var/lib/misc";
-$query_on = false;
-$max_resets_conn = 5;
+/* - - - - -  получение значений полей «Псевдоним» и «Цвет кнопки» по нажатию кнопки «Получить код» (НАЧАЛО)  - - - - - */
 
-//$calls_email  = "root@localhost"; 
-//$fax_call = "root@localhost";
-//$calls_email = "info@digt.ru";
-//$fax_call = "info@digt.ru";
+$sda_short_name = 'snake.ru';
+$sda_button_color = 'серый';
 
-$source = array(
-    'voicemail' => 'external/nodata/voicemail.php',
-    'attendant' => 'external/nodata/auto_attendant.php'
-);
- 
-$key_source = array();
-foreach ($source as $key => $value)
-    $key_source[$value] = $key;
+/* - - - - -  получение значений полей «Псевдоним» и «Цвет кнопки» по нажатию кнопки «Получить код» (КОНЕЦ)  - - - - - */
 
-$time_out = 600;
+
+
+/* - - - - -  получение значения переменной $sda_c2c_from – адрес получателя (НАЧАЛО)  - - - - - */
+
+$sda_query = <<<EOD
+SELECT
+    ta.email as ta_email
+FROM account_sip_caller tasc
+LEFT JOIN account_sip tas
+    ON tas.id = tasc.account_sip_id
+LEFT JOIN account ta
+    ON ta.id = tas.account_id
+WHERE tasc.impi = '$sda_short_name'
+EOD;
+
+$data = compact_array(query_to_array($sda_query));
+
+if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+
+$sda_c2c_from = base64_encode( $data["data"][0][0] );
+
+/* - - - - -  получение значения переменной $sda_c2c_from – адрес получателя (КОНЕЦ)  - - - - - */
+
+
+
+/* - - - - -  получение значения переменной $sda_c2c_cls – стиль кнопки (НАЧАЛО)  - - - - - */
+
+switch ($sda_button_color) {
+
+    case "серый"        : $sda_c2c_cls = 'btn';
+                          break;
+
+    case "синий"        : $sda_c2c_cls = 'btn btn-primary';
+                          break;
+
+    case "голубой"      : $sda_c2c_cls = 'btn btn-info';
+                          break;
+
+    case "зеленый"      : $sda_c2c_cls = 'btn btn-success';
+                          break;
+
+    case "оранжевый"    : $sda_c2c_cls = 'btn btn-warning';
+                          break;
+
+    case "красный"      : $sda_c2c_cls = 'btn btn-danger';
+                          break;
+
+    case "темно-серый"  : $sda_c2c_cls = 'btn btn-inverse';
+                          break;
+
+}
+
+/* - - - - -  получение значения переменной $sda_c2c_cls – стиль кнопки (КОНЕЦ)  - - - - - */
+
+
+
+$sda_src = 'js/c2c-api.js';  // константа (по крайней мере, пока)
+$sda_host = $_SERVER['SERVER_ADDR'];
+
+$sda_button_code = <<<EOD
+<script src='$sda_src'></script>
+
+<script>
+    c2c.from = '$sda_c2c_from';
+
+    c2c.cls = '$sda_c2c_cls';
+    c2c.text = 'Позвонить нам';
+
+    c2c.calling_text = 'Установка соединения ...';
+    c2c.ringing_text = 'Вызов абонента ...';
+    c2c.in_call_text = 'Слушаем Вас, говорите';
+    c2c.decline_text = 'Сброс вызова';
+    c2c.call_terminated_text = 'Вызов завершен';
+    c2c.call_terminating_text = 'Завершение вызова ...';
+
+    c2c.config = {
+        http_service_url: 'http://$sda_host:10070',
+        websocket_proxy_url: 'ws://$sda_host:10060',
+        sip_outbound_proxy_url: 'udp://$sda_host:5060'
+    };
+
+    c2c.init();
+</script>
+EOD;
+
+
+$sda_button_code = "<pre>" . htmlspecialchars($sda_button_code) . "</pre>";
+
+
+
+
+$obj = array("success"=>true);
+
+$obj["data"] = array($sda_button_code);
+
+echo out($obj);
+
 ?>
