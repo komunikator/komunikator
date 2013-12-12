@@ -263,6 +263,19 @@ app.msg = {
     'normal,_unspecified':'answered',
     pickup:'pickup',
     temporarily_not_available: 'Not available',
+    Call_website: 'Call website',
+    button_code:'Button code',
+    modules: 'Modules',
+    module_name: 'Module name',
+    condition: 'Состояние',
+    color: 'Button color',
+    gray: 'gray',
+    blue: 'blue',
+    azure: 'azure',
+    green: 'green',
+    orange: 'orange',
+    red: 'red',
+    dark_gray: 'dark_gray',
     
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
