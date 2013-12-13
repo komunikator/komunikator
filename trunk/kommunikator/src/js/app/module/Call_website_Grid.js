@@ -50,6 +50,7 @@
  
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
+
 Ext.apply(Ext.form.field.VTypes, {
     picture: function(val, field) {
         if (val == '#e6e6e6') {
@@ -83,15 +84,19 @@ Ext.apply(Ext.form.field.VTypes, {
 
     }
 });
+
 var color = [['btn', '#e6e6e6'], ['btn btn-primary', '#0044cc'], ['btn btn-info', '#2f96b4'], ['btn btn-success', '#51a351'], ['btn btn-warning', '#f89406'], ['btn btn-danger', '#bd362f'], ['btn btn-inverse', '#444444']];
 
 Ext.define('app.module.Call_website_Grid', {
     //id: 'ID_Call_website',
+    
     extend: 'app.Grid',
+            
     store_cfg: {
         fields: ['id', 'description', 'destination', 'short_name', 'color', 'button_code'],
         storeId: 'call_button'
     },
+            
     columns: [
         {// 'id'
             hidden: true
@@ -123,7 +128,7 @@ Ext.define('app.module.Call_website_Grid', {
                 allowBlank: false
             }
         },
-        {//'button_color' - цвет кнопки
+        {  // 'button_color' - цвет кнопки
             renderer: function(v) {
                 if (v == 'btn')
                     return app.msg.gray;
@@ -146,58 +151,61 @@ Ext.define('app.module.Call_website_Grid', {
                 if (v == 'btn btn-inverse')
                     return app.msg.dark_gray;
                 return v;
-
             },
             editor: {
-                displayField: 'field1',
-                valueField: 'field1',
-                xtype: 'combobox',
-                mode: 'local',
-                groupable: false,
-                sortable: false,
-                editable: false,
-                store: color,
+                xtype         : 'combobox',
+                mode          : 'local',
+                groupable     : false,
+                sortable      : false,
+                editable      : false,
+                store         : color,
                 listConfig: {
                     getInnerTpl: function() {
-
-                        var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">' + 
-// '<img src="images/flags/{field1}.png" align="left">&nbsp;&nbsp;'+
-                                '{field1}</div>';
+                        var tpl = '<div class="x-combo-list-item" style="background-color:{field2};color:{field2};">{field1}</div>';
                         return tpl;
-                    }},
-                defaultValue: 1,
-                vtype: 'picture',
+                    }
+                },
+                defaultValue  : 1,
+                vtype         : 'picture',
                 listeners: {
                     afterrender: function() {
-
                         this.setValue(this.defaultValue);
                     }
-                }}
+                }
+            }
         },
-        {//'button_code' - код кнопки
-            xtype: 'actioncolumn',
+        {  // 'button_code' - код кнопки
+            xtype  : 'actioncolumn',
             sortable: false,
             groupable: false,
-            //value:'<img src= "js/app/images/Grey_button.png" >',
-            icon: 'js/app/images/Grey_button.png', // Use a URL in the icon config
-            tooltip: 'Generate code',
-            handler: function() {
+            icon   : 'js/app/images/Grey_button.png',
+            
+            handler: function(grid, rowIndex, colIndex) {
+                
+                var rec = grid.getStore().getAt(rowIndex);
+                
+                var sda_url = 'data.php?action=get_button_code&sda_short_name=' + rec.get('short_name') + '&sda_button_color=' + rec.get('color');
+                
+                
                 Ext.create('widget.window', {
-                    title: app.msg.button_code,
-                    width: 400,
-                    height: 400,
-                    autoHeight: true,
-                    autoScroll: true, // скроллинг если текст не влезает.
-                    maximizable: true, // значок «раскрыть окно на весь экран»
-                    modal: true, //блокирует всё, что на заднем фоне
-                    draggable: true, //перемещение объекта по экрану
+                    title        : app.msg.button_code,
+                    width        : 600,
+                    height       : 450,
+                    autoHeight   : true,
+                    autoScroll   : true,
+                    maximizable  : true,  // значок «раскрыть окно на весь экран»
+                    modal        : true,  // блокирует всё, что на заднем фоне
+                    draggable    : true,  // перемещение объекта по экрану
+                    
                     loader: {
-                        url: 'data.php?action=get_code',
-                        loadMask: false,
-                        autoLoad: true, // important
-                        renderer: 'html' // this is also the default option, other options are data | component
+                        url       : sda_url,
+                        loadMask  : false,
+                        autoLoad  : true,  // important
+                        renderer  : 'html'  // this is also the default option, other options are data | component
                     }
+                    
                 }).show();
+                
             }
         }
     ],

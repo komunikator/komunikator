@@ -64,8 +64,32 @@ if (!$_SESSION['user']) {
 
 /* - - - - -  получение значений полей «Псевдоним» и «Цвет кнопки» по нажатию кнопки «Получить код» (НАЧАЛО)  - - - - - */
 
-$sda_short_name = 'snake.ru';
-$sda_button_color = 'серый';
+if ( isset($_GET['sda_short_name']) ) {
+
+    $sda_short_name = $_GET['sda_short_name'];
+
+    unset($_GET['sda_short_name']);
+
+}
+else {
+
+    $sda_short_name = '';
+
+}
+
+
+if ( isset($_GET['sda_button_color']) ) {
+
+    $sda_button_color = $_GET['sda_button_color'];
+
+    unset($_GET['sda_button_color']);
+
+}
+else {
+
+    $sda_button_color = '';
+
+}
 
 /* - - - - -  получение значений полей «Псевдоним» и «Цвет кнопки» по нажатию кнопки «Получить код» (КОНЕЦ)  - - - - - */
 
@@ -88,6 +112,7 @@ $data = compact_array(query_to_array($sda_query));
 
 if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
 
+
 $sda_c2c_from = base64_encode( $data["data"][0][0] );
 
 /* - - - - -  получение значения переменной $sda_c2c_from – адрес получателя (КОНЕЦ)  - - - - - */
@@ -98,26 +123,28 @@ $sda_c2c_from = base64_encode( $data["data"][0][0] );
 
 switch ($sda_button_color) {
 
-    case "серый"        : $sda_c2c_cls = 'btn';
-                          break;
+    case "btn"              : $sda_c2c_cls = 'btn';
+                              break;
 
-    case "синий"        : $sda_c2c_cls = 'btn btn-primary';
-                          break;
+    case "btn btn-primary"  : $sda_c2c_cls = 'btn btn-primary';
+                              break;
 
-    case "голубой"      : $sda_c2c_cls = 'btn btn-info';
-                          break;
+    case "btn btn-info"     : $sda_c2c_cls = 'btn btn-info';
+                              break;
 
-    case "зеленый"      : $sda_c2c_cls = 'btn btn-success';
-                          break;
+    case "btn btn-success"  : $sda_c2c_cls = 'btn btn-success';
+                              break;
 
-    case "оранжевый"    : $sda_c2c_cls = 'btn btn-warning';
-                          break;
+    case "btn btn-warning"  : $sda_c2c_cls = 'btn btn-warning';
+                              break;
 
-    case "красный"      : $sda_c2c_cls = 'btn btn-danger';
-                          break;
+    case "btn btn-danger"   : $sda_c2c_cls = 'btn btn-danger';
+                              break;
 
-    case "темно-серый"  : $sda_c2c_cls = 'btn btn-inverse';
-                          break;
+    case "btn btn-inverse"  : $sda_c2c_cls = 'btn btn-inverse';
+                              break;
+                          
+    default                 : $sda_c2c_cls = 'btn';
 
 }
 
@@ -155,14 +182,25 @@ $sda_button_code = <<<EOD
 EOD;
 
 
+// $sda_button_code = htmlspecialchars($sda_button_code);
 $sda_button_code = "<pre>" . htmlspecialchars($sda_button_code) . "</pre>";
 
+
+// - - - - - - - - - - - - - - -
+
+print_r($sda_button_code);
+// exit;
+
+// - - - - - - - - - - - - - - -
 
 
 
 $obj = array("success"=>true);
 
-$obj["data"] = array($sda_button_code);
+// $obj["total"] = $total['data'][0][0];
+// $obj["data"] = $data['data'];
+// $obj["data"] = $sda_button_code;
+// $obj["data"] = array($sda_button_code);
 
 echo out($obj);
 
