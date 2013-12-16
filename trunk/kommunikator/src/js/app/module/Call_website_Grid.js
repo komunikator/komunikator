@@ -184,27 +184,29 @@ Ext.define('app.module.Call_website_Grid', {
                 
                 var rec = grid.getStore().getAt(rowIndex);
                 
-                var sda_url = 'data.php?action=get_button_code&sda_short_name=' + rec.get('short_name') + '&sda_button_color=' + rec.get('color');
+                // var sda_url = 'data.php?action=get_button_code&sda_short_name=' + rec.get('short_name') + '&sda_button_color=' + rec.get('color');
                 
-                
-                Ext.create('widget.window', {
-                    title        : app.msg.button_code,
-                    width        : 600,
-                    height       : 450,
-                    autoHeight   : true,
-                    autoScroll   : true,
-                    maximizable  : true,  // значок «раскрыть окно на весь экран»
-                    modal        : true,  // блокирует всё, что на заднем фоне
-                    draggable    : true,  // перемещение объекта по экрану
+                app.request(
+                    {
+                        action            : 'get_button_code',
+                        sda_short_name    : rec.get('short_name'),
+	                sda_button_color  : rec.get('color')
+                    },
                     
-                    loader: {
-                        url       : sda_url,
-                        loadMask  : false,
-                        autoLoad  : true,  // important
-                        renderer  : 'html'  // this is also the default option, other options are data | component
-                    }
-                    
-                }).show();
+                    function(result) {
+                        Ext.create('widget.window', {
+                            title        : app.msg.button_code,
+                            width        : 600,
+                            height       : 450,
+                            autoHeight   : true,
+                            autoScroll   : true,
+                            maximizable  : true,  // значок «раскрыть окно на весь экран»
+                            modal        : true,  // блокирует всё, что на заднем фоне
+                            draggable    : true,  // перемещение объекта по экрану
+                            html         : '<pre>' + result.data + '</pre>'
+                        }).show();
+	            }
+	        );
                 
             }
         }

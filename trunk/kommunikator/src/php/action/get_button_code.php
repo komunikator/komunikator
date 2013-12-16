@@ -64,32 +64,9 @@ if (!$_SESSION['user']) {
 
 /* - - - - -  получение значений полей «Псевдоним» и «Цвет кнопки» по нажатию кнопки «Получить код» (НАЧАЛО)  - - - - - */
 
-if ( isset($_GET['sda_short_name']) ) {
+$sda_short_name = getparam('sda_short_name');
 
-    $sda_short_name = $_GET['sda_short_name'];
-
-    unset($_GET['sda_short_name']);
-
-}
-else {
-
-    $sda_short_name = '';
-
-}
-
-
-if ( isset($_GET['sda_button_color']) ) {
-
-    $sda_button_color = $_GET['sda_button_color'];
-
-    unset($_GET['sda_button_color']);
-
-}
-else {
-
-    $sda_button_color = '';
-
-}
+$sda_button_color = getparam('sda_button_color');
 
 /* - - - - -  получение значений полей «Псевдоним» и «Цвет кнопки» по нажатию кнопки «Получить код» (КОНЕЦ)  - - - - - */
 
@@ -182,25 +159,12 @@ $sda_button_code = <<<EOD
 EOD;
 
 
-// $sda_button_code = htmlspecialchars($sda_button_code);
-$sda_button_code = "<pre>" . htmlspecialchars($sda_button_code) . "</pre>";
-
-
-// - - - - - - - - - - - - - - -
-
-print_r($sda_button_code);
-// exit;
-
-// - - - - - - - - - - - - - - -
-
+$sda_button_code = htmlspecialchars($sda_button_code);
 
 
 $obj = array("success"=>true);
 
-// $obj["total"] = $total['data'][0][0];
-// $obj["data"] = $data['data'];
-// $obj["data"] = $sda_button_code;
-// $obj["data"] = array($sda_button_code);
+$obj["data"] = $sda_button_code;
 
 echo out($obj);
 
