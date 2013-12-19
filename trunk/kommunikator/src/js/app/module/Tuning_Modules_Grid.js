@@ -65,6 +65,13 @@ Ext.define('app.module.Tuning_Modules_Grid', {
         },
         {// 'module_name'
             width: 150,
+            renderer: function(v) {
+                if (v == 'Mail_Settings_Panel')
+                    return app.msg.Mail_Settings_Panel;
+                else
+                if (v == 'Call_website_Grid')
+                    return app.msg.Call_website_Grid;
+            },
             editor: {
                 xtype: 'textfield',
                 disabled: true     //запрет на редактирование
