@@ -67,9 +67,9 @@ function getparam($param) {
     if (isset($_POST[$param]))
         $ret = $_POST[$param];
     else if (isset($_GET[$param]))
-        $ret = $_GET[$param];
-    else
-        return null;
+             $ret = $_GET[$param];
+         else
+             return null;
     return $ret;
 }
 
