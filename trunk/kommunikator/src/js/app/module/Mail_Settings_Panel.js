@@ -63,7 +63,6 @@ Ext.apply(Ext.form.field.VTypes, {
 });
 
 Ext.define('app.module.Mail_Settings_Panel', {
-    id: 'Mail_Settings',
     extend : 'Ext.form.Panel',
     hidden: true,
     url:'data.php?action=mail_settings',

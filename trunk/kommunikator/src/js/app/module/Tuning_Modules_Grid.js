@@ -51,46 +51,41 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 
-/*
- Ext.require([
- 'Ext.ux.CheckColumn'
- ]);
- */
-
-//app.Loader.load('js/ux/css/CheckHeader.css')
-
-
-
-
 Ext.define('app.module.Tuning_Modules_Grid', {
     extend: 'app.Grid',
-    id:'asddd',
     no_adddelbuttons: true,
     store_cfg: {
         autorefresh: false,
         fields: ['id', 'module_name', 'description', 'version', 'condition'],
         storeId: 'modules'
     },
-    // advanced  : ['ip_transport', 'authname', 'domain', 'callerid'],
-
     columns: [
         {// 'id'
-           
             hidden: true
         },
         {// 'module_name'
+            width: 150,
+            renderer: function(v) {
+                if (v == 'Mail_Settings_Panel')
+                    return app.msg.Mail_Settings_Panel;
+                else
+                if (v == 'Call_website_Grid')
+                    return app.msg.Call_website_Grid;
+            },
             editor: {
                 xtype: 'textfield',
                 disabled: true     //запрет на редактирование
             }
         },
         {// 'description'
+            width: 500,
             editor: {
                 xtype: 'textfield',
                 disabled: true
             }
         },
         {// 'version'
+            width: 70,
             editor: {
                 xtype: 'textfield',
                 disabled: true
@@ -98,52 +93,48 @@ Ext.define('app.module.Tuning_Modules_Grid', {
         },
         {//'condition'
             renderer: app.checked_render,
-       
             editor: {
                 xtype: 'checkbox',
                 style: {
                     textAlign: 'center'
                 },
-                store: Ext.create('app.Store', {
-              //      fields: ['id', 'name'],
-                    storeId: 'condition'
-                }),
-            queryMode: 'local'
+                queryMode: 'local'
             }
-              
-          
-                    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
-     
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
         }
-
     ],
     initComponent: function() {
         this.callParent(arguments);
-        var i = Ext.getCmp('asddd');
-        var r= this.ownerCt;
-       // alert(r);
-       // var i =this.ownerCt.items.items[5]; 
-        // alert(i);
-            this.store.on('load',
+        this.store.on('load',
                 function(store, records, success) {
-
-                    var g = Ext.getCmp('asd');  // поиск объекта по ID
-                   
- // if (this.ownerCt.items.items[4] == false) {   
- 
-/*g.hide();
-              
-               // cr.show();
-                g.doLayout();*/
-//}
-                    var repository_exists = Ext.StoreMgr.lookup('condition');
-
-                    if (repository_exists)
-                        repository_exists.load();
-                    else
-                        console.log('ERROR: sources_exception - fail_load [code of DID_Grid.js]');
-                }
-
-        );
-    }
-});
+                    store.each(function(record)
+                    {
+                        Ext.getCmp('main_tabpanel').remove('modules', true);
+                        var items = [];
+                        store.each(function(record)
+                        {
+                            var module_name = null;
+                            var condition = null;
+                            record.fields.each(function(field)
+                            {
+                                var fieldValue = record.get(field.name);
+                                if (field.name == 'module_name')
+                                    module_name = fieldValue;
+                                if (field.name == 'condition')
+                                    condition = fieldValue;
+                            });
+                            //console.log(module_name + ':' + condition);
+                            if (condition == '1')
+                                items.push(
+                                        Ext.create('app.module.' + module_name, {title: app.msg[module_name]})
+                                        );
+                        });
+                        if (items.length !== 0)
+                            Ext.getCmp('main_tabpanel').add(Ext.create('app.Card_Panel', {
+                                id: 'modules',
+                                title: app.msg.modules,
+                                items: items
+                            }));
+                    });
+                }, this);
+    }});

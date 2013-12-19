@@ -52,6 +52,7 @@
  */
 
 Ext.define('app.Viewport', {
+    id: 'Viewport',
     extend: 'Ext.container.Viewport',
     style: 'padding : 2px 10px', // отступы: верх, низ - 2; право, лево - 10
     layout: 'border',
@@ -96,7 +97,6 @@ Ext.define('app.Viewport', {
                 }
             },
             // split : true,
-
             items: [
                 Ext.create('app.module.Status_Grid', {
                     title: app.msg.statistic  // Статистика АТС
@@ -105,15 +105,15 @@ Ext.define('app.Viewport', {
 
         }, {
             region: 'center', // центр
+            layout: 'fit',
+            xtype: 'tabpanel',
+            id: 'main_tabpanel',
+            bodyStyle: 'padding : 15px', // отступы: верх, низ, право, лево - 15
             // resizable : true,
             // split : true,
             // layout : 'anchor',
-            layout: 'fit',
             // autoHeight : true,
-            xtype: 'tabpanel',
             // layout : 'accordion',
-            id: 'main_tabpanel',
-            bodyStyle: 'padding : 15px', // отступы: верх, низ, право, лево - 15
             // style : 'padding : 2px',
             // defaults : {
             //     layout : 'fit'
@@ -134,7 +134,6 @@ Ext.define('app.Viewport', {
                         f.items.items[0].fireEvent('activate', f.items.items[0]);  // f.setActiveItem(0);
                     }
                 }
-
             },
             items: [
                 // Ext.create('app.module.Attendant_Panel'),
@@ -208,21 +207,17 @@ Ext.define('app.Viewport', {
                         })
                     ]
                 }),
-           
                 Ext.create('app.Card_Panel', {
                     title: app.msg.settings, // Настройки
-               id:'asd',
                     items: [
                         Ext.create('app.module.Users_Grid', {
                             title: app.msg.users  // Управление доступом
                         }),
                         Ext.create('app.module.Network_Settings_Panel', {
-                            title: app.msg.network_settings,  // Сетевые настройки
-                          
+                            title: app.msg.network_settings // Сетевые настройки
                         }),
                         Ext.create('app.module.Tuning_Modules_Grid', {
-                            title: app.msg.modules,
-                            id:'id_Tuning_Modules'
+                            title: app.msg.modules
                         }),
                         /*
                          Ext.create('app.module.Ntn_Settings_Grid',{
@@ -231,7 +226,6 @@ Ext.define('app.Viewport', {
                          Ext.create('app.module.Update_Panel',{
                          title:app.msg.update
                          }),  */
-
                         {
                             title: app.msg.reboot_pbx, // Перезагрузка АТС
 
@@ -319,7 +313,6 @@ Ext.define('app.Viewport', {
                                                     animEl: 'mb4',
                                                     icon: Ext.MessageBox.QUESTION
                                                 });
-
                                             }
                                         });
                                     }
@@ -332,27 +325,25 @@ Ext.define('app.Viewport', {
                                     animEl: 'mb4',
                                     icon: Ext.MessageBox.QUESTION
                                 });
-
-                            } }
+                            }}
                     ]
                 }),
-                Ext.create('app.Card_Panel', {
-                    title: app.msg.modules, // Модули
-                    id: 'id_modules',
-                    items: [
-                    Ext.create('app.module.Call_website_Grid', {
-                            title: app.msg.Call_website, // Звонок с сайта
-                            //id: 'ID_Call_website'
-                        }),
-                    Ext.create('app.module.Mail_Settings_Panel', {
-                            title: app.msg.mail_settings  // Почтовые уведомления
-                        })]
-                })
-                        //{ 
-                        //    title: app.msg.attendant,layout: 'anchor', 
-                        //    items: [{height:100,border: false,html:'test message'},Ext.create('app.module.Prompts_Grid'/*,{height:300})]
-                        //}
- ]
+                /*Ext.create('app.Card_Panel', {
+                 id:'modules',
+                 title: app.msg.modules//,  Модули
+                 /*  items: [
+                 Ext.create('app.module.Call_website_Grid', {
+                 title: app.msg.Call_website // Звонок с сайта
+                 }),
+                 Ext.create('app.module.Mail_Settings_Panel', {
+                 title: app.msg.mail_settings  // Почтовые уведомления
+                 })]*/
+                //  })
+                //{ 
+                //    title: app.msg.attendant,layout: 'anchor', 
+                //    items: [{height:100,border: false,html:'test message'},Ext.create('app.module.Prompts_Grid'/*,{height:300})]
+                //}
+            ]
         }],
     initComponent: function() {
         this.items[0].title =
