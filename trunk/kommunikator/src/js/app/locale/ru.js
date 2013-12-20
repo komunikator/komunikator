@@ -323,5 +323,8 @@ app.msg = {
     'busy_here_[call_processing_released]': "занят",
     'normal,_unspecified': "отвеченный",
     pickup: 'перехваченный',
-    temporarily_not_available: 'недоступен'
+    temporarily_not_available: 'недоступен',
+    too_many_hops:'слишком много попыток',
+    call_is_looping:'звонок зациклен',
+    unauthorized:'не авторизован'
 };
