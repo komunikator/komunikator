@@ -74,7 +74,7 @@ Ext.define('app.module.Tuning_Modules_Grid', {
             },
             editor: {
                 xtype: 'textfield',
-                disabled: true     //запрет на редактирование
+                disabled: true 
             }
         },
         {// 'description'
@@ -100,9 +100,9 @@ Ext.define('app.module.Tuning_Modules_Grid', {
                 },
                 queryMode: 'local'
             }
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    
         }
     ],
+
     initComponent: function() {
         this.callParent(arguments);
         this.store.on('load',
@@ -125,9 +125,7 @@ Ext.define('app.module.Tuning_Modules_Grid', {
                             });
                             //console.log(module_name + ':' + condition);
                             if (condition == '1')
-                                items.push(
-                                        Ext.create('app.module.' + module_name, {title: app.msg[module_name]})
-                                        );
+                                items.push( Ext.create('app.module.' + module_name, {title: app.msg[module_name]}) );
                         });
                         if (items.length !== 0)
                             Ext.getCmp('main_tabpanel').add(Ext.create('app.Card_Panel', {
@@ -137,4 +135,5 @@ Ext.define('app.module.Tuning_Modules_Grid', {
                             }));
                     });
                 }, this);
-    }});
+    }
+});

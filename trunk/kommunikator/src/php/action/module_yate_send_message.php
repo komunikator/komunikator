@@ -54,39 +54,36 @@
 */
 
 ?><?
-if (!$_SESSION['user']) {
-    echo (out(array("success"=>false,"message"=>"User is undefined")));
-    exit;
-}
+if ($sda_action == 'start' or $sda_action == 'stop') {
+
+    if ($sda_action == 'start') { $sda_command = 'external start send_message.php'; }
+
+    if ($sda_action == 'stop') { $sda_command = 'external stop send_message.php'; }
 
 
-$total = compact_array(query_to_array("SELECT ( (SELECT count(*)-1 FROM groups) + (SELECT count(*) FROM extensions) ) count"));
+    require_once("php/socketconn.php");
 
-if (!is_array($total["data"])) echo out(array("success"=>false,"message"=>$total));
+    $socket = new SocketConn;
 
 
-$sql = <<<EOD
-SELECT
-    groups.extension as id,
-    groups.group as name
-FROM groups
-WHERE group_id != 1
-UNION
-SELECT
-    extension as id,
-    extension as name
-FROM extensions
-EOD;
-
-$data = compact_array(query_to_array($sql));
-
-if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
-
+    if ($socket -> error == "") {
+        
+        $obj = array("success" => true);
+        
+        $socket -> command($sda_command);
+        
+    }
+    else {
+        
+        $obj = array("success" => false);
+        
+        $obj['message'] = "Ошибка: Невозможно подключить модуль - send message";
+        
+    }
     
-$obj = array("success"=>true);
+    $sda_action = '';
 
-$obj["total"] = $total['data'][0][0];
-$obj["data"] = $data['data']; 
+    echo out($obj);
 
-echo out($obj);
+}
 ?>

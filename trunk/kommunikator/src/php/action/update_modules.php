@@ -52,21 +52,104 @@
 
 *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 */
+
 ?><?
+
 need_user();
 
 $data = json_decode($HTTP_RAW_POST_DATA);
-$rows = array();
-$values = array();
 
 if ($data && !is_array($data)) $data = array($data);
-foreach ($data as $row)
-{
-$values = array();
-    foreach ($row as $key=>$value)
-            $values[$key]="'$value'"; 
-$rows[] = $values;
+
+
+$rows = array();
+
+// - - - - - - - - - - - - - - - - - - - -
+/* Звонок с сайта */
+
+$sda_tick_condition_call_website = 'NO';
+$sda_tick_id_call_website = 'NO';
+
+// - - - - - - - - - - - - - - - - - - - -
+/* Почтовые уведомления */
+
+$sda_tick_condition_mail_settings = 'NO';
+$sda_tick_id_mail_settings = 'NO';
+
+// - - - - - - - - - - - - - - - - - - - -
+
+foreach ($data as $row) {
+    $values = array();
+
+    foreach ($row as $key => $value) {
+        $values[$key]="'$value'";
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        /* Звонок с сайта */
+
+        if ( $sda_tick_condition_call_website === 'NO' or $sda_tick_id_call_website === 'NO' ) {
+
+            if ($key == 'condition') {
+                if ($value == 1) { $sda_tick_condition_call_website = $value; } else { $sda_tick_condition_call_website = 0; }
+            }
+
+            if ($key == 'id') {
+                if ($value == 1) { $sda_tick_id_call_website = $value; } else { $sda_tick_condition_call_website = 'NO'; }
+            }
+        }
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        /* Почтовые уведомления */
+
+        if ( $sda_tick_condition_mail_settings === 'NO' or $sda_tick_id_mail_settings === 'NO' ) {
+
+            if ($key == 'condition') {
+                if ($value == 1) { $sda_tick_condition_mail_settings = $value; } else { $sda_tick_condition_mail_settings = 0; }
+            }
+
+            if ($key == 'id') {
+                if ($value == 2) { $sda_tick_id_mail_settings = $value; } else { $sda_tick_condition_mail_settings = 'NO'; }
+            }
+        }
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    }
+
+    $rows[] = $values;
 }
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/* Звонок с сайта */
+
+if ( $sda_tick_id_call_website == 1 and $sda_tick_condition_call_website == 1 ) {
+    $sda_action = 'start';
+    include("addition_call_button.php");
+}
+
+if ( $sda_tick_id_call_website == 1 and $sda_tick_condition_call_website == 0 ) {
+    $sda_action = 'stop';
+    include("addition_call_button.php");
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/* Почтовые уведомления */
+
+if ( $sda_tick_id_mail_settings == 2 and $sda_tick_condition_mail_settings == 1 ) {
+    $sda_action = 'start';
+    include("module_yate_send_message.php");
+}
+
+if ( $sda_tick_id_mail_settings == 2 and $sda_tick_condition_mail_settings == 0 ) {
+    $sda_action = 'stop';
+    include("module_yate_send_message.php");
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
 $id_name = 'module_name_id';
 require_once("update.php");
+
 ?>

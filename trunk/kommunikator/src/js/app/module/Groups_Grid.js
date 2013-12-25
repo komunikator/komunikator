@@ -52,20 +52,22 @@
 */
 
 Ext.define('app.module.Groups_Grid', {
-    extend     : 'app.Grid',
+    extend : 'app.Grid',
     
-    store_cfg  : {
+    store_cfg : {
         fields   : ['id', 'group', 'description', 'extension'],   
         storeId  : 'groups'
     },
     
-    columns    : [
+    columns : [
         
     {  // 'id'
         hidden : true
     },
 
     {  // 'group'
+        width : 150,
+
         editor : {
             xtype       : 'textfield',
             allowBlank  : false
@@ -73,13 +75,15 @@ Ext.define('app.module.Groups_Grid', {
     },
 
     {  // 'description'
+        width : 150,
+
         editor : {
             xtype : 'textfield'
         }
     },
 
     {  // 'extension'
-        width  : 130,
+        width : 100,
         
         editor : {
             xtype       : 'textfield',
@@ -126,4 +130,4 @@ Ext.define('app.module.Groups_Grid', {
         );
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     }
-})
+});

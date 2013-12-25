@@ -129,7 +129,8 @@ switch ($sda_button_color) {
 
 
 
-$sda_src = 'js/c2c-api.js';  // константа (по крайней мере, пока)
+// $sda_src = 'js/c2c-api.js';
+$sda_src = 'http://komunikator.ru/c2c/js/c2c-api.js';
 $sda_host = $_SERVER['SERVER_ADDR'];
 
 $sda_button_code = <<<EOD

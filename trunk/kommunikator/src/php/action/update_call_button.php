@@ -266,6 +266,10 @@ $sda_query_table_account_sip_caller[ha1] = "'$sda_ha1_table_account_sip_caller'"
 
 
 
+$sda_action = 'stop';
+include("addition_call_button.php");
+
+
 
 $need_out = false;
 
@@ -295,5 +299,13 @@ $rows[] = $sda_query_table_account_sip_caller;
 $id_name = 'id';
 $action = 'update_account_sip_caller';
 include("update.php");
+
+
+
+$conn->disconnect();
+
+
+$sda_action = 'start';
+include("addition_call_button.php");
 
 ?>

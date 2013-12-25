@@ -77,12 +77,10 @@ require_once 'PEAR.php';
 
 // - - - - -  новый вариант (НАЧАЛО)  - - - - -
 
-if ( in_array( $action, array('get_call_button', 'create_call_button', 'create_account', 'create_account_sip', 'create_account_sip_caller', 'destroy_call_button', 'update_call_button', 'update_account', 'update_account_sip', 'update_account_sip_caller', 'get_button_code') ) ) {
+if ( in_array( $action, array('get_call_button', 'create_call_button', 'destroy_call_button', 'update_call_button', 'get_button_code') ) ) {
     $db_type_sql = "sqlite3";
     
     $db_sqlite3_path = "/etc/webrtc2sip/c2c_sqlite.db";  // абсолютный путь к файлу БД
-    
-    // $db_sqlite3_path = "/var/www/sda/sqlite/c2c_sqlite.db";
     
     
     // - - - - - - - - - - - - - - - - - - - -

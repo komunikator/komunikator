@@ -54,39 +54,26 @@
 */
 
 ?><?
-if (!$_SESSION['user']) {
-    echo (out(array("success"=>false,"message"=>"User is undefined")));
-    exit;
-}
+if ($sda_action == 'start' or $sda_action == 'stop') {
+
+    if ($sda_action == 'start') { $sda_command = '/etc/webrtc2sip/scripts/start_webrtc2sip.sh'; }
+
+    if ($sda_action == 'stop') { $sda_command = '/etc/webrtc2sip/scripts/stop_webrtc2sip.sh'; }
+
+    $sda_output = array();
 
 
-$total = compact_array(query_to_array("SELECT ( (SELECT count(*)-1 FROM groups) + (SELECT count(*) FROM extensions) ) count"));
-
-if (!is_array($total["data"])) echo out(array("success"=>false,"message"=>$total));
-
-
-$sql = <<<EOD
-SELECT
-    groups.extension as id,
-    groups.group as name
-FROM groups
-WHERE group_id != 1
-UNION
-SELECT
-    extension as id,
-    extension as name
-FROM extensions
-EOD;
-
-$data = compact_array(query_to_array($sql));
-
-if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+    exec( $sda_command, $sda_output );
 
     
-$obj = array("success"=>true);
+    foreach($sda_output as $row) { $sda_status = $row; }
 
-$obj["total"] = $total['data'][0][0];
-$obj["data"] = $data['data']; 
 
-echo out($obj);
+    if ( $sda_status == "launch error" ) { echo "Ошибка: не удается запустить процесс webrtc2sip"; }
+
+    if ( $sda_status == "stop error" ) { echo "Ошибка: не удается остановить процесс webrtc2sip"; }
+    
+    $sda_action = '';
+
+}
 ?>

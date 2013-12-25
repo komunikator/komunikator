@@ -54,81 +54,78 @@
 app.source_tip = function(values) {
     if (Ext.isObject(values) && values.id && values.name)
         return values.id.length == 2 ? app.msg.group + "&nbsp;" + values.name : (values.id.length == 3 ? app.msg.extension + "&nbsp;" + values.id : (app.msg[values.name] ? app.msg[values.name] : values.name));
+
     return null;
 }
 
-// values.id.length==2?app.msg.group+"&nbsp;"+values.id:(values.id.length==3?app.msg.extension+"&nbsp;"+values.id:(app.msg[values.name]?app.msg[values.name]:values.name))
-
 Ext.define('app.module.Keys_Grid', {
-    extend: 'app.Grid',
-    store_cfg: {
-        fields: ['id', 'status', 'key', 'destination', 'description'],
-        storeId: 'keys'
+    extend : 'app.Grid',
+
+    store_cfg : {
+        fields   : ['id', 'status', 'key', 'destination', 'description'],
+        storeId  : 'keys'
     },
-    columns_renderer:
-            function(value, metaData, record, rowIndex, colIndex, store) {
-                if (colIndex == 2 && app.msg[value])
-                {
-                    return app.msg[value];
-                }
-                return value;
-            },
-    columns: [
-        {// 'id'
-            hidden: true
-        },
-        {// 'status'
-            editor: {
-                xtype: 'combobox',
-                store: [['online', app.msg['online'] ? app.msg['online'] : 'online'], ['offline', app.msg['offline'] ? app.msg['offline'] : 'offline']],
-                // displayField  : 'group',
-                // valueField    : 'group',
-                value: 'online',
-                queryMode: 'local',
-                allowBlank: false,
-                editable: false,
+
+    columns_renderer :
+        function(value, metaData, record, rowIndex, colIndex, store) {
+            if (colIndex == 2 && app.msg[value]) {
+                return app.msg[value];
             }
 
+            return value;
         },
-        {// 'key'
-            editor: {
-                xtype: 'textfield',
-                regex: /^\d$/,
-                allowBlank: false
+
+    columns : [
+        {  // 'id'
+            hidden : true
+        },
+        {  // 'status'
+            width : 150,
+
+            editor : {
+                xtype       : 'combobox',
+
+                store : [
+                    ['online', app.msg['online'] ? app.msg['online'] : 'online'],
+                    ['offline', app.msg['offline'] ? app.msg['offline'] : 'offline']
+                ],
+
+                queryMode   : 'local',
+                allowBlank  : false,
+                editable    : false
             }
         },
-        {// 'destination'
-            editor: app.get_Source_Combo({
-                editable: false,
-                allowBlank: false
-            })
+        {  // 'key'
+            editor : {
+                xtype       : 'textfield',
+                regex       : /^\d$/,
+                allowBlank  : false
+            }
+        },
+        {  // 'destination'
+            width : 150,
 
-                    /*{
-                     xtype: 'combobox',
-                     store: Ext.StoreMgr.lookup('sources')?
-                     Ext.StoreMgr.lookup('sources'):
-                     Ext.create('app.Store',{
-                     fields : ['id', 'name'],   
-                     storeId : 'sources'
-                     }),
-                     //queryCaching: false,
-                     tpl: Ext.create('Ext.XTemplate',
-                     '<tpl for=".">',
-                     '<div class="x-boundlist-item" data-qtip="{[app.source_tip(values)]}">{[app.msg[values.name]?app.msg[values.name]:values.name]}</div>',
-                     '</tpl>'
-                     ),
-                     // template for the content inside text field
-                     displayTpl: Ext.create('Ext.XTemplate',
-                     '<tpl for=".">',
-                     '{[app.msg[values.name]?app.msg[values.name]:values.name]}',
-                     '</tpl>'
-                     ),
-                     editable: true,	
-                     displayField: 'name',
-                     valueField: 'name',
-                     queryMode: 'remove'
-                     } */
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            // было создано отдельное хранилище sources_exception
+            // в котором отсутствуют: Автосекретарь, Голосовая почта
 
+            editor : {
+                xtype         : 'combobox',
+
+                store : Ext.create('app.Store', {
+                    fields   : ['id', 'name'],
+                    storeId  : 'sources_exception'
+                }),
+
+                queryMode     : 'local',
+
+                displayField  : 'name',
+                valueField    : 'name',
+
+                allowBlank    : false,
+                editable      : false
+            }
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         },
         {// 'description'
             editor: {

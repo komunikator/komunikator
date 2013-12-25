@@ -54,13 +54,39 @@
 */
 
 ?><?
-if(!$_SESSION['user']) {
-    echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
-    
-$data =  compact_array(query_to_array("SELECT * FROM `modules`".get_sql_order_limit()));
-if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));    
-$obj=array("success"=>true);
-$obj["data"] = $data['data']; 
+
+if (!$_SESSION['user']) {
+    echo (out(array("success"=>false,"message"=>"User is undefined")));
+    exit;
+}
+
+
+$total = compact_array(query_to_array("SELECT count(*) FROM modules"));
+
+if (!is_array($total["data"])) echo out(array("success"=>false,"message"=>$total));
+
+
+$sql = <<<EOD
+SELECT
+    modules.module_name_id as id,
+    modules.module_name,
+    modules.description,
+    modules.version,
+    modules.condition
+FROM
+    modules
+EOD;
+
+$data = compact_array(query_to_array($sql.get_sql_order_limit()));
+
+if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+
+
+$obj = array("success"=>true);
+
+$obj["total"] = $total['data'][0][0];
+$obj["data"] = $data['data'];
 
 echo out($obj);
+
 ?>

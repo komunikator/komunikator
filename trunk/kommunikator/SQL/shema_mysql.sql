@@ -51,45 +51,13 @@
 *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 */
 
-/*
-  были удаленны все AUTO_INCREMENT=XXX
-
-  были исправлены все ENGINE=X на ENGINE=MyISAM
-
-  была добавлена одна запись (добавление группы - "ПУСТО") в таблицу `groups`
-
-  была добавлена одна запись (добавление плейлиста - "ПУСТО") в таблицу `playlists`
-
-  были добавлены записи (настройка расписания рабочего времени) в таблицу `time_frames`
-
-  была добавлена одна запись (создание учетной записи - "Администратор") в таблицу `users`
-*/
-
-
--- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (i686)
---
--- Host: localhost    Database: kommunikator
--- ------------------------------------------------------
--- Server version	5.5.31-0ubuntu0.12.04.1-log
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `actionlogs`
 --
 
 DROP TABLE IF EXISTS `actionlogs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `actionlogs` (
   `date` decimal(17,3) NOT NULL,
   `log` text,
@@ -100,15 +68,14 @@ CREATE TABLE `actionlogs` (
   `query` text,
   `ip` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `call_logs`
 --
 
 DROP TABLE IF EXISTS `call_logs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `call_logs` (
   `time` decimal(17,3) NOT NULL,
   `chan` text,
@@ -126,30 +93,28 @@ CREATE TABLE `call_logs` (
   UNIQUE KEY `time_indx` (`time`) USING HASH,
   KEY `billid_indx` (`billid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `card_confs`
 --
 
 DROP TABLE IF EXISTS `card_confs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `card_confs` (
   `param_name` text,
   `param_value` text,
   `section_name` text,
   `module_name` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `card_ports`
 --
 
 DROP TABLE IF EXISTS `card_ports`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `card_ports` (
   `BUS` int(11) DEFAULT NULL,
   `SLOT` int(11) DEFAULT NULL,
@@ -166,15 +131,14 @@ CREATE TABLE `card_ports` (
   `dtmfdetect` tinyint(1) DEFAULT NULL,
   `name` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `dial_plans`
 --
 
 DROP TABLE IF EXISTS `dial_plans`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `dial_plans` (
   `dial_plan_id` int(11) NOT NULL AUTO_INCREMENT,
   `dial_plan` text,
@@ -192,15 +156,14 @@ CREATE TABLE `dial_plans` (
   UNIQUE KEY `priority` (`priority`) USING BTREE,
   UNIQUE KEY `prefix` (`prefix`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `dids`
 --
 
 DROP TABLE IF EXISTS `dids`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `dids` (
   `did_id` int(11) NOT NULL AUTO_INCREMENT,
   `did` text,
@@ -212,15 +175,14 @@ CREATE TABLE `dids` (
   PRIMARY KEY (`did_id`),
   UNIQUE KEY `number` (`number`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `extensions`
 --
 
 DROP TABLE IF EXISTS `extensions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `extensions` (
   `extension_id` int(11) NOT NULL AUTO_INCREMENT,
   `extension` varchar(3) NOT NULL,
@@ -240,15 +202,14 @@ CREATE TABLE `extensions` (
   UNIQUE KEY `extension` (`extension`),
   KEY `extension_id` (`extension_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `gateways`
 --
 
 DROP TABLE IF EXISTS `gateways`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `gateways` (
   `gateway_id` int(11) NOT NULL AUTO_INCREMENT,
   `gateway` text,
@@ -281,15 +242,14 @@ CREATE TABLE `gateways` (
   `sig_trunk_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`gateway_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `group_members`
 --
 
 DROP TABLE IF EXISTS `group_members`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `group_members` (
   `group_member_id` int(11) NOT NULL AUTO_INCREMENT,
   `group_id` int(11) DEFAULT NULL,
@@ -298,29 +258,27 @@ CREATE TABLE `group_members` (
   KEY `group_id` (`group_id`),
   KEY `extension_id` (`extension_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `group_priority`
 --
 
 DROP TABLE IF EXISTS `group_priority`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `group_priority` (
   `group_id` int(11) NOT NULL,
   `extension_id` int(11) NOT NULL,
   `priority` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `groups`
 --
 
 DROP TABLE IF EXISTS `groups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
   `group` varchar(25) DEFAULT NULL,
@@ -338,27 +296,23 @@ CREATE TABLE `groups` (
   UNIQUE KEY `group` (`group`),
   UNIQUE KEY `extension` (`extension`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
-
-/* добавление группы - "ПУСТО" */
 
 LOCK TABLES `groups` WRITE;
 
-INSERT INTO `groups`
-(
-`group_id`,
-`group`,
-`description`,
-`extension`,
-`mintime`,
-`length`,
-`maxout`,
-`greeting`,
-`maxcall`,
-`prompt`,
-`detail`,
-`playlist_id`
+INSERT INTO `groups` (
+  `group_id`,
+  `group`,
+  `description`,
+  `extension`,
+  `mintime`,
+  `length`,
+  `maxout`,
+  `greeting`,
+  `maxcall`,
+  `prompt`,
+  `detail`,
+  `playlist_id`
 )
 VALUES
 (NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -371,8 +325,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `incoming_gateways`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `incoming_gateways` (
   `incoming_gateway_id` int(11) NOT NULL AUTO_INCREMENT,
   `incoming_gateway` text,
@@ -380,15 +333,14 @@ CREATE TABLE `incoming_gateways` (
   `ip` text,
   PRIMARY KEY (`incoming_gateway_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `keys`
 --
 
 DROP TABLE IF EXISTS `keys`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `keys` (
   `key_id` int(11) NOT NULL AUTO_INCREMENT,
   `key` text,
@@ -397,15 +349,14 @@ CREATE TABLE `keys` (
   `description` text,
   PRIMARY KEY (`key_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `limits_international`
 --
 
 DROP TABLE IF EXISTS `limits_international`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `limits_international` (
   `limit_international_id` int(11) NOT NULL AUTO_INCREMENT,
   `limit_international` text,
@@ -413,15 +364,14 @@ CREATE TABLE `limits_international` (
   `value` text,
   PRIMARY KEY (`limit_international_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `music_on_hold`
 --
 
 DROP TABLE IF EXISTS `music_on_hold`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `music_on_hold` (
   `music_on_hold_id` int(11) NOT NULL AUTO_INCREMENT,
   `music_on_hold` text,
@@ -429,15 +379,14 @@ CREATE TABLE `music_on_hold` (
   `file` text,
   PRIMARY KEY (`music_on_hold_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `network_interfaces`
 --
 
 DROP TABLE IF EXISTS `network_interfaces`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `network_interfaces` (
   `network_interface_id` int(11) NOT NULL AUTO_INCREMENT,
   `network_interface` text,
@@ -447,15 +396,14 @@ CREATE TABLE `network_interfaces` (
   `gateway` text,
   PRIMARY KEY (`network_interface_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `ntn_settings`
 --
 
 DROP TABLE IF EXISTS `ntn_settings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `ntn_settings` (
   `ntn_setting_id` int(11) NOT NULL AUTO_INCREMENT,
   `param` text,
@@ -463,15 +411,14 @@ CREATE TABLE `ntn_settings` (
   `description` text,
   PRIMARY KEY (`ntn_setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `pbx_settings`
 --
 
 DROP TABLE IF EXISTS `pbx_settings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `pbx_settings` (
   `pbx_setting_id` int(11) NOT NULL AUTO_INCREMENT,
   `extension_id` int(11) DEFAULT NULL,
@@ -479,46 +426,40 @@ CREATE TABLE `pbx_settings` (
   `value` text,
   PRIMARY KEY (`pbx_setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `playlist_items`
 --
 
 DROP TABLE IF EXISTS `playlist_items`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `playlist_items` (
   `playlist_item_id` int(11) NOT NULL AUTO_INCREMENT,
   `playlist_id` int(11) DEFAULT NULL,
   `music_on_hold_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`playlist_item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `playlists`
 --
 
 DROP TABLE IF EXISTS `playlists`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `playlists` (
   `playlist_id` int(11) NOT NULL AUTO_INCREMENT,
   `playlist` text,
   `in_use` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`playlist_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
-/* добавление плейлиста - "ПУСТО" */
-
-INSERT INTO `playlists`
-(
-`playlist_id`,
-`playlist`,
-`in_use`
+INSERT INTO `playlists` (
+  `playlist_id`,
+  `playlist`,
+  `in_use`
 )
 VALUES
 (NULL, '', '0');
@@ -529,8 +470,7 @@ VALUES
 --
 
 DROP TABLE IF EXISTS `prefixes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `prefixes` (
   `prefix_id` int(11) NOT NULL AUTO_INCREMENT,
   `prefix` text,
@@ -538,15 +478,14 @@ CREATE TABLE `prefixes` (
   `international` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`prefix_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `prompts`
 --
 
 DROP TABLE IF EXISTS `prompts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `prompts` (
   `prompt_id` int(11) NOT NULL AUTO_INCREMENT,
   `prompt` text,
@@ -555,15 +494,14 @@ CREATE TABLE `prompts` (
   `file` text,
   PRIMARY KEY (`prompt_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `settings`
 --
 
 DROP TABLE IF EXISTS `settings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `settings` (
   `setting_id` int(11) NOT NULL AUTO_INCREMENT,
   `param` text,
@@ -571,15 +509,14 @@ CREATE TABLE `settings` (
   `description` text,
   PRIMARY KEY (`setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `short_names`
 --
 
 DROP TABLE IF EXISTS `short_names`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `short_names` (
   `short_name_id` int(11) NOT NULL AUTO_INCREMENT,
   `short_name` varchar(20) DEFAULT NULL,
@@ -590,15 +527,14 @@ CREATE TABLE `short_names` (
   UNIQUE KEY `short_name` (`short_name`) USING BTREE,
   UNIQUE KEY `number` (`number`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `sig_trunks`
 --
 
 DROP TABLE IF EXISTS `sig_trunks`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `sig_trunks` (
   `sig_trunk_id` int(11) NOT NULL AUTO_INCREMENT,
   `sig_trunk` text,
@@ -627,15 +563,14 @@ CREATE TABLE `sig_trunks` (
   `port` text,
   PRIMARY KEY (`sig_trunk_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `time_frames`
 --
 
 DROP TABLE IF EXISTS `time_frames`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `time_frames` (
   `time_frame_id` int(11) NOT NULL AUTO_INCREMENT,
   `prompt_id` int(11) DEFAULT NULL,
@@ -645,21 +580,17 @@ CREATE TABLE `time_frames` (
   `numeric_day` int(11) DEFAULT NULL,
   PRIMARY KEY (`time_frame_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
-
-/* настройка расписания рабочего времени */
 
 LOCK TABLES `time_frames` WRITE;
 
-INSERT INTO `time_frames`
-(
-`time_frame_id`,
-`prompt_id`,
-`day`,
-`start_hour`,
-`end_hour`,
-`numeric_day`
+INSERT INTO `time_frames` (
+  `time_frame_id`,
+  `prompt_id`,
+  `day`,
+  `start_hour`,
+  `end_hour`,
+  `numeric_day`
 )
 VALUES
 (NULL, '1', 'Sunday',     NULL, NULL, '0'),
@@ -678,8 +609,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` text,
@@ -693,25 +623,21 @@ CREATE TABLE `users` (
   `login_attempts` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
-
-/* создание учетной записи - "Администратор" */
 
 LOCK TABLES `users` WRITE;
 
-INSERT INTO `users`
-(
-`user_id`,
-`username`,
-`password`,
-`firstname`,
-`lastname`,
-`email`,
-`description`,
-`fax_number`,
-`ident`,
-`login_attempts`
+INSERT INTO `users` (
+  `user_id`,
+  `username`,
+  `password`,
+  `firstname`,
+  `lastname`,
+  `email`,
+  `description`,
+  `fax_number`,
+  `ident`,
+  `login_attempts`
 )
 VALUES
 (NULL, 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -719,14 +645,107 @@ VALUES
 UNLOCK TABLES;
 
 
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+--
+-- Table structure for table `modules`
+--
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+DROP TABLE IF EXISTS `modules`;
 
--- Dump completed on 2013-08-30 10:40:05
+CREATE TABLE `modules` (
+  `module_name_id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_name` varchar(70) DEFAULT NULL,
+  `description` varchar(250) DEFAULT NULL,
+  `version` varchar(20) DEFAULT NULL,
+  `condition` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`module_name_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+LOCK TABLES `modules` WRITE;
+
+INSERT INTO `modules` (
+  `module_name_id`,
+  `module_name`,
+  `description`,
+  `version`,
+  `condition`
+)
+VALUES (
+  1,
+  'Call_website_Grid',
+  'Позволяет IP-АТС обрабатывать входящие вызовы, совершаемые с web-сайтов.',
+  '1.0',
+  0
+), (
+  2,
+  'Mail_Settings_Panel',
+  'Позволяет IP-АТС отслеживать те или иные вызовы и уведомлять о них посредствам рассылки электронных сообщений.',
+  '1.0',
+  0
+);
+
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `settings`;
+
+CREATE TABLE `settings` (
+  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `param` text,
+  `value` text,
+  `description` text,
+  PRIMARY KEY (`setting_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+LOCK TABLES `settings` WRITE;
+
+INSERT INTO `settings` (
+  `setting_id`,
+  `param`,
+  `value`,
+  `description`
+)
+VALUES (
+  NULL,
+  'vm',
+  'external/nodata/leavemaildb.php',
+  NULL
+), (
+  NULL,
+  'version',
+  '1',
+  NULL
+), (
+  NULL,
+  'annonymous_calls',
+  'yes',
+  NULL
+), (
+  NULL,
+  'callername',
+  NULL,
+  NULL
+), (
+  NULL,
+  'prefix',
+  NULL,
+  NULL
+), (
+  NULL,
+  'callerid',
+  NULL,
+  NULL
+), (
+  NULL,
+  'international_calls',
+  'yes',
+  NULL
+), (
+  NULL,
+  'international_calls_live',
+  'no',
+  NULL
+);
+
+UNLOCK TABLES;

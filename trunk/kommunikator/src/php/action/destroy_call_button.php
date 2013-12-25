@@ -122,6 +122,10 @@ $sda_query_table_account[id] = $sda_id_table_account;
 
 
 
+$sda_action = 'stop';
+include("addition_call_button.php");
+
+
 
 $need_out = false;
 
@@ -151,5 +155,13 @@ $rows[] = $sda_query_table_account;
 $id_name = 'id';
 $action = 'destroy_account';
 include("destroy.php");
+
+
+
+$conn->disconnect();
+
+
+$sda_action = 'start';
+include("addition_call_button.php");
 
 ?>

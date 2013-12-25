@@ -54,30 +54,6 @@
 */
 
 ?><?
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/*
-if ( $db_type_sql == "sqlite3" ) {
-    
-    $sda_command = '/etc/webrtc2sip/scripts/stop_webrtc2sip.sh';
-    $sda_output = array();
-
-    exec( $sda_command, $sda_output );
-
-    
-    foreach($sda_output as $row) {
-        $sda_status = $row;
-    }
-
-    if ( $sda_status == "stop error" ) {
-        echo "Ошибка: не удается остановить процесс webrtc2sip";
-    }
-
-}
-*/
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
 $table_name = get_sql_field( next( explode('_', $action, 2) ) );
 
 foreach ($rows as $row) {
@@ -89,29 +65,6 @@ foreach ($rows as $row) {
         query($sql);
     }
 };
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/*
-if ( $db_type_sql == "sqlite3" ) {
-    
-    $sda_command = '/etc/webrtc2sip/scripts/start_webrtc2sip.sh';
-    $sda_output = array();
-
-    exec( $sda_command, $sda_output );
-
-    
-    foreach($sda_output as $row) {
-        $sda_status = $row;
-    }
-
-    if ( $sda_status == "launch error" ) {
-        echo "Ошибка: не удается запустить процесс webrtc2sip";
-    }
-
-}
-*/
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 if (!isset($need_out)) {

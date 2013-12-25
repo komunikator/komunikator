@@ -299,6 +299,10 @@ $sda_query_table_account_sip_caller[account_sip_id] = "'$sda_account_sip_id_tabl
 
 
 
+$sda_action = 'stop';
+include("addition_call_button.php");
+
+
 
 $need_out = false;
 
@@ -325,5 +329,13 @@ $rows[] = $sda_query_table_account_sip_caller;
 
 $action = 'create_account_sip_caller';
 include("create.php");
+
+
+
+$conn->disconnect();
+
+
+$sda_action = 'start';
+include("addition_call_button.php");
 
 ?>
