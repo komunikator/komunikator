@@ -687,6 +687,10 @@ VALUES (
 UNLOCK TABLES;
 
 
+--
+-- Table structure for table `settings`
+--
+
 DROP TABLE IF EXISTS `settings`;
 
 CREATE TABLE `settings` (

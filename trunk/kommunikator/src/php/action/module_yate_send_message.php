@@ -68,22 +68,12 @@ if ($sda_action == 'start' or $sda_action == 'stop') {
 
     if ($socket -> error == "") {
         
-        $obj = array("success" => true);
-        
         $socket -> command($sda_command);
         
     }
-    else {
-        
-        $obj = array("success" => false);
-        
-        $obj['message'] = "Ошибка: Невозможно подключить модуль - send message";
-        
-    }
+
     
     $sda_action = '';
-
-    echo out($obj);
 
 }
 ?>
