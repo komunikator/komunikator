@@ -276,6 +276,9 @@ app.msg = {
     orange: 'orange',
     red: 'red',
     dark_gray: 'dark_gray',
+    too_many_hops:'too many hops',
+    call_is_looping:'call is looping',
+    unauthorized:'unauthorized',
     
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
