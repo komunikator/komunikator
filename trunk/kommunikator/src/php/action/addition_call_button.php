@@ -69,9 +69,26 @@ if ($sda_action == 'start' or $sda_action == 'stop') {
     foreach($sda_output as $row) { $sda_status = $row; }
 
 
-    if ( $sda_status == "launch error" ) { echo "Ошибка: не удается запустить процесс webrtc2sip"; }
+    if ( $sda_status == "launch error" ) {
+        
+        $obj = array("success" => false);
+        
+        $obj['message'] = "Ошибка: не удается запустить процесс webrtc2sip";
+        
+        echo out($obj);
+        
+    }
 
-    if ( $sda_status == "stop error" ) { echo "Ошибка: не удается остановить процесс webrtc2sip"; }
+    if ( $sda_status == "stop error" ) {
+        
+        $obj = array("success" => false);
+        
+        $obj['message'] = "Ошибка: не удается остановить процесс webrtc2sip";
+        
+        echo out($obj);
+        
+    }
+    
     
     $sda_action = '';
 

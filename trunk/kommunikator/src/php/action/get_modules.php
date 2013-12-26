@@ -82,6 +82,70 @@ $data = compact_array(query_to_array($sql.get_sql_order_limit()));
 if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
 
 
+
+/* - - - - -  подключение или отключение модулей (НАЧАЛО)  - - - - - */
+
+$sda_tick_condition_call_website = 'NO';
+$sda_tick_condition_mail_settings = 'NO';
+
+foreach ($data["data"] as $row) {
+    
+    if ($row[1] == 'Call_website_Grid') {
+        
+        if ( $row[4] == 1 ) { $sda_tick_condition_call_website = $row[4]; } else { $sda_tick_condition_call_website = 0; }
+        
+    }
+    
+    if ($row[1] == 'Mail_Settings_Panel') {
+        
+        if ( $row[4] == 1 ) { $sda_tick_condition_mail_settings = $row[4]; } else { $sda_tick_condition_mail_settings = 0; }
+        
+    }
+    
+}
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/* Звонок с сайта */
+
+if ( $sda_tick_condition_call_website !== 'NO' ) {
+
+    if ( $sda_tick_condition_call_website == 1 ) {
+        $sda_action = 'start';
+        include("addition_call_button.php");
+    }
+
+    if ( $sda_tick_condition_call_website == 0 ) {
+        $sda_action = 'stop';
+        include("addition_call_button.php");
+    }
+
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/* Почтовые уведомления */
+
+if ( $sda_tick_condition_mail_settings !== 'NO' ) {
+
+    if ( $sda_tick_condition_mail_settings == 1 ) {
+        $sda_action = 'start';
+        include("module_yate_send_message.php");
+    }
+
+    if ( $sda_tick_condition_mail_settings == 0 ) {
+        $sda_action = 'stop';
+        include("module_yate_send_message.php");
+    }
+
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+/* - - - - -  подключение или отключение модулей (КОНЕЦ)  - - - - - */
+
+
+
 $obj = array("success"=>true);
 
 $obj["total"] = $total['data'][0][0];

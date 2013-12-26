@@ -71,6 +71,15 @@ if ($sda_action == 'start' or $sda_action == 'stop') {
         $socket -> command($sda_command);
         
     }
+    else {
+        
+        $obj = array("success" => false);
+        
+        $obj['message'] = "Ошибка: некорректная работа модуля send message";
+        
+        echo out($obj);
+        
+    }
 
     
     $sda_action = '';

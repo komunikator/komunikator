@@ -748,7 +748,7 @@ VALUES (
 ), (
   NULL,
   'international_calls_live',
-  'no',
+  'yes',
   NULL
 );
 

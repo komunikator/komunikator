@@ -409,7 +409,46 @@ function get_state_webrtc2sip() {
     
 }
 
-$f_data[] = array('webrtc2sip', get_state_webrtc2sip());
+$f_data[] = array('Модуль W2S', get_state_webrtc2sip());
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// - состояние send_message (ВКЛ. или выкл.) - - - - - - - - - - - - - - - - - -
+
+function get_state_send_message() {
+
+    $sda_command_ps = 'ps axu | grep -i send_message | grep -v grep';
+    $sda_output_ps = array();
+
+    exec( $sda_command_ps, $sda_output_ps );
+
+
+    $sda_tick = 'выкл.';
+
+    foreach( $sda_output_ps as $value ) {
+
+        $sda_row = strtolower($value);
+
+        $sda_result = strpos( $sda_row, '/usr/share/yate/scripts/send_message.php' );
+
+
+        if ($sda_result) {
+        
+            $sda_tick = 'ВКЛ.';
+
+            break;
+
+        }
+
+    }
+    
+    
+    return $sda_tick;
+    
+}
+
+$f_data[] = array('Модуль SM', get_state_send_message());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
