@@ -55,7 +55,7 @@
 
 ?><?php
 
-$cur_ver = '0.6.1';
+$cur_ver = '0.7.0';
 $updates_base = "http://4yate.ru/repos";
 $updates_url = "$updates_base/checkforupdates.php?cur_ver=$cur_ver";
 $updates_data_url = "$updates_base/update.tar.gz";
