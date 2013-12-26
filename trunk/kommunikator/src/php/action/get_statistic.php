@@ -409,7 +409,7 @@ function get_state_webrtc2sip() {
     
 }
 
-$f_data[] = array('Модуль W2S', get_state_webrtc2sip());
+$f_data[] = array('Модуль: Звонок<br>с сайта', get_state_webrtc2sip());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -448,7 +448,7 @@ function get_state_send_message() {
     
 }
 
-$f_data[] = array('Модуль SM', get_state_send_message());
+$f_data[] = array('Модуль: Почтовые<br>уведомления', get_state_send_message());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
