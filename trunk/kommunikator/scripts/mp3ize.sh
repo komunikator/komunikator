@@ -71,6 +71,8 @@ if [ "x$file" = "x" -o "x$1" = "x" ]; then
 fi
 
 sox -t raw -r 8000 -s -b 16 "$@" -t wav - | lame - "$file"
+
 /usr/share/yate/scripts/send_voicem.php "$file"
+
 #chown apache "$file"
 #chown apache "$@"

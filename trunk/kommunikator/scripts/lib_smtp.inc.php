@@ -54,31 +54,122 @@
 */
 
 ?><?php
+
 require_once("config.php");
-require_once("lib/phpmailer.inc.php");
-
-mb_internal_encoding("utf-8");
-define('TIME_FMT', '%d.%m.%Y %H:%M:%S');
+// require_once("lib/phpmailer.inc.php");  // файл lib_smtp.inc.php (этот файл) используют send_message.php и send_voicem.php, а следовательно и данную библиотеку
 
 
+// mb_internal_encoding("utf-8");  // Установка/получение внутренней кодировки скрипта
+
+define('TIME_FMT', '%d.%m.%Y %H:%M:%S');  // Определяет именованную константу
+
+
+/*
 class myMail extends phpmailer {
     var $From = "multifon@digt.ru";
     var $FromName = "multifon";
     var $CharSet = "utf-8";
 }
+*/
+
 
 function format_array($arr) {
-    $str =  str_replace("\n", "", print_r($arr, true));
-    $str = str_replace("\t","",$str);
-    while(strlen($str) != strlen(str_replace("  "," ",$str)))
-        $str = str_replace("  "," ",$str);
+    $str = str_replace("\n", "", print_r($arr, true));
+    $str = str_replace("\t", "", $str);
+
+    while ( strlen($str) != strlen(str_replace("  ", " ", $str)) )
+        $str = str_replace("  ", " ", $str);
+
     return $str;
 }
 
-function format_msg($text,$params) {
-    return str_replace('\n',"\n",preg_replace("/\<([^\>]+)\>/e", 'isset($params["$1"])?$params["$1"]:"<$1>";', $text));
+
+function format_msg($text, $params) {
+    return str_replace('\n', "\n", preg_replace("/\<([^\>]+)\>/e", 'isset($params["$1"]) ? $params["$1"] : "<$1>";', $text));
 }
 
+
+/* - - - - -  новая функция рассылки почтовых уведомлений (НАЧАЛО)  - - - - - */
+
+/* (для справки)
+send_mail(1, 2, 3, 4, 5, 6, 7);
+
+$sda_FROM_ADDRESS     1 - Учетная запись (адрес ЭПЯ от имени, которого будет проводиться рассылка)
+$sda_FROM_PASSWORD    2 - Пароль (для доступа к ЭПЯ)
+$sda_FROM_NAME        3 - Имя отправителя письма
+$sda_TO_ADDRESS       4 - Адрес получателя (адрес ЭПЯ получателя письма)
+$sda_SUBJECT          5 - Заголовок письма
+$sda_MESSAGE          6 - Текст письма
+$sda_FILE             7 - Прикрепленный файл
+*/
+
+function send_mail($sda_FROM_ADDRESS=null, $sda_FROM_PASSWORD=null, $sda_FROM_NAME=null, $sda_TO_ADDRESS=null, $sda_SUBJECT=null, $sda_MESSAGE=null, $sda_FILE=null) {
+
+    /* - - - - -  условия аварийного завершения функции (НАЧАЛО)  - - - - - */
+    if (!$sda_FROM_ADDRESS) return;
+    if (!$sda_FROM_PASSWORD) return;
+    if (!$sda_TO_ADDRESS) return;
+    /* - - - - -  условия аварийного завершения функции (КОНЕЦ)  - - - - - */
+
+
+    /* - - - - -  подключение пакетов PEAR (НАЧАЛО)  - - - - - */
+    require_once "Mail.php";
+    require_once "Mail/mime.php";
+    /* - - - - -  подключение пакетов PEAR (КОНЕЦ)  - - - - - */
+
+
+    /* - - - - -  формирование письма (НАЧАЛО)  - - - - - */
+    if ($sda_FROM_NAME) {
+        $sda_auxiliary_variable = $sda_FROM_NAME . ' <' . $sda_FROM_ADDRESS . '>';
+    }
+    else {
+        $sda_auxiliary_variable = $sda_FROM_ADDRESS;
+    }
+
+
+    $sda_HEADER = array('From' => $sda_auxiliary_variable, 'To' => $sda_TO_ADDRESS, 'Subject' => $sda_SUBJECT);
+
+
+    $sda_MIME = new Mail_mime( array( "html_charset" => "UTF-8", "text_charset" => "UTF-8", "head_charset" => "UTF-8" ) );
+
+    $sda_MIME->setHTMLBody('<html><body>' . $sda_MESSAGE . '</body></html>');
+
+    $sda_MIME->addAttachment($sda_FILE, 'application/octet-stream');
+
+
+    $sda_BODY = $sda_MIME->get();
+
+    $sda_EXTENDED_HEADER = $sda_MIME->headers($sda_HEADER);
+    /* - - - - -  формирование письма (КОНЕЦ)  - - - - - */
+
+
+    /* - - - - -  данные для получения доступа к исходящему почтовому серверу по протоколу SSL (НАЧАЛО)  - - - - - */
+    $sda_SMTP = array();
+
+    $sda_SMTP["host"] = "ssl://smtp.gmail.com";  // константа
+    $sda_SMTP["port"] = "465";  // константа
+    $sda_SMTP["auth"] = true;
+    $sda_SMTP["username"] = $sda_FROM_ADDRESS;
+    $sda_SMTP["password"] = $sda_FROM_PASSWORD;
+    /* - - - - -  данные для получения доступа к исходящему почтовому серверу по протоколу SSL (КОНЕЦ)  - - - - - */
+
+
+    /* - - - - -  установление соединения и отправка письма (НАЧАЛО)  - - - - - */
+    $sda_SMTP = &Mail::factory('smtp', $sda_SMTP);
+
+    $sda_ERROR = $sda_SMTP->send($sda_TO_ADDRESS, $sda_EXTENDED_HEADER, $sda_BODY);
+
+    if (PEAR::isError($sda_ERROR)) {
+        echo $sda_ERROR->getMessage();
+    }
+    /* - - - - -  установление соединения и отправка письма (КОНЕЦ)  - - - - - */
+
+}
+
+/* - - - - -  новая функция рассылки почтовых уведомлений (КОНЕЦ)  - - - - - */
+
+
+/* (старая функция рассылки почтовых уведомлений)
 function send_mail($text=null,$subject=null,$is_fax=null,$filename=null,$from=null,$to=null,$fromname=null) {
     
     global $fax_email, $calls_email;
@@ -108,46 +199,39 @@ function send_mail($text=null,$subject=null,$is_fax=null,$filename=null,$from=nu
     
     $mail->Subject = mb_encode_mimeheader($subject, $mail->CharSet, 'B');
     Yate::Debug("send_mail: '$text'");
-   $mail->Send();
-}
-
-function send_voicemail($address, $filename, $caller, $ftime = false) {
-    if (!$address)
-        return;
-            global $def_time_offset;
-    if (!$ftime)
-        $ftime = strftime(TIME_FMT, time()+60*60*$def_time_offset);
-
-    $text =<<<EOD
-    Абонент: $caller
-    Дата: $ftime
-EOD;
-    
-    $mail = new myMail;
-    $mail->Body = $text;
-    $mail->AddAddress($address);
-    $subject = 'Звонок не принят от '.$caller.' '.$ftime;
-    $mail->Subject = mb_encode_mimeheader($subject, $mail->CharSet, 'B');
-    if (is_file($filename))
-        $mail->AddAttachment($filename);
     $mail->Send();
 }
+*/
 
-function setMultifonOpt($opt,$gateway) {
-// Valid options are 0,1,2
-    if ($opt < 0 || $opt > 2) 
+
+/* (старая функция рассылки голосовых сообщений)
+function send_voicemail($address, $filename, $caller, $ftime = false) {
+
+    if (!$address)
         return;
-    if (!$gateway) return;
-    $query = "select username,password from gateways where gateway = '$gateway'";
-    $res = query_to_array($query);
-    if(!count($res)) return;
-    $username = $res[0]["username"];                    
-    $password = $res[0]["password"];                    
-    $ch = curl_init("https://sm.megafon.ru/sm/client/routing/set?login=$username@multifon.ru&password=$password&routing=$opt");
+
+    global $def_time_offset;
+
+    if (!$ftime)
+        $ftime = strftime(TIME_FMT, time() + 60 * 60 * $def_time_offset);
+
+    $text = <<<EOD
+Абонент: $caller
+Дата: $ftime
+EOD;
     
-    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_exec($ch);
-    curl_close($ch);
+
+    $mail = new myMail;
+
+    $mail->Body = $text;
+    $mail->AddAddress($address);
+    $subject = 'Звонок не принят от ' . $caller . ' ' . $ftime;
+    $mail->Subject = mb_encode_mimeheader($subject, $mail->CharSet, 'B');
+    if ( is_file($filename) )
+        $mail->AddAttachment($filename);
+
+    $mail->Send();
 }
+*/
+
 ?>

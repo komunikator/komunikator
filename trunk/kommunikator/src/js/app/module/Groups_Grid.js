@@ -83,7 +83,7 @@ Ext.define('app.module.Groups_Grid', {
     },
 
     {  // 'extension'
-        width : 100,
+        width : 150,
         
         editor : {
             xtype       : 'textfield',

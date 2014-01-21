@@ -56,160 +56,223 @@
 
 ?><?php
 
-function getValueFromNtnSettings ($param,$default)
-{
-    $query = "SELECT value FROM ntn_settings where param = '$param'";
+function getValueFromNtnSettings($param, $default) {
+    $query = "SELECT value FROM ntn_settings WHERE param = '$param'";
     $res = query_to_array($query);
+    
     $value = $default;
-    if (count($res))
+    
+    if (count($res)) {
         $value = $res[0]['value'];
+    }
+    
     return $value;
 }
+
 
 require_once('libyate.php');
 require_once('lib_smtp.inc.php');
 require_once('lib_queries.php');
+
 set_time_limit(600);
 
 function debug($msg) {
     Yate::Debug('send_mail.php: ' . $msg);
 }
-if (!isset($incoming_trunks))
+
+if (!isset($incoming_trunks)) {
     $incoming_trunks = array();
+}
 
 // Always the first action to do 
 Yate::Init();
 
 Yate::Install('call.cdr', 120);
+
 // Ask Yate to restart this script if it dies unexpectedly
-Yate::SetLocal('restart',true);
+Yate::SetLocal('restart', true);
 
 Yate::Debug(true);
-setMultifonOpt(2,'Multifon'); // Send calls to both SIP & cell phone
 
 // The main loop. We pick events and handle them
 for (;;) {
-    $ev=Yate::GetEvent();
+    $ev = Yate::GetEvent();
+    
     if ($ev === false)
         break;
+    
     if ($ev === true)
         continue;
         
     // We are sure it's the timer message
     if ($ev->type == 'incoming') {
+        
         switch ($ev->name) {
-            case 'call.cdr':
-                $ev->Acknowledge(); 
+            case 'call.cdr' : $ev->Acknowledge();
                 
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                 if ($ev->GetValue('direction') == 'incoming' &&
                     $ev->GetValue('operation') == 'initialize' &&
                     $ev->GetValue('username') ) {
-		//Звонок на входящую линию
-                //сохраняем billid звонка
+                    
+		    // звонок на входящую линию
+                    
+                    // сохраняем billid звонка
                     if (!isset($incoming_trunks[$ev->GetValue('billid')]))
                         $incoming_trunks[$ev->GetValue('billid')] = $ev->GetValue('called');
+                    
                     if (strlen($ev->GetValue('caller')) > 3 && strlen($ev->GetValue('called')) > 3) {
-			//входящий звонок
-                        $query = "SELECT value  FROM ntn_settings where param = 'incoming_trunk' and value = 'true'";
+                        
+			// Событие: Входящий вызов (с указанием шлюза)
+                        
+                        $query = "SELECT value FROM ntn_settings WHERE param = 'incoming_trunk' and value = 'true'";
                         $res = query_to_array($query);
-                        if(count($res)) {
-                            $params = array();
-                            $params['incoming_trunk'] = $incoming_trunks[$ev->GetValue('billid')];
-                            $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time')+60*60*$def_time_offset);
-                            $params['caller'] = $ev->GetValue('caller');
-                            $params['called'] = $ev->GetValue('called');
-
-                            $text = getValueFromNtnSettings('incoming_trunk_text','');
-                            $subject = getValueFromNtnSettings('incoming_subject', 'Звонок на входящую линию <called>');
+                        
+                        if (count($res)) {
                             
-                            $text = format_msg($text,$params);
-                            $subject = format_msg($subject,$params);
+                            $params = array();
+                            
+                            $params['incoming_trunk'] = $incoming_trunks[$ev->GetValue('billid')];
+                            $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time') + 60 * 60 * $def_time_offset);
+                            $params['caller'] = $ev->GetValue('caller');
+                            // $params['called'] = $ev->GetValue('called');  // если снять комментарий, то элементы incoming_trunk и caller будут идентичны
 
-                            send_mail($text,$subject,null,null,getValueFromNtnSettings('from',''),getValueFromNtnSettings('email', ''),  getValueFromNtnSettings('fromname', ''));
+                            $text = getValueFromNtnSettings('incoming_trunk_text', '');
+                            $subject = getValueFromNtnSettings('incoming_subject', 'Звонок на внешнюю линию <incoming_trunk>');
+                            
+                            $text = format_msg($text, $params);
+                            $subject = format_msg($subject, $params);
+
+                            // Доступные параметры: <incoming_trunk>, <ftime>, <caller>, /*<called>*/ (их можно использовать как в заголовке так и в тексте)
+
+                            send_mail(getValueFromNtnSettings('from', ''), getValueFromNtnSettings('password', ''), getValueFromNtnSettings('fromname', ''), getValueFromNtnSettings('email', ''), $subject, $text, null);
+
                         }
                     }
                 }
-                //--------------------------------------------------------------
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                 if ($ev->GetValue('operation') == 'update' &&
-                    $ev->GetValue('reason')    == 'queued') {
-                //звонок на группу
+                    $ev->GetValue('reason') == 'queued') {
+
+                    // звонок на группу
                 
                 };
-                //--------------------------------------------------------------
-                // исходящий вызов
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                
+                // исходящий вызов (по-моему не только исходящий, аргументы? - см. ниже)
+                
                 if ($ev->GetValue('direction') == 'outgoing' &&
                     $ev->GetValue('operation') == 'finalize') {
-                    //завершился звонок
+                    
+                    // завершился звонок
+                    
                     $params = array();
+                    
                     $params['incoming_trunk'] = $incoming_trunks[$ev->GetValue('billid')];
                     unset ($incoming_trunks[$ev->GetValue('billid')]);
                     
                     $params['username'] = $ev->GetValue('username');
-                    $params['caller'] = ($params['username'])? $params['username'] : $ev->GetValue('caller');
+                    $params['caller'] = ($params['username']) ? $params['username'] : $ev->GetValue('caller');
                     $params['called'] = $ev->GetValue('called');
-                    $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time')+60*60*$def_time_offset);
+                    $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time') + 60 * 60 * $def_time_offset);
+                    
                     // Do not log internal calls
-                    //if (strlen($params['caller']) <= 3 && strlen($params['called']) <= 3)
-                    //	return;
+                    // if (strlen($params['caller']) <= 3 && strlen($params['called']) <= 3) return;
+                    
                     $params['duration'] = $ev->GetValue('duration');
                     $params['status'] = $ev->GetValue('status') . ' ' . $ev->GetValue('reason');
-                    $params['type'] = (strlen($params['caller']) <= 3)? 'Исходящий' : 'Входящий';
+                    $params['type'] = (strlen($params['caller']) <= 3) ? 'Исходящий' : 'Входящий';
                     
-                    $is_fax = false;
-                    $filename = null;	
+                    
+                    if (strpos($ev->GetValue('chan'),'fax') === false) {  // строка «fax» не найдена - т.е. режим, не требующий передачи файла
 
-                    if (strpos($ev->GetValue('chan'),'fax') === false) {
-                        if ($ev->GetValue('status') != 'answered')
-                        {
+                        $filename = null;
+
+                        if ($ev->GetValue('status') != 'answered') {
                             $subject = getValueFromNtnSettings('outgoing_subject_call_not_accepted', 'Звонок не принят от');
                         } else {
-                            $subject = getValueFromNtnSettings('ioutgoing_subject_call_accepted', 'Звонок принят от');
+                            $subject = getValueFromNtnSettings('outgoing_subject_call_accepted', 'Звонок принят от');
                         }
                                     
                     } else {
-                        $is_fax = true;
+                        
                         $filename = $ev->GetValue('address');
+
                         if (is_file($filename)) {
-                            //unlink($filename);
                             $subject = getValueFromNtnSettings('outgoing_subject_fax_accepted', 'Факс принят от');
                         } else {
                             $subject = getValueFromNtnSettings('outgoing_subject_fax_not_accepted', 'Факс не принят от');
                         }
+                        
+                    }
+
+
+                    // А вот тут были проблемы:
+                    //   некорректно отображались параметры <...>, т.е. их нужно подбирать
+                    //   и их (параметры <...>) лучше добавить выше [ например, $subject = getValueFromNtnSettings('outgoing_subject_fax_accepted', 'Факс принят от <caller>'); ]
+                    //   иначе они будут добавляться к набранным пользователем заголовкам
+                    //   и если он их уже использовал, то они будут продублированы
+
+                    // $subject = $subject . ' ' . $params['caller'] . ' ' . $params['ftime'];
+                    
+
+                    $is_internal_call =	( strlen($params['caller']) <= 3 && strlen($params['called']) <= 3 );
+                    
+                    if ($is_internal_call) {
+
+                        // Событие: Внутренний вызов
+
+                        $query = "SELECT value FROM ntn_settings WHERE param = 'internal_call' AND value = 'true'";
+                        $res = query_to_array($query);
                     }
                     
-                    $subject .= ' ' . $params['caller'] . ' ' . $params['ftime'];
-                    
-                    $is_internal_call =	(strlen($params['caller']) <= 3 && strlen($params['called']) <= 3);
-                    if ($is_internal_call) {
-                        $query = "SELECT value  FROM ntn_settings where param = 'internal_call' and value = 'true'";
-                        $res = query_to_array($query);
-                    }	
-                    if ($is_internal_call && count($res) || !$is_internal_call) {                          
+                    if ($is_internal_call && count($res) || !$is_internal_call) {
                         $text = getValueFromNtnSettings('incoming_call_text', '');
-                        $query = "SELECT value  FROM ntn_settings where param = 'exclude_called' and value = '$params[called]' and description > '".(time()-20)."'";
+
+                        // панель «Почтовые уведомления» не создает параметр exclude_called
+
+                        // запись (параметр exclude_called) создает или изменяет файл get_state.php
+                        // требуется в работе панели телефонии Komunikator (1C)
+                        
+                        $query = "SELECT value FROM ntn_settings WHERE param = 'exclude_called' AND value = '$params[called]' AND description > '" . (time()-20) . "'";
                         $res = query_to_array($query);
-                        if(!count($res)) {
+                        
+                        if (!count($res)) {
+                            
                             if (strlen($params['caller']) <= 3) {
-                            //Исходящий
-                                $query = "SELECT value  FROM ntn_settings where param = 'outgoing_call' and value = 'true'";
+
+                                // Событие: Исходящий вызов
+                                
+                                $query = "SELECT value FROM ntn_settings WHERE param = 'outgoing_call' AND value = 'true'";
                                 $res = query_to_array($query);
                             }
                             else {
-                                $query = "SELECT value  FROM ntn_settings where param = 'incoming_call' and value = 'true'";
+
+                                // Событие: Входящий вызов
+                                
+                                $query = "SELECT value FROM ntn_settings WHERE param = 'incoming_call' AND value = 'true'";
                                 $res = query_to_array($query);
                             }
+                            
                             if (count($res)) {
-                                $text = format_msg($text,$params);
-                                $subject = format_msg($subject,$params);
+                                $text = format_msg($text, $params);
+                                $subject = format_msg($subject, $params);
                                 
-                                send_mail($text,$subject,$is_fax,$filename,getValueFromNtnSettings('from',''),getValueFromNtnSettings('email', ''),getValueFromNtnSettings('fromname', ''));
+                                send_mail(getValueFromNtnSettings('from', ''), getValueFromNtnSettings('password', ''), getValueFromNtnSettings('fromname', ''), getValueFromNtnSettings('email', ''), $subject, $text, $filename);
                             }
+                            
                         }
                     }
                 }
+                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
                 break;
         }
+        
     }
+
 }
+
 Yate::Debug('PHP: bye!');
+
 ?>

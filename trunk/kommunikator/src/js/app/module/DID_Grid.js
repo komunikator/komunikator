@@ -79,6 +79,8 @@ Ext.define('app.module.DID_Grid', {
             hidden : true
         },
         {  // 'number'
+            width : 150,
+            
             editor : {
                 xtype       : 'textfield',
                 regex       : /^\d+$/,
@@ -95,6 +97,8 @@ Ext.define('app.module.DID_Grid', {
             })
         },
         {  // 'description'
+            width : 150,
+            
             editor : {
                 xtype : 'textfield'
             }

@@ -159,7 +159,7 @@ Ext.define('app.module.Prompts_Panel', {
                                             //waitMsg: 'Wait..',
                                             onSuccess: function(result, request){
                                                 app.onSuccessOrFail(result, request,function(){
-                                                    app.msgShow(app.msg.saved?app.msg.saved:'Saved','info');
+                                                    app.msgShow(app.msg.saved ? app.msg.saved : 'Saved', 'info');
                                                     me.reset();
                                                 })
                                             },

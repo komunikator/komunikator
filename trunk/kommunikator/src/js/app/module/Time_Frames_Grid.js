@@ -53,43 +53,58 @@
 
 Ext.define('app.module.Time_Frames_Grid', {
     extend : 'app.Grid',
-    no_adddelbuttons : true,	
+    
+    no_adddelbuttons : true,
+    
     store_cfg : {
-        fields : ['id','day', 'start_hour', 'end_hour'],
-        storeId : 'time_frames',
-        sorters : [{
-            direction: '',
-            property: ''	
+        fields   : ['id', 'day', 'start_hour', 'end_hour'],
+        storeId  : 'time_frames',
+        
+        sorters  : [{
+            direction  : '',
+            property   : ''	
         }]
     },
-    //enableHdMenu: true,
-    enableColumnHide:false,
+    
+    // enableHdMenu : true,
+    
+    enableColumnHide : false,
+    
     columns : [
-    {
+    {  // 'id'
         hidden: true
     },
-    { 
+    {  // 'day'
+        width : 125,
+        
         sortable: false
     },
-    {
+    {  // 'start_hour'
+        width : 125,
+        
         sortable: false,
-        editor :  {
-            xtype	: 'combobox',
-            mode	: 'local',
-            editable	: false,
-            triggerAction:'all'
+        
+        editor : {
+            xtype	   : 'combobox',
+            mode	   : 'local',
+            editable	   : false,
+            triggerAction  : 'all'
         }
     },
-    { 
+    {  // 'end_hour'
+        width : 125,
+        
         sortable: false,
-        editor :  {
-            xtype	: 'combobox',
-            mode	: 'local',
-            editable	: false,
-            triggerAction:'all'
+        
+        editor : {
+            xtype	   : 'combobox',
+            mode	   : 'local',
+            editable	   : false,
+            triggerAction  : 'all'
         }
     }
     ],
+    
     columns_renderer :
     function(value, metaData, record, rowIndex, colIndex, store) {
         if (colIndex==1)
@@ -102,7 +117,8 @@ Ext.define('app.module.Time_Frames_Grid', {
         }
         return value;
     },
-    initComponent : function () {
+            
+    initComponent : function() {
         var clock = [
         [null,app.msg['notselected']],
         ['1','1'],
@@ -129,8 +145,6 @@ Ext.define('app.module.Time_Frames_Grid', {
         ['22','22'],
         ['23','23'],
         ['24','24']
-
-
         ];                      
         this.columns[2].editor.store = clock;
         this.columns[3].editor.store = clock;

@@ -96,6 +96,8 @@ Ext.define('app.module.Keys_Grid', {
             }
         },
         {  // 'key'
+            width : 100,
+            
             editor : {
                 xtype       : 'textfield',
                 regex       : /^\d$/,
@@ -127,22 +129,27 @@ Ext.define('app.module.Keys_Grid', {
             }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         },
-        {// 'description'
-            editor: {
+        {  // 'description'
+            width : 150,
+            
+            editor : {
                 xtype: 'textfield'
             }
         }
-
     ],
+            
     columns_renderer :
-            function(value, metadata, record, rowIndex, colIndex, store) {
-                if (colIndex == 1 || colIndex == 3) {
-                    metadata.tdAttr = 'data-qtip="' + app.msg[value] ? app.msg[value] : value + '"';
-                    return app.msg[value] ? app.msg[value] : value;
-                }
-                return value;
-            },
-            initComponent: function() {
+        function(value, metadata, record, rowIndex, colIndex, store) {
+            if (colIndex == 1 || colIndex == 3) {
+                metadata.tdAttr = 'data-qtip="' + app.msg[value] ? app.msg[value] : value + '"';
+                return app.msg[value] ? app.msg[value] : value;
+            }
+            
+            return value;
+        },
+        
+    initComponent : function() {
         this.callParent(arguments);
     }
+    
 });

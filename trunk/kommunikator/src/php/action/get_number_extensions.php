@@ -59,15 +59,21 @@ if (!$_SESSION['user']) {
     exit;
 } 
 
-$total =  compact_array(query_to_array("select ((SELECT count(*) FROM groups) + (SELECT count(*) FROM extensions) + 2) count"));
-if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
 
-$data =  compact_array(query_to_array("SELECT extension as id, extension as name FROM extensions"/*.get_sql_order_limit()*/));
+$total = compact_array(query_to_array("SELECT count(*) FROM extensions"));
 
-if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
-    
-$obj=array("success"=>true);
-$obj["total"] = $total['data'][0][0]; 
-$obj["data"] = $data['data']; 
+if (!is_array($total["data"])) echo out(array("success"=>false,"message"=>$total));
+
+
+$data = compact_array(query_to_array("SELECT extension as id, extension as name FROM extensions"));
+
+if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+
+
+$obj = array("success" => true);
+
+$obj["total"] = $total['data'][0][0];
+$obj["data"] = $data['data'];
+
 echo out($obj);
 ?>

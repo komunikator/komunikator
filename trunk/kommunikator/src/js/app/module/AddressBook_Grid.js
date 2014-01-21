@@ -53,35 +53,43 @@
 
 Ext.define('app.module.AddressBook_Grid', {
     extend : 'app.Grid',
+    
     store_cfg : { 
-        fields : ['id','short_name', 'name', 'number'],
-        storeId : 'short_names'
+        fields   : ['id', 'short_name', 'name', 'number'],
+        storeId  : 'short_names'
     },
+    
     columns : [
-    {
+    {  // 'id'
         hidden: true
     },
-
-    {
-        editor :  {
+    {  // 'short_name'
+        width : 150,
+        
+        editor : {
             xtype: 'textfield',
-             allowBlank: false
+            allowBlank: false
         }
     },
-    {
-        editor :  {
+    {  // 'name'
+        width : 150,
+        
+        editor : {
             xtype: 'textfield'
         }
     },
-    {
-        editor :  {
+    {  // 'number'
+        width : 150,
+        
+        editor : {
             xtype: 'textfield',
             regex: /^\d/,
-             allowBlank: false
+            allowBlank: false
         }
     }
     ],
-    initComponent : function () {
+    
+    initComponent : function() {
         this.callParent(arguments); 
     }
 })

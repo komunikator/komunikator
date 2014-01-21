@@ -140,14 +140,15 @@ $sda_button_code = <<<EOD
     c2c.from = '$sda_c2c_from';
 
     c2c.cls = '$sda_c2c_cls';
+
     c2c.text = 'Позвонить нам';
 
     c2c.calling_text = 'Установка соединения ...';
     c2c.ringing_text = 'Вызов абонента ...';
     c2c.in_call_text = 'Слушаем Вас, говорите';
-    c2c.decline_text = 'Сброс вызова';
     c2c.call_terminated_text = 'Вызов завершен';
     c2c.call_terminating_text = 'Завершение вызова ...';
+    c2c.fail_to_find_user_account_text = 'Нет такой учетной записи';
 
     c2c.config = {
         http_service_url: 'http://$sda_host:10070',
