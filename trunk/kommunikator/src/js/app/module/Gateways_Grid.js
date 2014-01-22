@@ -51,120 +51,146 @@
 *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 */
 
-/*
-Ext.require([
-    'Ext.ux.CheckColumn'
-    ]);
-*/
-
 app.Loader.load('js/ux/css/CheckHeader.css');
- 
+
 Ext.define('app.module.Gateways_Grid', {
-    extend    : 'app.Grid',
+    extend : 'app.Grid',
     
     store_cfg : {
-        autorefresh  : false,
-        fields       : ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
-        storeId      : 'gateways'
+        autorefresh : false,
+        
+        fields   : ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
+        storeId  : 'gateways'
     },
     
-    // advanced  : ['ip_transport', 'authname', 'domain', 'callerid'],
-    
-    columns   : [
+    columns : [
     {  // 'id'
         hidden : true
     },
     {  // 'status'
-        width     : 70,
-        renderer  : app.online_offline_renderer
+        width : 60,
+        
+        renderer : app.online_offline_renderer
     },
     {  // 'enabled'
-        renderer  : app.checked_render,
-        editor    : {
-            xtype  : 'checkbox',
-            style  : {
+        width : 90,
+        
+        renderer : app.checked_render,
+        
+        editor : {
+            xtype : 'checkbox',
+            
+            style : {
                 textAlign : 'center'
             } 
         }
     },
     {  // 'gateway'
+        width : 125,
+        
         editor : {
-            xtype       : 'textfield',
-            allowBlank  : false
+            xtype : 'textfield',
+            allowBlank : false
         }
     },
     {  // 'server'
+        width : 125,
+        
         editor : {
-            xtype       : 'textfield',
-            allowBlank  : false
+            xtype : 'textfield',
+            allowBlank : false
         }
     },
     {  // 'username'
+        width : 125,
+        
         editor : {
-            xtype       : 'textfield',
-            allowBlank  : false
+            xtype : 'textfield',
+            allowBlank : false
         }
     },
     {  // 'password'
-        sortable  : false,
-        renderer  : function() {
+        width : 70,
+        
+        sortable : false,
+        
+        renderer : function() {
             return '***';
         },
-        editor    : {
-            xtype       : 'textfield',
-            inputType   : 'password',
-            allowBlank  : false
+                
+        editor : {
+            xtype : 'textfield',
+            inputType : 'password',
+            allowBlank : false
         }
     },
     {  // 'description'
+        width : 150,
+
         editor : {
             xtype : 'textfield'
         }
     },
     {  // 'protocol'
+        width : 80,
+
         editor : {
-            xtype          : 'combobox',
-            mode           : 'local',
-            editable       : false,
-            triggerAction  : 'all',
-            store          : [
-            ['sip', 'sip'],
-            ['h323', 'h323'],
-            ['iax', 'iax']
+            xtype : 'combobox',
+            mode : 'local',
+            
+            triggerAction : 'all',
+            
+            store : [
+                ['sip', 'sip'],
+                ['h323', 'h323'],
+                ['iax', 'iax']
             ],
+            
+            editable : false,
             allowBlank  : false
         }
     },
     {  // 'ip_transport'
+        width : 80,
+
         editor : {
-            xtype          : 'combobox',
-            mode           : 'local',
-            editable       : false,
-            triggerAction  : 'all',
-            store          : [
-            ['UDP', 'UDP'],
-            ['TLS', 'TLS'],
-            ['TCP', 'TCP']
+            xtype : 'combobox',
+            mode : 'local',
+
+            triggerAction : 'all',
+            
+            store : [
+                ['UDP', 'UDP'],
+                ['TLS', 'TLS'],
+                ['TCP', 'TCP']
             ],
-            allowBlank  : false
+            
+            editable : false,
+            allowBlank : false
         }
     },
     {  // 'authname'
+        width : 125,
+
         editor : {
-            xtype       : 'textfield',
-            allowBlank  : false
+            xtype : 'textfield',
+            allowBlank : false
         }
     },
     {  // 'domain'
+        width : 150,
+                
         editor : {
-            xtype       : 'textfield',
-            allowBlank  : false
+            xtype : 'textfield',
+            allowBlank : false
         }
     },
     {  // 'callerid'
+        width : 125,
+
         editor : {
-            xtype       : 'textfield',
-            allowBlank  : false
+            xtype : 'textfield',
+            allowBlank : false
         }
     }
     ],

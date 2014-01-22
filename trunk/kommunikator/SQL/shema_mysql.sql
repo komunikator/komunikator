@@ -281,7 +281,7 @@ DROP TABLE IF EXISTS `groups`;
 
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `group` varchar(25) DEFAULT NULL,
+  `group` varchar(50) DEFAULT NULL,
   `description` text,
   `extension` varchar(2) DEFAULT NULL,
   `mintime` int(11) DEFAULT NULL,
@@ -679,7 +679,7 @@ VALUES (
 ), (
   2,
   'Mail_Settings_Panel',
-  'Позволяет IP-АТС отслеживать те или иные вызовы и уведомлять о них посредствам рассылки электронных сообщений.',
+  'Позволяет IP-АТС отслеживать те или иные вызовы и уведомлять о них посредствам рассылки электронных писем.',
   '1.0',
   0
 );
