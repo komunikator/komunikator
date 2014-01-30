@@ -53,6 +53,7 @@
 
 var today = new Date();
 today.setHours(0, 0, 0, 0);
+
 var yesterday = new Date();
 yesterday.setDate((new Date()).getDate() - 1);
 yesterday.setHours(0, 0, 0, 0);
@@ -60,74 +61,92 @@ yesterday.setHours(0, 0, 0, 0);
 function GetDateInWeek(WeekOffset) {
     if (!WeekOffset)
         WeekOffset = 0;
+
     var NowDate = new Date();
     var CurrentDay = NowDate.getDay();
     var LeftOffset = CurrentDay - 1 - 7 * WeekOffset;
     var RightOffset = 7 - CurrentDay + 7 * WeekOffset;
     var First = new Date(NowDate.getFullYear(), NowDate.getMonth(), NowDate.getDate() - LeftOffset);
     var Last = new Date(NowDate.getFullYear(), NowDate.getMonth(), NowDate.getDate() + RightOffset)
+
     return({begin: First, end: Last});
     // alert(First.getDate() + '.'+First.getMonth()+'.'+First.getFullYear()+' - ' + Last.getDate()+'.'+Last.getMonth()+'.'+Last.getFullYear());
 }
 
 Ext.define('app.module.Call_logs_Grid', {
-    extend: 'app.Grid',
-    export: true,
-    store_cfg: {
-        autoLoad: false,
-        fields: ['id', {
-                name: 'time',
-                type: 'date',
-                dateFormat: app.date_format
-            }, 'type', 'caller', 'called', 'duration', 'gateway', 'status'],
-        storeId: 'call_logs',
-        sorters: [{
-                direction: 'DESC',
-                property: 'time'
-            }]
+    extend : 'app.Grid',
+
+    export : true,
+
+    store_cfg : {
+        autoLoad : false,
+
+        fields : ['id', {
+                            name : 'time',
+                            type : 'date',
+                            dateFormat : app.date_format
+                        }, 'type', 'caller', 'called', 'duration', 'gateway', 'status'],
+        storeId : 'call_logs',
+        sorters : [{
+                       direction : 'DESC',
+                       property : 'time'
+                  }]
     },
-    columns: [
-        {
-            xtype: 'rownumberer',
-            width: 50,
-            sortable: false
+
+    columns : [
+        {  // 'id'
+            width : 50,
+
+            xtype : 'rownumberer',
+            sortable : false
         },
-        {
-            width: 120,
-            groupable: false,
-            xtype: 'datecolumn',
-            format: app.date_format
+        {  // {'time' + 'date'}
+            width : 125,
+
+            xtype : 'datecolumn',
+            format : app.date_format,
+            groupable : false
         },
-        {
-            renderer: app.msg_renderer
+        {  // 'type'
+            width : 125,
+
+            renderer : app.msg_renderer
         },
-        {
-            width: 160
+        {  // 'caller'
+            width : 175
         },
-        {
-            width: 160
+        {  // 'called'
+            width : 175
         },
-        {
-            //align: 'right',
-            //width: 160,
-            renderer: app.dhms
+        {  // 'duration'
+            width : 100,
+            // align : 'right',
+
+            renderer : app.dhms
         },
-        {
+        {  // 'gateway'
+            width : 150
         },
-        {
+        {  // 'status'
+            width : 150,
+
             renderer: app.msg_renderer
         }
     ],
+
     requires: 'Ext.ux.grid.FiltersFeature',
-    features: [/*
-     {
-     //groupHeaderTpl: 'Subject: {name}',
-     ftype: 'groupingsummary'
-     },*/
+    features: [
+        /*
+        {
+            //groupHeaderTpl: 'Subject: {name}',
+            ftype: 'groupingsummary'
+        },
+        */
         {
             ftype: 'grouping',
             hideGroupedHeader: true
-        }, {
+        },
+        {
             ftype: 'filters',
             //autoReload: true,//false,//true,  //don't reload automatically
             local: false, //only filter locally
@@ -149,7 +168,7 @@ Ext.define('app.module.Call_logs_Grid', {
                             local: true,
                             type: 'list',
                             local: true,
-                                    options: [['internal', app.msg['internal']], ['incoming', app.msg['incoming']], ['outgoing', app.msg['outgoing']]],
+                            options: [['internal', app.msg['internal']], ['incoming', app.msg['incoming']], ['outgoing', app.msg['outgoing']]],
                             dataIndex: 'type'
                         }, {
                             type: 'string',

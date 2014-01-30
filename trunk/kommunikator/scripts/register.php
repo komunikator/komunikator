@@ -863,7 +863,23 @@ if ($debug_on) {
     Yate::Output(true);
 }
 
-if(Yate::Arg()) {
+if (Yate::Arg()) {
+    
+    
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    /*  блок для тестирования и только  */
+    
+    /*
+    // $sda_string_a = json_encode($ev);  // $ev=Yate::GetEvent();
+    $sda_string_a = print_r($ev, true);  // $ev=Yate::GetEvent();
+    $sda_string_b = date(DATE_RFC822) . "\n" . 'UPDATE call_logs ... ( if (Yate::Arg()) { )' . "\n" . $sda_string_a . "\n" . "\n";
+                            
+    $sda_file = '/var/www/technical_help/red.txt';
+    file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
+    */
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
+    
     Yate::Output("Executing startup time CDR cleanup");
     $query = "UPDATE call_logs SET ended= 1 where ended = 0 or ended IS NULL";
     query_nores($query);
@@ -1083,44 +1099,165 @@ for (;;) {
                         unset($s_fallbacks[$id]);
                     debug("There are ".count($s_fallbacks)." in fallback :".format_array($s_fallbacks));
                     break;
+                    
                 case "call.cdr":
                     $operation = $ev->GetValue("operation");
-                    $reason = $ev->GetValue("reason");
-                    switch($operation) {
+                    $reason = $ev->GetValue("reason");  // зачем это было сделано в этом case?
+                    
+                    $ended_initialize = 0;
+                    $ended_finalize = 1;
+                    
+                    switch ($operation) {
+                        
                         case "initialize":
-                        /*
-                            //$query = "INSERT INTO call_logs(time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended) 
-                            //VALUES(DATE_ADD(FROM_UNIXTIME(0),INTERVAL '".$ev->GetValue("time")."' SECOND), '".$ev->GetValue("chan")."', 
-                            //'".$ev->GetValue("address")."', '".$ev->GetValue("direction")."', '".$ev->GetValue("billid")."', 
-                            //'".$ev->GetValue("caller")."', '".$ev->GetValue("called")."', ADDTIME(0,'".$ev->GetValue("duration")."'), 
-                            //ADDTIME(0,'".$ev->GetValue("billtime")."'), ADDTIME(0,'".$ev->GetValue("ringtime")."'), '".$ev->GetValue("status")."', '$reason', false);";
-                          */
-                            $query = "INSERT INTO call_logs(time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)".
-                                     "VALUES(".$ev->GetValue("time").", '".$ev->GetValue("chan")."','".$ev->GetValue("address")."', '".$ev->GetValue("direction")."', '".
-                                     $ev->GetValue("billid")."','".$ev->GetValue("caller")."', '".$ev->GetValue("called")."',".$ev->GetValue("duration").",".
-                                     $ev->GetValue("billtime").",".$ev->GetValue("ringtime").", '".$ev->GetValue("status")."', '$reason', 0);";
+                            
+                            
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+                            /*  блок для тестирования и только  */
+                            
+                            /*
+                            // $sda_string_a = json_encode($ev);  // $ev=Yate::GetEvent();
+                            $sda_string_a = print_r($ev, true);  // $ev=Yate::GetEvent();
+                            $sda_string_b = date(DATE_RFC822) . "\n" . 'INSERT INTO call_logs ... ( case "initialize": )' . "\n" . $sda_string_a . "\n" . "\n";
+                            
+                            $sda_file = '/var/www/technical_help/red.txt';
+                            file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
+                            */
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+                            
+                            
+                            if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
+                                
+                                $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
+                                ." VALUES ("
+                                .$ev->GetValue("time").", '"
+                                .$ev->GetValue("chan")."', '"
+                                .$ev->GetValue("address")."', '"
+                                .$ev->GetValue("direction")."', '"
+                                .$ev->GetValue("billid")."', '"
+                                .$ev->GetValue("caller")."', '"
+                                .$ev->GetValue("called")."', "
+                                .$ev->GetValue("duration").", "
+                                .$ev->GetValue("billtime").", "
+                                .$ev->GetValue("ringtime").", '"
+                                .$ev->GetValue("status")."', '$reason', '$ended_finalize')";
+                            
+                            }
+                            else {
+                            
+                                $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
+                                ." VALUES ("
+                                .$ev->GetValue("time").", '"
+                                .$ev->GetValue("chan")."', '"
+                                .$ev->GetValue("address")."', '"
+                                .$ev->GetValue("direction")."', '"
+                                .$ev->GetValue("billid")."', '"
+                                .$ev->GetValue("caller")."', '"
+                                .$ev->GetValue("called")."', "
+                                .$ev->GetValue("duration").", "
+                                .$ev->GetValue("billtime").", "
+                                .$ev->GetValue("ringtime").", '"
+                                .$ev->GetValue("status")."', '$reason', '$ended_initialize')";
+                            
+                            }
+                            
                             $res = query_nores($query);
-                            $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count IS NOT NULL THEN inuse_count+1 ELSE 1 END) WHERE extension='".$ev->GetValue("external")."'";
+                            
+                            
+                            $query = <<<EOD
+                                UPDATE extensions SET inuse_count = (
+                                    CASE
+                                        WHEN inuse_count IS NOT NULL
+                                            THEN inuse_count + 1
+                                        ELSE 1
+                                    END
+                                )
+                                WHERE extension = '$ev->GetValue("external")'
+EOD;
+                            
                             $res = query_nores($query);
-                            break;
+                            
+                            break;  // case "initialize":
+                        
                         case "update":
+                            
+                            
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+                            /*  блок для тестирования и только  */
+                            
+                            /*
+                            // $sda_string_a = json_encode($ev);  // $ev=Yate::GetEvent();
+                            $sda_string_a = print_r($ev, true);  // $ev=Yate::GetEvent();
+                            $sda_string_b = date(DATE_RFC822) . "\n" . 'UPDATE call_logs ... (case "update":)' . "\n" . $sda_string_a . "\n" . "\n";
+                            
+                            $sda_file = '/var/www/technical_help/red.txt';
+                            file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
+                            */
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+                            
+                            
                             $query = "UPDATE call_logs SET address='".$ev->GetValue("address")."', direction='".$ev->GetValue("direction")."', billid='".$ev->GetValue("billid").
                                      "', caller='".$ev->GetValue("caller")."', called='".$ev->GetValue("called")."', duration=".$ev->GetValue("duration").", billtime=".
                                      $ev->GetValue("billtime").", ringtime=".$ev->GetValue("ringtime").", status='".$ev->GetValue("status").
                                      "', reason='$reason' WHERE chan='".$ev->GetValue("chan")."' AND time=".$ev->GetValue("time");
                             $res = query_nores($query);
-                            break;
+                            
+                            break;  // case "update":
+                        
                         case "finalize":
-                            $query = "UPDATE call_logs SET address='".$ev->GetValue("address")."', direction='".$ev->GetValue("direction")."', billid='".$ev->GetValue("billid").
-                                     "', caller='".$ev->GetValue("caller")."', called='".$ev->GetValue("called")."', duration=".$ev->GetValue("duration").", billtime=".
-                                     $ev->GetValue("billtime").", ringtime=".$ev->GetValue("ringtime").", status='".$ev->GetValue("status")."', reason='$reason', ended=1 WHERE chan='".
-                                     $ev->GetValue("chan")."' AND time=".$ev->GetValue("time");
+                            
+                            
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+                            /*  блок для тестирования и только  */
+                            
+                            /*
+                            // $sda_string_a = json_encode($ev);  // $ev=Yate::GetEvent();
+                            $sda_string_a = print_r($ev, true);  // $ev=Yate::GetEvent();
+                            $sda_string_b = date(DATE_RFC822) . "\n" . 'UPDATE call_logs ... (case "finalize":)' . "\n" . $sda_string_a . "\n" . "\n";
+                            
+                            $sda_file = '/var/www/technical_help/red.txt';
+                            file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
+                            */
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+                            
+                            
+                            $query = "UPDATE call_logs SET"
+                            ." address='".$ev->GetValue("address")
+                            ."', direction='".$ev->GetValue("direction")
+                            ."', billid='".$ev->GetValue("billid")
+                            ."', caller='".$ev->GetValue("caller")
+                            ."', called='".$ev->GetValue("called")
+                            ."', duration=".$ev->GetValue("duration")
+                            .", billtime=".$ev->GetValue("billtime")
+                            .", ringtime=".$ev->GetValue("ringtime")
+                            .", status='".$ev->GetValue("status")
+                            ."', reason='$reason', ended='$ended_finalize'"
+                            ." WHERE chan='".$ev->GetValue("chan")
+                            ."' AND time=".$ev->GetValue("time");
+                            
                             $res = query_nores($query);
-                            $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=".time()." WHERE extension='".$ev->GetValue("external")."'";
+                            
+                            
+                            $sda_current_time = time();
+                            
+                            $query = <<<EOD
+                            UPDATE extensions SET inuse_count = (
+                                CASE
+                                    WHEN inuse_count > 0
+                                        THEN inuse_count - 1
+                                    ELSE 0
+                                END
+                            ), inuse_last = '$sda_current_time'
+                            WHERE extension = '$ev->GetValue("external")'
+EOD;
+                            
                             $res = query_nores($query);
-                            break;
+                            
+                            break;  // case "finalize":
                     }
-                    break;
+                    
+                    break;  // case "call.cdr":
+                
             }
             // This is extremely important.
             //	We MUST let messages return, handled or not

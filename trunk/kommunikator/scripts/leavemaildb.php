@@ -23,16 +23,18 @@
  */
 ?>
 <?php
+
 require_once("libyate.php");
 require_once("libvoicemail.php");
 require_once("lib_queries.php");
+
 set_time_limit(600);
 
 /* Always the first action to do */
 Yate::Init();
 
 /* Uncomment next line to get debugging messages */
-//Yate::Debug(true);
+// Yate::Debug(true);
 
 $ourcallid = "leavemaildb/" . uniqid(rand(),1);
 $partycallid = "";
@@ -57,7 +59,8 @@ function checkUser($called,$caller)
 
     $query = "SELECT count(*) as count FROM extensions WHERE extension='$called'";
     $res = query_to_array($query);
-    if(!$res[0]["count"])
+    
+    if (!$res[0]["count"])
 	return false;
 
     $user = vmGetVoicemailDir($called);
@@ -66,6 +69,7 @@ function checkUser($called,$caller)
 
     $mailbox = $called;
     $file = vmBuildNewFilename($caller);
+    
     return true;
 }
 
@@ -177,28 +181,65 @@ while ($state != "") {
 	    switch ($ev->name) {
 		case "call.execute":
 		    $partycallid = $ev->GetValue("id");
+                    
 		    $ev->params["targetid"] = $ourcallid;
+                    
 		    if ($ev->GetValue("debug_on") == "yes") {
 			Yate::Output(true);
 			Yate::Debug(true);
 		    }
+                    
 		    if ($ev->GetValue("query_on") == "yes") {
 			$query_on = true;
 		    }
+                    
 		    $ev->handled = true;
 		    /* We must ACK this message before dispatching a call.answered */
 		    $ev->Acknowledge();
 		    /* Check if the mailbox exists, answer only if that's the case */
 		    if (checkUser($ev->GetValue("called"),$ev->GetValue("caller"))) {
 			$m = new Yate("call.answered");
+                        
 			$m->params["id"] = $ourcallid;
 			$m->params["targetid"] = $partycallid;
+                        
+                        // - - - - - - - - - - - - - - - - - - - - - - - - -
+                        /*  (СЌС‚РѕРіРѕ Р±Р»РѕРєР° СЂР°РЅРµРµ РЅРµ Р±С‹Р»Рѕ)  */
+                        
+                        /*  РѕРїСЂРµРґРµР»РµРЅРёРµ РїСЂР°РІРѕРіРѕ РїР»РµС‡Р° РїСѓС‚РµРј РїСЂРёСЃРІРѕРµРЅРёСЏ РµРјСѓ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РІС‹Р·РѕРІР° (billid) Р»РµРІРѕРіРѕ РїР»РµС‡Р°  */
+                        /*  Р°РІС‚РѕСЃРµРєСЂРµС‚Р°СЂСЊ -> РІРЅСѓС‚СЂ. РЅРѕРјРµСЂ -> РіРѕР»РѕСЃРѕРІР°СЏ РїРѕС‡С‚Р°  */
+                        
+                        // $m->params["direction"] = $ev->GetValue("direction");
+                        $m->params["direction"] = 'outgoing';
+                        
+                        $m->params["billid"] = $ev->GetValue("billid");
+                        
+                        // $m->params["status"] = $ev->GetValue("status");
+                        $m->params["status"] = 'cs_voicemail';
+                        
+                        // $m->params["reason"] = $ev->GetValue("reason");
+                        // - - - - - - - - - - - - - - - - - - - - - - - - -
+                        
+                        // - - - - - - - - - - - - - - - - - - - - - - - - -
+                        /*  Р±Р»РѕРє РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ Рё С‚РѕР»СЊРєРѕ  */
+                        
+                        /*
+                        $sda_string_a = print_r($m, true);  // $m = new Yate("call.answered");
+                        $sda_string_b = date(DATE_RFC822) . "\n" . 'case "call.execute":' . "\n" . $sda_string_a . "\n" . "\n";
+                            
+                        $sda_file = '/var/www/technical_help/green.txt';
+                        file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
+                        */
+                        // - - - - - - - - - - - - - - - - - - - - - - - - -
+                        
 			$m->Dispatch();
+                        
 			setState("greeting");
 		    }
-		    else
+		    else {
 			/* Play a message and exit - don't answer the call */
 			setState("novmail");
+                    }
 
 		    // we already ACKed this message
 		    $ev = false;
@@ -206,6 +247,7 @@ while ($state != "") {
 
 		case "chan.notify":
 		    gotNotify($ev->GetValue("reason"));
+                    
 		    $ev->handled = true;
 		    break;
 	    }
@@ -213,16 +255,21 @@ while ($state != "") {
 	       We MUST let messages return, handled or not */
 	    if ($ev)
 		$ev->Acknowledge();
+            
 	    break;
+            
 	case "answer":
 	    // Yate::Debug("PHP Answered: " . $ev->name . " id: " . $ev->id);
 	    break;
+        
 	case "installed":
 	    // Yate::Debug("PHP Installed: " . $ev->name);
 	    break;
+        
 	case "uninstalled":
 	    // Yate::Debug("PHP Uninstalled: " . $ev->name);
 	    break;
+        
 	default:
 	    // Yate::Output("PHP Event: " . $ev->type);
     }

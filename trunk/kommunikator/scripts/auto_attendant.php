@@ -23,6 +23,7 @@
  */
 ?>
 <?php
+
 require_once("lib_queries.php");
 require_once("libyate.php");
 
@@ -244,7 +245,9 @@ while ($state != "") {
     if ($ev === true)
         continue;
     /* If we reached here we should have a valid object */
+
     debug(format_array($ev));
+
     switch ($ev->type) {
         case "incoming":
             switch ($ev->name) {
@@ -252,28 +255,53 @@ while ($state != "") {
                     $partycallid = $ev->GetValue("id");
                     $caller = $ev->GetValue("caller");
                     $called = $ev->GetValue("called");
+
                     if ($ev->GetValue("debug_on") == "yes") {
                         Yate::Output(true);
                         Yate::Debug(true);
                     }
+
                     if ($ev->GetValue("query_on") == "yes") {
                         $query_on = true;
                     }
+
                     $ev->params["targetid"] = $ourcallid;
                     $ev->handled = true;
                     /* We must ACK this message before dispatching a call.answered */
                     $ev->Acknowledge();
                     /* Prevent a warning if trying to ACK this message again */
-                    $ev = false;
+                    // $ev = false;  // перенесено ниже
 
                     /* Signal we are answering the call */
                     $m = new Yate("call.answered");
+
                     $m->params["id"] = $ourcallid;
                     $m->params["targetid"] = $partycallid;
+
+                    // - - - - - - - - - - - - - - - - - - - - - - - - -
+                    /*  (этого блока ранее не было)  */
+                        
+                    /*  определение правого плеча путем присвоения ему идентификатора вызова (billid) левого плеча  */
+                    /*  автосекретарь -> группа -> внутр. номер  */
+                        
+                    // $m->params["direction"] = $ev->GetValue("direction");
+                    // $m->params["direction"] = 'outgoing';
+                        
+                    $m->params["billid"] = $ev->GetValue("billid");
+                        
+                    // $m->params["status"] = $ev->GetValue("status");
+                    $m->params["status"] = 'cs_attendant';
+                        
+                    // $m->params["reason"] = $ev->GetValue("reason");
+                    // - - - - - - - - - - - - - - - - - - - - - - - - -
+                    
+                    $ev = false;
+
                     $m->Dispatch();
 
                     setState("greeting");
-                    break;
+
+                    break;  // case "call.execute":
 
                 case "chan.notify":
                     gotNotify($ev->GetValue("reason"));
@@ -320,7 +348,7 @@ while ($state != "") {
             // Yate::Debug("PHP Uninstalled: " . $ev->name);
             break;
         default:
-        // Yate::Output("PHP Event: " . $ev->type);
+            // Yate::Output("PHP Event: " . $ev->type);
     }
 }
 

@@ -279,20 +279,29 @@ app.msg = {
     active_calls_info: "На этом экране в реальном времени отображаются все активные вызовы АТС.",
     users_info: "Используйте эту вкладку для управления пользователями системы. По возможности используйте сложные пароли.", //Может вместо "Используйте эту вкладку для управления пользователями системы." "Управление пользователями"?
 
-    //-------статусы звонков
+
+    /*  статусы вызовов (call status) [varchar(64)]  */
+
+    /*  проверенные на практике  */
+    cs_voicemail : "вызов переведен на голосовую почту",
+    cs_attendant : "вызов переведен на автосекретаря",
+    cancelled : "вызов отменен",
+    'busy_here_[call_processing_released]' : "номер занят",
+    answered : "отвеченный вызов",
+    temporarily_unavailable : "вызов перенаправлен на другой номер",
+    busy_here : "номер занят",
+    request_terminated : "вызов отменен",
+    normal_call_clearing : "отвеченный вызов",
+
+    /*  требующие проверки  */
     accepted: "принятый",
-    answered: "отвеченный",
-    cancelled: "отменен",
     ringing: "вызов", //больше похоже на "звонок". "Вызов" как-то больше ассоциируется с самим процессом азговора, в то время как ringing это именно сигнал о поступающем вызове.
     rejected: "отклоненный",
     outgoing: "исходящий",
     address_incomplete: "неполный номер",
     incoming: "входящий",
     internal: "внутренний",
-    request_terminated: "отменен",
-    busy_here: "занят",
     transfer: "переадресован",
-    temporarily_unavailable: "временно недоступен",
     'temporarily_unavailable_[call_processing_released]': "временно недоступен",
     performing_actions: "Выполнение действий",
     wait_reboot: "Пожалуйста, подождите пока происходит перезагрузка АТС",
@@ -319,8 +328,6 @@ app.msg = {
     server_internal_error: 'внутренняя ошибка сервера',
     request_timeout: 'время ожидания истекло',
     'unallocated_(unassigned)_number': 'недопустимый номер',
-    normal_call_clearing: 'вызов завершен',
-    'busy_here_[call_processing_released]': "занят",
     'normal,_unspecified': "отвеченный",
     pickup: 'перехваченный',
     temporarily_not_available: 'недоступен',

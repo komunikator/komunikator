@@ -55,81 +55,114 @@
 
 ?><?
 
-//sleep(10);
+// sleep(10);
+
 if (!$_SESSION['user'] && !$_SESSION['extension']) {
     echo (out(array("success" => false, "message" => "auth_failed")));
     exit;
 }
-if ($_SESSION['user']) {
-    $call === NULL;
-}
+
+
+$call = NULL;
 
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
-    $call = "and (a.caller = '$exten' OR b.called ='$exten')";
+    $call = "AND (a.caller = '$exten' OR b.called = '$exten')";
 }
 
-$sql =
-        <<<EOD
-select * from (
-select
-	"" id,
-	b.time,
-        case 
-          when x.extension is not null and x2.extension is not null then 'internal'
-          when x.extension is not null then 'outgoing'
-	  else 'incoming'
-        end type,
-	case when x.firstname is null then a.caller else concat(x.firstname,' ',x.lastname,' (',a.caller,')') end caller,
-	case when x2.firstname is null then b.called else concat(x2.firstname,' ',x2.lastname,' (',b.called,')') end called,
-	round(b.billtime) duration,
-        case 
-	 when g.description is not null and g.description !='' then g.description 
-	 when g.gateway     is not null                        then g.gateway	
-	 when g.authname    is not null                        then g.authname
-	else null 
-        end gateway,
-        case when b.reason="" then b.status else replace(lower(b.reason),' ','_') end status
-from call_logs a  
-join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
-left join extensions x on x.extension=a.caller 
-left join extensions x2 on x2.extension=b.called
-left join gateways g  on g.authname=a.called or g.authname=b.caller
-   where a.ended=1 and a.direction='incoming' and a.status!='unknown'  $call ) a
+$sql = <<<EOD
+SELECT * FROM (
+    SELECT
+        "" AS id,
+
+        b.time,
+
+        CASE
+            WHEN x1.extension IS NOT NULL AND x2.extension IS NOT NULL
+                THEN 'internal'
+            WHEN x1.extension IS NOT NULL
+                THEN 'outgoing'
+            ELSE 'incoming'
+        END type,
+
+        CASE
+            WHEN x1.firstname IS NULL
+                THEN a.caller
+            ELSE CONCAT( x1.firstname, ' ', x1.lastname, ' (', a.caller, ')' )
+        END caller,
+
+        CASE
+            WHEN x2.firstname IS NULL
+                THEN b.called
+            ELSE CONCAT( x2.firstname, ' ', x2.lastname, ' (', b.called, ')' )
+        END called,
+
+        ROUND(b.billtime) duration,
+
+        CASE
+            WHEN g.description IS NOT NULL AND g.description != ''
+                THEN g.description
+            WHEN g.gateway IS NOT NULL
+                THEN g.gateway
+            WHEN g.authname IS NOT NULL
+                THEN g.authname
+            ELSE NULL
+        END gateway,
+
+        CASE
+            WHEN b.reason = ''
+                THEN b.status
+            ELSE REPLACE( LOWER(b.reason), ' ', '_' )
+        END status
+
+    FROM call_logs a
+
+
+    JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
+
+    LEFT JOIN extensions x1 ON x1.extension = a.caller
+
+    LEFT JOIN extensions x2 ON x2.extension = b.called
+
+    LEFT JOIN gateways g ON g.authname = a.called OR g.authname = b.caller
+
+
+    WHERE a.ended = 1 AND a.direction = 'incoming' $call
+) a
 EOD;
 
 $data = compact_array(query_to_array($sql . get_filter()));
-if (!is_array($data["data"]))
-    echo out(array("success" => false, "message" => $data));
+if (!is_array($data["data"])) echo out(array("success" => false, "message" => $data));
+
 $total = count($data["data"]);
 
 $data = compact_array(query_to_array($sql . get_sql_order_limit()));
-if (!is_array($data["data"]))
-    echo out(array("success" => false, "message" => $data));
+if (!is_array($data["data"])) echo out(array("success" => false, "message" => $data));
 
-//$total = count($data["data"]);
 
 $obj = array("success" => true);
 $obj["total"] = $total;
 
 /*
-  $total =  compact_array(query_to_array("SELECT count(*) FROM call_logs ".get_filter()));
-  if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
-  $data =  compact_array(query_to_array("SELECT \"\" id, time, caller, called, duration,  status FROM call_logs  ".get_sql_order_limit()));
-  if(!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
-  $obj=array("success"=>true);
-  $obj["total"] = $total['data'][0][0];
-  //$obj["sql"] = get_sql_order_limit();
-  //$obj["sql"] = strtotime('2010/08/11 06:33:00'); //get_sql_order_limit();
- */
+$total =  compact_array(query_to_array("SELECT count(*) FROM call_logs ".get_filter()));
+if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
+$data =  compact_array(query_to_array("SELECT \"\" id, time, caller, called, duration,  status FROM call_logs  ".get_sql_order_limit()));
+if(!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
+$obj=array("success"=>true);
+$obj["total"] = $total['data'][0][0];
+// $obj["sql"] = get_sql_order_limit();
+// $obj["sql"] = strtotime('2010/08/11 06:33:00'); //get_sql_order_limit();
+*/
 
 $f_data = array();
 foreach ($data["data"] as $row) {
-    $row[1] -= $_SESSION['time_offset'] * 60;
-    $row[1] = date($date_format, $row[1]);
+    $row[1] = $row[1] - $_SESSION['time_offset'] * 60;
+    $row[1] = date($date_format, $row[1]);  // $date_format = "d.m.y H:i:s"; - data.php
     $f_data[] = $row;
 }
+
 $obj["header"] = $data["header"];
 $obj["data"] = $f_data;
+
 echo out($obj);
 ?>

@@ -170,7 +170,7 @@ app.msg = {
     swap_use: 'Virtual memory',
     space_use: 'Free disk space',
     uptime: 'Server uptime',
-    copyright: "Komunikator Copyright (C) 2012-2013, 'Telephonnyie sistemy' Ltd.",
+    copyright: "Komunikator Copyright (C) 2012-2014, 'Telephonnyie sistemy' Ltd.",
     //first_step  : "The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours."
     for_edit: "To change the settings, click on the desired item twice",
     extensions_info: "Extensions - Internal phones attached to the IP PBX",
