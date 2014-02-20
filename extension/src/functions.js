@@ -5,12 +5,16 @@ if (lang == 'ru')
 else
     localStorage['lang'] = "en";
 
-localStorage['service_url'] = "http://ats.digt.local/service/data.php";
+// - - - - - - - - - - - - - - - - - - - - - - - -
+//localStorage['service_url'] = "http://ats.digt.local/service/data.php";
 
-var bitrix_SOURCE_ID = 15;
-var bitrix_base  = "http://digt.ru/bitrix";
+//var bitrix_SOURCE_ID = 15;
+
+
+/*var bitrix_base  = "http://digt.ru/bitrix";
 var bitrix_url   = bitrix_base + "/admin/ticket_edit.php?lang="+localStorage['lang'];
-var bitrix_expire_time = 5*60*1000;
+var bitrix_expire_time = 5*60*1000;*/
+// - - - - - - - - - - - - - - - - - - - - - - - - 
 var time_offset = new Date().getTimezoneOffset();
 
 function get_session_id(cb){  
@@ -70,7 +74,9 @@ function save_options()
     localStorage["password"]  = document.getElementById("password").value;
     localStorage["openform"]  = document.getElementById("openform").checked;
     localStorage["click2call"]  = document.getElementById("click2call").checked;
-
+//----
+    localStorage["service_url"]  = "http://" + document.getElementById("service_url").value +"/service/data.php";
+//----
     get_session_id(function(msg){
         var status = document.getElementById("status");
         status.innerHTML = msg;
@@ -103,7 +109,7 @@ function main()
                         var cur_state = localStorage['status'];
                         if (status && status!=cur_state)
                         {
-                            text = chrome.i18n.getMessage("status")+' : ' + status;
+                            text = chrome.i18n.getMessage("status")+' : ' + status;//выводит статус extension при начале работы/подключения
                             localStorage['status'] = status;
                             init();
                         }
