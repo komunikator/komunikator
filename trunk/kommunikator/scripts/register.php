@@ -205,12 +205,27 @@ function set_moh($time = NULL) {
 function build_location($params, $called, &$copy_ev) {
     set_additional_params($params, $copy_ev);
 
-    if($params["username"] && $params["username"] != '') {
-    // this is a gateway with registration
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - -
+    /*  блок для тестирования и только  */
+
+    /*
+    $sda_string_a = print_r($params, true);
+    $sda_string_b = date(DATE_RFC822) . "\n" . 'function build_location($params, $called, &$copy_ev) { ...' . "\n" . $sda_string_a . "\n" . "\n";
+
+    $sda_file = '/var/www/technical_help/black.txt';
+    file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
+    */
+    // - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+    if ($params["username"] && $params["username"] != '') {
+        // this is a gateway with registration
         $copy_ev["line"] = $params["gateway"];
         return "line/$called";
-    }else {
-        switch($params["protocol"]) {
+    }
+    else {
+        switch ($params["protocol"]) {
             case "sip":
                 return "sip/sip:$called@".$params["server"].":".$params["port"];
             case "h323":
@@ -881,9 +896,9 @@ if (Yate::Arg()) {
     
     
     Yate::Output("Executing startup time CDR cleanup");
-    $query = "UPDATE call_logs SET ended= 1 where ended = 0 or ended IS NULL";
+    $query = "UPDATE call_logs SET ended = 1 WHERE ended = 0 OR ended IS NULL";
     query_nores($query);
-    $query = "UPDATE extensions SET inuse_count=0";
+    $query = "UPDATE extensions SET inuse_count = 0";
     query_nores($query);
 
     // Spawn another, restartable instance
@@ -1164,17 +1179,8 @@ for (;;) {
                             $res = query_nores($query);
                             
                             
-                            $query = <<<EOD
-                                UPDATE extensions SET inuse_count = (
-                                    CASE
-                                        WHEN inuse_count IS NOT NULL
-                                            THEN inuse_count + 1
-                                        ELSE 1
-                                    END
-                                )
-                                WHERE extension = '$ev->GetValue("external")'
-EOD;
-                            
+                            $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count IS NOT NULL THEN inuse_count+1 ELSE 1 END) WHERE extension='".$ev->GetValue("external")."'";
+
                             $res = query_nores($query);
                             
                             break;  // case "initialize":
@@ -1238,19 +1244,8 @@ EOD;
                             $res = query_nores($query);
                             
                             
-                            $sda_current_time = time();
-                            
-                            $query = <<<EOD
-                            UPDATE extensions SET inuse_count = (
-                                CASE
-                                    WHEN inuse_count > 0
-                                        THEN inuse_count - 1
-                                    ELSE 0
-                                END
-                            ), inuse_last = '$sda_current_time'
-                            WHERE extension = '$ev->GetValue("external")'
-EOD;
-                            
+                            $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=".time()." WHERE extension='".$ev->GetValue("external")."'";
+
                             $res = query_nores($query);
                             
                             break;  // case "finalize":
