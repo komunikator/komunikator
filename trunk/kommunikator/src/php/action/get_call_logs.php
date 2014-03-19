@@ -159,10 +159,46 @@ foreach ($data["data"] as $row) {
     $row[1] = $row[1] - $_SESSION['time_offset'] * 60;
     $row[1] = date($date_format, $row[1]);  // $date_format = "d.m.y H:i:s"; - data.php
     $f_data[] = $row;
+    $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');
+    //echo $f_data;
 }
 
 $obj["header"] = $data["header"];
-$obj["data"] = $f_data;
 
+function translate( $f_data, $lang = 'ru') {
+    $file = "js/app/locale/" . $lang . ".js";
+    if (!file_exists($file))
+        return  $f_data;
+    //echo ('!!!!');
+    $text = file_get_contents($file);
+// удаляем строки начинающиеся с #
+    $text = preg_replace('/#.*/', '', $text);
+// удаляем строки начинающиеся с //
+    $text = preg_replace('#//.*#', '', $text);
+// удаляем многострочные комментарии /* */
+    $text = preg_replace('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#', '', $text);
+
+    $text = str_replace("\r\n", '', $text);
+    $text = str_replace("\n", '', $text);
+
+    $text = preg_replace('/(.*app\.msg\s*=\s*)({.*})(\s*;.*)/', '$2', $text);
+    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)\[\]\,\_]+)([\s\"\']*):\s*\"([^"]*)\"/', '$1"$3":"$5"', $text);
+    $text = preg_replace('/([{,])([\s\"\']*)([\w\(\)\[\]\,\_]+)([\s\"\']*):\s*\'([^\']*)\'/', '$1"$3":"$5"', $text);
+
+    $words = json_decode($text, true);
+    if ($f_data && $words)
+        foreach ( $f_data as &$row)
+            foreach ($row as $key => $el)
+                foreach ($words as $word => $value) {
+                    if ($word == $el)
+                        $row[$key] = $value;
+                }
+    return  $f_data;
+    
+}
+$f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');
+//echo $f_data;
+$obj["data"] = $f_data;
+//echo $obj;
 echo out($obj);
 ?>

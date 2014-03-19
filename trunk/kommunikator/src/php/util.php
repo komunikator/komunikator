@@ -111,8 +111,8 @@ function out($data) {
     if ($export) {
         $columns = $data["header"];
         array_unshift($data["data"], $columns);
-        $request_id = uniqid();
-        $tmp = sys_get_temp_dir() . "/" . $request_id;
+        $request_id = uniqid();//создается док-т с уникальным id
+        $tmp = sys_get_temp_dir() . "/" . $request_id;//док -т имеет данное название
         $data = array("request_id" => $request_id, "success" => !(file_put_contents($tmp, json_encode($data["data"])) === false));
     }
     $type = getparam("type");

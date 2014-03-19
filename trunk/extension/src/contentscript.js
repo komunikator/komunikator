@@ -4,7 +4,7 @@ $(function(){
         $(headElement).append($('<link type="text/css" rel="stylesheet">').attr('href', chrome.extension.getURL("options.css")));
     }
     var regexp = /(\+?[78] ?\(?\d{3,4}\)? ?\d{1,3}-?\d{2}-?\d{2})/;
-    var service_url ;
+    var service_url;
     var click2callDesc;
 
     $.fn.digt_phone = function() {
@@ -29,7 +29,7 @@ $(function(){
                             //       alert('call: "'+number+'"')
                             }
                         };
-                        req.open("GET", service_url+'&action=make_call&number='+number, true);
+                        req.open("GET", service_url+'&action=make_call&number='+number, true); 
                         req.send(null);                       
                     }
                     );
@@ -81,10 +81,10 @@ $(function(){
                                 click2callDesc = msg.data;
                             if (response.data=='true')
                                 $('body').digt_phone();
-                        }) 
-                    })
-                })
+                        }); 
+                    });
+                });
             }
         });
-    })
+    });
 });
