@@ -61,7 +61,7 @@ function save_options()
         status.innerHTML = msg;
         setTimeout(function() {
             status.innerHTML = "";
-            window.close();
+         //   window.close();
             chrome.extension.sendRequest({
                 'do': "update"
             });

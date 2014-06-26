@@ -71,9 +71,11 @@ function history() {
         console.log(data);
         var time = 0, caller = 0, called = 0, statuss = 0;
         var tbody = document.getElementById("call_logs_table").getElementsByTagName("TBODY")[0];
-if(tbody.rows.length>0){
-  tbody.rows.remove();
-}
+        if (tbody.rows.length > 0) {
+            while (tbody.rows[0]) {
+                tbody.deleteRow(0);
+            }
+        }
         for (var i = 0; i < data.length; i++) {
             time = data[i][1];
             caller = data[i][3];
@@ -119,26 +121,27 @@ function list_extensions() {
         var json = JSON.parse(doc);
         //  console.log(json);
         var extensions = json.extensions;
-      //  console.log(extensions);
+        //  console.log(extensions);
         var extension_status = 0, extension_number = 0, name = 0, surname = 0;
         var tbody = document.getElementById("list_extensions_table").getElementsByTagName("TBODY")[0];
-   
-    //console.log(tbody.rows);
-   //tbody.rows.remove();
-    
+
+        //console.log(tbody.rows);
+        //tbody.rows.remove();
+
 //mPers.removeAttribute("TR"); }
 
 //mPers.removeChild(tbl_body);
 
 //for(var i=0; i<document.body.childNodes.length; i++) {
-  //  var child = document.getElementById("list_extensions_table").childNodes[i];
-  //console.log(child);
+        //  var child = document.getElementById("list_extensions_table").childNodes[i];
+        //console.log(child);
 //}
 
-if(tbody.rows.length>0){
-    console.log(tbody);
-   tbody.rows.remove();
-}
+        if (tbody.rows.length > 0) {
+            while (tbody.rows[0]) {
+                tbody.deleteRow(0);
+            }
+        }
 
         for (var i = 0; i < extensions.length; i++) {
 
@@ -159,7 +162,7 @@ if(tbody.rows.length>0){
             }
             if (extension_status === "busy") {
                 td1.setAttribute('src', 'images/busy.gif');
-            } 
+            }
             //td2.appendChild(document.createTextNode(extension_number));
             td1.setAttribute('style', 'float:right;');
 //newBut.setAttribute('style', 'float:right;');
@@ -185,45 +188,34 @@ if(tbody.rows.length>0){
             tbody.appendChild(row);
         }
     };
-     
-  //  req.open("GET", localStorage['service_url'] + "?action=get_list_extensions&session=" + localStorage['session_id'] + "&time_offset=" + time_offset + "&period=" + localStorage['refresh'], true);
-     req.open("GET", localStorage['service_url'] + "?action=get_list_extensions&extension='" + localStorage['extension'] + "'&time_offset=" + time_offset + "&period=" + localStorage['refresh'] + "&" + localStorage['session_name'] + '=' + localStorage['session_id'], true);
+
+    //  req.open("GET", localStorage['service_url'] + "?action=get_list_extensions&session=" + localStorage['session_id'] + "&time_offset=" + time_offset + "&period=" + localStorage['refresh'], true);
+    req.open("GET", localStorage['service_url'] + "?action=get_list_extensions&extension='" + localStorage['extension'] + "'&time_offset=" + time_offset + "&period=" + localStorage['refresh'] + "&" + localStorage['session_name'] + '=' + localStorage['session_id'], true);
     req.send(null);
-     window.clearInterval(interval);
+    window.clearInterval(interval);
     interval = window.setInterval(function() {
         list_extensions();
-    }, localStorage['refresh']*400);
+    }, localStorage['refresh'] * 400);
 }
 ;
 
 window.onload = function() {
-    document.getElementById('_page1').onclick = function() {
-
-
-//node.removeChild(child);
-
-//console.log(mPers); 
-//document.getElementById("list_extensions_table").
-        
+    $('#_save').on('click', function() {
+        save_options();
+    });
+    $('#_exit').on('click', function() {
+        window.close();
+    });
+    $('#_page1').on('click', function() {
         list_extensions();
-        //   document.location.href='#top';
-//return false;
-    };
-    document.getElementById('_page1').click();
-    document.getElementById('_page2').onclick = function() {
-
+    });
+    $('#_page2').on('click', function() {
         history();
-        //  document.location.href='#top';
-//return false;
+    });
+    $('#_page1').click();
 
-    };
 };
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("_save").addEventListener('click', save_options);
-    document.getElementById("_exit").addEventListener('click', exit);
-    //--
-    document.getElementById("_update_history").addEventListener('click', history);
-    document.getElementById("_update_extensions").addEventListener('click', list_extensions);
-    //--
+
     restore_options();
 });
