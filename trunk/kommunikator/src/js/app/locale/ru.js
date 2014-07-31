@@ -247,6 +247,7 @@ app.msg = {
     dark_gray: 'темно-серый',
     Call_website_Grid: 'Звонок с сайта', //1-- для Tuning_modules_Grid в титуле используется имя модуля
     Mail_Settings_Panel: 'Почтовые уведомления', //2--//--
+    Call_Record_Grid: 'Запись звонка',//3--//--
 
     //-------предупреждения
     session_failed: 'Время сеанса истекло. Пожалуйста, войдите еще раз',
@@ -333,5 +334,9 @@ app.msg = {
     temporarily_not_available: 'недоступен',
     too_many_hops:'слишком много попыток',
     call_is_looping:'звонок зациклен',
-    unauthorized:'не авторизован'
+    unauthorized:'не авторизован',
+    one_month: '1 месяц',
+    three_months: '3 месяца',
+    six_months: '6 месяцев',
+    one_year: '1 год'
 };

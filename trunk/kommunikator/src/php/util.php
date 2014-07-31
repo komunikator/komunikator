@@ -186,6 +186,8 @@ function get_SQL_concat($data) {
         return $str;
     }
 }
+
+// - - перевод текста, возвращаем значение уже по рус/англ
 function translate( $data, $lang = 'ru') {
     $file = "js/app/locale/" . $lang . ".js";
     if (!file_exists($file))

@@ -51,91 +51,47 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 
-Ext.define('app.module.Tuning_Modules_Grid', {
+var month = Ext.create('Ext.data.Store', {
+    fields: ['id', 'name'],
+    data: [
+        {"id": "0", "name": app.msg.one_month},
+        {"id": "1", "name": app.msg.three_months},
+        {"id": "2", "name": app.msg.six_months},
+        {"id": "3", "name": app.msg.one_year}
+    ]
+});
+
+Ext.define('app.module.Extra_Grid', {
     extend: 'app.Grid',
-    no_adddelbuttons: true,
+    //no_adddelbuttons: true, //уберет возможно удалять и добавлять строки в табл
     store_cfg: {
-        autorefresh: false,
-        fields: ['id', 'module_name', 'description', 'version', 'condition'],
-        storeId: 'modules'
+        fields: ['id'],
+        storeId: 'dids_NO'
     },
+    enableColumnHide: false,
     columns: [
         {// 'id'
             hidden: true
         },
-        {// 'module_name'
-            width: 150,
-            renderer: function(v) {
-                if (v == 'Mail_Settings_Panel')
-                    return app.msg.Mail_Settings_Panel;
-                else
-                if (v == 'Call_website_Grid')
-                    return app.msg.Call_website_Grid;
-                else
-                if (v == 'Call_Record_Grid')
-                    return app.msg.Call_Record_Grid;
-            },
-            editor: {
-                xtype: 'textfield',
-                disabled: true
-            }
-        },
-        {// 'description'
+        {
             width: 500,
             editor: {
                 xtype: 'textfield',
                 disabled: true
-            }
-        },
-        {// 'version'
-            width: 70,
+            }},
+        {
+            width: 550,
             editor: {
-                xtype: 'textfield',
-                disabled: true
-            }
-        },
-        {//'condition'
-            renderer: app.checked_render,
-            editor: {
-                xtype: 'checkbox',
-                style: {
-                    textAlign: 'center'
-                },
-                queryMode: 'local'
+                xtype: 'combobox',
+                store: month,
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'name',
+                editable: false
             }
         }
     ],
     initComponent: function() {
         this.callParent(arguments);
-        this.store.on('load',
-                function(store, records, success) {
-                    store.each(function(record)
-                    {
-                        Ext.getCmp('main_tabpanel').remove('modules', true);
-                        var items = [];
-                        store.each(function(record)
-                        {
-                            var module_name = null;
-                            var condition = null;
-                            record.fields.each(function(field)
-                            {
-                                var fieldValue = record.get(field.name);
-                                if (field.name == 'module_name')
-                                    module_name = fieldValue;
-                                if (field.name == 'condition')
-                                    condition = fieldValue;
-                            });
-                            //console.log(module_name + ':' + condition);
-                            if (condition == '1')
-                                items.push(Ext.create('app.module.' + module_name, {title: app.msg[module_name]}));
-                        });
-                        if (items.length !== 0)
-                            Ext.getCmp('main_tabpanel').add(Ext.create('app.Card_Panel', {
-                                id: 'modules',
-                                title: app.msg.modules,
-                                items: items
-                            }));
-                    });
-                }, this);
     }
 });
