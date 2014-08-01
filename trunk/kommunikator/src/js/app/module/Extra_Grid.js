@@ -63,9 +63,9 @@ var month = Ext.create('Ext.data.Store', {
 
 Ext.define('app.module.Extra_Grid', {
     extend: 'app.Grid',
-    //no_adddelbuttons: true, //уберет возможно удалять и добавлять строки в табл
+    //no_adddelbuttons: true, //уберет возможность удалять и добавлять строки в табл
     store_cfg: {
-        fields: ['id'],
+        fields: ['id', 'destination', 'time'],
         storeId: 'dids_NO'
     },
     enableColumnHide: false,
@@ -73,7 +73,7 @@ Ext.define('app.module.Extra_Grid', {
         {// 'id'
             hidden: true
         },
-        {
+        { //destination
             width: 500,
             editor: {
                 xtype: 'textfield',
