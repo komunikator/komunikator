@@ -54,5 +54,16 @@
 */
 
 ?><?
+//
 
+$obj = array(
+   
+    "id" =>"0",
+     "destination" =>"lala",
+    'time' =>"1"
+);
+
+
+echo out($obj);
+//[[2, Monday, 9, 18], [3, Tuesday, 12, 18], [4, Wednesday, 9, 18], [5, Thursday, 9, 3],…]
 ?>
