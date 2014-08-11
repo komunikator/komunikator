@@ -65,7 +65,7 @@ if (!is_array($total["data"]))
 $sql = <<<EOD
 SELECT
     additional_settings.settings_id as id,
-    additional_settings.destination,
+    additional_settings.description,
     additional_settings.time
 FROM
     additional_settings
