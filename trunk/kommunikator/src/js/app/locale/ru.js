@@ -339,5 +339,7 @@ app.msg = {
     one_month: '1 месяц',
     three_months: '3 месяца',
     six_months: '6 месяцев',
-    one_year: '1 год'
-};
+    one_year: '1 год',
+    call_history_lifespan: 'Время хранения истории звонков',
+    call_records_lifespan:'Время хранения записей разговоров'
+};   

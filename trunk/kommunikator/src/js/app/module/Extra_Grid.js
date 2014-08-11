@@ -51,42 +51,49 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 
-var month = Ext.create('Ext.data.Store', {
-    fields: ['id', 'name'],
+var time = Ext.create('Ext.data.Store', {
+    fields: ['id', 'time'],
     data: [
-        {"id": "0", "name": app.msg.one_month},
-        {"id": "1", "name": app.msg.three_months},
-        {"id": "2", "name": app.msg.six_months},
-        {"id": "3", "name": app.msg.one_year}
+        {"id": "0", 'time': app.msg.one_month},
+        {"id": "1", 'time': app.msg.three_months},
+        {"id": "2", 'time': app.msg.six_months},
+        {"id": "3", 'time': app.msg.one_year}
     ]
 });
 
 Ext.define('app.module.Extra_Grid', {
     extend: 'app.Grid',
-    //no_adddelbuttons: true, //уберет возможность удалять и добавлять строки в табл
+    no_adddelbuttons: true, //уберет возможность удалять и добавлять строки в табл
     store_cfg: {
-        fields: ['id', 'destination', 'time'],
-        storeId: 'dids_NO'
+        fields: ['id', 'description', 'time'],
+        storeId: 'additional_settings'
     },
     enableColumnHide: false,
     columns: [
         {// 'id'
             hidden: true
         },
-        { //destination
+        {//description
             width: 500,
+            renderer: function(v) {
+                if (v == 'call_history_lifespan')
+                    return app.msg.call_history_lifespan;
+                else
+                if (v == 'call_records_lifespan')
+                    return app.msg.call_records_lifespan;
+            },
             editor: {
                 xtype: 'textfield',
                 disabled: true
             }},
-        {
+        {//time
             width: 550,
             editor: {
                 xtype: 'combobox',
-                store: month,
+                store: time,
                 queryMode: 'local',
-                displayField: 'name',
-                valueField: 'name',
+                displayField: 'time',
+                valueField: 'time',
                 editable: false
             }
         }
