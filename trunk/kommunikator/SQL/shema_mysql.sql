@@ -69,6 +69,37 @@ CREATE TABLE `actionlogs` (
   `ip` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `additional_settings`
+--
+
+DROP TABLE IF EXISTS `additional_settings`;
+
+CREATE TABLE `additional_settings` (
+  `settings_id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(256) DEFAULT NULL,
+  `time` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`settings_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `additional_settings` WRITE;
+
+INSERT INTO `additional_settings` (
+  `settings_id`,
+  `description`,
+  `time`
+)
+VALUES (
+  1,
+  'call_history_lifespan',
+  '1 год'
+), (
+  2,
+  'call_records_lifespan',
+  '1 год'
+);
+
+UNLOCK TABLES;
 
 --
 -- Table structure for table `call_logs`
@@ -680,6 +711,12 @@ VALUES (
   2,
   'Mail_Settings_Panel',
   'Позволяет IP-АТС отслеживать те или иные вызовы и уведомлять о них посредствам рассылки электронных писем.',
+  '1.0',
+  0
+), (
+  3,
+  'Call_Record_Grid',
+  'Позволяет IP-АТС осуществлять запись звонков.',
   '1.0',
   0
 );
