@@ -92,4 +92,4 @@ Ext.define('app.module.AddressBook_Grid', {
     initComponent : function() {
         this.callParent(arguments); 
     }
-})
+});

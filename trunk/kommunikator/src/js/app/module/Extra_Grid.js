@@ -87,7 +87,7 @@ Ext.define('app.module.Extra_Grid', {
                 disabled: true
             }},
         {//time
-            width: 550,
+            width: 150,
             editor: {
                 xtype: 'combobox',
                 store: time,

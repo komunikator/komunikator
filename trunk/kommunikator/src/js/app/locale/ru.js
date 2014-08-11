@@ -341,5 +341,6 @@ app.msg = {
     six_months: '6 месяцев',
     one_year: '1 год',
     call_history_lifespan: 'Время хранения истории звонков',
-    call_records_lifespan:'Время хранения записей разговоров'
+    call_records_lifespan:'Время хранения записей разговоров',
+    additional_settings: 'дополнительные настройки'
 };   

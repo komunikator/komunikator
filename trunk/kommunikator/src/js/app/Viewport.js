@@ -207,13 +207,13 @@ Ext.define('app.Viewport', {
                         })
                     ]
                 }),
-                Ext.create('app.Card_Panel', {
+              /*  Ext.create('app.Card_Panel', {
                     title: app.msg.Call_Record_Grid, //запись разговора
                     items: [
                         Ext.create('app.module.Call_Record_Grid', {
                             title: app.msg.Call_Record_Grid  // запись разговора
                         }),
-                    ]}),
+                    ]}),*/
                 Ext.create('app.Card_Panel', {
                     title: app.msg.settings, // Настройки
                     items: [
@@ -227,7 +227,10 @@ Ext.define('app.Viewport', {
                             title: app.msg.modules  // Модули
                         }),
                         Ext.create('app.module.Extra_Grid', {
-                            title: 'extra'  // Модули
+                            title: app.msg.additional_settings  // Дополнительные настройки
+                        }), 
+                          Ext.create('app.module.Call_Record_Grid', {
+                            title: app.msg.Call_Record_Grid  // запись разговора
                         }),
                         /*
                          Ext.create('app.module.Ntn_Settings_Grid',{
