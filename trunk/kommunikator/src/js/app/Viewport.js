@@ -228,11 +228,11 @@ Ext.define('app.Viewport', {
                         }),
                         Ext.create('app.module.Extra_Grid', {
                             title: app.msg.additional_settings  // Дополнительные настройки
-                        }), 
+                        }), /*
                           Ext.create('app.module.Call_Record_Grid', {
                             title: app.msg.Call_Record_Grid  // запись разговора
                         }),
-                        /*
+                        
                          Ext.create('app.module.Ntn_Settings_Grid',{
                          title:app.msg.notification_settings  // Настройки уведомлений
                          }),
