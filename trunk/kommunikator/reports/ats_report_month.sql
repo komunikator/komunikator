@@ -77,7 +77,7 @@ FROM
       AND g.description !='' THEN g.description WHEN g.gateway IS NOT NULL THEN g.gateway WHEN g.authname IS NOT NULL THEN g.authname ELSE 'Внутренние звонки' -- null
  END gateway
       FROM call_logs a
-      JOIN call_logs b ON b.billid=a.billid
+      JOIN call_logs b ON b.billid=a.billid AND b.duration <> 9999.999
       AND b.ended=1
       AND b.direction='outgoing'
       AND b.status!='unknown'
@@ -117,7 +117,7 @@ time BETWEEN UNIX_TIMESTAMP(DATE_ADD(LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 2 MON
       AND g.description !='' THEN g.description WHEN g.gateway IS NOT NULL THEN g.gateway WHEN g.authname IS NOT NULL THEN g.authname ELSE NULL END gateway,
                                                                                                                                                     CASE WHEN b.reason="" THEN b.status ELSE replace(lower(b.reason),' ','_') END status
       FROM call_logs a
-      JOIN call_logs b ON b.billid=a.billid
+      JOIN call_logs b ON b.billid=a.billid AND b.duration<>9999.999
       AND b.ended=1
       AND b.direction='outgoing'
       AND b.status!='unknown'
