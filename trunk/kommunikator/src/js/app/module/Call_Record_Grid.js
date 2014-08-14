@@ -50,47 +50,181 @@
  
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
+var type = Ext.create('Ext.data.Store', {
+    fields: ['id', 'type'],
+    data: [
+        {"id": "*", 'type': app.msg.all_calls},
+        {"id": "1", 'type': app.msg.outgoing_calls},
+        {"id": "2", 'type': app.msg.incoming_calls},
+        {"id": "3", 'type': app.msg.internal_calls}
+    ]
+});
+
 
 Ext.define('app.module.Call_Record_Grid', {
- extend: 'Ext.tree.Panel',
- 
- title: 'Страны СНГ',
- width: 200,
- height: 200,
- rootVisible: true,
- renderTo: Ext.getBody(),
- root: {
- text: 'Страны СНГ',
- expanded: true,
- children:
- [{
- text: "Россия",
- children: [{
- text: "Москва",
- leaf: true
- }, {
- text: "Санкт-Петербург",
- leaf: true
- }, {
- text: "Волгоград",
- leaf: true,
- "checked": true
- }],
- leaf: false,
- "expanded": true
- },
- {
- text: "Украина",
- leaf: false,
- "checked": true
- },
- {
- text: "Белоруссия"
- }]
- }
- 
- ,
- initComponent: function() {
- this.callParent(arguments);
- }
- })
+    extend: 'app.Grid',
+    store_cfg: {
+        fields: ['id', 'caller', 'type', 'gateway', 'called'],
+        storeId: 'call_record'
+    },
+    columns: [
+        {// 'id'
+            hidden: true
+        },
+        {// 'caller'
+            width: 175,
+            editor: {
+                xtype: 'combobox',
+                store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    storeId: 'ext_groups'
+                }),
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'name',
+                editable: true,
+//emptyText : 'all'
+            }
+        },
+        {// 'type'
+            width: 125,
+            editor: {
+                xtype: 'combobox',
+                store: type,
+                queryMode: 'local',
+                displayField: 'type',
+                valueField: 'type',
+                editable: false,
+            }
+        },
+        {// 'gateway'
+            width: 150,
+            editor: {
+                xtype: 'combobox',
+                store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    storeId:'gateway_list'
+                }),
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'name',
+                editable: true
+            }
+            /*editor: {
+                xtype: 'combobox',
+                store: Ext.StoreMgr.lookup('gateways') ? Ext.StoreMgr.lookup('gateways') :
+                       Ext.create('app.Store', {
+                    autorefresh: false,
+                    fields: ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
+                    storeId: 'gateways'
+                }),
+                displayField: 'gateway',
+                valueField: 'gateway',
+                queryMode: 'local',
+                listeners: {
+                    afterrender: function() {
+                        this.store.load();
+                    }
+                }
+            }*/
+        },
+        {// 'called'
+            header: app.msg.called,
+            dataIndex: 'called',
+            headers: [
+                {
+                    text: app.msg.number,
+                    dataIndex: 'number'
+                },
+                {
+                    header: app.msg.group,
+                    dataIndex: 'group'
+                }
+
+            ]
+        },
+        /*  {// 'called'
+         width: 300,
+         columns: [{
+         text: 'number',
+         width: 150,
+         editor: {
+         xtype: 'combobox',
+         store: Ext.create('app.Store', {
+         fields: ['id', 'name'],
+         storeId: 'sources_exception'
+         }),
+         queryMode: 'local',
+         displayField: 'name',
+         valueField: 'name',
+         editable: true,
+         emptyText : 'all'
+         },
+         
+         },
+         {
+         text: 'group',
+         width: 150
+         }]
+         }*/
+    ],
+    initComponent: function() {
+        this.columns[4] = {
+            header: app.msg.called,
+            dataIndex: 'called',
+            groupable: false,
+            sortable: false,
+            menuDisabled: true,
+            columns: [
+                {// 'number'
+                    width: 150,
+                    text: app.msg.number,
+                    dataIndex: 'number',
+                    editor: {
+                        xtype: 'combobox',
+                        store: Ext.create('app.Store', {
+                            fields: ['id', 'name'],
+                            storeId: 'sources_exception'
+                        }),
+                        queryMode: 'local',
+                        displayField: 'name',
+                        valueField: 'name',
+                        editable: true
+                    }
+                },
+                {// 'group'
+                    width: 150,
+                    header: app.msg.priority,
+                    dataIndex: 'group',
+                    editor: {
+                        xtype: 'combobox',
+                        store: Ext.create('app.Store', {
+                            fields: ['id', 'group', 'description', 'extension'],
+                            storeId: 'groups_extended'
+                        }),
+                        queryMode: 'local',
+                        valueField: 'group',
+                        tpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
+                                '</tpl>'
+                                ),
+                        displayTpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '{group}',
+                                '</tpl>'
+                                ),
+                        editable: false,
+                        listeners: {
+                            afterrender: function() {
+                                this.store.load();
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        this.callParent(arguments);
+    }
+});
+
