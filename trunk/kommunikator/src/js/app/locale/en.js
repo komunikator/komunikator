@@ -287,7 +287,11 @@ app.msg = {
     call_history_lifespan: 'Call history lifespan',
     call_records_lifespan: 'Call records lifespan',
     additional_settings: 'Additional settings',
+    all_calls: 'All calls',
+    outgoing_calls: 'Outgoing_calls',
+    incoming_calls: 'Incoming_calls',
+    internal_calls: 'Internal_calls',
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
-            // --------------------------------------------------
+    // --------------------------------------------------
 };

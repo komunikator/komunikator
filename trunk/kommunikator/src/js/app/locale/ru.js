@@ -248,7 +248,7 @@ app.msg = {
     dark_gray: 'темно-серый',
     Call_website_Grid: 'Звонок с сайта', //1-- для Tuning_modules_Grid в титуле используется имя модуля
     Mail_Settings_Panel: 'Почтовые уведомления', //2--//--
-    Call_Record_Grid: 'Запись звонка',//3--//--
+    Call_Record_Grid: 'Запись звонка', //3--//--
 
     //-------предупреждения
     session_failed: 'Время сеанса истекло. Пожалуйста, войдите еще раз',
@@ -285,16 +285,15 @@ app.msg = {
     /*  статусы вызовов (call status) [varchar(64)]  */
 
     /*  проверенные на практике  */
-    cs_voicemail : "вызов переведен на голосовую почту",
-    cs_attendant : "вызов переведен на автосекретаря",
-    cancelled : "вызов отменен",
-    'busy_here_[call_processing_released]' : "номер занят",
-    answered : "отвеченный вызов",
-    temporarily_unavailable : "вызов перенаправлен на другой номер",
-    busy_here : "номер занят",
-    request_terminated : "вызов отменен",
-    normal_call_clearing : "отвеченный вызов",
-
+    cs_voicemail: "вызов переведен на голосовую почту",
+    cs_attendant: "вызов переведен на автосекретаря",
+    cancelled: "вызов отменен",
+    'busy_here_[call_processing_released]': "номер занят",
+    answered: "отвеченный вызов",
+    temporarily_unavailable: "вызов перенаправлен на другой номер",
+    busy_here: "номер занят",
+    request_terminated: "вызов отменен",
+    normal_call_clearing: "отвеченный вызов",
     /*  требующие проверки  */
     accepted: "принятый",
     ringing: "вызов", //больше похоже на "звонок". "Вызов" как-то больше ассоциируется с самим процессом азговора, в то время как ringing это именно сигнал о поступающем вызове.
@@ -333,14 +332,18 @@ app.msg = {
     'normal,_unspecified': "отвеченный",
     pickup: 'перехваченный',
     temporarily_not_available: 'недоступен',
-    too_many_hops:'слишком много попыток',
-    call_is_looping:'звонок зациклен',
-    unauthorized:'не авторизован',
+    too_many_hops: 'слишком много попыток',
+    call_is_looping: 'звонок зациклен',
+    unauthorized: 'не авторизован',
     one_month: '1 месяц',
     three_months: '3 месяца',
     six_months: '6 месяцев',
     one_year: '1 год',
     call_history_lifespan: 'Время хранения истории звонков',
-    call_records_lifespan:'Время хранения записей разговоров',
-    additional_settings: 'Дополнительные настройки'
+    call_records_lifespan: 'Время хранения записей разговоров',
+    additional_settings: 'Дополнительные настройки',
+    all_calls: 'Все звонки',
+    outgoing_calls: 'Исходящие звонки',
+    incoming_calls: 'Входящие звонки',
+    internal_calls: 'Внутренние звонки'
 };   
