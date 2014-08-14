@@ -83,7 +83,6 @@ Ext.define('app.module.Call_Record_Grid', {
                 displayField: 'name',
                 valueField: 'name',
                 editable: true,
-//emptyText : 'all'
             }
         },
         {// 'type'
@@ -103,7 +102,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 xtype: 'combobox',
                 store: Ext.create('app.Store', {
                     fields: ['id', 'name'],
-                    storeId:'gateway_list'
+                    storeId: 'gateway_list'
                 }),
                 queryMode: 'local',
                 displayField: 'name',
@@ -111,22 +110,22 @@ Ext.define('app.module.Call_Record_Grid', {
                 editable: true
             }
             /*editor: {
-                xtype: 'combobox',
-                store: Ext.StoreMgr.lookup('gateways') ? Ext.StoreMgr.lookup('gateways') :
-                       Ext.create('app.Store', {
-                    autorefresh: false,
-                    fields: ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
-                    storeId: 'gateways'
-                }),
-                displayField: 'gateway',
-                valueField: 'gateway',
-                queryMode: 'local',
-                listeners: {
-                    afterrender: function() {
-                        this.store.load();
-                    }
-                }
-            }*/
+             xtype: 'combobox',
+             store: Ext.StoreMgr.lookup('gateways') ? Ext.StoreMgr.lookup('gateways') :
+             Ext.create('app.Store', {
+             autorefresh: false,
+             fields: ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
+             storeId: 'gateways'
+             }),
+             displayField: 'gateway',
+             valueField: 'gateway',
+             queryMode: 'local',
+             listeners: {
+             afterrender: function() {
+             this.store.load();
+             }
+             }
+             }*/
         },
         {// 'called'
             header: app.msg.called,
@@ -184,7 +183,7 @@ Ext.define('app.module.Call_Record_Grid', {
                         xtype: 'combobox',
                         store: Ext.create('app.Store', {
                             fields: ['id', 'name'],
-                            storeId: 'sources_exception'
+                            storeId: 'extensions_list'
                         }),
                         queryMode: 'local',
                         displayField: 'name',
@@ -194,33 +193,8 @@ Ext.define('app.module.Call_Record_Grid', {
                 },
                 {// 'group'
                     width: 150,
-                    header: app.msg.priority,
+                    header: app.msg.group,
                     dataIndex: 'group',
-                    editor: {
-                        xtype: 'combobox',
-                        store: Ext.create('app.Store', {
-                            fields: ['id', 'group', 'description', 'extension'],
-                            storeId: 'groups_extended'
-                        }),
-                        queryMode: 'local',
-                        valueField: 'group',
-                        tpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
-                                '</tpl>'
-                                ),
-                        displayTpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '{group}',
-                                '</tpl>'
-                                ),
-                        editable: false,
-                        listeners: {
-                            afterrender: function() {
-                                this.store.load();
-                            }
-                        }
-                    }
                 }
             ]
         };
