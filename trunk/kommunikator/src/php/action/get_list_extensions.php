@@ -54,7 +54,7 @@
 */
 
 ?><?
-
+/*для 1С запрос на список пользователей*/
 if ($_SESSION["extension"])
     $extension = "'" . $_SESSION["extension"] . "'";
 if (!$extension) {

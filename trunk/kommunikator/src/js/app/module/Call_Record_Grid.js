@@ -84,6 +84,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 valueField: 'name',
                 editable: true,
             }
+            // editor : app.get_Source_Combo({})
         },
         {// 'type'
             width: 125,
@@ -93,7 +94,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 queryMode: 'local',
                 displayField: 'type',
                 valueField: 'type',
-                editable: false,
+                editable: false
             }
         },
         {// 'gateway'
@@ -188,13 +189,43 @@ Ext.define('app.module.Call_Record_Grid', {
                         queryMode: 'local',
                         displayField: 'name',
                         valueField: 'name',
-                        editable: true
+                        editable: true,
+                        listeners: {
+                            afterrender: function() {
+                                this.store.load();
+                            }
+                        }
                     }
                 },
                 {// 'group'
                     width: 150,
                     header: app.msg.group,
                     dataIndex: 'group',
+                    editor: {
+                        xtype: 'combobox',
+                        store: Ext.create('app.Store', {
+                            fields: ['id', 'group', 'description', 'extension'],
+                            storeId: 'groups_extended'
+                        }),
+                        queryMode: 'local',
+                        valueField: 'group',
+                        tpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
+                                '</tpl>'
+                                ),
+                        displayTpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '{group}',
+                                '</tpl>'
+                                ),
+                        editable: false,
+                        listeners: {
+                            afterrender: function() {
+                                this.store.load();
+                            }
+                        }
+                    }
                 }
             ]
         };

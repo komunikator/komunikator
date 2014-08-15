@@ -54,6 +54,7 @@
 */
 
 ?><?
+/*получить список пользователей и добавить поле "Все" - модуль "Запись разговора"*/
 if (!$_SESSION['user']) {
     echo (out(array("success"=>false,"message"=>"User is undefined")));
     exit;
@@ -68,9 +69,12 @@ $data = compact_array(query_to_array($sql));
 if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
 
 $obj = array("success"=>true);
+
 $obj["total"] = $total['data'][0][0]+1;
 $obj["data"] = $data['data']; 
-$b = array('*', 'all'); $b = array($b);
-$obj["data"] = array_merge($b, $data['data']);
 
-echo out($obj);
+$rec = array('*', 'all'); 
+$res = array($rec);
+$obj["data"] = array_merge($res, $data['data']);
+
+echo out($obj); 
