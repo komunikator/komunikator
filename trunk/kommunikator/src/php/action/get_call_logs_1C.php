@@ -55,9 +55,6 @@
 
 ?><?
 
-// sleep(10);
-
-
 
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
@@ -66,9 +63,7 @@ if ($_SESSION['extension']) {
 
 $sql = <<<EOD
 SELECT time, type, caller, called, gateway FROM (
-    SELECT
-  
-
+    SELECT  
         b.time,
 
         CASE
@@ -101,13 +96,7 @@ SELECT time, type, caller, called, gateway FROM (
             WHEN g.authname IS NOT NULL
                 THEN g.authname
             ELSE NULL
-        END gateway,
-
-        CASE
-            WHEN b.reason = ''
-                THEN b.status
-            ELSE REPLACE( LOWER(b.reason), ' ', '_' )
-        END status
+        END gateway
 
     FROM call_logs a
 
@@ -128,20 +117,16 @@ EOD;
 $data = compact_array(query_to_array($sql . get_filter()));
 if (!is_array($data["data"])) echo out(array("success" => false, "message" => $data));
 
-//$total = count($data["data"]);
-
 $data = compact_array(query_to_array($sql . get_sql_order_limit()));
 if (!is_array($data["data"])) echo out(array("success" => false, "message" => $data));
 
 
 $obj = array("success" => true);
-//$obj["total"] = $total;
-
 
 $f_data = array();
 foreach ($data["data"] as $row) {
-    $row[1] = $row[1] - $_SESSION['time_offset'] * 60;
-    $row[1] = date($date_format, $row[1]);  // $date_format = "d.m.y H:i:s"; - data.php
+    $row[0] = $row[0] - $_SESSION['time_offset'] * 60;
+    $row[0] = date($date_format, $row[0]);  // $date_format = "d.m.y H:i:s"; - data.php
     $f_data[] = $row;
     $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
