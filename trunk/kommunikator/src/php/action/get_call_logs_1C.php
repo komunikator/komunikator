@@ -109,8 +109,7 @@ if (!is_array($data["data"])) echo out(array("success" => false, "message" => $d
 $data = compact_array(query_to_array($sql . get_sql_order_limit()));
 if (!is_array($data["data"])) echo out(array("success" => false, "message" => $data));
 
-
-$obj = array("success" => true);
+$obj = array();
 
 $f_data = array();
 foreach ($data["data"] as $row) {
