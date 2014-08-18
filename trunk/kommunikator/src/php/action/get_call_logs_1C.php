@@ -54,18 +54,15 @@
 */
 
 ?><?
-
-
+/*Для получения истории звонков определенного пользователя из 1С за сегодняшний день*/
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
-    $call = "AND (a.caller = '$exten' OR b.called = '$exten')";
 }
 
 $sql = <<<EOD
 SELECT time, type, caller, called, gateway FROM (
     SELECT  
         b.time,
-
         CASE
             WHEN x1.extension IS NOT NULL AND x2.extension IS NOT NULL
                 THEN 'internal'
@@ -89,8 +86,6 @@ SELECT time, type, caller, called, gateway FROM (
         ROUND(b.billtime) duration,
 
         CASE
-            WHEN g.description IS NOT NULL AND g.description != ''
-                THEN g.description
             WHEN g.gateway IS NOT NULL
                 THEN g.gateway
             WHEN g.authname IS NOT NULL
@@ -100,17 +95,11 @@ SELECT time, type, caller, called, gateway FROM (
 
     FROM call_logs a
 
-
     JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
-
     LEFT JOIN extensions x1 ON x1.extension = a.caller
-
     LEFT JOIN extensions x2 ON x2.extension = b.called
-
     LEFT JOIN gateways g ON g.authname = a.called OR g.authname = b.caller
-
-
-    WHERE a.ended = 1 AND a.direction = 'incoming' $call
+    WHERE a.ended = 1 AND a.direction = 'incoming' AND (a.caller = '$exten' OR b.called = '$exten')
 ) a
 EOD;
 
@@ -131,7 +120,6 @@ foreach ($data["data"] as $row) {
     $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
 
-//$obj["header"] = $data["header"];
 $obj["data"] = $f_data;
 echo out($obj);
 ?>
