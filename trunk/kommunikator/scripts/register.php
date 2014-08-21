@@ -1145,14 +1145,14 @@ for (;;) {
                                 .$ev->GetValue("time").", '"
                                 .$ev->GetValue("chan")."', '"
                                 .$ev->GetValue("address")."', '"
-                                .$ev->GetValue("direction")."', '"
+                                .'incoming, '
                                 .$ev->GetValue("billid")."', '"
                                 .$ev->GetValue("caller")."', '"
                                 .$ev->GetValue("called")."', "
                                 .$ev->GetValue("duration").", "
                                 .$ev->GetValue("billtime").", "
                                 .$ev->GetValue("ringtime").", '"
-                                .$ev->GetValue("status")."', '$reason', '$ended_finalize')";
+                                .$ev->GetValue("status")."', '$reason', '$ended_initialize')";
                             }
                             
                             if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
