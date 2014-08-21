@@ -74,13 +74,13 @@ SELECT time, type, caller, called, gateway FROM (
         CASE
             WHEN x1.firstname IS NULL
                 THEN a.caller
-            ELSE CONCAT(' (', a.caller, ')' )
+            ELSE CONCAT(  ' (', a.caller, ')' )
         END caller,
 
         CASE
             WHEN x2.firstname IS NULL
                 THEN b.called
-            ELSE CONCAT(' (', b.called, ')' )
+            ELSE CONCAT(  ' (', b.called, ')' )
         END called,
 
         ROUND(b.billtime) duration,
