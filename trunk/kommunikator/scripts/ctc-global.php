@@ -70,7 +70,7 @@ function callInitiate($target,$ev)
     $m->SetParam("caller",$ev->GetValue("real_called"));
     $m->SetParam("callername",$ev->GetValue("callername"));
     $m->SetParam("called",$ev->GetValue("real_caller"));
-    $m->SetParam("cdrtrack","false");
+    $m->SetParam("cdrtrack","true");
     $m->Dispatch();
 }
 
