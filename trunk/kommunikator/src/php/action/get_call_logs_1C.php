@@ -74,13 +74,13 @@ SELECT time, type, caller, called, gateway FROM (
         CASE
             WHEN x1.firstname IS NULL
                 THEN a.caller
-            ELSE CONCAT( x1.firstname, ' ', x1.lastname, ' (', a.caller, ')' )
+            ELSE CONCAT(' (', a.caller, ')' )
         END caller,
 
         CASE
             WHEN x2.firstname IS NULL
                 THEN b.called
-            ELSE CONCAT( x2.firstname, ' ', x2.lastname, ' (', b.called, ')' )
+            ELSE CONCAT(' (', b.called, ')' )
         END called,
 
         ROUND(b.billtime) duration,
@@ -116,7 +116,7 @@ foreach ($data["data"] as $row) {
     $row[0] = $row[0] - $_SESSION['time_offset'] * 60;
     $row[0] = date($date_format, $row[0]);  // $date_format = "d.m.y H:i:s"; - data.php
     $f_data[] = $row;
-    $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
+   // $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
 
 $obj["data"] = $f_data;
