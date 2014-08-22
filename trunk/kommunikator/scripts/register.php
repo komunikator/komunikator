@@ -1169,7 +1169,7 @@ for (;;) {
                                         . $ev->GetValue("time") . ", '"
                                         . $ev->GetValue("chan") . "', '"
                                         . $ev->GetValue("address") . "', '"
-                                        . "'incoming, '"
+                                        . "incoming, "
                                         . $ev->GetValue("billid") . "', '"
                                         . $ev->GetValue("caller") . "', '"
                                         . $ev->GetValue("called") . "', "
@@ -1178,7 +1178,6 @@ for (;;) {
                                         . $ev->GetValue("ringtime") . ", '"
                                         . $ev->GetValue("status") . "', '$reason', '$ended_finalize')";
                             } else {
-
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
                                         . " VALUES ("
                                         . $ev->GetValue("time") . ", '"
