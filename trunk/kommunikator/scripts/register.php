@@ -1146,7 +1146,7 @@ for (;;) {
                               file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
                              */
                             // - - - - - - - - - - - - - - - - - - - - - - - - -
-$chan = $ev->GetValue("chan");
+                            $chan = $ev->GetValue("chan");
                             if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
 
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
@@ -1162,7 +1162,7 @@ $chan = $ev->GetValue("chan");
                                         . $ev->GetValue("billtime") . ", "
                                         . $ev->GetValue("ringtime") . ", '"
                                         . $ev->GetValue("status") . "', '$reason', '$ended_finalize')";
-                            } else if ($ev->GetValue('direction') == 'unknown' && $chan.substring(0, 10) == 'ctc-dialer/') {
+                            } else if ($ev->GetValue('direction') == 'unknown' && substr($chan, 0, 10) == 'ctc-dialer/') {
 
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
                                         . " VALUES ("
