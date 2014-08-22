@@ -1147,6 +1147,7 @@ for (;;) {
                              */
                             // - - - - - - - - - - - - - - - - - - - - - - - - -
                             $chan = $ev->GetValue("chan");
+                             $chan1 = $ev->GetValue("chan");
                             $time1 = $ev->GetValue("time"); 
                             
                                    $address1 = $ev->GetValue("address");
@@ -1177,7 +1178,7 @@ for (;;) {
 
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
                                         . " VALUES 
-                                            ($time1', '$chan', '$address1', '$direction1', '$billid1', '$caller1', '$caller1', '$alled1', '$duration1', '$billtime1', '$ringtime1', $status1', '$reason', '$ended_finalize')";
+                                            ($time1', '$chan1', '$address1', '$direction1', '$billid1', '$caller1', '$caller1', '$alled1', '$duration1', '$billtime1', '$ringtime1', $status1', '$reason', '$ended_finalize')";
                             } else {
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
                                         . " VALUES ("
