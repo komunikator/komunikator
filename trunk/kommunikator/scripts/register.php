@@ -1147,18 +1147,17 @@ for (;;) {
                              */
                             // - - - - - - - - - - - - - - - - - - - - - - - - -
                             $chan = $ev->GetValue("chan");
-                             $chan1 = $ev->GetValue("chan");
-                            $time1 = $ev->GetValue("time"); 
-                            
-                                   $address1 = $ev->GetValue("address");
-                                    $direction1 = $ev->GetValue("direction");
-                                    $billid1 = $ev->GetValue("billid");
-                                    $caller1 = $ev->GetValue("caller");
-                                    $alled1 = $ev->GetValue("called");
-                                    $duration1 = $ev->GetValue("duration");
-                                    $billtime1 = $ev->GetValue("billtime");
-                                    $ringtime1 = $ev->GetValue("ringtime");
-                                    $status1 = $ev->GetValue("status");
+                            $time1 = $ev->GetValue("time");
+
+                            $address1 = $ev->GetValue("address");
+                            $direction1 = $ev->GetValue("direction");
+                            $billid1 = $ev->GetValue("billid");
+                            $caller1 = $ev->GetValue("caller");
+                            $alled1 = $ev->GetValue("called");
+                            $duration1 = $ev->GetValue("duration");
+                            $billtime1 = $ev->GetValue("billtime");
+                            $ringtime1 = $ev->GetValue("ringtime");
+                            $status1 = $ev->GetValue("status");
                             if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
 
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
@@ -1173,12 +1172,21 @@ for (;;) {
                                         . $ev->GetValue("duration") . ", "
                                         . $ev->GetValue("billtime") . ", "
                                         . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize')";
+                                        . $ev->GetValue("status") . "', '$reason', '')";
                             } else if ($ev->GetValue('direction') == 'unknown' && substr($chan, 0, 11) == 'ctc-dialer/') {
-                                $chan1 = 'incoming'; 
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
-                                        . " VALUES 
-                                            ($time1', '$chan1', '$address1', '$direction1', '$billid1', '$caller1', '$caller1', '$alled1', '$duration1', '$billtime1', '$ringtime1', $status1', '$reason', '$ended_finalize')";
+                                        . " VALUES ("
+                                        . $ev->GetValue("time") . ", '"
+                                        . $ev->GetValue("chan") . "', '"
+                                        . $ev->GetValue("address") . "', '
+                                        'incoming, '"
+                                        . $ev->GetValue("billid") . "', '"
+                                        . $ev->GetValue("caller") . "', '"
+                                        . $ev->GetValue("called") . "', "
+                                        . $ev->GetValue("duration") . ", "
+                                        . $ev->GetValue("billtime") . ", "
+                                        . $ev->GetValue("ringtime") . ", '"
+                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize')";
                             } else {
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
                                         . " VALUES ("
