@@ -1146,18 +1146,18 @@ for (;;) {
                               file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
                              */
                             // - - - - - - - - - - - - - - - - - - - - - - - - -
-                            $chan = $ev->GetValue("chan");
-                            $time1 = $ev->GetValue("time");
 
-                            $address1 = $ev->GetValue("address");
-                            $direction1 = $ev->GetValue("direction");
-                            $billid1 = $ev->GetValue("billid");
-                            $caller1 = $ev->GetValue("caller");
-                            $alled1 = $ev->GetValue("called");
-                            $duration1 = $ev->GetValue("duration");
-                            $billtime1 = $ev->GetValue("billtime");
-                            $ringtime1 = $ev->GetValue("ringtime");
-                            $status1 = $ev->GetValue("status");
+                            $time_ev = $ev->GetValue("time");
+                            $chan_ev = $ev->GetValue("chan");
+                            $address_ev = $ev->GetValue("address");
+                            $direction_ev = $ev->GetValue("direction");
+                            $billid_ev = $ev->GetValue("billid");
+                            $caller_ev = $ev->GetValue("caller");
+                            $called_ev = $ev->GetValue("called");
+                            $duration_ev = $ev->GetValue("duration");
+                            $billtime_ev = $ev->GetValue("billtime");
+                            $ringtime_ev = $ev->GetValue("ringtime");
+                            $status_ev = $ev->GetValue("status");
                             if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
 
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
@@ -1172,7 +1172,7 @@ for (;;) {
                                         . $ev->GetValue("duration") . ", "
                                         . $ev->GetValue("billtime") . ", "
                                         . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '')";
+                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize')";
                             } else if ($ev->GetValue('direction') == 'unknown' && substr($chan, 0, 11) == 'ctc-dialer/') {
                                 $a = 'incoming';
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
@@ -1181,17 +1181,13 @@ for (;;) {
                                         . $ev->GetValue("chan") . "', '"
                                         . $ev->GetValue("address") . "', '" . $a . "', '"
                                         . $ev->GetValue("billid") . "', '"
-                                        . $ev->GetValue("caller") . "', '"
                                         . $ev->GetValue("called") . "', "
+                                        . $ev->GetValue("caller") . "', '"
                                         . $ev->GetValue("duration") . ", "
                                         . $ev->GetValue("billtime") . ", "
-                                        . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize')";
+                                        . $ev->GetValue("ringtime") . ", '" . $a .
+                                        "', '$reason', '$ended_finalize')";
                                 echo("!!!!!!!!!!!!!!!!" . $query . "!!!!!!!!!!!!");
-                                /*    $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
-                                  . " VALUES
-                                  ($time1', '$chan1', '$address1', '$direction1', '$billid1', '$caller1', '$caller1', '$alled1', '$duration1', '$billtime1', '$ringtime1', $status1', '$reason', '$ended_finalize')";
-                                 */
                             } else {
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
                                         . " VALUES ("
@@ -1218,40 +1214,50 @@ for (;;) {
                             break;  // case "initialize":
 
                         case "update":
-
-                            if ($ev->GetValue('direction') == 'unknown' && substr($chan, 0, 11) == 'ctc-dialer/') {
+                            $chan = $ev->GetValue("chan");
+                            if (substr($chan, 0, 11) == 'ctc-dialer/') {
                                 $a = 'incoming';
-                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='incoming" . "', billid='" . $ev->GetValue("billid") .
-                                        "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction=$a" . "', billid='" . $ev->GetValue("billid") .
+                                        "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                            "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
-                            }else{
+                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                                echo("~~~~~~~~~~~~~~~~~~~~~~~~" . $query . "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                            } else {
 
                                 $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                            "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");}
-                                $res = query_nores($query);
+                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                            }
+                            echo("???????????????????????" . $query . "??????????????????");
+                            $res = query_nores($query);
 
-                                break;  // case "update":
+                            break;  // case "update":
 
-                                case "finalize":
-
-
-                                // - - - - - - - - - - - - - - - - - - - - - - - - -
-                                /*  блок для тестирования и только  */
-
-                                /*
-                                  // $sda_string_a = json_encode($ev);  // $ev=Yate::GetEvent();
-                                  $sda_string_a = print_r($ev, true);  // $ev=Yate::GetEvent();
-                                  $sda_string_b = date(DATE_RFC822) . "\n" . 'UPDATE call_logs ... (case "finalize":)' . "\n" . $sda_string_a . "\n" . "\n";
-
-                                  $sda_file = '/var/www/technical_help/red.txt';
-                                  file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
-                                 */
-                                // - - - - - - - - - - - - - - - - - - - - - - - - -
+                        case "finalize":
 
 
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+                            /*  блок для тестирования и только  */
+
+                            /*
+                              // $sda_string_a = json_encode($ev);  // $ev=Yate::GetEvent();
+                              $sda_string_a = print_r($ev, true);  // $ev=Yate::GetEvent();
+                              $sda_string_b = date(DATE_RFC822) . "\n" . 'UPDATE call_logs ... (case "finalize":)' . "\n" . $sda_string_a . "\n" . "\n";
+
+                              $sda_file = '/var/www/technical_help/red.txt';
+                              file_put_contents($sda_file, $sda_string_b, FILE_APPEND | LOCK_EX);
+                             */
+                            // - - - - - - - - - - - - - - - - - - - - - - - - -
+
+                            if ($ev->GetValue('direction') == 'unknown' && substr($chan, 0, 11) == 'ctc-dialer/') {
+                                $a = 'incoming';
+                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='incoming" . "', billid='" . $ev->GetValue("billid") .
+                                        "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                        $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
+                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                                echo("&&&&&&&&&&&&&&&&" . $query . "$$$$$$$$$$$$$$$$$$$$$$");
+                            } else {
                                 $query = "UPDATE call_logs SET"
                                         . " address='" . $ev->GetValue("address")
                                         . "', direction='" . $ev->GetValue("direction")
@@ -1265,68 +1271,67 @@ for (;;) {
                                         . "', reason='$reason', ended='$ended_finalize'"
                                         . " WHERE chan='" . $ev->GetValue("chan")
                                         . "' AND time=" . $ev->GetValue("time");
-
-                                $res = query_nores($query);
-
-
-                                $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=" . time() . " WHERE extension='" . $ev->GetValue("external") . "'";
-
-                                $res = query_nores($query);
-
-                                break;  // case "finalize":
                             }
-
-                            break;  // case "call.cdr":
-                    }
-                    // This is extremely important.
-                    //	We MUST let messages return, handled or not
-                    if ($ev)
-                        $ev->Acknowledge();
-                    break;
-                case "answer":
-                    switch ($ev->name) {
-                        case "engine.timer":
-                            $time = $ev->GetValue("time");
-                            $timer_caller_id++;
-                            if ($timer_caller_id > 600) {
-                                // update caller_id every 10 minutes
-                                set_caller_id();
-                            }
-                            if ($time % 50 == "0") {
-                                set_prefixes(); // update prefixes and international settings every 50 seconds
-                            }
-                            if ($time % 10 == "1" || $time % 10 == "6")
-                                reset_counters($time);
-                            if ($moh_next_time < $time)
-                                set_moh($time);
-                            if ($time < $next_time)
-                                break;
-                            $next_time = $time + $time_step;
-                            $query = "SELECT enabled, protocol, username, description, 'interval', formats, authname, password, server, domain, outbound , localaddress, modified, gateway as account, gateway_id, status, 1 AS gw FROM gateways WHERE enabled = 1 AND modified = 1 AND username is NOT NULL";
-                            $res = query_to_array($query);
-                            for ($i = 0; $i < count($res); $i++) {
-                                $m = new Yate("user.login");
-                                $m->params = $res[$i];
-                                $m->Dispatch();
-                            }
-                            $query = "UPDATE extensions SET location=NULL,expires=NULL WHERE expires IS NOT NULL AND expires<=" . time();
                             $res = query_nores($query);
-                            $query = "UPDATE gateways SET modified=0 WHERE modified=1 AND username IS NOT NULL";
+
+                            $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=" . time() . " WHERE extension='" . $ev->GetValue("external") . "'";
+
                             $res = query_nores($query);
-                            break;
+
+                            break;  // case "finalize":
                     }
-                    // Yate::Debug("PHP Answered: " . $ev->name . " id: " . $ev->id);
-                    break;
-                case "installed":
-                    // Yate::Debug("PHP Installed: " . $ev->name);
-                    break;
-                case "uninstalled":
-                    // Yate::Debug("PHP Uninstalled: " . $ev->name);
-                    break;
-                default:
-                // Yate::Output("PHP Event: " . $ev->type);
+
+                    break;  // case "call.cdr":
             }
+            // This is extremely important.
+            //	We MUST let messages return, handled or not
+            if ($ev)
+                $ev->Acknowledge();
+            break;
+        case "answer":
+            switch ($ev->name) {
+                case "engine.timer":
+                    $time = $ev->GetValue("time");
+                    $timer_caller_id++;
+                    if ($timer_caller_id > 600) {
+                        // update caller_id every 10 minutes
+                        set_caller_id();
+                    }
+                    if ($time % 50 == "0") {
+                        set_prefixes(); // update prefixes and international settings every 50 seconds
+                    }
+                    if ($time % 10 == "1" || $time % 10 == "6")
+                        reset_counters($time);
+                    if ($moh_next_time < $time)
+                        set_moh($time);
+                    if ($time < $next_time)
+                        break;
+                    $next_time = $time + $time_step;
+                    $query = "SELECT enabled, protocol, username, description, 'interval', formats, authname, password, server, domain, outbound , localaddress, modified, gateway as account, gateway_id, status, 1 AS gw FROM gateways WHERE enabled = 1 AND modified = 1 AND username is NOT NULL";
+                    $res = query_to_array($query);
+                    for ($i = 0; $i < count($res); $i++) {
+                        $m = new Yate("user.login");
+                        $m->params = $res[$i];
+                        $m->Dispatch();
+                    }
+                    $query = "UPDATE extensions SET location=NULL,expires=NULL WHERE expires IS NOT NULL AND expires<=" . time();
+                    $res = query_nores($query);
+                    $query = "UPDATE gateways SET modified=0 WHERE modified=1 AND username IS NOT NULL";
+                    $res = query_nores($query);
+                    break;
+            }
+            // Yate::Debug("PHP Answered: " . $ev->name . " id: " . $ev->id);
+            break;
+        case "installed":
+            // Yate::Debug("PHP Installed: " . $ev->name);
+            break;
+        case "uninstalled":
+            // Yate::Debug("PHP Uninstalled: " . $ev->name);
+            break;
+        default:
+        // Yate::Output("PHP Event: " . $ev->type);
     }
+}
 
-    /* vi: set ts=8 sw=4 sts=4 noet: */
-    ?>
+/* vi: set ts=8 sw=4 sts=4 noet: */
+?>
