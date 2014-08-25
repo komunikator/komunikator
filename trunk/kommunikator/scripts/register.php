@@ -1175,7 +1175,7 @@ for (;;) {
                                         . $ev->GetValue("ringtime") . ", '"
                                         . $ev->GetValue("status") . "', '$reason', '$ended_finalize')";
                             } else if ($ev->GetValue('direction') == 'unknown' && substr($chan, 0, 11) == 'ctc-dialer/') {
-
+                                $chan1 = 'incoming'; 
                                 $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)"
                                         . " VALUES 
                                             ($time1', '$chan1', '$address1', '$direction1', '$billid1', '$caller1', '$caller1', '$alled1', '$duration1', '$billtime1', '$ringtime1', $status1', '$reason', '$ended_finalize')";
