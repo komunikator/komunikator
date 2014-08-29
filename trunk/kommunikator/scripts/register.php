@@ -56,6 +56,8 @@
 require_once("libyate.php");
 require_once("lib_queries.php");
 
+$array1 = array();
+$array1[0] = 0;
 $s_fallbacks = array();
 $s_params_assistant_outgoing = array();
 $s_statusaccounts = array();
@@ -1167,7 +1169,14 @@ for (;;) {
                                 $num = $caller_ev;
                                 $caller_ev = $called_ev;
                                 $called_ev = $num;
+
+                                $array1[0] = $billid_ev;
                             } else {
+                               if ($array1[0] == $billid_ev) {
+                                    $num = $caller_ev;
+                                    $caller_ev = $called_ev;
+                                    $called_ev = $num;
+                                };
                                 $ended_ev = $ended_initialize;
                             }
 
@@ -1186,30 +1195,42 @@ for (;;) {
                             break;  // case "initialize":
 
                         case "update":
+                           $id_from_call = $ev->GetValue("billid");
+                        /*    echo($a . "||||||||||||||||||||||||||||||||||||||||||||||" . $array1[0]);
+                            if ($array1[0] == $a) {
+                                $num = $ev->GetValue("caller");
+                                $caller_ev = $ev->GetValue("called");
+                                $called_ev = $num;
+                            };*/
                             $chan_ev = $ev->GetValue("chan");
-                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
+                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/' OR $array1[0] == $id_from_call) {
                                 $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction= '$chan_ev'" . "', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
                                         "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
                                 echo("~~~~~~~~~~~~~~~~~~~~~~~~" . $query . "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            } else {
+                            } 
+                            else {
 
                                 $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
-                                        "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                        "', caller='" . $caller_ev . "', called='" . $called_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
                                         "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
                             }
-                            echo("???????????????????????" . $query . "??????????????????");
+                            echo("???????????????????????" . $query . "??????????????????" . $called_ev . "?????????????!!" . $array1[0] . "???????????!!" . $a);
                             $res = query_nores($query);
 
                             break;  // case "update":
 
                         case "finalize":
-
-
+                           $id_from_call = $ev->GetValue("billid");
+                         /*   if ($array1[0] == $ev->GetValue("billid")) {
+                                $num = $ev->GetValue("caller");
+                                $caller_ev = $ev->GetValue("called");
+                                $called_ev = $num;
+                            };*/
                             // - - - - - - - - - - - - - - - - - - - - - - - - -
-                            /*  блок для тестирования и только  */
+                            /*  блок для тестирования и только */
 
                             /*
                               // $sda_string_a = json_encode($ev);  // $ev=Yate::GetEvent();
@@ -1222,25 +1243,30 @@ for (;;) {
                             // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-                            $query = "UPDATE call_logs SET"
+                           
+                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/'  OR $array1[0] == $id_from_call) {
+                                $a = 'incoming';
+                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='incoming" . "', billid='" . $ev->GetValue("billid") .
+                                        "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                        $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
+                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                            }
+                            else {
+                               $query = "UPDATE call_logs SET"
                                     . " address='" . $ev->GetValue("address")
                                     . "', direction='" . $ev->GetValue("direction")
                                     . "', billid='" . $ev->GetValue("billid")
-                                    . "', caller='" . $ev->GetValue("caller")
-                                    . "', called='" . $ev->GetValue("called")
+                                     . "', caller='" . $ev->GetValue("caller")
+                                      . "', called='" . $ev->GetValue("called") /*
+                                    . "', caller='" . $caller_ev
+                                    . "', called='" . $called_ev*/
                                     . "', duration=" . $ev->GetValue("duration")
                                     . ", billtime=" . $ev->GetValue("billtime")
                                     . ", ringtime=" . $ev->GetValue("ringtime")
                                     . ", status='" . $ev->GetValue("status")
                                     . "', reason='$reason', ended='$ended_finalize'"
                                     . " WHERE chan='" . $ev->GetValue("chan")
-                                    . "' AND time=" . $ev->GetValue("time");
-                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
-                                $a = 'incoming';
-                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='incoming" . "', billid='" . $ev->GetValue("billid") .
-                                        "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
-                                        $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                                    . "' AND time=" . $ev->GetValue("time");  
                             }
                             echo("&&&&&&&&&&&&&&&&" . $query . "$$$$$$$$$$$$$$$$$$$$$$");
 
