@@ -188,7 +188,7 @@ Ext.define('app.module.Dial_plans_Grid', {
                     
             editor : {
                 xtype : 'textfield',
-                regex : /^(\d+|)$/
+                regex : /[\d\+]$/
             },
                     
             width : 90
