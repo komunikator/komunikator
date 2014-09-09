@@ -58,14 +58,30 @@ if (!$_SESSION['user']) {
     echo (out(array("success" => false, "message" => "User is undefined")));
     exit;
 }
+$total = compact_array(query_to_array("SELECT count(*) FROM additional_settings"));
 
-        $obj = array(
-    'text' => 'Мир',
-    "leaf" => false,
-    "expanded" => true
-);
-$a = array($obj);
-echo out($a);
-//echo out('[' . $obj . ']');
-//cho out($obj);echo out(']');
-?>
+if (!is_array($total["data"]))
+    echo out(array("success" => false, "message" => $total));
+$sql = <<<EOD
+SELECT
+    call_records.call_record_id as id,
+    call_records.caller,
+    call_records.type,
+    call_records.gateway,
+    call_records.number,
+    call_records.group1,
+    call_records.enabled
+FROM
+    call_records
+EOD;
+
+$data = compact_array(query_to_array($sql . get_sql_order_limit()));
+
+if (!is_array($data["data"]))
+    echo out(array("success" => false, "message" => $data));
+$obj = array("success" => true);
+
+$obj["total"] = $total['data'][0][0];
+$obj["data"] = $data['data'];
+
+echo out($obj);

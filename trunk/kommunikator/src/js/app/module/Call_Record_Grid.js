@@ -64,7 +64,7 @@ var type = Ext.create('Ext.data.Store', {
 Ext.define('app.module.Call_Record_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'caller', 'type', 'gateway', 'called'],
+        fields: ['id', 'caller', 'type', 'gateway', 'number'],
         storeId: 'call_record'
     },
     columns: [
@@ -73,18 +73,25 @@ Ext.define('app.module.Call_Record_Grid', {
         },
         {// 'caller'
             width: 175,
+
             editor: {
                 xtype: 'combobox',
+                id: 'asdf',
                 store: Ext.create('app.Store', {
                     fields: ['id', 'name'],
-                    storeId: 'ext_groups'
+                    storeId: 'extensions_list'
                 }),
                 queryMode: 'local',
                 displayField: 'name',
                 valueField: 'name',
-                editable: true,
+                editable: false,
+                listeners: {
+                    afterrender: function() {
+                        this.store.load();
+                    }
+                }
             }
-            // editor : app.get_Source_Combo({})
+
         },
         {// 'type'
             width: 125,
@@ -110,23 +117,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 valueField: 'name',
                 editable: true
             }
-            /*editor: {
-             xtype: 'combobox',
-             store: Ext.StoreMgr.lookup('gateways') ? Ext.StoreMgr.lookup('gateways') :
-             Ext.create('app.Store', {
-             autorefresh: false,
-             fields: ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
-             storeId: 'gateways'
-             }),
-             displayField: 'gateway',
-             valueField: 'gateway',
-             queryMode: 'local',
-             listeners: {
-             afterrender: function() {
-             this.store.load();
-             }
-             }
-             }*/
+
         },
         {// 'called'
             header: app.msg.called,
@@ -134,7 +125,7 @@ Ext.define('app.module.Call_Record_Grid', {
             headers: [
                 {
                     text: app.msg.number,
-                    dataIndex: 'number'
+                    dataIndex: 'number',
                 },
                 {
                     header: app.msg.group,
@@ -142,31 +133,9 @@ Ext.define('app.module.Call_Record_Grid', {
                 }
 
             ]
-        },
-        /*  {// 'called'
-         width: 300,
-         columns: [{
-         text: 'number',
-         width: 150,
-         editor: {
-         xtype: 'combobox',
-         store: Ext.create('app.Store', {
-         fields: ['id', 'name'],
-         storeId: 'sources_exception'
-         }),
-         queryMode: 'local',
-         displayField: 'name',
-         valueField: 'name',
-         editable: true,
-         emptyText : 'all'
-         },
-         
-         },
-         {
-         text: 'group',
-         width: 150
-         }]
-         }*/
+        }
+        
+
     ],
     initComponent: function() {
         this.columns[4] = {
@@ -200,7 +169,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 {// 'group'
                     width: 150,
                     header: app.msg.group,
-                    dataIndex: 'group',
+                    dataIndex: 'group1',
                     editor: {
                         xtype: 'combobox',
                         store: Ext.create('app.Store', {
@@ -228,7 +197,9 @@ Ext.define('app.module.Call_Record_Grid', {
                     }
                 }
             ]
-        };
+        }
+        ;
+
         this.callParent(arguments);
     }
 });
