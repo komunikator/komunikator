@@ -64,7 +64,7 @@ var type = Ext.create('Ext.data.Store', {
 Ext.define('app.module.Call_Record_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'caller', 'type', 'gateway', 'number'],
+        fields: ['id', 'caller', 'type', 'gateway', 'number', 'group1'],
         storeId: 'call_record'
     },
     columns: [
