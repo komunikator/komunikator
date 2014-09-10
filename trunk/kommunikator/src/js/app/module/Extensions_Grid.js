@@ -392,6 +392,38 @@ Ext.define('app.module.Extensions_Grid', {
         };
 
         this.callParent(arguments);
+        
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // при внесении изменений в хранилище groups
+        // повторная загрузка (обновление записей) хранилища groups_extended
+
+        this.store.on('load',
+
+            function(store, records, success) {
+
+                var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID
+                if (grid && !this.autoLoad)
+                    grid.ownerCt.body.unmask();  // «серый» экран – блокировка действий пользователя
+                this.Total_sync();  // количество записей
+                this.dirtyMark = false;  // измененных записей нет
+                if (!success && store.storeId) {
+                    store.removeAll();
+                    if (store.autorefresh != undefined)
+                        store.autorefresh = false;
+                    console.log('ERROR: ' + store.storeId + ' fail_load [code of Extensions_Grid.js]');
+                }
+                
+                
+                var repository_exists = Ext.StoreMgr.lookup('extensions_list');
+                
+                if (repository_exists){
+                    repository_exists.load();  console.log('!!!!!!!!!');}
+                else
+                    console.log('ERROR: extensions_list - fail_load [code of Extensions_Grid.js]');
+            }
+
+        );
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     }
 });
 
