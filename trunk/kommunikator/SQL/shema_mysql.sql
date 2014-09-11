@@ -77,8 +77,8 @@ DROP TABLE IF EXISTS `additional_settings`;
 
 CREATE TABLE `additional_settings` (
   `settings_id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(256) DEFAULT NULL,
-  `time` varchar(256) DEFAULT NULL,
+  `description` varchar(250) DEFAULT NULL,
+  `time` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`settings_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -125,6 +125,23 @@ CREATE TABLE `call_logs` (
   KEY `billid_indx` (`billid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
+--
+-- Table structure for table `call_records`
+--
+
+DROP TABLE IF EXISTS `call_records`;
+
+CREATE TABLE `call_records` (
+  `call_records_id` int(11) NOT NULL AUTO_INCREMENT,
+  `caller` varchar(250) DEFAULT NULL,
+  `type` varchar(250) DEFAULT NULL,
+  `gateway` varchar(250) DEFAULT NULL,
+  `number` varchar(250) DEFAULT NULL,
+  `group` varchar(250) DEFAULT NULL,
+  `trusted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`call_records_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `card_confs`

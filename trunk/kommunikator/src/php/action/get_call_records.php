@@ -69,7 +69,7 @@ SELECT
     call_records.type,
     call_records.gateway,
     call_records.number,
-    call_records.group1,
+    call_records.group,
     call_records.enabled
 FROM
     call_records

@@ -12,7 +12,7 @@ var type = Ext.create('Ext.data.Store', {
 Ext.define('app.module.Call_Record_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'caller', 'type', 'gateway', 'number', 'group1', 'enabled'],
+        fields: ['id', 'caller', 'type', 'gateway', 'number', 'group', 'enabled'],
         storeId: 'call_records'
     },
     columnLines: true,
@@ -89,7 +89,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 {// 'group'
                     width: 150,
                     header: app.msg.group,
-                    dataIndex: 'group1',
+                    dataIndex: 'group',
                     editor: {
                         xtype: 'combobox',
                         store: Ext.create('app.Store', {
