@@ -55,26 +55,23 @@
 
 ?><?
 /*получить список пользователей и добавить поле "Все" - модуль "Запись разговора"*/
-if (!$_SESSION['user']) {
-    echo (out(array("success"=>false,"message"=>"User is undefined")));
-    exit;
-}
+
+if(!$_SESSION['user']) {
+    echo (out(array("success"=>false,"message"=>"User is undefined"))); exit;} 
 
 $total =  compact_array(query_to_array("SELECT count(*) FROM extensions"));
 if(!is_array($total["data"]))  echo out(array("success"=>false,"message"=>$total));
     
-$sql = "SELECT extensions.extension_id as id, extensions.extension as name FROM extensions";
+$data =  compact_array(query_to_array("SELECT extensions.extension_id as id, extensions.extension as name FROM extensions ".get_sql_order_limit()));
+//file_put_contents("test.txt","SELECT group_id as id, \"group\", description, extension FROM groups ORDER BY ".get_sql_order_limit());
 
-$data = compact_array(query_to_array($sql));
-if (!is_array($data["data"])) echo out(array("success"=>false,"message"=>$data));
-
-$obj = array("success"=>true);
-
+if(!is_array($data["data"]))  echo out(array("success"=>false,"message"=>$data));
+    
+$obj=array("success"=>true);
 $obj["total"] = $total['data'][0][0]+1;
 $obj["data"] = $data['data']; 
 
 $rec = array('*', 'all'); 
 $res = array($rec);
 $obj["data"] = array_merge($res, $data['data']);
-
 echo out($obj); 

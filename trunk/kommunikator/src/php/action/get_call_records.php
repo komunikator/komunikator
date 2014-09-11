@@ -58,13 +58,13 @@ if (!$_SESSION['user']) {
     echo (out(array("success" => false, "message" => "User is undefined")));
     exit;
 }
-$total = compact_array(query_to_array("SELECT count(*) FROM additional_settings"));
+$total = compact_array(query_to_array("SELECT count(*) FROM call_records"));
 
 if (!is_array($total["data"]))
     echo out(array("success" => false, "message" => $total));
 $sql = <<<EOD
 SELECT
-    call_records.call_record_id as id,
+    call_records.call_records_id as id,
     call_records.caller,
     call_records.type,
     call_records.gateway,
