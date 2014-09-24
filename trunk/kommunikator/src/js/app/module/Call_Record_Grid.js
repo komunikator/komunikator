@@ -16,7 +16,7 @@ Ext.apply(Ext.form.field.VTypes, {
 Ext.define('app.module.Call_Record_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'caller', 'type', 'gateway', 'number', 'group', 'enabled'],
+        fields: ['id', 'caller', 'type', 'gateway', 'number', 'group', 'enabled', 'description'],
         storeId: 'call_records'
     },
     columnLines: true,
@@ -38,15 +38,14 @@ Ext.define('app.module.Call_Record_Grid', {
                 valueField: 'name',
                 editable: false,
                 value: app.msg.all,
-               // vtype: 'def',
-                
+                // vtype: 'def',
+
                 listeners: {
                     afterrender: function() {
                         this.store.load();
-                       
+
                     }
                 },
-                        
             }
         }, {// 'type'
             width: 125,
@@ -125,6 +124,12 @@ Ext.define('app.module.Call_Record_Grid', {
                                 this.store.load();
                             }
                         }
+                    }
+                },
+                {// 'description'
+                    width: 150,
+                    editor: {
+                        xtype: 'textfield'
                     }
                 }]
         },
