@@ -7,7 +7,11 @@ var type = Ext.create('Ext.data.Store', {
         {"id": "3", 'type': app.msg.internal_calls}
     ]
 });
+Ext.apply(Ext.form.field.VTypes, {
+    def: function(val, field) {
 
+    }
+});
 
 Ext.define('app.module.Call_Record_Grid', {
     extend: 'app.Grid',
@@ -33,11 +37,16 @@ Ext.define('app.module.Call_Record_Grid', {
                 displayField: 'name',
                 valueField: 'name',
                 editable: false,
+                value: app.msg.all,
+               // vtype: 'def',
+                
                 listeners: {
                     afterrender: function() {
                         this.store.load();
+                       
                     }
-                }
+                },
+                        
             }
         }, {// 'type'
             width: 125,
@@ -61,12 +70,14 @@ Ext.define('app.module.Call_Record_Grid', {
                 queryMode: 'local',
                 displayField: 'name',
                 valueField: 'name',
+                vtype: 'def',
                 editable: true
             }
 
         },
         {
             //  'called'
+            text: app.msg.called,
             columns: [{width: 150,
                     text: app.msg.number,
                     dataIndex: 'number',
