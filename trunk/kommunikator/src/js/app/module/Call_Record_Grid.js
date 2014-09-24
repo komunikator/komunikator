@@ -76,7 +76,7 @@ Ext.define('app.module.Call_Record_Grid', {
                     text: app.msg.number,
                     dataIndex: 'number',
                     editor: {
-                       // xtype: 'combobox',
+                        xtype: 'combobox',
                         store: Ext.create('app.Store', {
                             fields: ['id', 'name'],
                             storeId: 'extensions_list'
@@ -85,10 +85,10 @@ Ext.define('app.module.Call_Record_Grid', {
                         displayField: 'name',
                         valueField: 'name',
                        // editable: true,
-                        listeners: {
+                      /*  listeners: {
                             afterrender: function() {
                                 this.store.load();
-                            }}
+                            }}*/
                     }
                 },
                 {// 'group'
