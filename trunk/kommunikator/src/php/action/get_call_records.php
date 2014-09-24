@@ -70,7 +70,8 @@ SELECT
     call_records.gateway,
     call_records.number,
     call_records.group,
-    call_records.enabled
+    call_records.enabled,
+    call_records.description
 FROM
     call_records
 EOD;
