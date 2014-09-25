@@ -291,6 +291,72 @@ CREATE TABLE `gateways` (
   PRIMARY KEY (`gateway_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+LOCK TABLES `gateways` WRITE;
+
+INSERT INTO `gateways` (
+  `gateway_id`,
+  `gateway`,
+  `protocol`,
+  `server`,
+  `type`,
+  `username`,
+  `password`,
+  `enabled`,
+  `description`,
+  `interval`,
+  `authname`,
+  `domain` ,
+  `outbound`,
+  `localaddress`,
+  `formats`,
+  `rtp_localip`,
+  `ip_transport`,
+  `oip_transport`,
+  `port`,
+  `iaxuser`,
+  `iaxcontext`,
+  `rtp_forward`,
+  `status`,
+  `modified`,
+  `callerid`,
+  `callername`,
+  `send_extension`,
+  `trusted`,
+  `sig_trunk_id`
+)
+VALUES (
+  1,
+  'webrtc2sip',
+  'sip',
+  'ipaddress',
+  NULL,
+  'webrtc2sip',
+  'webrtc2sip',
+  0,
+  'webrtc2sip',
+  NULL,
+  'webrtc2sip',
+  'webrtc2sip',
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  'UDP',
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  '',
+  0,
+  'webrtc2sip',
+  NULL,
+  NULL,
+  1,
+  NULL
+);
+
+UNLOCK TABLES;
 
 --
 -- Table structure for table `group_members`
@@ -721,13 +787,13 @@ INSERT INTO `modules` (
 VALUES (
   1,
   'Call_website_Grid',
-  'Позволяет IP-АТС обрабатывать входящие вызовы, совершаемые с web-сайтов.',
+  'text_call_website',
   '1.0',
   0
 ), (
   2,
   'Mail_Settings_Panel',
-  'Позволяет IP-АТС отслеживать те или иные вызовы и уведомлять о них посредствам рассылки электронных писем.',
+  'text_mail_Settings',
   '1.0',
   0
 ), (
