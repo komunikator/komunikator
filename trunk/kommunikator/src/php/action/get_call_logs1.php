@@ -77,7 +77,7 @@ SELECT * FROM (
 
         time,
 
-       
+       type,
         CASE
             WHEN x1.firstname IS NULL
                 THEN caller
