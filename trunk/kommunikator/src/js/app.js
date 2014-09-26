@@ -451,6 +451,30 @@ app.get_Source_Combo = function(cfg) {
     return obj;
 };
 
+app.get_Extensions_Combo = function(cfg) {
+    var obj = {
+       xtype: 'combobox',
+       store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    //storeId: 'ext_groups'
+                    storeId: 'extensions_list'
+                }),
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'name',
+                editable: true,
+        listeners: {
+            afterrender: function() {
+                this.store.load();
+            }
+        }
+    };
+    if (cfg)
+        for (var key in cfg)
+            obj[key] = cfg[key];
+    return obj;
+};
+
 app.set_autorefresh = function(s, active) {
     if (s && s.store) {
         //console.log(s.store.storeId+':'+s.store.autorefresh);
