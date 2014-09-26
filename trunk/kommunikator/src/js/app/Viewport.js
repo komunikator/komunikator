@@ -207,6 +207,18 @@ Ext.define('app.Viewport', {
                         })
                     ]
                 }),
+                //------------временно------------------------
+                 Ext.create('app.Card_Panel', {
+                    title: "history2", // История звонков
+                    items: [
+                        Ext.create('app.module.Call_logs_Grid1', {
+                            title: app.msg.call_logs  // История звонков
+                        })
+                    ]
+                }),
+                //----------------------------------------------
+                
+                
               /*  Ext.create('app.Card_Panel', {
                     title: app.msg.Call_Record_Grid, //запись разговора
                     items: [
