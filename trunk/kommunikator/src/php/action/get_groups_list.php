@@ -54,7 +54,7 @@
  */
 ?><?
 
-/* получить список пользователей и добавить поле "Все" - модуль "Запись разговора" */
+/* получить список групп - модуль "Запись разговора" */
 
 if (!$_SESSION['user']) {
     echo (out(array("success" => false, "message" => "User is undefined")));
@@ -72,11 +72,6 @@ SELECT
     groups.group as name
 FROM groups
 WHERE group_id != 1
-UNION
-SELECT
-    extension_id as id,
-    extension as name
-FROM extensions
 EOD;
 
 $data = compact_array(query_to_array($sql));
@@ -86,10 +81,7 @@ if (!is_array($data["data"]))
 
 $obj = array("success" => true);
 
-$obj["total"] = $total['data'][0][0] + 1;
+$obj["total"] = $total['data'][0][0];
 $obj["data"] = $data['data'];
-$rec = array('*', 'all');
-$res = array($rec);
-$obj["data"] = array_merge($res, $data['data']);
 
 echo out($obj);

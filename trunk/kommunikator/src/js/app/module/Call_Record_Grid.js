@@ -24,25 +24,17 @@ Ext.define('app.module.Call_Record_Grid', {
             width: 175,
             editor: {
                 xtype: 'combobox',
-                id: 'asdf',
                 store: Ext.create('app.Store', {
                     fields: ['id', 'name'],
-                    storeId: 'extensions_list'
+                    storeId: 'ext_groups'
                 }),
                 queryMode: 'local',
                 displayField: 'name',
-                valueField: 'name',
-                editable: false,
-                value: app.msg.all,
-                // vtype: 'def',
-
-                listeners: {
-                    afterrender: function() {
-                        this.store.load();
-
-                    }
-                },
+                valueField: 'id',
+                editable: true
             }
+
+
         }, {// 'type'
             width: 125,
             editor: {
@@ -50,7 +42,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 store: type,
                 queryMode: 'local',
                 displayField: 'type',
-                valueField: 'type',
+                valueField: 'id',
                 editable: false
             }
         },
@@ -64,8 +56,8 @@ Ext.define('app.module.Call_Record_Grid', {
                 }),
                 queryMode: 'local',
                 displayField: 'name',
-                valueField: 'name',
-                editable: true
+                valueField: 'id',
+                editable: false
             }
 
         },
@@ -83,12 +75,12 @@ Ext.define('app.module.Call_Record_Grid', {
                         }),
                         queryMode: 'local',
                         displayField: 'name',
-                        valueField: 'name',
-                       // editable: true,
-                      /*  listeners: {
-                            afterrender: function() {
-                                this.store.load();
-                            }}*/
+                        valueField: 'id'
+                                // editable: true,
+                                /*  listeners: {
+                                 afterrender: function() {
+                                 this.store.load();
+                                 }}*/
                     }
                 },
                 {// 'group'
@@ -98,27 +90,13 @@ Ext.define('app.module.Call_Record_Grid', {
                     editor: {
                         xtype: 'combobox',
                         store: Ext.create('app.Store', {
-                            fields: ['id', 'group', 'description', 'extension'],
-                            storeId: 'groups_extended'
+                            fields: ['id', 'name'],
+                            storeId: 'groups_list'
                         }),
                         queryMode: 'local',
-                        valueField: 'group',
-                        tpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
-                                '</tpl>'
-                                ),
-                        displayTpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '{group}',
-                                '</tpl>'
-                                ),
-                        editable: false,
-                        listeners: {
-                            afterrender: function() {
-                                this.store.load();
-                            }
-                        }
+                        displayField: 'name',
+                        valueField: 'id',
+                        editable: false
                     }
                 }]
         },

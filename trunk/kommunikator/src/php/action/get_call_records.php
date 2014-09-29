@@ -65,7 +65,7 @@ if (!is_array($total["data"]))
 $sql = <<<EOD
 SELECT
     call_records.call_records_id as id,
-    call_records.caller,
+    call_records.caller ,
     call_records.type,
     call_records.gateway,
     call_records.number,
