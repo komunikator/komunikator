@@ -53,22 +53,17 @@
 
 Ext.define('app.module.Extensions_Grid', {
     extend: 'app.Grid',
-
     store_cfg: {
         autorefresh: false,
         loadmask: true,
-
         fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group_name', 'priority', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
         storeId: 'extensions',
-
         sorters: [{
                 direction: 'DESC',
                 property: 'group_name'
             }]
     },
-
     not_create_column: true,
-
     columns: [
         {// 'id'
             hidden: true  // hidden: false <- не работает т.к. было скрыто раньше
@@ -117,7 +112,6 @@ Ext.define('app.module.Extensions_Grid', {
                 xtype: 'textfield'
             }
         },
-
         {// Группа ( Группа и Приоритет )
             header: app.msg.group,
             dataIndex: 'group',
@@ -133,7 +127,6 @@ Ext.define('app.module.Extensions_Grid', {
 
             ]
         },
-
         {// Переадресация ( Всегда, Номер занят, Нет ответа, Таймаут (сек) )
             header: app.msg.forward,
             dataIndex: 'forward',
@@ -161,21 +154,18 @@ Ext.define('app.module.Extensions_Grid', {
             ]
         }
     ],
-
     requires: 'Ext.ux.grid.FiltersFeature',
-
     features: [
         {
             ftype: 'grouping'/*,            
-            groupByText    : '???????????? ?? ????? ????',
-            showGroupsText : '?????????? ?? ???????'*/
+             groupByText    : '???????????? ?? ????? ????',
+             showGroupsText : '?????????? ?? ???????'*/
         },
         {
             ftype: 'filters',
             // autoReload: true,  // don't reload automatically
-            local: false,  // only filter locally
+            local: false, // only filter locally
             encode: true,
-
             filters: [
                 {
                     encode: 'encode',
@@ -202,28 +192,26 @@ Ext.define('app.module.Extensions_Grid', {
                 }, {
                     type: 'string',
                     dataIndex: 'group_name'/*,
-                    encode: 'encode',
-                    local: true,
-                    type: 'list',
-                    store: Ext.StoreMgr.lookup('groups'),
-                    labelField: 'group',
-                    valueField: 'group'  // not work, need 'id'
-                    */
+                     encode: 'encode',
+                     local: true,
+                     type: 'list',
+                     store: Ext.StoreMgr.lookup('groups'),
+                     labelField: 'group',
+                     valueField: 'group'  // not work, need 'id'
+                     */
                 }
             ]
 
-            /*
-            type: 'boolean',
-            // type: 'string',
-            yesText: app.msg.online,  // default
-            noText: app.msg.online,  // default
-            dataIndex: 'status'
-            */
+                    /*
+                     type: 'boolean',
+                     // type: 'string',
+                     yesText: app.msg.online,  // default
+                     noText: app.msg.online,  // default
+                     dataIndex: 'status'
+                     */
         }
     ],
-
     columns_renderer: app.online_offline_renderer,
-
     initComponent: function() {
         app.Loader.load(['js/ux/grid/css/GridFilters.css', 'js/ux/grid/css/RangeMenu.css']);
 
@@ -247,30 +235,23 @@ Ext.define('app.module.Extensions_Grid', {
                     dataIndex: 'group_name',
                     editor: {
                         xtype: 'combobox',
-
-                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                        // так, как хранилище создается только здесь,
-                        // код был поправлен
-
-                        /*
-                        store         : Ext.StoreMgr.lookup('groups_extended') ?
-                        Ext.StoreMgr.lookup('groups_extended') :
-                        Ext.create('app.Store', {
-                        fields   : ['id', 'group', 'description', 'extension'],
-                        storeId  : 'groups_extended'
-                        }),
-                        */
-
-                        store: Ext.create('app.Store', {
+                        store: Ext.StoreMgr.lookup('groups_extended') ?
+                                Ext.StoreMgr.lookup('groups_extended') :
+                                Ext.create('app.Store', {
                             fields: ['id', 'group', 'description', 'extension'],
                             storeId: 'groups_extended'
                         }),
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+                        // если хранилище создается только в 1ом месте, 
+                        // то код выглядит так:
+                        /*
+                         store: Ext.create('app.Store', {
+                         fields: ['id', 'group', 'description', 'extension'],
+                         storeId: 'groups_extended'
+                         }),*/
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         queryMode: 'local',
-
                         valueField: 'group',
-
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         // настройка combobox под «себя»
                         // «нормальное» отображение пустых полей в выпадающем списке
@@ -290,16 +271,13 @@ Ext.define('app.module.Extensions_Grid', {
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
                         editable: false,
-
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
                             },
-
                             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
                             // при изменении значения в поле "Группа"
                             // сбрасывается значение поля "Приоритет"
-
                             change: function(f, new_val) {
                                 f.ownerCt.items.items[8].setValue(null);
                             }
@@ -325,24 +303,19 @@ Ext.define('app.module.Extensions_Grid', {
             xtype: 'combobox',
             editable: true,
             regex: new RegExp('(^\\d{2,11}$)|(^' + app.msg.voicemail + '$)'),
-
-
-            store : sda_storage_for_forwarding,
-            queryMode : 'local',
-
-            valueField : 'abbr',
-
-            tpl : Ext.create('Ext.XTemplate',
-                '<tpl for=".">',
+            store: sda_storage_for_forwarding,
+            queryMode: 'local',
+            valueField: 'abbr',
+            tpl: Ext.create('Ext.XTemplate',
+                    '<tpl for=".">',
                     '<div class="x-boundlist-item" style="min-height: 22px">{name}</div>',
-                '</tpl>'
-            ),
-
-            displayTpl : Ext.create('Ext.XTemplate',
-                '<tpl for=".">',
+                    '</tpl>'
+                    ),
+            displayTpl: Ext.create('Ext.XTemplate',
+                    '<tpl for=".">',
                     '{name}',
-                '</tpl>'
-            )
+                    '</tpl>'
+                    )
 
         };
 
@@ -392,35 +365,35 @@ Ext.define('app.module.Extensions_Grid', {
         };
 
         this.callParent(arguments);
-        
+
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // при внесении изменений в хранилище groups
         // повторная загрузка (обновление записей) хранилища groups_extended
 
         this.store.on('load',
+                function(store, records, success) {
 
-            function(store, records, success) {
+                    var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID
+                    if (grid && !this.autoLoad)
+                        grid.ownerCt.body.unmask();  // «серый» экран – блокировка действий пользователя
+                    this.Total_sync();  // количество записей
+                    this.dirtyMark = false;  // измененных записей нет
+                    if (!success && store.storeId) {
+                        store.removeAll();
+                        if (store.autorefresh != undefined)
+                            store.autorefresh = false;
+                        console.log('ERROR: ' + store.storeId + ' fail_load [code of Extensions_Grid.js]');
+                    }
 
-                var grid = Ext.getCmp(this.storeId + '_grid');  // поиск объекта по ID
-                if (grid && !this.autoLoad)
-                    grid.ownerCt.body.unmask();  // «серый» экран – блокировка действий пользователя
-                this.Total_sync();  // количество записей
-                this.dirtyMark = false;  // измененных записей нет
-                if (!success && store.storeId) {
-                    store.removeAll();
-                    if (store.autorefresh != undefined)
-                        store.autorefresh = false;
-                    console.log('ERROR: ' + store.storeId + ' fail_load [code of Extensions_Grid.js]');
+                    var repository_exists = Ext.StoreMgr.lookup('extensions_list');
+
+                    if (repository_exists) {
+                        repository_exists.load();
+                        console.log('!!!!!!!!!');
+                    }
+                    else
+                        console.log('ERROR: extensions_list - fail_load [code of Extensions_Grid.js]');
                 }
-                
-                
-                var repository_exists = Ext.StoreMgr.lookup('extensions_list');
-                
-                if (repository_exists){
-                    repository_exists.load();  console.log('!!!!!!!!!');}
-                else
-                    console.log('ERROR: extensions_list - fail_load [code of Extensions_Grid.js]');
-            }
 
         );
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -429,9 +402,9 @@ Ext.define('app.module.Extensions_Grid', {
 
 
 var sda_storage_for_forwarding = Ext.create('Ext.data.Store', {
-    fields  : ['abbr', 'name'],
-    data    : [
-        { "abbr": "", "name": "" },
-        { "abbr": "vm", "name": app.msg.voicemail }
+    fields: ['abbr', 'name'],
+    data: [
+        {"abbr": "", "name": ""},
+        {"abbr": "vm", "name": app.msg.voicemail}
     ]
 });

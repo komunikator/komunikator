@@ -82,7 +82,7 @@ $obj = array("success" => true);
 
 $obj["total"] = $total['data'][0][0] + 1;
 $obj["data"] = $data['data'];
-$rec = array('*', 'all');
+$rec = array('*', '*');
 $res = array($rec);
 $obj["data"] = array_merge($res, $data['data']);
 
