@@ -63,17 +63,54 @@ $total = compact_array(query_to_array("SELECT count(*) FROM call_records"));
 if (!is_array($total["data"]))
     echo out(array("success" => false, "message" => $total));
 $sql = <<<EOD
-SELECT
-    call_records.call_records_id as id,
-    call_records.caller ,
-    call_records.type,
-    call_records.gateway,
-    call_records.number,
-    call_records.group,
-    call_records.enabled,
-    call_records.description
-FROM
-    call_records
+select 
+call_records_id as id,
+CASE
+WHEN call_records.caller = '*'
+THEN 'All'
+WHEN call_records.caller = extensions.extension_id
+THEN extensions.extension
+WHEN call_records.caller = groups.group_id
+THEN groups.group
+else caller
+END caller,
+
+CASE
+WHEN call_records.type= '*'
+THEN 'all_calls'
+WHEN call_records.type = '1'
+THEN 'outgoing_calls'
+WHEN call_records.type = '2'
+THEN 'incoming_calls'
+WHEN call_records.type = '3'
+THEN 'internal_calls'
+END type,
+
+CASE
+WHEN call_records.gateway = '*'
+THEN 'All'
+WHEN call_records.gateway = gateways.gateway_id
+THEN gateways.gateway
+END gateway,
+
+CASE
+WHEN call_records.number = '*'
+THEN 'All'
+WHEN call_records.number = extensions.extension_id
+THEN extensions.extension
+ELSE call_records.number
+END number,
+
+CASE
+WHEN call_records.class = groups.group_id
+THEN 'groups.group'
+END class
+
+from call_records 
+
+LEFT JOIN extensions ON extensions.extension_id = call_records.caller
+LEFT JOIN groups ON groups.group_id = call_records.caller
+LEFT JOIN gateways ON gateways.gateway_id = call_records.gateway
 EOD;
 
 $data = compact_array(query_to_array($sql . get_sql_order_limit()));
