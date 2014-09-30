@@ -12,7 +12,7 @@ var type = Ext.create('Ext.data.Store', {
 Ext.define('app.module.Call_Record_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'caller', 'type', 'gateway', 'number', 'group', 'enabled', 'description'],
+        fields: ['id', 'caller_number', 'caller_group', 'type', 'gateway', 'called_number', 'called_group', 'enabled', 'description'],
         storeId: 'call_records'
     },
     columnLines: true,
@@ -21,21 +21,44 @@ Ext.define('app.module.Call_Record_Grid', {
             hidden: true
         },
         {
-            width: 175,
-            editor: {
-                xtype: 'combobox',
-                store: Ext.create('app.Store', {
-                    fields: ['id', 'name'],
-                    storeId: 'ext_groups'
-                }),
-                queryMode: 'local',
-                displayField: 'name',
-                valueField: 'id',
-                editable: true
-            }
+            //  'caller'
+            text: app.msg.caller,
+            columns: [{width: 150,
+                    text: app.msg.number,
+                    dataIndex: 'caller_number',
+                    editor: {
+                        xtype: 'combobox',
+                        store: Ext.create('app.Store', {
+                            fields: ['id', 'name'],
+                            storeId: 'extensions_list'
+                        }),
+                        queryMode: 'local',
+                        displayField: 'name',
+                        valueField: 'name'
+                    }
+                },
+                {// 'group'
+                    width: 150,
+                    header: app.msg.group,
+                    dataIndex: 'caller_group',
+                    editor: {
+                        xtype: 'combobox',
+                        store: Ext.create('app.Store', {
+                            fields: ['id', 'name'],
+                            storeId: 'groups_list'
+                        }),
+                        queryMode: 'local',
+                        displayField: 'name',
+                        valueField: 'id',
+                        editable: false
+                    }
+                }]
 
-
-        }, {// 'type'
+        },
+        {
+            hidden: true
+        },
+        {// 'type'
             width: 125,
             editor: {
                 xtype: 'combobox',
@@ -66,7 +89,7 @@ Ext.define('app.module.Call_Record_Grid', {
             text: app.msg.called,
             columns: [{width: 150,
                     text: app.msg.number,
-                    dataIndex: 'number',
+                    dataIndex: 'called_number',
                     editor: {
                         xtype: 'combobox',
                         store: Ext.create('app.Store', {
@@ -75,18 +98,13 @@ Ext.define('app.module.Call_Record_Grid', {
                         }),
                         queryMode: 'local',
                         displayField: 'name',
-                        valueField: 'id'
-                                // editable: true,
-                                /*  listeners: {
-                                 afterrender: function() {
-                                 this.store.load();
-                                 }}*/
+                        valueField: 'name'
                     }
                 },
                 {// 'group'
                     width: 150,
                     header: app.msg.group,
-                    dataIndex: 'group',
+                    dataIndex: 'called_group',
                     editor: {
                         xtype: 'combobox',
                         store: Ext.create('app.Store', {

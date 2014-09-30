@@ -66,15 +66,16 @@ $sql = <<<EOD
 select 
 call_records_id as id,
 CASE
-WHEN call_records.caller = '*'
+WHEN call_records.caller_number = '*'
 THEN 'All'
-WHEN call_records.caller = extensions.extension_id
-THEN extensions.extension
-WHEN call_records.caller = groups.group_id
-THEN groups.group
-else caller
-END caller,
+ELSE caller_number
+END caller_number,
 
+CASE
+WHEN call_records.caller_group = groups.group_id
+THEN groups.group
+END caller_group,
+        
 CASE
 WHEN call_records.type= '*'
 THEN 'all_calls'
@@ -94,26 +95,22 @@ THEN gateways.gateway
 END gateway,
 
 CASE
-WHEN call_records.number = '*'
+WHEN call_records.called_number = '*'
 THEN 'All'
-WHEN call_records.number = x1.extension_id
-THEN x1.extension
-ELSE call_records.number
-END number,
+ELSE call_records.called_number
+END called_number,
 
 CASE
-WHEN call_records.class = x2.group_id
+WHEN call_records.called_group = x2.group_id
 THEN x2.group
-END class,
+END called_group,
 call_records.enabled,
 call_records.description
 
 from call_records 
 
-LEFT JOIN extensions ON extensions.extension_id = call_records.caller
-LEFT JOIN extensions x1 ON x1.extension_id = call_records.number
-LEFT JOIN groups ON groups.group_id = call_records.caller
-LEFT JOIN groups x2 ON x2.group_id = call_records.class
+LEFT JOIN groups ON groups.group_id = call_records.caller_group
+LEFT JOIN groups x2 ON x2.group_id = call_records.called_group
 LEFT JOIN gateways ON gateways.gateway_id = call_records.gateway
 EOD;
 
