@@ -129,18 +129,19 @@ CREATE TABLE `call_logs` (
 --
 -- Table structure for table `call_records`
 --
-
 DROP TABLE IF EXISTS `call_records`;
 
 CREATE TABLE `call_records` (
-  `call_records_id` int(11) NOT NULL AUTO_INCREMENT,
-  `caller` varchar(250) DEFAULT NULL,
-  `type` varchar(250) DEFAULT NULL,
-  `gateway` varchar(250) DEFAULT NULL,
-  `number` varchar(250) DEFAULT NULL,
-  `group` varchar(250) DEFAULT NULL,
-  `trusted` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`call_records_id`)
+`call_records_id` int(11) NOT NULL AUTO_INCREMENT,
+`caller_number` varchar(250) DEFAULT NULL,
+`caller_group` int(11) DEFAULT NULL,
+`type` varchar(250) DEFAULT NULL,
+`gateway` varchar(250) DEFAULT NULL,
+`called_number` varchar(250) DEFAULT NULL,
+`called_group` int(11) DEFAULT NULL,
+`trusted` tinyint(1) DEFAULT NULL,
+`description` text,
+PRIMARY KEY (`call_records_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
