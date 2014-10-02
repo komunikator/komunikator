@@ -79,7 +79,7 @@ $sql = "SELECT group_id FROM groups WHERE groups.group = '$caller_group'";
 $sql = "UPDATE call_records SET caller_group = $caller_group_id WHERE call_records_id = $call_records_id";
 $result2 = query_to_array($sql);
 }
-if($caller_group){
+if($called_group){
 $sql = "SELECT group_id FROM groups WHERE groups.group = '$called_group'";
          $result1 = query_to_array($sql);
          $called_group_id = $result1[0]['group_id'];
