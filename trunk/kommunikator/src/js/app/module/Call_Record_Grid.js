@@ -75,7 +75,7 @@ Ext.define('app.module.Call_Record_Grid', {
                             storeId: 'groups_extended'
                         }),
                         queryMode: 'local',
-                        valueField: 'id',
+                        valueField: 'group',
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         // настройка combobox под «себя»
                         // «нормальное» отображение пустых полей в выпадающем списке
@@ -96,9 +96,11 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
+                                
                             }
                         }
-                    }
+                    },
+
                 }]
 
         },
@@ -170,8 +172,36 @@ Ext.define('app.module.Call_Record_Grid', {
                 queryMode: 'local',
                 displayField: 'name',
                 valueField: 'id',
-                editable: false
-            }
+    tpl: Ext.create('Ext.XTemplate',
+                        '<tpl for=".">',
+                        '<tpl if="name == \'*\'">',
+                        '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.All, '</div>',
+                        '<tpl else>',
+                        '<div class="x-boundlist-item" style="min-height: 22px">', '{name}', '</div>',
+
+                        '</tpl>',
+                        '</tpl>'
+                        ),
+                //задает внешний вид редактируемого поля
+                displayTpl: Ext.create('Ext.XTemplate',
+                        '<tpl for=".">',
+                        '<tpl if="name == \'*\'">',
+                        app.msg.all_calls,
+                        '<tpl else>',
+                       '{name}',
+
+                        '</tpl>',
+                        '</tpl>'
+                        )
+
+            },
+            renderer: function(v) {
+                if (v == '*') {
+                    return app.msg.All;
+                }
+                else 
+                    return v;
+               }
 
         },
         {
@@ -229,7 +259,7 @@ Ext.define('app.module.Call_Record_Grid', {
                             storeId: 'groups_extended'
                         }),
                         queryMode: 'local',
-                        valueField: 'id',
+                        valueField: 'group',
                         displayField: 'group',
                         tpl: Ext.create('Ext.XTemplate',
                                 '<tpl for=".">',
@@ -271,6 +301,16 @@ Ext.define('app.module.Call_Record_Grid', {
         }
 
     ],
+        
+    
+    columns_renderer :
+        function(value, metaData, record, rowIndex, colIndex, store) {
+            if (colIndex == 5) { if(value =='*')
+                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+            }
+
+            return value;
+        },
     viewConfig: {
         stripeRows: true
     }

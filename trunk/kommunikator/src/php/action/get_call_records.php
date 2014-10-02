@@ -75,8 +75,6 @@ END caller_group,
 call_records.type,
 
 CASE
-WHEN call_records.gateway = '*'
-THEN 'All'
 WHEN call_records.gateway = gateways.gateway_id
 THEN gateways.gateway
 END gateway,
