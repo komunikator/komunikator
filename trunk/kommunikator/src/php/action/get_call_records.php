@@ -65,27 +65,14 @@ if (!is_array($total["data"]))
 $sql = <<<EOD
 select 
 call_records_id as id,
-CASE
-WHEN call_records.caller_number = '*'
-THEN 'All'
-ELSE caller_number
-END caller_number,
+call_records.caller_number,
 
 CASE
 WHEN call_records.caller_group = groups.group_id
 THEN groups.group
 END caller_group,
         
-CASE
-WHEN call_records.type= '*'
-THEN 'all_calls'
-WHEN call_records.type = '1'
-THEN 'outgoing_calls'
-WHEN call_records.type = '2'
-THEN 'incoming_calls'
-WHEN call_records.type = '3'
-THEN 'internal_calls'
-END type,
+call_records.type,
 
 CASE
 WHEN call_records.gateway = '*'
@@ -94,11 +81,7 @@ WHEN call_records.gateway = gateways.gateway_id
 THEN gateways.gateway
 END gateway,
 
-CASE
-WHEN call_records.called_number = '*'
-THEN 'All'
-ELSE call_records.called_number
-END called_number,
+call_records.called_number,
 
 CASE
 WHEN call_records.called_group = x2.group_id

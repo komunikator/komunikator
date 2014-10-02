@@ -26,30 +26,40 @@ Ext.define('app.module.Call_Record_Grid', {
             columns: [{width: 150,
                     text: app.msg.number,
                     dataIndex: 'caller_number',
-                    renderer: function(v) {
-                        if (v == 'All')
-                        {
-                            return app.msg.All;
-                        }
-                        else
-                        {
-                            return v;
-                        }
-
-                    },
                     editor: {
                         xtype: 'combobox',
                         store: Ext.StoreMgr.lookup('extensions_list') ?
                                 Ext.StoreMgr.lookup('extensions_list') :
                                 Ext.create('app.Store', {
                             fields: ['id', 'name'],
-                            storeId: 'extensions_list',
-                            
+                            storeId: 'extensions_list'
                         }),
                         queryMode: 'local',
                         displayField: 'name',
-                        valueField: 'name'
-
+                        valueField: 'name',
+                        //задает внешний вид выпадающего комбобокса
+                        tpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<tpl if="name != \'*\'">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{name}</div>',
+                                '<tpl elseif="name == \'*\'">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.All, '</div>',
+                                '</tpl>',
+                                '</tpl>'
+                                ),
+                        //задает внешний вид редактируемого поля
+                        displayTpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<tpl if="name != \'*\'">',
+                                '{name}',
+                                '<tpl elseif="name == \'*\'">',
+                                app.msg.All,
+                                '</tpl>',
+                                '</tpl>'
+                                )
+                    },
+                    renderer: function(v) {
+                        return  (v == '*') ? app.msg.All : v;
                     }
                 },
                 {// 'group'
@@ -69,9 +79,7 @@ Ext.define('app.module.Call_Record_Grid', {
                         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                         // настройка combobox под «себя»
                         // «нормальное» отображение пустых полей в выпадающем списке
-
-                        // displayField  : 'group', <- заменено кодом ниже
-
+                        displayField: 'group',
                         tpl: Ext.create('Ext.XTemplate',
                                 '<tpl for=".">',
                                 '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
@@ -103,9 +111,52 @@ Ext.define('app.module.Call_Record_Grid', {
                 xtype: 'combobox',
                 store: type,
                 queryMode: 'local',
-                displayField: 'type',
+                //displayField: 'id',
                 valueField: 'id',
-                editable: false
+                editable: false,
+                tpl: Ext.create('Ext.XTemplate',
+                        '<tpl for=".">',
+                        '<tpl if="id == \'*\'">',
+                        '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.all_calls, '</div>',
+                        '<tpl elseif="id == 1">',
+                        '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.outgoing_calls, '</div>',
+                        '<tpl elseif="id == 2">',
+                        '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.incoming_calls, '</div>',
+                        '<tpl elseif="id == 3">',
+                        '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.internal_calls, '</div>',
+                        '</tpl>',
+                        '</tpl>'
+                        ),
+                //задает внешний вид редактируемого поля
+                displayTpl: Ext.create('Ext.XTemplate',
+                        '<tpl for=".">',
+                        '<tpl if="id == \'*\'">',
+                        app.msg.all_calls,
+                        '<tpl elseif="id == 1">',
+                        app.msg.outgoing_calls,
+                        '<tpl elseif="id == 2">',
+                        app.msg.incoming_calls,
+                        '<tpl elseif="id == 3">',
+                        app.msg.internal_calls,
+                        '</tpl>',
+                        '</tpl>'
+                        )
+
+            },
+            renderer: function(v) {
+                if (v == '*') {
+                    return app.msg.all_calls
+                }
+                else if (v == '1') {
+                    return app.msg.outgoing_calls
+                }
+                else if (v == '2') {
+                    return app.msg.incoming_calls
+                }
+                else if (v == '3') {
+                    return app.msg.internal_calls
+                }
+
             }
         },
         {// 'gateway'
@@ -129,17 +180,6 @@ Ext.define('app.module.Call_Record_Grid', {
             columns: [{width: 150,
                     text: app.msg.number,
                     dataIndex: 'called_number',
-                    renderer: function(v) {
-                        if (v == 'All')
-                        {
-                            return app.msg.All;
-                        }
-                        else
-                        {
-                            return v;
-                        }
-
-                    },
                     editor: {
                         xtype: 'combobox',
                         store: Ext.StoreMgr.lookup('extensions_list') ?
@@ -151,11 +191,29 @@ Ext.define('app.module.Call_Record_Grid', {
                         queryMode: 'local',
                         displayField: 'name',
                         valueField: 'name',
-                        listeners: {
-                            afterrender: function() {
-                                this.store.load();
-                            }
-                        }
+                        //задает внешний вид выпадающего комбобокса
+                        tpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<tpl if="name != \'*\'">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{name}</div>',
+                                '<tpl elseif="name == \'*\'">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.All, '</div>',
+                                '</tpl>',
+                                '</tpl>'
+                                ),
+                        //задает внешний вид редактируемого поля
+                        displayTpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<tpl if="name != \'*\'">',
+                                '{name}',
+                                '<tpl elseif="name == \'*\'">',
+                                app.msg.All,
+                                '</tpl>',
+                                '</tpl>'
+                                )
+                    },
+                    renderer: function(v) {
+                        return  (v == '*') ? app.msg.All : v;
                     }
                 },
                 {// 'group'
@@ -172,6 +230,7 @@ Ext.define('app.module.Call_Record_Grid', {
                         }),
                         queryMode: 'local',
                         valueField: 'id',
+                        displayField: 'group',
                         tpl: Ext.create('Ext.XTemplate',
                                 '<tpl for=".">',
                                 '<div class="x-boundlist-item" style="min-height: 22px">{group}</div>',
@@ -212,19 +271,6 @@ Ext.define('app.module.Call_Record_Grid', {
         }
 
     ],
-    columns_renderer:
-            function(value, metaData, record, rowIndex, colIndex, store) {
-                if (colIndex == 4 ) {
-                    console.log(value);
-                    return app.msg[value];
-
-                } else if(value = '*'){
-                    return app.msg.all;
-                }else {
-
-                    return value;
-                }
-            },
     viewConfig: {
         stripeRows: true
     }
