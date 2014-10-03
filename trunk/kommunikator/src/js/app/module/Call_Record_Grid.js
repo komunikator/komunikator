@@ -96,11 +96,10 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
-                                
+
                             }
                         }
                     },
-
                 }]
 
         },
@@ -171,37 +170,30 @@ Ext.define('app.module.Call_Record_Grid', {
                 }),
                 queryMode: 'local',
                 displayField: 'name',
-                valueField: 'id',
-    tpl: Ext.create('Ext.XTemplate',
+                valueField: 'name',
+                tpl: Ext.create('Ext.XTemplate',
                         '<tpl for=".">',
                         '<tpl if="name == \'*\'">',
                         '<div class="x-boundlist-item" style="min-height: 22px">', app.msg.All, '</div>',
                         '<tpl else>',
                         '<div class="x-boundlist-item" style="min-height: 22px">', '{name}', '</div>',
-
                         '</tpl>',
                         '</tpl>'
                         ),
                 //задает внешний вид редактируемого поля
                 displayTpl: Ext.create('Ext.XTemplate',
                         '<tpl for=".">',
-                        '<tpl if="name == \'*\'">',
-                        app.msg.all_calls,
-                        '<tpl else>',
-                       '{name}',
-
+                        '<tpl if="name != \'*\'">',
+                        '{name}',
+                        '<tpl elseif="name == \'*\'">',
+                        app.msg.All,
                         '</tpl>',
                         '</tpl>'
                         )
-
             },
             renderer: function(v) {
-                if (v == '*') {
-                    return app.msg.All;
-                }
-                else 
-                    return v;
-               }
+                return  (v == '*') ? app.msg.All : v;
+            }
 
         },
         {
@@ -301,16 +293,15 @@ Ext.define('app.module.Call_Record_Grid', {
         }
 
     ],
-        
-    
-    columns_renderer :
-        function(value, metaData, record, rowIndex, colIndex, store) {
-            if (colIndex == 5) { if(value =='*')
-                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-            }
+    columns_renderer:
+            function(value, metaData, record, rowIndex, colIndex, store) {
+                if (colIndex == 5) {
+                    if (value == '*')
+                        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                }
 
-            return value;
-        },
+                return value;
+            },
     viewConfig: {
         stripeRows: true
     }

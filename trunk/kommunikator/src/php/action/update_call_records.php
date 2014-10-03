@@ -62,28 +62,51 @@ $rows = array();
 if ($data && !is_array($data))
     $data = array($data);
 foreach ($data as $row) {
-    foreach ($row as $key => $value){
-        if ($key == 'id'){$call_records_id = $value;}
-        if ($key == 'caller_group'){$caller_group = $value;}else{}
-        if ($key == 'called_group'){$called_group = $value;}else{}
-    $values[$key] = "'$value'";}
+    foreach ($row as $key => $value) {
+        if ($key == 'id') {
+            $call_records_id = $value;
+        }
+        if ($key == 'caller_group') {
+            $caller_group = $value;
+        } else {
+            
+        }
+        if ($key == 'called_group') {
+            $called_group = $value;
+        } else {
+            
+        }
+        if ($key == 'gateway' && $value != '*') {
+            $gateway = $value;
+        } else {
+            
+        }
+        $values[$key] = "'$value'";
+    }
     $rows[] = $values;
 }
 $id_name = 'call_records_id';
 
 require_once("update.php");
-if($caller_group){
-$sql = "SELECT group_id FROM groups WHERE groups.group = '$caller_group'";
-         $result1 = query_to_array($sql);
-         $caller_group_id = $result1[0]['group_id'];
-$sql = "UPDATE call_records SET caller_group = $caller_group_id WHERE call_records_id = $call_records_id";
-$result2 = query_to_array($sql);
+if ($caller_group) {
+    $sql = "SELECT group_id FROM groups WHERE groups.group = '$caller_group'";
+    $result1 = query_to_array($sql);
+    $caller_group_id = $result1[0]['group_id'];
+    $sql = "UPDATE call_records SET caller_group = $caller_group_id WHERE call_records_id = $call_records_id";
+    $result2 = query_to_array($sql);
 }
-if($called_group){
-$sql = "SELECT group_id FROM groups WHERE groups.group = '$called_group'";
-         $result1 = query_to_array($sql);
-         $called_group_id = $result1[0]['group_id'];
-$sql = "UPDATE call_records SET called_group = $called_group_id WHERE call_records_id = $call_records_id";
-$result2 = query_to_array($sql);
+if ($called_group) {
+    $sql = "SELECT group_id FROM groups WHERE groups.group = '$called_group'";
+    $result1 = query_to_array($sql);
+    $called_group_id = $result1[0]['group_id'];
+    $sql = "UPDATE call_records SET called_group = $called_group_id WHERE call_records_id = $call_records_id";
+    $result2 = query_to_array($sql);
+}
+if ($gateway) {
+    $sql = "SELECT gateway_id FROM gateways WHERE gateways.gateway = '$gateway'";
+    $result1 = query_to_array($sql);
+    $gateway_id = $result1[0]['gateway_id'];
+    $sql = "UPDATE call_records SET gateway = $gateway_id WHERE call_records_id = $call_records_id";
+    $result2 = query_to_array($sql);
 }
 ?>

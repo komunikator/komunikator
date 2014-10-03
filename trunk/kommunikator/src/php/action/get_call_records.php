@@ -77,6 +77,8 @@ call_records.type,
 CASE
 WHEN call_records.gateway = gateways.gateway_id
 THEN gateways.gateway
+WHEN call_records.gateway = '*'
+THEN '*'
 END gateway,
 
 call_records.called_number,
