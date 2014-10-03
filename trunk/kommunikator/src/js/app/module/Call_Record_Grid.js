@@ -171,6 +171,7 @@ Ext.define('app.module.Call_Record_Grid', {
                 queryMode: 'local',
                 displayField: 'name',
                 valueField: 'name',
+                editable: false,
                 tpl: Ext.create('Ext.XTemplate',
                         '<tpl for=".">',
                         '<tpl if="name == \'*\'">',
