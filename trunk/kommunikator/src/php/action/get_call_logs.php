@@ -113,7 +113,8 @@ SELECT * FROM (
             WHEN b.reason = ''
                 THEN b.status
             ELSE REPLACE( LOWER(b.reason), ' ', '_' )
-        END status
+        END status,
+        record
 
     FROM call_logs a
 
