@@ -293,6 +293,7 @@ app.msg = {
     internal_calls: 'Internal_calls',
     text_call_website: 'Lets IP-PBX handle incoming calls from web-sites.',
     text_mail_Settings: 'Lets IP-PBX trace calls and notify the user by sending emails.',
+    record: 'Record',
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
             // --------------------------------------------------
