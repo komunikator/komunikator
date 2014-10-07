@@ -93,12 +93,8 @@ SELECT * FROM (
         ROUND(billtime) duration,
 
        gateway,
-
-        CASE
-            WHEN reason = ''
-                THEN status
-            ELSE REPLACE( LOWER(reason), ' ', '_' )
-        END status
+ status,
+ record       
 
     FROM try2 a
 LEFT JOIN extensions x1 ON x1.extension = caller
