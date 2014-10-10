@@ -58,7 +58,8 @@ require_once("lib_queries.php");
 
 $gateway_ev = array();
 $storage_gateway = array();
-
+$call_from1C = array();
+$tt = 0;
 $s_fallbacks = array();
 $s_params_assistant_outgoing = array();
 $s_statusaccounts = array();
@@ -1095,6 +1096,8 @@ for (;;) {
                     debug("There are " . count($s_fallbacks) . " in fallback :" . format_array($s_fallbacks));
                     break;
                 case "call.cdr":
+                    /* аккуратнее с запросами. Скрипт может быть перезагружен, если не будет отвечать ~10000msec,
+                      что приведет к ошибкам в заполнении временных массивов и др. */
                     $operation = $ev->GetValue("operation");
                     $reason = $ev->GetValue("reason");
 
@@ -1103,20 +1106,8 @@ for (;;) {
                     $gateway_name = '';
                     $gateway_sql = "SELECT username FROM gateways";
                     $gateway_ev = query_to_array($gateway_sql);
-                     print_r($gateway_ev);
-                    // похоже про ext. это лишнее
-                    // $query = "SELECT extension FROM extensions";
-                    //$extension_array = query_to_array($query);
-                    // print_r($extension_array);
                     switch ($operation) {
                         case "initialize":
-                            /*
-                              //$query = "INSERT INTO call_logs(time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended)
-                              //VALUES(DATE_ADD(FROM_UNIXTIME(0),INTERVAL '".$ev->GetValue("time")."' SECOND), '".$ev->GetValue("chan")."',
-                              //'".$ev->GetValue("address")."', '".$ev->GetValue("direction")."', '".$ev->GetValue("billid")."',
-                              //'".$ev->GetValue("caller")."', '".$ev->GetValue("called")."', ADDTIME(0,'".$ev->GetValue("duration")."'),
-                              //ADDTIME(0,'".$ev->GetValue("billtime")."'), ADDTIME(0,'".$ev->GetValue("ringtime")."'), '".$ev->GetValue("status")."', '$reason', false);";
-                             */
                             //для тестовых таблиц------------------------------------------------------------------------------------------
                             //пропускаем значения звонящего и принимающего через цикл сравнения и тех и других с шлюзами
                             $billid_ev = $ev->GetValue("billid");
@@ -1134,87 +1125,78 @@ for (;;) {
                             print_r($storage_gateway);
                             //------------------------------------------------------------------------------------------------------------------
                             $chan_ev = $ev->GetValue("chan");
-                            if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
+                            /*  if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
 
-                                $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, record)"
-                                        . " VALUES ("
-                                        . $ev->GetValue("time") . ", '"
-                                        . $ev->GetValue("chan") . "', '"
-                                        . $ev->GetValue("address") . "', '"
-                                        . $ev->GetValue("direction") . "', '"
-                                        . $ev->GetValue("billid") . "', '"
-                                        . $ev->GetValue("caller") . "', '"
-                                        . $ev->GetValue("called") . "', "
-                                        . $ev->GetValue("duration") . ", "
-                                        . $ev->GetValue("billtime") . ", "
-                                        . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize', '01665-d8f5fdb92442.mp3')";
-                            } else if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
-                                $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, record)"
-                                        . " VALUES ("
-                                        . $ev->GetValue("time") . ", '"
-                                        . $ev->GetValue("chan") . "', '"
-                                        . $ev->GetValue("address") . "', '"
-                                        . "incoming', '"
-                                        . $ev->GetValue("billid") . "', '"
-                                        . $ev->GetValue("caller") . "', '"
-                                        . $ev->GetValue("called") . "', "
-                                        . $ev->GetValue("duration") . ", "
-                                        . $ev->GetValue("billtime") . ", "
-                                        . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize', '01665-d8f5fdb92442.mp3')";
-                                // array_push($call_params, $ev->GetValue("billid"), $ev->GetValue("called"));
-                            } else {
+                              $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, record)"
+                              . " VALUES ("
+                              . $ev->GetValue("time") . ", '"
+                              . $ev->GetValue("chan") . "', '"
+                              . $ev->GetValue("address") . "', '"
+                              . $ev->GetValue("direction") . "', '"
+                              . $ev->GetValue("billid") . "', '"
+                              . $ev->GetValue("caller") . "', '"
+                              . $ev->GetValue("called") . "', "
+                              . $ev->GetValue("duration") . ", "
+                              . $ev->GetValue("billtime") . ", "
+                              . $ev->GetValue("ringtime") . ", '"
+                              . $ev->GetValue("status") . "', '$reason', '$ended_finalize', '01665-d8f5fdb92442.mp3')";
+                              } else if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
+                              $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, record)"
+                              . " VALUES ("
+                              . $ev->GetValue("time") . ", '"
+                              . $ev->GetValue("chan") . "', '"
+                              . $ev->GetValue("address") . "', '"
+                              . "incoming', '"
+                              . $ev->GetValue("billid") . "', '"
+                              . $ev->GetValue("caller") . "', '"
+                              . $ev->GetValue("called") . "', "
+                              . $ev->GetValue("duration") . ", "
+                              . $ev->GetValue("billtime") . ", "
+                              . $ev->GetValue("ringtime") . ", '"
+                              . $ev->GetValue("status") . "', '$reason', '$ended_finalize', '01665-d8f5fdb92442.mp3')";
+                              // array_push($call_params, $ev->GetValue("billid"), $ev->GetValue("called"));
+                              } else {
 
-                                $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, record)"
-                                        . " VALUES ("
-                                        . $ev->GetValue("time") . ", '"
-                                        . $ev->GetValue("chan") . "', '"
-                                        . $ev->GetValue("address") . "', '"
-                                        . $ev->GetValue("direction") . "', '"
-                                        . $ev->GetValue("billid") . "', '"
-                                        . $ev->GetValue("caller") . "', '"
-                                        . $ev->GetValue("called") . "', "
-                                        . $ev->GetValue("duration") . ", "
-                                        . $ev->GetValue("billtime") . ", "
-                                        . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_initialize', '01665-d8f5fdb92442.mp3')";
-                            }
-                            $res = query_nores($query);
+                              $query = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, record)"
+                              . " VALUES ("
+                              . $ev->GetValue("time") . ", '"
+                              . $ev->GetValue("chan") . "', '"
+                              . $ev->GetValue("address") . "', '"
+                              . $ev->GetValue("direction") . "', '"
+                              . $ev->GetValue("billid") . "', '"
+                              . $ev->GetValue("caller") . "', '"
+                              . $ev->GetValue("called") . "', "
+                              . $ev->GetValue("duration") . ", "
+                              . $ev->GetValue("billtime") . ", "
+                              . $ev->GetValue("ringtime") . ", '"
+                              . $ev->GetValue("status") . "', '$reason', '$ended_initialize', '01665-d8f5fdb92442.mp3')";
+                              }
+                              $res = query_nores($query); */
                             //для тестовых таблиц---------------------------------------------------------------------------
+                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
+                                $billid_ev = $ev->GetValue("billid");
+                                //   array_push($call_from1C, $billid_ev);
+                                $call_from1C[$billid_ev] = $ev->GetValue("called");
+                            }
+
                             if ($ev->GetValue("status") == 'cs_voicemail' OR $ev->GetValue("status") == 'cs_attendant') {
 
-                                $query1 = "INSERT INTO try1 (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, gateway, record)"
+                                $query1 = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, gateway, record)"
                                         . " VALUES ("
                                         . $ev->GetValue("time") . ", '"
                                         . $ev->GetValue("chan") . "', '"
                                         . $ev->GetValue("address") . "', '"
-                                        . $ev->GetValue("direction") . "', '"
+                                        . "outgoing', '"
                                         . $ev->GetValue("billid") . "', '"
                                         . $ev->GetValue("caller") . "', '"
                                         . $ev->GetValue("called") . "', "
                                         . $ev->GetValue("duration") . ", "
                                         . $ev->GetValue("billtime") . ", "
                                         . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize', '$gateway_name', '01665-d8f5fdb92442.mp3')";
-                            } else if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
-                                $query1 = "INSERT INTO try1 (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, gateway, record)"
-                                        . " VALUES ("
-                                        . $ev->GetValue("time") . ", '"
-                                        . $ev->GetValue("chan") . "', '"
-                                        . $ev->GetValue("address") . "', '"
-                                        . "incoming', '"
-                                        . $ev->GetValue("billid") . "', '"
-                                        . $ev->GetValue("caller") . "', '"
-                                        . $ev->GetValue("called") . "', "
-                                        . $ev->GetValue("duration") . ", "
-                                        . $ev->GetValue("billtime") . ", "
-                                        . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_finalize', '$gateway_name', '01665-d8f5fdb92442.mp3')";
-                                //array_push($call_params, $ev->GetValue("billid"), $ev->GetValue("called"));
+                                        . $ev->GetValue("status") . "', 'cs_voicemail', '$ended_finalize', '$gateway_name', '')";
                             } else {
 
-                                $query1 = "INSERT INTO try1 (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, gateway, record)"
+                                $query1 = "INSERT INTO call_logs (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, reason, ended, gateway, record)"
                                         . " VALUES ("
                                         . $ev->GetValue("time") . ", '"
                                         . $ev->GetValue("chan") . "', '"
@@ -1226,7 +1208,7 @@ for (;;) {
                                         . $ev->GetValue("duration") . ", "
                                         . $ev->GetValue("billtime") . ", "
                                         . $ev->GetValue("ringtime") . ", '"
-                                        . $ev->GetValue("status") . "', '$reason', '$ended_initialize', '$gateway_name','01665-d8f5fdb92442.mp3')";
+                                        . $ev->GetValue("status") . "', '$reason', '$ended_initialize', '$gateway_name', '')";
                             }
                             $res1 = query_nores($query1);
                             //----------------------------------------------------------------------------------------------
@@ -1235,38 +1217,43 @@ for (;;) {
                             $res = query_nores($query);
                             break;
                         case "update":
+                            //      echo("/*///////////////////////////////////////////////////////*************************/////////////" . $tt );                             print_r($call_from1C);
                             $chan_ev = $ev->GetValue("chan");
+                            /*  if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
+                              $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='incoming" . "', billid='" . $ev->GetValue("billid") .
+                              "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                              $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
+                              "', reason='$reason', record = '01665-d8f5fdb92442.mp3' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                              //   echo("|||||||||||||||||||||||||||||||||||||||||||||||||||||||" . $query . "--------------------------------------------------");
+                              } else {
+                              $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
+                              "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                              $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
+                              "', reason='$reason', record = '01665-d8f5fdb92442.mp3' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                              // }
+                              $res = query_nores($query); */
+
+                            //для тестовых таблиц---------------------------------------------------------------------------
                             if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
-                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='incoming" . "', billid='" . $ev->GetValue("billid") .
+                                $direction_ev = 'incoming';
+                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='$direction_ev', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                        "', reason='$reason', record = '01665-d8f5fdb92442.mp3' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
-                                echo("|||||||||||||||||||||||||||||||||||||||||||||||||||||||" . $query . "--------------------------------------------------");
+                                        "', reason='$reason', record = '' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
                             } else {
                                 $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                        "', reason='$reason', record = '01665-d8f5fdb92442.mp3' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                                        "', reason='$reason', record = '' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
                             }
                             $res = query_nores($query);
-
-                            //для тестовых таблиц---------------------------------------------------------------------------
-                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
-                                $query1 = "UPDATE try1 SET address='" . $ev->GetValue("address") . "', direction='incoming" . "', billid='" . $ev->GetValue("billid") .
-                                        "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
-                                        $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                        "', reason='$reason', record = '01665-d8f5fdb92442.mp3' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
-                            } else {
-                                $query1 = "UPDATE try1 SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
-                                        "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
-                                        $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                        "', reason='$reason', record = '01665-d8f5fdb92442.mp3' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
-                            }
-                            $res1 = query_nores($query1);
 
                             //----------------------------------------------------------------------------------------------
                             break;
                         case "finalize":
+
+                            // echo("/*///////////////////////////////////////////////////////*************************/////////////" . $tt);
+                            // print_r($call_from1C);
                             //   print_r($call_params);
                             /* if ($call_params[0] == $ev->GetValue("billid") && $call_params[1] == $ev->GetValue("called")) {
                               $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . "unknown', billid='" . $ev->GetValue("billid") .
@@ -1276,26 +1263,57 @@ for (;;) {
                               echo("----------------------------------------------------------" . $query . "--------------------------------------------------");
                               } else { */
                             $billid_ev = $ev->GetValue("billid");
-                            $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
-                                    "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
-                                    $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1, record = '01665-d8f5fdb92442.mp3' WHERE chan='" .
-                                    $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
-                            //  }
-                            $res = query_nores($query);
+                            /*    $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
+                              "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                              $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1, record = '01665-d8f5fdb92442.mp3' WHERE chan='" .
+                              $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                              //  }
+                              $res = query_nores($query); */
 
                             //для тестовых таблиц---------------------------------------------------------------------------
+                            $chan_ev = $ev->GetValue("chan");
+                            $direction_ev = $ev->GetValue("direction");
+
+                            $caller_ev = $ev->GetValue("caller");
+                            $called_ev = $ev->GetValue("called");
+
+
+
                             /*     if ($call_params[0] == $ev->GetValue("billid") && $call_params[1] == $ev->GetValue("called")) {
                               $query1 = "UPDATE try1 SET address='" . $ev->GetValue("address") . "', direction='" . "unknown', billid='" . $ev->GetValue("billid") .
                               "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                               $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1, gateway = '', record = '01665-d8f5fdb92442.mp3' WHERE chan='" .
                               $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
                               } else { */
-                            $query1 = "UPDATE try1 SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
-                                    "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
-                                    $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1, record = '01665-d8f5fdb92442.mp3' WHERE chan='" .
-                                    $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+
                             // }
-                            $res1 = query_nores($query1);
+                            //print_r($call_from1C);
+                            foreach ($call_from1C as $key => $value) {
+                                if ($key == $ev->GetValue("billid")) {
+                                    /* if (substr($chan_ev, 0, 11) == 'ctc-dialer/') { echo("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+                                      $direction_ev = 'incoming';
+                                      $query1 = "UPDATE try1 SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
+                                      "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                      $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1, record = '01665-d8f5fdb92442.mp3' WHERE chan='" .
+                                      $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                                      } else */ if (substr($chan_ev, 0, 11) != 'ctc-dialer/' && $value == $ev->GetValue("called")) {
+                                        $direction_ev = 'unknown';
+                                        /* $caller_ev = $ev->GetValue("called");
+                                          $called_ev = $ev->GetValue("caller");
+                                         */
+                                        $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='unknown', billid='" . $ev->GetValue("billid") .
+                                                "', caller='" . $ev->GetValue("called") . "', called='" . $ev->GetValue("caller") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                                $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended='1', record = '' WHERE chan='" .
+                                                $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                                    }
+                                }
+                            }
+                            $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
+                                    "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                    $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended='1', record = '' WHERE chan='" .
+                                    $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+
+                            $res1 = query_nores($query);
 
                             $sql = "SELECT
                                        b.time,
@@ -1332,16 +1350,17 @@ for (;;) {
                                                THEN b.status
                                            ELSE REPLACE( LOWER(b.reason), ' ', '_' )
                                        END status                                       
-                                   FROM try1 a
-                                   JOIN try1 b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
+                                   FROM call_logs a
+                                   JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
                                    LEFT JOIN gateways g ON g.authname = a.called OR g.authname = b.caller
                                    LEFT JOIN extensions x1 ON x1.extension = b.caller
                                    LEFT JOIN extensions x2 ON x2.extension = b.called
                                    WHERE  a.direction = 'incoming' AND b.billid = '$billid_ev'";
 
-                            $call_params = query_to_array($sql);                            print_r($call_params);
+                            $call_params = query_to_array($sql);
+                            print_r($call_params);
                             if ($call_params[0]['billid'] != '') {
-                                $query = "INSERT INTO try2 (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway, record)"
+                                $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway, record)"
                                         . " VALUES ("
                                         . $call_params[0]['time'] . ", '"
                                         . $call_params[0]['chan'] . "', '"
@@ -1355,9 +1374,9 @@ for (;;) {
                                         . $call_params[0]['ringtime'] . ", '"
                                         . $call_params[0]['status'] . "', '"
                                         . "$ended_finalize', '$storage_gateway[$billid_ev]','01665-d8f5fdb92442.mp3')";
-                                $res22 = query_nores($query);
-                               // $sql = "DELETE FROM try1 WHERE billid = '$billid_ev'";
-                                //$res = query_nores($sql);
+                                $res = query_nores($query);
+                                //  $sql = "DELETE FROM try1 WHERE billid = '$billid_ev'";
+                                // $res = query_nores($sql);
                             }
 
                             //----------------------------------------------------------------------------------------------                           

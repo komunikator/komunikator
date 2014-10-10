@@ -83,7 +83,7 @@ Ext.define('app.module.Call_logs_Grid1', {
                 type: 'date',
                 dateFormat: app.date_format
             }, 'direction', 'caller', 'called', 'duration', 'gateway', 'status', 'record'],
-        storeId: 'call_logs1',
+        storeId: 'call_history',
         sorters: [{
                 direction: 'DESC',
                 property: 'time'
