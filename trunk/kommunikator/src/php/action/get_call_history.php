@@ -96,11 +96,12 @@ SELECT * FROM (
                 THEN g.authname
             ELSE NULL
         END gateway,
-        status,
+        a.status,
         record       
     FROM call_history a
     LEFT JOIN extensions x1 ON x1.extension = caller
     LEFT JOIN extensions x2 ON x2.extension = called
+    LEFT JOIN gateways g ON g.authname = called OR g.authname = caller
     $call
 ) a
 EOD;
