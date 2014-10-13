@@ -82,6 +82,13 @@ Ext.define('app.module.Tuning_Modules_Grid', {
         },
         {// 'description'
             width: 500,
+            renderer: function(v) {
+                if (v == 'text_call_website')
+                    return app.msg.text_call_website;
+                else
+                if (v == 'text_mail_Settings')
+                    return app.msg.text_mail_Settings;
+            },
             editor: {
                 xtype: 'textfield',
                 disabled: true

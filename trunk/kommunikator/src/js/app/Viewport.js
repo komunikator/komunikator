@@ -208,6 +208,7 @@ Ext.define('app.Viewport', {
                     ]
                 }),
                 //------------временно------------------------
+                /*
                  Ext.create('app.Card_Panel', {
                     title: "history2", // История звонков
                     items: [
@@ -215,7 +216,7 @@ Ext.define('app.Viewport', {
                             title: app.msg.call_logs  // История звонков
                         })
                     ]
-                }),
+                }),*/
                 //----------------------------------------------
                 
                 

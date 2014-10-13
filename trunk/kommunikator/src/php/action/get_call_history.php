@@ -87,7 +87,15 @@ SELECT * FROM (
             ELSE CONCAT( x2.firstname, ' ', x2.lastname, ' (', called, ')' )
         END called,
         ROUND(billtime) duration,
-        gateway,
+        CASE
+            WHEN g.description IS NOT NULL AND g.description != ''
+                THEN g.description
+            WHEN g.gateway IS NOT NULL
+                THEN g.gateway
+            WHEN g.authname IS NOT NULL
+                THEN g.authname
+            ELSE NULL
+        END gateway,
         status,
         record       
     FROM call_history a
