@@ -101,7 +101,7 @@ SELECT * FROM (
     FROM call_history a
     LEFT JOIN extensions x1 ON x1.extension = caller
     LEFT JOIN extensions x2 ON x2.extension = called
-    LEFT JOIN gateways g ON g.authname = called OR g.authname = caller
+    LEFT JOIN gateways g ON g.authname = a.gateway
     $call
 ) a
 EOD;
