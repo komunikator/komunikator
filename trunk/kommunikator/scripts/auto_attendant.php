@@ -23,7 +23,6 @@
  */
 ?>
 <?php
-
 require_once("lib_queries.php");
 require_once("libyate.php");
 
@@ -89,8 +88,8 @@ function setState($newstate) {
 
                 foreach ($res as $row)
                     if ($row["numeric_day"] == $day_week && $row["start_hour"] <= $hour && $hour < $row["end_hour"]) {
-                         $hold_keys = ''; // Reset default key                         
-                         $status = 'online';
+                        $hold_keys = ''; // Reset default key                         
+                        $status = 'online';
                     }
             };
 
@@ -112,8 +111,19 @@ function setState($newstate) {
             $keys = query_to_array($query);
             debug('keys:' . format_array($keys));
             $m = new Yate("chan.attach");
-            $m->params["source"] = "wave/play/$uploaded_prompts/auto_attendant/$prompt";
-            debug('source:' . "wave/play/$uploaded_prompts/auto_attendant/$prompt");
+// ------------------------
+            /* prompt based on called */
+            $prompt_file = "$uploaded_prompts/auto_attendant/$prompt";
+            //debug('source[called]:<' . $prompt_file.".".$called.">");
+            if (file_exists($prompt_file . "." . $called))
+                $prompt_file = $prompt_file . "." . $called;
+            $m->params["source"] = "wave/play/$prompt_file";
+            debug('source:' . "wave/play/$prompt_file");
+// ------------------------
+            /*
+              $m->params["source"] = "wave/play/$uploaded_prompts/auto_attendant/$prompt";
+              debug('source:' . "wave/play/$uploaded_prompts/auto_attendant/$prompt");
+             */
 
             $m->params["notify"] = $ourcallid;
             $m->Dispatch();
@@ -280,21 +290,21 @@ while ($state != "") {
 
                     // - - - - - - - - - - - - - - - - - - - - - - - - -
                     /*  (этого блока ранее не было)  */
-                        
+
                     /*  определение правого плеча путем присвоения ему идентификатора вызова (billid) левого плеча  */
                     /*  автосекретарь -> группа -> внутр. номер  */
-                        
+
                     // $m->params["direction"] = $ev->GetValue("direction");
                     // $m->params["direction"] = 'outgoing';
-                        
+
                     $m->params["billid"] = $ev->GetValue("billid");
-                        
+
                     // $m->params["status"] = $ev->GetValue("status");
                     $m->params["status"] = 'cs_attendant';
-                        
+
                     // $m->params["reason"] = $ev->GetValue("reason");
                     // - - - - - - - - - - - - - - - - - - - - - - - - -
-                    
+
                     $ev = false;
 
                     $m->Dispatch();
@@ -348,7 +358,7 @@ while ($state != "") {
             // Yate::Debug("PHP Uninstalled: " . $ev->name);
             break;
         default:
-            // Yate::Output("PHP Event: " . $ev->type);
+        // Yate::Output("PHP Event: " . $ev->type);
     }
 }
 
