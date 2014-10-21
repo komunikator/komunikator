@@ -131,7 +131,7 @@ Ext.define('app.module.Call_logs_Grid', {
                  if (value)
                 value = '<audio style="width: 300px;display: block;-webkit-box-sizing: border-box; height: 30px;white-space: normal !important;\n\
                          line-height: 13px;border-collapse: separate;border-color: gray;" \n\
-                         type="audio/wav" src="test/' + value + '?dc_=' + new Date().getTime() + '" controls autobuffer></audio>';
+                         type="audio/wav" src="tmp/record' + value + '.wav?dc_=' + new Date().getTime() + '" controls autobuffer></audio>';
                 return value;
             }
         }
