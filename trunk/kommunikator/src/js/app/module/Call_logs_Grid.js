@@ -82,7 +82,7 @@ Ext.define('app.module.Call_logs_Grid', {
                 name: 'time',
                 type: 'date',
                 dateFormat: app.date_format
-            }, 'type', 'caller', 'called', 'duration', 'gateway', 'status', 'record'],
+            }, 'type', 'caller', 'called', 'duration', 'gateway', 'status', 'record', 'down'],
         storeId: 'call_history',
         sorters: [{
                 direction: 'DESC',
@@ -124,16 +124,25 @@ Ext.define('app.module.Call_logs_Grid', {
             width: 150,
             renderer: app.msg_renderer
         },
-        {
+        {//record
             width: 320,
             xfilter: {},
             renderer: function(value) {
-                 if (value)
-                value = '<audio style="width: 300px;display: block;-webkit-box-sizing: border-box; height: 30px;white-space: normal !important;\n\
+                if (value)
+                    value = '<audio style="width: 300px;display: block;-webkit-box-sizing: border-box; height: 30px;white-space: normal !important;\n\
                          line-height: 13px;border-collapse: separate;border-color: gray;" \n\
                          type="audio/wav" src="records/' + value + '.wav?dc_=' + new Date().getTime() + '" controls autobuffer></audio>';
                 return value;
             }
+        },
+        {width: 320,
+            //style:'padding:5px',
+            renderer: function(value) {
+                if (value)
+                    value = '<a TARGET="_blank" href="'+value+'.wav">'+app.msg.download+'</a>';
+                return value;
+            }
+
         }
     ],
     requires: 'Ext.ux.grid.FiltersFeature',

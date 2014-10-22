@@ -101,7 +101,12 @@ SELECT * FROM (
             WHEN time IS NOT NULL 
                 THEN CONCAT( time, '_',caller, '_', called)
             ELSE NULL
-        END record        
+        END record,
+        CASE
+            WHEN time IS NOT NULL 
+                THEN CONCAT( time, '_',caller, '_', called)
+            ELSE NULL
+        END down
     FROM call_history a
     LEFT JOIN extensions x1 ON x1.extension = caller
     LEFT JOIN extensions x2 ON x2.extension = called
