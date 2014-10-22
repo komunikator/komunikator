@@ -142,13 +142,11 @@ $f_data = array();
 foreach ($data["data"] as $row) {
     $row[1] = $row[1] - $_SESSION['time_offset'] * 60;
     $row[1] = date($date_format, $row[1]);  // $date_format = "d.m.y H:i:s"; - data.php
-    if(file_exists('records/' . $row[8] . '.wav'))
+    if(!file_exists('/var/lib/misc/records/' . $row[8] . '.wav'))
     {
-        return $row[8] = $row[8];
+        return $row[8] = '';
     }
-    else{
-        return $row[8] = "";
-    }
+    
     //echo($row[8]);
   // $row[8] = date($date_format, $row[1]);
     $f_data[] = $row;
