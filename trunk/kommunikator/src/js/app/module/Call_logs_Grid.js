@@ -139,7 +139,7 @@ Ext.define('app.module.Call_logs_Grid', {
             //style:'padding:5px',
             renderer: function(value) {
                 if (value)
-                    value = '<a TARGET="_blank" href="'+value+'.wav">'+app.msg.download+'</a>';
+                    value = '<a TARGET="_blank" href="records/'+value+'.wav">'+app.msg.download+'</a>';
                 return value;
             }
 
