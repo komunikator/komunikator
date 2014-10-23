@@ -121,11 +121,31 @@ CREATE TABLE `call_logs` (
   `status` varchar(64) DEFAULT NULL,
   `reason` varchar(64) DEFAULT NULL,
   `ended` tinyint(1) DEFAULT NULL,
+  `gateway` varchar(70) DEFAULT NULL,
   UNIQUE KEY `time_indx` (`time`) USING HASH,
   KEY `billid_indx` (`billid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `call_history`;
 
+CREATE TABLE `call_history` (
+  `time` decimal(17,3) NOT NULL,
+  `chan` text,
+  `address` text,
+  `direction` text,
+  `billid` varchar(20) DEFAULT NULL,
+  `caller` varchar(20) DEFAULT NULL,
+  `called` varchar(20) DEFAULT NULL,
+  `duration` decimal(7,3) DEFAULT NULL,
+  `billtime` decimal(7,3) DEFAULT NULL,
+  `ringtime` decimal(7,3) DEFAULT NULL,
+  `status` varchar(64) DEFAULT NULL,
+  `reason` varchar(64) DEFAULT NULL,
+  `ended` tinyint(1) DEFAULT NULL,
+  `gateway` varchar(70) DEFAULT NULL,
+  UNIQUE KEY `time_indx` (`time`) USING HASH,
+  KEY `billid_indx` (`billid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 --
 -- Table structure for table `call_records`
 --
