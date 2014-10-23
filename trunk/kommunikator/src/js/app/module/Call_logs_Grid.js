@@ -82,7 +82,7 @@ Ext.define('app.module.Call_logs_Grid', {
                 name: 'time',
                 type: 'date',
                 dateFormat: app.date_format
-            }, 'type', 'caller', 'called', 'duration', 'gateway', 'status', 'record', 'down'],
+            }, 'type', 'caller', 'called', 'duration', 'gateway', 'status', 'record', 'download'],
         storeId: 'call_history',
         sorters: [{
                 direction: 'DESC',
@@ -125,6 +125,7 @@ Ext.define('app.module.Call_logs_Grid', {
             renderer: app.msg_renderer
         },
         {//record
+            sortable: false,
             width: 320,
             xfilter: {},
             renderer: function(value) {
@@ -135,14 +136,14 @@ Ext.define('app.module.Call_logs_Grid', {
                 return value;
             }
         },
-        {width: 320,
-            //style:'padding:5px',
+        {
+            sortable: false,
+            width: 125,
             renderer: function(value) {
                 if (value)
-                    value = '<a TARGET="_blank" href="records/'+value+'.wav">'+app.msg.download+'</a>';
+                    value = '<a TARGET="_blank" href="records/' + value + '.wav">' + app.msg.download + '</a>';
                 return value;
             }
-
         }
     ],
     requires: 'Ext.ux.grid.FiltersFeature',
@@ -206,14 +207,7 @@ Ext.define('app.module.Call_logs_Grid', {
             //this.store.guaranteeRange(0, app.pageSize-1);
             if (app['lang'] == 'ru')
                 app.Loader.load(['js/app/locale/filter.ru.js']);
-            /*this.columns_renderer = function(value, metaData, record, rowIndex, colIndex, store) {
-             if (colIndex == 8) {console.log("aaa");
-             if (value)
-             return '<audio type="audio/wav" ' + (Ext.isIE ? 'style="width: 300px; margin:-6px 0px -9px 0px;" ' : 'style="margin-bottom:-3px;" ') + ' src="test/01665-d8f5fdb92442.mp3?dc_=' + new Date().getTime() + '" controls autobuffer>Your browser does not support the audio element.</audio>';
-             else
-             '';}
-             return value;
-             };*/
+
         };
 
         /*
