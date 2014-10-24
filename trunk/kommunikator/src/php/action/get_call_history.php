@@ -66,7 +66,7 @@ $call = NULL;
 
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
-    $call = "WHERE a.caller = '$exten' OR b.called = '$exten'";
+    $call = "WHERE caller = '$exten' OR called = '$exten'";
 }
 
 $sql = <<<EOD
