@@ -96,10 +96,9 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
-
                             }
                         }
-                    },
+                    }
                 }]
 
         },
@@ -294,15 +293,6 @@ Ext.define('app.module.Call_Record_Grid', {
         }
 
     ],
-    columns_renderer:
-            function(value, metaData, record, rowIndex, colIndex, store) {
-                if (colIndex == 5) {
-                    if (value == '*')
-                        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-                }
-
-                return value;
-            },
     viewConfig: {
         stripeRows: true
     }

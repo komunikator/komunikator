@@ -59,49 +59,59 @@ need_user();
 $data = json_decode($HTTP_RAW_POST_DATA);
 $rows = array();
 $exten = $_SESSION['caller'];
+$caller_group_id = "''";
+$called_group_id = "''";
 if ($data && !is_array($data))
     $data = array($data);
+
 foreach ($data as $row) {
     $values = array();
     foreach ($row as $key => $value) {
         //echo($key . "!!!" .  $value);
         if ($key == 'id') {
             $id = $key;
-          
         } else {
-            
-         //   echo("222");
-
-            if ($key == 'caller_group' && $value!='' ) {
+            if ($key == 'caller_group' && $value != '') {
                 $caller_group = $value;
                 $sql = "SELECT group_id FROM groups WHERE groups.group = '$caller_group'";
                 $result1 = query_to_array($sql);
-                $caller_group_id = $result1[0]['group_id']; echo($caller_group . "!!" . $caller_group_id);
-                $values['caller_group'] = "'$caller_group_id'";
+                $caller_group_id = $result1[0]['group_id'];
             }
-            if ($key == 'called_group' && $value!='' ) {
+            if ($key == 'called_group' && $value != '') {
                 $called_group = $value;
                 $sql = "SELECT group_id FROM groups WHERE groups.group = '$called_group'";
                 $result1 = query_to_array($sql);
                 $called_group_id = $result1[0]['group_id'];
-                $values['called_group'] = "'$called_group_id'";
             } else {
                 
             }
-            if ($key == 'gateway' && $value!='' && $value!='*') { 
+            if ($key == 'gateway' && $value != '' && $value != '*') {
                 $gateway = $value;
                 $sql = "SELECT gateway_id FROM gateways WHERE gateways.gateway = '$gateway'";
                 $result1 = query_to_array($sql);
-                $gateway_id = $result1[0]['gateway_id'];echo($sql . "!!" . $result1);
+                $gateway_id = $result1[0]['gateway_id'];
                 $values['gateway'] = "'$gateway_id'";
             } else {
                 $values[$key] = "'$value'";
             }
-            
         };
     }
     $rows[] = $values;
+    $rows[0]['caller_group'] = $caller_group_id;
+    $rows[0]['called_group'] = $called_group_id;
+    if ($rows[0]['caller_number'] == "''" && $rows[0]['caller_group'] == "''") {
+        $rows[0]['caller_number'] = "'*'";
+    }
+    if ($rows[0]['called_number'] == "''" && $rows[0]['called_group'] == "''") {
+        $rows[0]['called_number'] = "'*'";
+    }
+    if ($rows[0]['type'] == "''") {
+        $rows[0]['type'] = "'*'";
+    }
+    if ($rows[0]['gateway'] == "''") {
+        $rows[0]['gateway'] = "'*'";
+    }
 }
-require_once("create.php");
 
+require_once("create.php");
 ?>
