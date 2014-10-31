@@ -111,10 +111,9 @@ Ext.define('app.module.Dial_plans_Grid', {
 
                 displayField : 'gateway',
                 valueField : 'gateway',
-                
+                editable: false,
                 allowBlank : false,
-                queryMode : 'local',
-                
+                queryMode : 'local',              
                 listeners : {
                     afterrender : function() {
                         this.store.load();
