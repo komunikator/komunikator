@@ -704,8 +704,8 @@ function return_route($called, $caller, $no_forward = false) {
     if ($call_type == "from outside" && $initial_called_number == $called && $trusted_auth != "yes") {
         // if this is a call from outside our system and would be routed outside(from first step) and the number that was initially called was not modified with passing thought any of the above steps  => don't send it
         debug("forbidding call to '$initial_called_number' because call is 'from outside'");
-        set_retval(null, "forbidden");
-        return;
+       // set_retval(null, "forbidden");
+       //return;
     }
 
 
