@@ -121,7 +121,7 @@ CREATE TABLE `call_logs` (
   `status` varchar(64) DEFAULT NULL,
   `reason` varchar(64) DEFAULT NULL,
   `ended` tinyint(1) DEFAULT NULL,
-  `gateway` varchar(70) DEFAULT NULL,
+  `gateway` varchar(1024) DEFAULT NULL,
   UNIQUE KEY `time_indx` (`time`) USING HASH,
   KEY `billid_indx` (`billid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -142,7 +142,7 @@ CREATE TABLE `call_history` (
   `status` varchar(64) DEFAULT NULL,
   `reason` varchar(64) DEFAULT NULL,
   `ended` tinyint(1) DEFAULT NULL,
-  `gateway` varchar(70) DEFAULT NULL,
+  `gateway` varchar(1024) DEFAULT NULL,
   UNIQUE KEY `time_indx` (`time`) USING HASH,
   KEY `billid_indx` (`billid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
