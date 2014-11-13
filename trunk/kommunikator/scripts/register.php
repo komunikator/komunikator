@@ -1246,11 +1246,7 @@ for (;;) {
                                                THEN b.called
                                            ELSE b.called
                                        END called,
-                                       CASE
-                                           WHEN g.authname IS NOT NULL
-                                               THEN g.authname
-                                           ELSE NULL
-                                       END gateway,
+                                       b.gateway,
                                        b.duration,
                                        b.billtime,
                                        b.ringtime,
@@ -1270,12 +1266,13 @@ for (;;) {
                             //  print_r($call_params);
 
                             if ($call_params) {
-                                $sql = "SELECT gateway FROM ring_settings WHERE billid = '$billid_ev' AND gateway <> ''";
-                                $res_gateway = query_to_array($sql);
+                                //$sql = "SELECT gateway FROM ring_settings WHERE billid = '$billid_ev' AND gateway <> ''";
+                               // $res_gateway = query_to_array($sql);
                                 echo("--------------------------------------------------------3333");
-                                print_r($res_gateway);
+
                                 echo("--------------------------------------------------------");
-                                $gateway_name = $res_gateway[0]['gateway'];
+                                //$gateway_name = $res_gateway[0]['gateway'];
+                                $gateway_name = $call_params[0]['gateway'];
                                 $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway)"
                                         . " VALUES ("
                                         . $call_params[0]['time'] . ", '"

@@ -93,7 +93,7 @@ SELECT * FROM (
                 THEN g.gateway
             WHEN g.authname IS NOT NULL
                 THEN g.authname
-            ELSE NULL
+            ELSE a.gateway
         END gateway,
         a.status,
         CASE
@@ -148,6 +148,13 @@ foreach ($data["data"] as $row) {
         $row[8] = NULL;
         $row[9] = NULL;
     }
+    else
+    {
+        //if(linkinfo('/var/lib/misc/records/' . $row[1] . '_' . $row[3] . '_' . $row[4] )){
+        //    echo("agaaaaaaaaaaa");
+            //echo ( $row[1] . '_' . $row[3] . '_' . $row[4] );
+        //}
+    }  
     $f_data[] = $row;
     $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
