@@ -77,7 +77,7 @@ select
 	 when g.description is not null and g.description !='' then g.description 
 	 when g.gateway     is not null                        then g.gateway	
 	 when g.authname    is not null                        then g.authname
-	else null 
+	else a.gateway 
         end gateway,
       case when a.reason="" then a.status else replace(lower(a.reason),' ','_') end status
 from call_logs a  
