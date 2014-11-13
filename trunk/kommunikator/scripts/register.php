@@ -1112,27 +1112,20 @@ for (;;) {
 
                     switch ($operation) {
                         case "initialize":
+                            echo("---------------------------------------1111-----------------");
                             $gateway_name = '';
                             $gateway_sql = "SELECT username FROM gateways";
                             $gateway_ev = query_to_array($gateway_sql);
                             //для тестовых таблиц------------------------------------------------------------------------------------------
                             //пропускаем значения звонящего и принимающего через цикл сравнения и тех и других с шлюзами
-                            $query = "INSERT INTO ring_settings(time, billid) VALUES (" . $ev->GetValue("time") . ", '" . $ev->GetValue("billid") . "')";
-                            $res = query_nores($query);
                             $billid_ev = $ev->GetValue("billid");
                             $i = 0;
                             while ($i <= count($gateway_ev)) {
                                 if ($ev->GetValue("caller") == $gateway_ev[$i]['username']) {
                                     $gateway_name = $ev->GetValue("caller");
-                                    //  $storage_gateway[$billid_ev] = $gateway_name; //
                                 } else if ($ev->GetValue("called") == $gateway_ev[$i]['username']) {
                                     $gateway_name = $ev->GetValue("called");
-                                    //  $storage_gateway[$billid_ev] = $gateway_name; //
                                 }
-                                if ($gateway_name != '') {
-                                    $query = "UPDATE ring_settings SET gateway = '" . $gateway_name . "' WHERE billid = '" . $billid_ev . "'";
-                                    $res = query_nores($query);
-                                };
                                 $i = $i + 1;
                             }
 
@@ -1162,12 +1155,12 @@ for (;;) {
                             $res = query_nores($query);
                             $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count IS NOT NULL THEN inuse_count+1 ELSE 1 END) WHERE extension='" . $ev->GetValue("external") . "'";
                             $res = query_nores($query);
-                            echo("--------------------------------------------------------1111");
-                            //print_r($call_from1C);
-                            echo("--------------------------------------------------------");
+
+
                             break;
 
                         case "update":
+                            echo("--------------------------------------------------------2222----------");
                             $chan_ev = $ev->GetValue("chan");
                             $caller_ev = $ev->GetValue("caller");
                             $called_ev = $ev->GetValue("called");
@@ -1197,27 +1190,14 @@ for (;;) {
                                     "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
                             //    }
                             $res = query_nores($query);
-                            echo("--------------------------------------------------------2222");
-                            //  print_r($call_from1C);
-                            echo("--------------------------------------------------------");
+                            
+
                             break;
                         case "finalize":
+                            echo("-------------------------3333-------------------------------");
                             $billid_ev = $ev->GetValue("billid");
-                            $chan_ev = $ev->GetValue("chan");
-                            $direction_ev = $ev->GetValue("direction");
 
-                            /*   $query = "SELECT billid, called, for_oneC FROM ring_settings";
-                              $call_from1C_1 = query_to_array($query);
-
-                              $i = 0;
-                              while ($i <= count($call_from1C_1)) {
-                              if ($ev->GetValue("billid") == $call_from1C_1[$i]['billid'] && substr($chan_ev, 0, 11) != 'ctc-dialer/' && $ev->GetValue("called") == $call_from1C_1[$i]['called']) {
-                              $direction_ev = 'unknown'; //
-                              }
-                              $i = $i + 1;
-                              }
-                             */
-                            $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
+                            $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction"). "', billid='" . $ev->GetValue("billid") .
                                     "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                     $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1 WHERE chan='" .
                                     $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
@@ -1263,16 +1243,8 @@ for (;;) {
                                    WHERE  a.direction = 'incoming' AND b.billid = '$billid_ev'";
 
                             $call_params = query_to_array($sql);
-                            //  print_r($call_params);
 
                             if ($call_params) {
-                                //$sql = "SELECT gateway FROM ring_settings WHERE billid = '$billid_ev' AND gateway <> ''";
-                               // $res_gateway = query_to_array($sql);
-                                echo("--------------------------------------------------------3333");
-
-                                echo("--------------------------------------------------------");
-                                //$gateway_name = $res_gateway[0]['gateway'];
-                                $gateway_name = $call_params[0]['gateway'];
                                 $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway)"
                                         . " VALUES ("
                                         . $call_params[0]['time'] . ", '"
@@ -1286,8 +1258,7 @@ for (;;) {
                                         . $call_params[0]['billtime'] . ", "
                                         . $call_params[0]['ringtime'] . ", '"
                                         . $call_params[0]['status'] . "', '"
-                                        . "1', '$gateway_name')";
-
+                                        . "1', '" . $call_params[0]['gateway'] ."')";
                                 $res = query_nores($query);
                                 //очищаем массив и удаляем ненужные записи- - - - - - - - -
                                 // $sql = "DELETE FROM call_logs WHERE billid = '$billid_ev'";
