@@ -117,24 +117,23 @@ Ext.define('app.module.Call_logs_Grid', {
         {// 'gateway'
             width: 150,
             renderer: function(value, metadata, record) {
-                if (value == '') {
-                } else {
+                if (value !== '') {
                     try {
                         JSON.parse(value);
                     } catch (e) {
-                        var re = /[{}]+/g;
-                        value = value.replace(re, '');
-                        var re = /\,/g;
-                        value = value.replace(re, '<br/>');
-                        var re = /\"/g;
-                        myToolTipText = value.replace(re, ' ');
-                        //myToolTipText =record.get(value);
-                        metadata.tdAttr = 'data-qtip="' + myToolTipText + '"';
-                        console.log(myToolTipText);
-                        return "geoinfo";
-
+                        return value;
                     }
-                    return value;
+                    var myToolTipText = '';
+                    console.log(value);
+                    var obj = JSON.parse(value);
+                    for (var key in obj) {
+                        console.log(obj[key]);
+                        for (var key1 in obj[key]) {
+                            myToolTipText = myToolTipText + key1 + " : " + obj[key][key1] + ";" + "<br/>";
+                        }
+                    }
+                    metadata.tdAttr = 'data-qtip="' + myToolTipText + '"';
+                    return "geoinfo";
                 }
 
 
