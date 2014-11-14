@@ -53,15 +53,12 @@
 
 var today = new Date();
 today.setHours(0, 0, 0, 0);
-
 var yesterday = new Date();
 yesterday.setDate((new Date()).getDate() - 1);
 yesterday.setHours(0, 0, 0, 0);
-
 function GetDateInWeek(WeekOffset) {
     if (!WeekOffset)
         WeekOffset = 0;
-
     var NowDate = new Date();
     var CurrentDay = NowDate.getDay();
     var LeftOffset = CurrentDay - 1 - 7 * WeekOffset;
@@ -118,7 +115,30 @@ Ext.define('app.module.Call_logs_Grid', {
             renderer: app.dhms
         },
         {// 'gateway'
-            width: 150
+            width: 150,
+            renderer: function(value, metadata, record) {
+                if (value == '') {
+                } else {
+                    try {
+                        JSON.parse(value);
+                    } catch (e) {
+                        var re = /[{}]+/g;
+                        value = value.replace(re, '');
+                        var re = /\,/g;
+                        value = value.replace(re, '<br/>');
+                        var re = /\"/g;
+                        myToolTipText = value.replace(re, ' ');
+                        //myToolTipText =record.get(value);
+                        metadata.tdAttr = 'data-qtip="' + myToolTipText + '"';
+                        console.log(myToolTipText);
+                        return "geoinfo";
+
+                    }
+                    return value;
+                }
+
+
+            }
         },
         {// 'status'
             width: 150,
@@ -203,13 +223,11 @@ Ext.define('app.module.Call_logs_Grid', {
     initComponent: function() {
         app.Loader.load(['js/ux/grid/css/GridFilters.css', 'js/ux/grid/css/RangeMenu.css']);
         this.listeners.beforerender = function() {
-            //console.log(this.store.storeId);
-            //this.store.guaranteeRange(0, app.pageSize-1);
+//console.log(this.store.storeId);
+//this.store.guaranteeRange(0, app.pageSize-1);
             if (app['lang'] == 'ru')
                 app.Loader.load(['js/app/locale/filter.ru.js']);
-
         };
-
         /*
          this.columns_renderer = 
          function(value, metaData, record, rowIndex, colIndex, store) {
@@ -230,8 +248,6 @@ Ext.define('app.module.Call_logs_Grid', {
          
          */
         this.callParent(arguments);
-
-
         Ext.ux.grid.filter.DateFilter.override({
             init: function() {
                 this.callOverridden();
@@ -247,8 +263,6 @@ Ext.define('app.module.Call_logs_Grid', {
                 }
             }
         });
-
-
         var me = this;
         var get_grid_filter = function(name) {
             return me.filters.getFilter(name);
@@ -262,8 +276,8 @@ Ext.define('app.module.Call_logs_Grid', {
                             xtype: 'button',
                             text: app.msg.last_week ? app.msg.last_week : 'Last week',
                             handler: function() {
-                                //me.filters.resumeEvents();
-                                //me.filters.reload()
+//me.filters.resumeEvents();
+//me.filters.reload()
                                 var week = GetDateInWeek(-1);
                                 get_grid_filter('time').setActive(false, false);
                                 get_grid_filter('time').setValue(
@@ -306,6 +320,5 @@ Ext.define('app.module.Call_logs_Grid', {
 
                     ]
                 });
-
     }
 })
