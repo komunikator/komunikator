@@ -124,19 +124,16 @@ Ext.define('app.module.Call_logs_Grid', {
                         return value;
                     }
                     var myToolTipText = '';
-                    console.log(value);
                     var obj = JSON.parse(value);
                     for (var key in obj) {
-                        console.log(obj[key]);
                         for (var key1 in obj[key]) {
-                            myToolTipText = myToolTipText + key1 + " : " + obj[key][key1] + ";" + "<br/>";
+                            myToolTipText = myToolTipText + key1 + " : " + obj[key][key1] +  "<br/>";
                         }
                     }
                     metadata.tdAttr = 'data-qtip="' + myToolTipText + '"';
-                    return "geoinfo";
+                    var geo = "<b>"+"GEOINFO"+"</b>";
+                    return geo;
                 }
-
-
             }
         },
         {// 'status'
