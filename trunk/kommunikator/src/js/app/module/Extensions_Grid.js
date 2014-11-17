@@ -97,7 +97,7 @@ Ext.define('app.module.Extensions_Grid', {
         {// 'firstname'
             editor: {
                 xtype: 'textfield'
-            }
+            }                   	   
         },
         {// 'lastname'
             editor: {
@@ -389,7 +389,6 @@ Ext.define('app.module.Extensions_Grid', {
 
                     if (repository_exists) {
                         repository_exists.load();
-                        console.log('!!!!!!!!!');
                     }
                     else
                         console.log('ERROR: extensions_list - fail_load [code of Extensions_Grid.js]');
@@ -399,7 +398,6 @@ Ext.define('app.module.Extensions_Grid', {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     }
 });
-
 
 var sda_storage_for_forwarding = Ext.create('Ext.data.Store', {
     fields: ['abbr', 'name'],

@@ -52,13 +52,11 @@
 */
 
 Ext.define('app.module.Dial_plans_Grid', {
-    extend : 'app.Grid',
-    
+    extend : 'app.Grid',   
     store_cfg : {
         fields   : ['id', 'dial_plan', 'priority', 'prefix', 'gateway', 'nr_of_digits_to_cut', 'position_to_start_cutting', 'nr_of_digits_to_replace', 'digits_to_replace_with', 'position_to_start_replacing', 'position_to_start_adding', 'digits_to_add'],
         storeId  : 'dial_plans'
     },
-    
     viewConfig : {
         loadMask : false
     },
@@ -68,8 +66,7 @@ Ext.define('app.module.Dial_plans_Grid', {
             hidden : true
         },
         {  // 'dial_plan'
-            width : 150,
-            
+            width : 150,            
             editor : {
                 xtype      : 'textfield',
                 allowBlank : false
@@ -94,21 +91,17 @@ Ext.define('app.module.Dial_plans_Grid', {
             }
         },
         {  // 'gateway'
-            width : 125,
-            
-            text : app.gateway,
-            
+            width : 125,          
+            text : app.gateway,         
             editor : {
                 xtype : 'combobox',
                 store : Ext.StoreMgr.lookup('gateways') ?
                         Ext.StoreMgr.lookup('gateways') :
                         Ext.create('app.Store', {
-                            autorefresh : false,
-                            
+                            autorefresh : false,                        
                             fields   : ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
                             storeId  : 'gateways'
                 }),
-
                 displayField : 'gateway',
                 valueField : 'gateway',
                 editable: false,
@@ -120,76 +113,61 @@ Ext.define('app.module.Dial_plans_Grid', {
                     }
                 }
             }
-
         },
         {  // 'nr_of_digits_to_cut'
-            text : '- N',
-                    
+            text : '- N',                    
             editor : {
                 xtype : 'textfield',
                 regex : /^(\d+|)$/
-            },
-                    
+            },                  
             width : 90
         },
         {  // 'position_to_start_cutting'
-            text : '- START',
-                    
+            text : '- START',               
             editor : {
                 xtype : 'textfield',
                 regex : /^(\d+|)$/
-            },
-                    
+            },                  
             width : 90
         },
         {  // 'nr_of_digits_to_replace'
-            text : '<> N',
-                    
+            text : '<> N',                   
             editor : {
                 xtype : 'textfield',
                 regex : /^(\d+|)$/
-            },
-                    
+            },               
             width : 90
         },
         {  // 'digits_to_replace_with'
-            text : '<> START',
-                    
+            text : '<> START',                  
             editor : {
                 xtype : 'textfield',
                 regex : /^(\d+|)$/
-            },
-                    
+            },                 
             width : 90
         },
         {  // 'position_to_start_replacing'
-            text : '<>',
-                    
+            text : '<>',                  
             editor : {
                 xtype : 'textfield',
                 regex : /^(\d+|)$/
-            },
-                    
+            },               
             width : 90
         },
         {  // 'position_to_start_adding'
-            text : '+ START',
-                    
+            text : '+ START',                   
             editor : {
                 xtype : 'textfield',
                 regex : /^(\d+|)$/
-            },
-                    
+            },                 
             width : 90
         },
         {  // 'digits_to_add'
-            text : '+',
-                    
+            text : '+',                   
             editor : {
                 xtype : 'textfield',
                 regex : /[\d\+]$/
-            },
-                    
+            },                  
             width : 90
         }
     ],
@@ -197,4 +175,4 @@ Ext.define('app.module.Dial_plans_Grid', {
     initComponent: function() {
         this.callParent(arguments);
     }
-})
+});
