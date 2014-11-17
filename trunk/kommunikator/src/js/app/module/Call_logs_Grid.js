@@ -131,7 +131,7 @@ Ext.define('app.module.Call_logs_Grid', {
                         }
                     }
                     metadata.tdAttr = 'data-qtip="' + myToolTipText + '"';
-                    var geo = "<b>"+"GEOINFO"+"</b>";
+                    var geo = '<img src= "js/app/images/about.png" >';
                     return geo;
                 }
             }
