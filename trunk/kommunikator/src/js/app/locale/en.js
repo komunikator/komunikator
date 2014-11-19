@@ -294,6 +294,14 @@ app.msg = {
     text_call_website: 'Lets IP-PBX handle incoming calls from web-sites.',
     text_mail_Settings: 'Lets IP-PBX trace calls and notify the user by sending emails.',
     record: 'Record',
+        // - - для истории звонков - инфо о звонке с сайта
+    fullVersion: 'Full version',
+    browserName: 'Browser',
+    majorVersion: 'Version',
+    navigator_appName: 'Приложение',
+    navigator_userAgent: 'Юзерагент',
+    OSName: 'Операционная система',
+    // - - - - - - - - - - - - - - - - - - - - - -
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
             // --------------------------------------------------

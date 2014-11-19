@@ -64,11 +64,54 @@ function GetDateInWeek(WeekOffset) {
     var LeftOffset = CurrentDay - 1 - 7 * WeekOffset;
     var RightOffset = 7 - CurrentDay + 7 * WeekOffset;
     var First = new Date(NowDate.getFullYear(), NowDate.getMonth(), NowDate.getDate() - LeftOffset);
-    var Last = new Date(NowDate.getFullYear(), NowDate.getMonth(), NowDate.getDate() + RightOffset)
+    var Last = new Date(NowDate.getFullYear(), NowDate.getMonth(), NowDate.getDate() + RightOffset);
 
     return({begin: First, end: Last});
     // alert(First.getDate() + '.'+First.getMonth()+'.'+First.getFullYear()+' - ' + Last.getDate()+'.'+Last.getMonth()+'.'+Last.getFullYear());
 }
+
+var windowAbout = Ext.create('widget.window', {//itemId: 'windowAboutCallSite',
+    width: 500,
+    height: 450,
+    autoHeight: true,
+    autoScroll: true,
+    maximizable: true, // значок «раскрыть окно на весь экран»
+    modal: true, // блокирует всё, что на заднем фоне
+    draggable: true, // перемещение объекта по экрану
+    closeAction: 'hide',
+    items: Ext.create('Ext.grid.Panel', {
+        id: 'windowAboutCallSite',
+        store: [[null, null]], // определили хранилище
+        title: 'Geoinfo',
+        closeAction: 'hide',
+        columns:
+                [{
+                        text: app.msg.param,
+                        width: 200,
+                        dataIndex: 'field1',
+                       /* renderer: function(value) {
+                            return app.msg[value];
+                        }*/
+                    }, {
+                        text: app.msg.value,
+                        width: 250,
+                        dataIndex: 'field2'
+                    }
+                ]
+    })
+});
+
+window.openAbout = function(object) {
+    var f = [];
+    for (var key in object) {
+        f.push([key, object[key]]);
+    }
+
+    //  windowAbout.getComponent('windowAboutCallSite').store.loadData(f);
+    //Ext.getCmp('windowAboutCallSite').store.loadData(f);
+    Ext.getCmp('windowAboutCallSite').getStore().loadData(f);
+    windowAbout.show();
+};
 
 Ext.define('app.module.Call_logs_Grid', {
     extend: 'app.Grid',
@@ -117,24 +160,34 @@ Ext.define('app.module.Call_logs_Grid', {
         {// 'gateway'
             width: 150,
             renderer: function(value, metadata, record) {
+                var value = unescape(value);
                 if (value !== '') {
                     try {
                         JSON.parse(value);
                     } catch (e) {
                         return value;
                     }
-                    var myToolTipText = '';
+                    Ext.call_site_hint = '';
                     var obj = JSON.parse(value);
                     for (var key in obj) {
                         for (var key1 in obj[key]) {
-                            myToolTipText = myToolTipText + key1 + " : " + obj[key][key1] +  "<br/>";
+                            var object = obj[key];
+                            Ext.call_site_hint = Ext.call_site_hint + key1 + " : " + obj[key][key1] + "<br/>";
                         }
                     }
-                    metadata.tdAttr = 'data-qtip="' + myToolTipText + '"';
-                    var geo = '<img src= "js/app/images/about.png" >';
-                    return geo;
+                    metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';
+                    Ext.call_site_hint = object;
+                    return '<img src="js/app/images/about.png" alt="Пример" onclick=openAbout(Ext.call_site_hint) style = "cursor: pointer">';
+                }
+            },
+            listeners: {
+                itemclick: function(dv, record, item, index, e) {
+                    alert(1);
+                    //location = "/points/operations/map/"+record.internalId;
                 }
             }
+            //function b(){alert("adad");};
+
         },
         {// 'status'
             width: 150,
@@ -195,8 +248,7 @@ Ext.define('app.module.Call_logs_Grid', {
                             encode: 'encode',
                             local: true,
                             type: 'list',
-                            local: true,
-                                    options: [['internal', app.msg['internal']], ['incoming', app.msg['incoming']], ['outgoing', app.msg['outgoing']]],
+                            options: [['internal', app.msg['internal']], ['incoming', app.msg['incoming']], ['outgoing', app.msg['outgoing']]],
                             dataIndex: 'type'
                         }, {
                             type: 'string',
