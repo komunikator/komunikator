@@ -72,18 +72,17 @@ Ext.define('app.module.Active_calls_Grid', {
             width: 160
         },
         {
-            //align: 'right',
-            //width: 160,
             renderer: app.dhms
         },
         {
-            width: 100
+            width: 100,
+            renderer: app.get_info_site
         },
         {
             renderer: function(value) {
                 if (app.msg[value])
                     value = app.msg[value];
-                return value
+                return value;
             }
         }
     ],
@@ -91,4 +90,4 @@ Ext.define('app.module.Active_calls_Grid', {
     initComponent: function() {
         this.callParent(arguments);
     }
-})
+});

@@ -493,8 +493,8 @@ app.set_autorefresh = function(s, active) {
 app.msg_renderer = function(value) {
     if (app.msg[value])
         value = app.msg[value];
-    return value
-}
+    return value;
+};
 
 
 app.dhms = function(s) {
@@ -528,3 +528,26 @@ app.dhms = function(s) {
 };
 //alert(Ext.LoadMask.prototype.msg);             
 //Ext.view.AbstractView.prototype.loadingText = Ext.LoadMask.prototype.msg;
+
+app.get_info_site = function(value, metadata, record) {
+                var value = unescape(value); //инфо о звонке с сайта записывается в Base64, эта строка выводит в норм виде
+                if (value !== '') {
+                    try {
+                        JSON.parse(value);
+                    } catch (e) {
+                        return value;
+                    }
+                    var call_site_params = [];
+                    Ext.call_site_hint = '';
+                    var obj = JSON.parse(value);
+                    for (var key in obj) {
+                        for (var key1 in obj[key]) {
+                            Ext.call_site_hint = Ext.call_site_hint + key1 + " : " + obj[key][key1] + "<br/>";
+                            call_site_params.push([key1, obj[key][key1]]); 
+                        }
+                    }
+                    metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';//выводим подсказку при наведении 
+                    Ext.call_site_hint = call_site_params;      //собрали массив для данных в выводимом окне при клике          
+                    return '<img src="js/app/images/about.png" alt="About" onclick=openAbout(Ext.call_site_hint) style = "cursor: pointer">';
+                }
+            };
