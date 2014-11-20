@@ -71,6 +71,7 @@ function GetDateInWeek(WeekOffset) {
 }
 
 var windowAbout = Ext.create('widget.window', {//itemId: 'windowAboutCallSite',
+    title: "Geoinfo",
     width: 500,
     height: 450,
     autoHeight: true,
@@ -82,19 +83,26 @@ var windowAbout = Ext.create('widget.window', {//itemId: 'windowAboutCallSite',
     items: Ext.create('Ext.grid.Panel', {
         id: 'windowAboutCallSite',
         store: [[null, null]], // определили хранилище
-        title: 'Geoinfo',
+
         closeAction: 'hide',
         columns:
                 [{
                         text: app.msg.param,
-                        width: 200,
+                        flex: 1,
                         dataIndex: 'field1',
-                       /* renderer: function(value) {
-                            return app.msg[value];
-                        }*/
+//align : right
+//style:     "text-align:right;"
+//cls: Ext.baseCSSPrefix + 'html-editor-tip'
+                        renderer: function(value) {
+                            if (app.msg[value]) {
+                                return "<b>" + app.msg[value] + "</b>";
+                            } else {
+                                return "<b>" + value + "</b>";
+                            }
+                        }
                     }, {
                         text: app.msg.value,
-                        width: 250,
+                        flex: 1,
                         dataIndex: 'field2'
                     }
                 ]
@@ -102,14 +110,14 @@ var windowAbout = Ext.create('widget.window', {//itemId: 'windowAboutCallSite',
 });
 
 window.openAbout = function(object) {
-    var f = [];
-    for (var key in object) {
-        f.push([key, object[key]]);
-    }
+    /*    var f = [];
+     for (var key in object) {
+     f.push([key, object[key]]);
+     }*/
 
     //  windowAbout.getComponent('windowAboutCallSite').store.loadData(f);
     //Ext.getCmp('windowAboutCallSite').store.loadData(f);
-    Ext.getCmp('windowAboutCallSite').getStore().loadData(f);
+    Ext.getCmp('windowAboutCallSite').getStore().loadData(object);
     windowAbout.show();
 };
 
@@ -167,27 +175,22 @@ Ext.define('app.module.Call_logs_Grid', {
                     } catch (e) {
                         return value;
                     }
+                    var call_site_params = [];
                     Ext.call_site_hint = '';
                     var obj = JSON.parse(value);
                     for (var key in obj) {
                         for (var key1 in obj[key]) {
                             var object = obj[key];
                             Ext.call_site_hint = Ext.call_site_hint + key1 + " : " + obj[key][key1] + "<br/>";
+                            call_site_params.push([key1, obj[key][key1]]);//console.log(t); 
                         }
                     }
-                    metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';
-                    Ext.call_site_hint = object;
-                    return '<img src="js/app/images/about.png" alt="Пример" onclick=openAbout(Ext.call_site_hint) style = "cursor: pointer">';
-                }
-            },
-            listeners: {
-                itemclick: function(dv, record, item, index, e) {
-                    alert(1);
-                    //location = "/points/operations/map/"+record.internalId;
+                    metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';//выводим подсказку при наведении
+                    //    Ext.call_site_hint = object; 
+                    Ext.call_site_hint = call_site_params;      //собрали массив для данных в выводимом окне при клике          
+                    return '<img src="js/app/images/about.png" alt="About" onclick=openAbout(Ext.call_site_hint) style = "cursor: pointer">';
                 }
             }
-            //function b(){alert("adad");};
-
         },
         {// 'status'
             width: 150,
