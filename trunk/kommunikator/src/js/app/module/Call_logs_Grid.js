@@ -170,10 +170,11 @@ Ext.define('app.module.Call_logs_Grid', {
                     var obj = JSON.parse(value);
                     for (var key in obj) {
                         for (var key1 in obj[key]) {
+                            var val = '';
                             if (app.msg[key1]) {
-                                var val = app.msg[key1];
+                                 val = app.msg[key1];
                             } else {
-                                var val = key1;
+                                 val = key1;
                             };
                             Ext.call_site_hint = Ext.call_site_hint + val + " : " + obj[key][key1] + "<br/>";
                             call_site_params.push([key1, obj[key][key1]]);
