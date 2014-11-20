@@ -295,12 +295,22 @@ app.msg = {
     text_mail_Settings: 'Lets IP-PBX trace calls and notify the user by sending emails.',
     record: 'Record',
         // - - для истории звонков - инфо о звонке с сайта
+    country_code: 'Country code',
+    country_name: 'Country name',
+    region_code: 'Region code',
+    region_name: 'Region name',
+    city: 'City',
+    zip_code: 'Postcode',
+    time_zone: 'Time zone',
+    latitude: 'Latitude',
+    longitude: 'Longitude',
+    metro_code: 'Metro_code',
     fullVersion: 'Full version',
     browserName: 'Browser',
     majorVersion: 'Version',
-    navigator_appName: 'Приложение',
-    navigator_userAgent: 'Юзерагент',
-    OSName: 'Операционная система',
+    navigator_appName: 'Application',
+    navigator_userAgent: 'Type of browser',
+    OSName: 'OSName',
     // - - - - - - - - - - - - - - - - - - - - - -
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'

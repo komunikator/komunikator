@@ -71,7 +71,7 @@ function GetDateInWeek(WeekOffset) {
 }
 
 var windowAbout = Ext.create('widget.window', {//itemId: 'windowAboutCallSite',
-    title: "Geoinfo",
+    title: "About",
     width: 500,
     height: 450,
     autoHeight: true,
@@ -85,11 +85,13 @@ var windowAbout = Ext.create('widget.window', {//itemId: 'windowAboutCallSite',
         store: [[null, null]], // определили хранилище
 
         closeAction: 'hide',
+        enableColumnHide: false,
         columns:
                 [{
                         text: app.msg.param,
                         flex: 1,
                         dataIndex: 'field1',
+                        sortable: false,
 //align : right
 //style:     "text-align:right;"
 //cls: Ext.baseCSSPrefix + 'html-editor-tip'
@@ -103,7 +105,8 @@ var windowAbout = Ext.create('widget.window', {//itemId: 'windowAboutCallSite',
                     }, {
                         text: app.msg.value,
                         flex: 1,
-                        dataIndex: 'field2'
+                        dataIndex: 'field2',
+                        sortable: false
                     }
                 ]
     })

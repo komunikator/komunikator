@@ -351,13 +351,22 @@ app.msg = {
     text_call_website: 'Позволяет IP-АТС обрабатывать входящие вызовы, совершаемые с web-сайтов.',
     text_mail_Settings: 'Позволяет IP-АТС отслеживать те или иные вызовы и уведомлять о них посредствам рассылки электронных писем.',
     record: 'Запись',
-    
     // - - для истории звонков - инфо о звонке с сайта
+    country_code: 'Код страны',
+    country_name: 'Наименование страны',
+    region_code: 'Код региона',
+    region_name: 'Наименование региона',
+    city: 'Город',
+    zip_code: 'Почтовый индекс',
+    time_zone: 'Часовой пояс',
+    latitude: 'Широта',
+    longitude: 'Долгота',
+    metro_code: 'Код google',
     fullVersion: 'Полная версия',
     browserName: 'Браузер',
     majorVersion: 'Версия',
     navigator_appName: 'Приложение',
-    navigator_userAgent: 'Юзерагент',
+    navigator_userAgent: 'Тип браузера',
     OSName: 'Операционная система'
     // - - - - - - - - - - - - - - - - - - - - - -
 };   
