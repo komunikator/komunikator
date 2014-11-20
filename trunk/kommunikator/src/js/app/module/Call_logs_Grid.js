@@ -171,7 +171,7 @@ Ext.define('app.module.Call_logs_Grid', {
                     for (var key in obj) {
                         for (var key1 in obj[key]) {
                             Ext.call_site_hint = Ext.call_site_hint + app.msg[key1] + " : " + obj[key][key1] + "<br/>";
-                            call_site_params.push([key1, obj[key][key1]]);
+                            call_site_params.push([key1, obj[key][key1]]); 
                         }
                     }
                     metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';//выводим подсказку при наведении 
