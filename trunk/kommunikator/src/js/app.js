@@ -545,7 +545,7 @@ app.get_info_site = function(value, metadata, record) {
             for (var key1 in obj[key]) {
                 if(app.msg[key1]){ val = app.msg[key1];}else {val = key1;}
                 Ext.call_site_hint = Ext.call_site_hint + val + " : " + obj[key][key1] + "<br/>";
-                call_site_params.push([key1, obj[key][key1]]);
+                call_site_params.push([val, obj[key][key1]]);
             }
         }
         metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';//выводим подсказку при наведении 
