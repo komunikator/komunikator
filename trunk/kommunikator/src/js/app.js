@@ -538,11 +538,13 @@ app.get_info_site = function(value, metadata, record) {
             return value;
         }
         var call_site_params = [];
+        var val = '';
         Ext.call_site_hint = '';
         var obj = JSON.parse(value);
         for (var key in obj) {
             for (var key1 in obj[key]) {
-                Ext.call_site_hint = Ext.call_site_hint + app.msg[key1] + " : " + obj[key][key1] + "<br/>";
+                if(app.msg[key1]){ val = app.msg[key1];}else {val = key1;}
+                Ext.call_site_hint = Ext.call_site_hint + val + " : " + obj[key][key1] + "<br/>";
                 call_site_params.push([key1, obj[key][key1]]);
             }
         }
