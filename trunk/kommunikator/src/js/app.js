@@ -1,55 +1,55 @@
 /*
-*  | RUS | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-*    «Komunikator» – Web-интерфейс для настройки и управления программной IP-АТС «YATE»
-*    Copyright (C) 2012-2013, ООО «Телефонные системы»
-
-*    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
-
-*    Сайт проекта «Komunikator»: http://4yate.ru/
-*    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
-
-*    В проекте «Komunikator» используются:
-*      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
-*      исходные коды проекта «FREESENTRAL», http://www.freesentral.com/
-*      библиотеки проекта «Sencha Ext JS», http://www.sencha.com/products/extjs
-
-*    Web-приложение «Komunikator» является свободным и открытым программным обеспечением. Тем самым
-*  давая пользователю право на распространение и (или) модификацию данного Web-приложения (а также
-*  и иные права) согласно условиям GNU General Public License, опубликованной
-*  Free Software Foundation, версии 3.
-
-*    В случае отсутствия файла «License» (идущего вместе с исходными кодами программного обеспечения)
-*  описывающего условия GNU General Public License версии 3, можно посетить официальный сайт
-*  http://www.gnu.org/licenses/ , где опубликованы условия GNU General Public License
-*  различных версий (в том числе и версии 3).
-
-*  | ENG | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-*    "Komunikator" is a web interface for IP-PBX "YATE" configuration and management
-*    Copyright (C) 2012-2013, "Telephonnyie sistemy" Ltd.
-
-*    THIS FILE is an integral part of the project "Komunikator"
-
-*    "Komunikator" project site: http://4yate.ru/
-*    "Komunikator" technical support e-mail: support@4yate.ru
-
-*    The project "Komunikator" are used:
-*      the source code of "YATE" project, http://yate.null.ro/pmwiki/
-*      the source code of "FREESENTRAL" project, http://www.freesentral.com/
-*      "Sencha Ext JS" project libraries, http://www.sencha.com/products/extjs
-
-*    "Komunikator" web application is a free/libre and open-source software. Therefore it grants user rights
-*  for distribution and (or) modification (including other rights) of this programming solution according
-*  to GNU General Public License terms and conditions published by Free Software Foundation in version 3.
-
-*    In case the file "License" that describes GNU General Public License terms and conditions,
-*  version 3, is missing (initially goes with software source code), you can visit the official site
-*  http://www.gnu.org/licenses/ and find terms specified in appropriate GNU General Public License
-*  version (version 3 as well).
-
-*  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-*/
+ *  | RUS | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+ *    «Komunikator» – Web-интерфейс для настройки и управления программной IP-АТС «YATE»
+ *    Copyright (C) 2012-2013, ООО «Телефонные системы»
+ 
+ *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
+ 
+ *    Сайт проекта «Komunikator»: http://4yate.ru/
+ *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+ 
+ *    В проекте «Komunikator» используются:
+ *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
+ *      исходные коды проекта «FREESENTRAL», http://www.freesentral.com/
+ *      библиотеки проекта «Sencha Ext JS», http://www.sencha.com/products/extjs
+ 
+ *    Web-приложение «Komunikator» является свободным и открытым программным обеспечением. Тем самым
+ *  давая пользователю право на распространение и (или) модификацию данного Web-приложения (а также
+ *  и иные права) согласно условиям GNU General Public License, опубликованной
+ *  Free Software Foundation, версии 3.
+ 
+ *    В случае отсутствия файла «License» (идущего вместе с исходными кодами программного обеспечения)
+ *  описывающего условия GNU General Public License версии 3, можно посетить официальный сайт
+ *  http://www.gnu.org/licenses/ , где опубликованы условия GNU General Public License
+ *  различных версий (в том числе и версии 3).
+ 
+ *  | ENG | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ 
+ *    "Komunikator" is a web interface for IP-PBX "YATE" configuration and management
+ *    Copyright (C) 2012-2013, "Telephonnyie sistemy" Ltd.
+ 
+ *    THIS FILE is an integral part of the project "Komunikator"
+ 
+ *    "Komunikator" project site: http://4yate.ru/
+ *    "Komunikator" technical support e-mail: support@4yate.ru
+ 
+ *    The project "Komunikator" are used:
+ *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
+ *      the source code of "FREESENTRAL" project, http://www.freesentral.com/
+ *      "Sencha Ext JS" project libraries, http://www.sencha.com/products/extjs
+ 
+ *    "Komunikator" web application is a free/libre and open-source software. Therefore it grants user rights
+ *  for distribution and (or) modification (including other rights) of this programming solution according
+ *  to GNU General Public License terms and conditions published by Free Software Foundation in version 3.
+ 
+ *    In case the file "License" that describes GNU General Public License terms and conditions,
+ *  version 3, is missing (initially goes with software source code), you can visit the official site
+ *  http://www.gnu.org/licenses/ and find terms specified in appropriate GNU General Public License
+ *  version (version 3 as well).
+ 
+ *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ */
 
 Ext.Loader.setConfig({
     enabled: true//
@@ -95,19 +95,19 @@ Ext.Ajax.on('requestexception', function(conn, response, options) {
 Ext.Ajax.on('requestcomplete', function(conn, response, options) {
     try {
         var jsonData = Ext.decode(response.responseText);
-        
+
         if (jsonData.message) {
             var cb = Ext.emptyFn;
-            
+
             if (jsonData.message == 'session_failed')
                 cb = function() {
                     window.location.reload();
                 };
-                
+
             app.msgShow(app.msg[jsonData.message] ? app.msg[jsonData.message] : jsonData.message, jsonData.success ? 'info' : 'error', cb);
         }
     }
-    catch(err) {
+    catch (err) {
 
         var check_string, string_rule;
 
@@ -117,39 +117,39 @@ Ext.Ajax.on('requestcomplete', function(conn, response, options) {
         string_rule = /^DB Error:/;
 
 
-        switch(  String( check_string.match(string_rule) )  )
-          {
+        switch (String(check_string.match(string_rule)))
+        {
 
             case "DB Error:" :
-              // --------------------------------------------------  BEGIN
-              string_rule = /nativecode=\d{1,}/;
+                // --------------------------------------------------  BEGIN
+                string_rule = /nativecode=\d{1,}/;
 
 
-              switch(  String( check_string.match(string_rule) )  )
+                switch (String(check_string.match(string_rule)))
                 {
 
-                  case "nativecode=1062" :
-                    app.msgShow(app.msg.db_error_number_1062 ? app.msg.db_error_number_1062 : check_string);
-                    break;
+                    case "nativecode=1062" :
+                        app.msgShow(app.msg.db_error_number_1062 ? app.msg.db_error_number_1062 : check_string);
+                        break;
 
-                  // case "nativecode=<номер_ошибки>" :
-                    // <событие>
-                    // break;
+                        // case "nativecode=<номер_ошибки>" :
+                        // <событие>
+                        // break;
 
-                  default :
-                    app.msgShow(check_string);  // в случае если ни один из nativecode=<номер_ошибки> не был выполнен
-                    break;
+                    default :
+                        app.msgShow(check_string);  // в случае если ни один из nativecode=<номер_ошибки> не был выполнен
+                        break;
 
                 }
 
-              break;
-              // --------------------------------------------------  END
+                break;
+                // --------------------------------------------------  END
 
             default :
-              app.msgShow(check_string);  // в случае если case "DB Error:" не был выполнен
-              break;
+                app.msgShow(check_string);  // в случае если case "DB Error:" не был выполнен
+                break;
 
-          }
+        }
 
         // app.msgShow(response.responseText);  // было до перехвата ошибок
     }
@@ -453,16 +453,16 @@ app.get_Source_Combo = function(cfg) {
 
 app.get_Extensions_Combo = function(cfg) {
     var obj = {
-       xtype: 'combobox',
-       store: Ext.create('app.Store', {
-                    fields: ['id', 'name'],
-                    //storeId: 'ext_groups'
-                    storeId: 'extensions_list'
-                }),
-                queryMode: 'local',
-                displayField: 'name',
-                valueField: 'name',
-                editable: true,
+        xtype: 'combobox',
+        store: Ext.create('app.Store', {
+            fields: ['id', 'name'],
+            //storeId: 'ext_groups'
+            storeId: 'extensions_list'
+        }),
+        queryMode: 'local',
+        displayField: 'name',
+        valueField: 'name',
+        editable: true,
         listeners: {
             afterrender: function() {
                 this.store.load();
@@ -530,24 +530,24 @@ app.dhms = function(s) {
 //Ext.view.AbstractView.prototype.loadingText = Ext.LoadMask.prototype.msg;
 
 app.get_info_site = function(value, metadata, record) {
-                var value = unescape(value); //инфо о звонке с сайта записывается в Base64, эта строка выводит в норм виде
-                if (value !== '') {
-                    try {
-                        JSON.parse(value);
-                    } catch (e) {
-                        return value;
-                    }
-                    var call_site_params = [];
-                    Ext.call_site_hint = '';
-                    var obj = JSON.parse(value);
-                    for (var key in obj) {
-                        for (var key1 in obj[key]) {
-                            Ext.call_site_hint = Ext.call_site_hint + key1 + " : " + obj[key][key1] + "<br/>";
-                            call_site_params.push([key1, obj[key][key1]]); 
-                        }
-                    }
-                    metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';//выводим подсказку при наведении 
-                    Ext.call_site_hint = call_site_params;      //собрали массив для данных в выводимом окне при клике          
-                    return '<img src="js/app/images/about.png" alt="About" onclick=openAbout(Ext.call_site_hint) style = "cursor: pointer">';
-                }
-            };
+    var value = unescape(value); //инфо о звонке с сайта записывается в Base64, эта строка выводит в норм виде
+    if (value !== '') {
+        try {
+            JSON.parse(value);
+        } catch (e) {
+            return value;
+        }
+        var call_site_params = [];
+        Ext.call_site_hint = '';
+        var obj = JSON.parse(value);
+        for (var key in obj) {
+            for (var key1 in obj[key]) {
+                Ext.call_site_hint = Ext.call_site_hint + app.msg[key1] + " : " + obj[key][key1] + "<br/>";
+                call_site_params.push([key1, obj[key][key1]]);
+            }
+        }
+        metadata.tdAttr = 'data-qtip="' + Ext.call_site_hint + '"';//выводим подсказку при наведении 
+        Ext.call_site_hint = call_site_params;      //собрали массив для данных в выводимом окне при клике          
+        return '<img src="js/app/images/about.png" alt="About" onclick=openAbout(Ext.call_site_hint) style = "cursor: pointer">';
+    }
+};
