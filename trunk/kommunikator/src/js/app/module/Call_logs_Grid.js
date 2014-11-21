@@ -109,7 +109,16 @@ var windowAbout = Ext.create('widget.window', {
 });
 
 window.openAbout = function(object) {
-    Ext.getCmp('windowAboutCallSite').getStore().loadData(object);
+    var value = unescape(object);
+    var call_site_params = [];
+    var obj = JSON.parse(value);
+    for (var key in obj) {
+        for (var key1 in obj[key]) {
+            var val = (app.msg[key1]) ? app.msg[key1] : key1;
+            call_site_params.push([val, obj[key][key1]]);
+        }
+    }
+    Ext.getCmp('windowAboutCallSite').getStore().loadData(call_site_params);
     windowAbout.show();
 };
 
