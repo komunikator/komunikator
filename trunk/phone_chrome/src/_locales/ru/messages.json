@@ -1,0 +1,95 @@
+{
+    "extName": {
+        "message": "Виртуальная АТС Komunikator"
+    },
+    "extDescr": {
+        "message": "Виртуальная АТС Komunikator"
+    },
+    "language": {
+        "message": "Язык"
+    },
+    "auth_failed": {
+        "message": "Ошибка авторизации"
+    },
+    "save": {
+        "message": "Сохранить"
+    },
+    "exit": {
+        "message": "Выход"
+    },
+    "options": {
+        "message": "Опции"
+    },
+    "options_saved": {
+        "message": "Настройки сохранены"
+    },
+    "password": {
+        "message": "Пароль"
+    },
+    "extension": {
+        "message": "Внутренний номер"
+    },
+    "Service": {
+        "message": "Сервер"
+    },
+    "openform": {
+        "message": "Открывать окно Bitrix"
+    },
+    "click2call": {
+        "message": "Включить выделение номеров"
+    },
+    "click2callDesc": {
+        "message": "Нажмите, чтобы позвонить через Витруальную АТС"
+    },
+    "service_not_available": {
+        "message": "Сервис недоступен"
+    },
+    "status": {
+        "message": "статус"
+    },
+    "call_from": {
+        "message": "Звонок принят от"
+    },
+    "bitrix_message": {
+        "message": "Абонент: {caller}\\nВходящая линия: {line}\\nКому: {called} \\nДата: {date}\\nТип: Входящий"
+    },
+    "Call_logs": {
+        "message": "История звонков"
+    },
+    "Time": {
+        "message": "Время"
+    },
+    "Caller": {
+        "message": "Звонящий"
+    },
+    "Called": {
+        "message": "Принимающий"
+    },
+    "Call_status": {
+        "message": "Статус"
+    },
+    "Settings": {
+        "message": "Настройки"
+    },
+    "List_extensions": {
+        "message": "Список внутренних номеров"
+    },
+    "Extension_status": {
+        "message": "Статус"
+    },
+    "Extension_number": {
+        "message": "Номер"
+    },
+    "Name": {
+        "message": "Имя"
+    },
+    "Surname": {
+        "message": "Фамилия"
+    },
+    "co_worker": {
+        "message": "Сотрудники"
+    },
+    "answered": {
+        "message": "отвеченный"
+    }
+}
