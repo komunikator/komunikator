@@ -58,12 +58,12 @@ if ($sda_action == 'start' or $sda_action == 'stop') {
 
     if ($sda_action == 'start') {
         $sda_command = 'external start record.js';
-        $sda_command += '\nexternal start wav.js';
+        $sda_command2 = 'external start wav.js';
     }
 
     if ($sda_action == 'stop') {
         $sda_command = 'external stop record.js';
-        $sda_command += '\nexternal stop wav.js';
+        $sda_command2 = 'external stop wav.js';
     }
 
      require_once("php/socketconn.php");
@@ -74,6 +74,7 @@ if ($sda_action == 'start' or $sda_action == 'stop') {
     if ($socket -> error == "") {
         
         $socket -> command($sda_command);
+        $socket -> command($sda_command2);
         
     }
     else {
