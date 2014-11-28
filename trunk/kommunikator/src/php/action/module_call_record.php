@@ -54,131 +54,21 @@
  */
 ?><?
 
-if (!$_SESSION['user']) {
-    echo (out(array("success" => false, "message" => "User is undefined")));
-    exit;
+if ($sda_action == 'start' or $sda_action == 'stop') {
+
+    if ($sda_action == 'start') {
+        $sda_command = 'external start record.js';
+        $sda_command = 'external start wav.js';
+    }
+
+    if ($sda_action == 'stop') {
+        $sda_command = 'external stop record.js';
+        $sda_command = 'external stop wav.js';
+    }
+
+
+
+
+    $sda_action = '';
 }
-
-
-$total = compact_array(query_to_array("SELECT count(*) FROM modules"));
-
-if (!is_array($total["data"]))
-    echo out(array("success" => false, "message" => $total));
-
-
-$sql = <<<EOD
-SELECT
-    modules.module_name_id as id,
-    modules.module_name,
-    modules.description,
-    modules.version,
-    modules.condition
-FROM
-    modules
-EOD;
-
-$data = compact_array(query_to_array($sql . get_sql_order_limit()));
-
-if (!is_array($data["data"]))
-    echo out(array("success" => false, "message" => $data));
-
-
-
-/* - - - - -  подключение или отключение модулей (НАЧАЛО)  - - - - - */
-
-$sda_tick_condition_call_website = 'NO';
-$sda_tick_condition_mail_settings = 'NO';
-$sda_tick_condition_call_record = 'NO';
-
-foreach ($data["data"] as $row) {
-
-    if ($row[1] == 'Call_website_Grid') {
-
-        if ($row[4] == 1) {
-            $sda_tick_condition_call_website = $row[4];
-        } else {
-            $sda_tick_condition_call_website = 0;
-        }
-    }
-
-    if ($row[1] == 'Mail_Settings_Panel') {
-
-        if ($row[4] == 1) {
-            $sda_tick_condition_mail_settings = $row[4];
-        } else {
-            $sda_tick_condition_mail_settings = 0;
-        }
-    }
-    if ($row[1] == 'Call_Record_Grid') {
-
-        if ($row[4] == 1) {
-            $sda_tick_condition_call_record = $row[4];
-        } else {
-            $sda_tick_condition_call_record = 0;
-        }
-    }
-}
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/* Звонок с сайта */
-
-if ($sda_tick_condition_call_website !== 'NO') {
-
-    if ($sda_tick_condition_call_website == 1) {
-        $sda_action = 'start';
-        include("addition_call_button.php");
-    }
-
-    if ($sda_tick_condition_call_website == 0) {
-        $sda_action = 'stop';
-        include("addition_call_button.php");
-    }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/* Почтовые уведомления */
-
-if ($sda_tick_condition_mail_settings !== 'NO') {
-
-    if ($sda_tick_condition_mail_settings == 1) {
-        $sda_action = 'start';
-        include("module_yate_send_message.php");
-    }
-
-    if ($sda_tick_condition_mail_settings == 0) {
-        $sda_action = 'stop';
-        include("module_yate_send_message.php");
-    }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/* запись звонка */
-
-if ($sda_tick_condition_call_record !== 'NO') {
-
-    if ($sda_tick_condition_call_record == 1) {
-        $sda_action = 'start';
-         include("module_call_record.php");
-    }
-
-    if ($sda_tick_condition_call_record == 0) {
-        $sda_action = 'stop';
-         include("module_call_record.php");
-    }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-/* - - - - -  подключение или отключение модулей (КОНЕЦ)  - - - - - */
-
-
-
-$obj = array("success" => true);
-
-$obj["total"] = $total['data'][0][0];
-$obj["data"] = $data['data'];
-
-echo out($obj);
 ?>

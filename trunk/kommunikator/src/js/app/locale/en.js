@@ -293,6 +293,7 @@ app.msg = {
     internal_calls: 'Internal_calls',
     text_call_website: 'Lets IP-PBX handle incoming calls from web-sites.',
     text_mail_Settings: 'Lets IP-PBX trace calls and notify the user by sending emails.',
+    text_call_record: 'Enables calls recording in the PBX according to costomizable rules.',
     record: 'Record',
     // - - для истории звонков - инфо о звонке с сайта
     ip: 'ip',

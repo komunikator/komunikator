@@ -88,6 +88,9 @@ Ext.define('app.module.Tuning_Modules_Grid', {
                 else
                 if (v == 'text_mail_Settings')
                     return app.msg.text_mail_Settings;
+                else
+                if (v == 'text_call_record')
+                    return app.msg.text_call_record;
             },
             editor: {
                 xtype: 'textfield',
