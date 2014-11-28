@@ -3,25 +3,25 @@
 /*
 *  | RUS | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-*    «Komunikator» – Web-интерфейс для настройки и управления программной IP-АТС «YATE»
-*    Copyright (C) 2012-2013, ООО «Телефонные системы»
+*    <Komunikator> - Web-интерфейс для настройки и управления программной IP-АТС <YATE>
+*    Copyright (C) 2012-2013, ООО <Телефонные системы>
 
-*    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
+*    ЭТОТ ФАЙЛ является частью проекта <Komunikator>
 
-*    Сайт проекта «Komunikator»: http://4yate.ru/
-*    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+*    Сайт проекта <Komunikator>: http://4yate.ru/
+*    Служба технической поддержки проекта <Komunikator>: E-mail: support@4yate.ru
 
-*    В проекте «Komunikator» используются:
-*      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
-*      исходные коды проекта «FREESENTRAL», http://www.freesentral.com/
-*      библиотеки проекта «Sencha Ext JS», http://www.sencha.com/products/extjs
+*    В проекте <Komunikator> используются:
+*      исходные коды проекта <YATE>, http://yate.null.ro/pmwiki/
+*      исходные коды проекта <FREESENTRAL>, http://www.freesentral.com/
+*      библиотеки проекта <Sencha Ext JS>, http://www.sencha.com/products/extjs
 
-*    Web-приложение «Komunikator» является свободным и открытым программным обеспечением. Тем самым
+*    Web-приложение <Komunikator> является свободным и открытым программным обеспечением. Тем самым
 *  давая пользователю право на распространение и (или) модификацию данного Web-приложения (а также
 *  и иные права) согласно условиям GNU General Public License, опубликованной
 *  Free Software Foundation, версии 3.
 
-*    В случае отсутствия файла «License» (идущего вместе с исходными кодами программного обеспечения)
+*    В случае отсутствия файла <License> (идущего вместе с исходными кодами программного обеспечения)
 *  описывающего условия GNU General Public License версии 3, можно посетить официальный сайт
 *  http://www.gnu.org/licenses/ , где опубликованы условия GNU General Public License
 *  различных версий (в том числе и версии 3).
@@ -78,6 +78,13 @@ $sda_tick_id_mail_settings = 'NO';
 
 // - - - - - - - - - - - - - - - - - - - -
 
+/* Запись звонков */
+
+$sda_tick_condition_record_settings = 'NO';
+$sda_tick_id_record_settings = 'NO';
+
+// - - - - - - - - - - - - - - - - - - - -
+
 foreach ($data as $row) {
     $values = array();
 
@@ -114,6 +121,20 @@ foreach ($data as $row) {
         }
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        /* Запись звонков */
+
+        if ( $sda_tick_condition_record_settings === 'NO' or $sda_tick_id_record_settings === 'NO' ) {
+
+            if ($key == 'condition') {
+                if ($value == 1) { $sda_tick_condition_record_settings = $value; } else { $sda_tick_condition_record_settings = 0; }
+            }
+
+            if ($key == 'id') {
+                if ($value == 3) { $sda_tick_id_record_settings = $value; } else { $sda_tick_condition_record_settings = 'NO'; }
+            }
+        }
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     }
 
     $rows[] = $values;
@@ -144,6 +165,19 @@ if ( $sda_tick_id_mail_settings == 2 and $sda_tick_condition_mail_settings == 1 
 if ( $sda_tick_id_mail_settings == 2 and $sda_tick_condition_mail_settings == 0 ) {
     $sda_action = 'stop';
     include("module_yate_send_message.php");
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/* Запись звонков */
+
+if ( $sda_tick_id_record_settings == 3 and $sda_tick_condition_record_settings == 1 ) {
+    $sda_action = 'start';
+    include("module_call_record.php");
+}
+
+if ( $sda_tick_id_record_settings == 3 and $sda_tick_condition_record_settings == 0 ) {
+    $sda_action = 'stop';
+    include("module_call_record.php");
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
