@@ -163,7 +163,7 @@ function set_timer(billid, file_1, file_2){
           rule = rezult[0].call_records_id;
 
           // временное название результирующего файла
-          var file_3 = path.join( way , time + '#' + caler + '_' + caled + '.wav');
+          var file_3 = path.join( way , time + '#' + caler + '#' + caled + '.wav');
 
           // строка содержащая суть команды
           var command = '/wav_file.sh ' +  file_1 + ' ' +  file_2 + ' ' + file_3 + '\n';
