@@ -95,7 +95,7 @@ function set_timer(billid, file_1, file_2){
 +       ' end type,'
 +	' a.caller caller, '
 +	' b.called called, '
-+ ' date_format( FROM_UNIXTIME (b.time), \'%Y_%m_%d_%H_%i_%s\' ) as time, '
++ ' date_format( FROM_UNIXTIME (b.time), \'%d_%m_%Y_%H_%i_%s\' ) as time, '
 +	' g.gateway_id, '
 +	' gm.group_id as caller_group_id, '
 +	' gm2.group_id as called_group_id '
@@ -163,7 +163,7 @@ function set_timer(billid, file_1, file_2){
           rule = rezult[0].call_records_id;
 
           // временное название результирующего файла
-          var file_3 = path.join( way , time + '_' + caler + '_' + caled + '.wav');
+          var file_3 = path.join( way , time + '/' + caler + '_' + caled + '.wav');
 
           // строка содержащая суть команды
           var command = '/wav_file.sh ' +  file_1 + ' ' +  file_2 + ' ' + file_3 + '\n';
