@@ -81,8 +81,8 @@ function set_timer(billid, file_1, file_2){
 
    var query = 'select' 
 
-+ ' tab.time,'
-+ ' tab.caller,'
++ ' tab.time, '
++ ' tab.caller, '
 + ' tab.called, '
 +  ' rt.call_records_id '
  
@@ -95,7 +95,7 @@ function set_timer(billid, file_1, file_2){
 +       ' end type,'
 +	' a.caller caller, '
 +	' b.called called, '
-+ ' b.time, '
++ ' date_format( FROM_UNIXTIME (b.time), \'%Y_%m_%d_%H_%i_%s\' ) as time, '
 +	' g.gateway_id, '
 +	' gm.group_id as caller_group_id, '
 +	' gm2.group_id as called_group_id '
