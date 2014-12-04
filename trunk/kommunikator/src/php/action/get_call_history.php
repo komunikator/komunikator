@@ -98,12 +98,12 @@ SELECT * FROM (
         a.status,
         CASE
             WHEN time IS NOT NULL 
-                THEN CONCAT( time, '_',caller, '_', called)
+                THEN CONCAT(date_format(FROM_UNIXTIME(time), '%d_%m_%Y_%H_%i_%s'), '~',caller, '~', called)
             ELSE NULL
         END record,
         CASE
             WHEN time IS NOT NULL 
-                THEN CONCAT( time, '_',caller, '_', called)
+                THEN CONCAT(date_format(FROM_UNIXTIME(time), '%d_%m_%Y_%H_%i_%s'), '~',caller, '~', called)
             ELSE NULL
         END download
     FROM call_history a
@@ -118,7 +118,7 @@ $data = compact_array(query_to_array($sql . get_filter()));
 if (!is_array($data["data"]))
     echo out(array("success" => false, "message" => $data));
 
-$total = count($data["data"]);
+$total = count($data["data"]); //echo($total);
 
 $data = compact_array(query_to_array($sql . get_sql_order_limit()));
 if (!is_array($data["data"]))
