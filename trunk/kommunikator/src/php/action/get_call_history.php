@@ -61,7 +61,6 @@ if (!$_SESSION['user'] && !$_SESSION['extension']) {
     exit;
 }
 
-
 $call = NULL;
 
 if ($_SESSION['extension']) {
@@ -118,7 +117,7 @@ $data = compact_array(query_to_array($sql . get_filter()));
 if (!is_array($data["data"]))
     echo out(array("success" => false, "message" => $data));
 
-$total = count($data["data"]); //echo($total);
+$total = count($data["data"]);
 
 $data = compact_array(query_to_array($sql . get_sql_order_limit()));
 if (!is_array($data["data"]))
@@ -148,13 +147,6 @@ foreach ($data["data"] as $row) {
         $row[8] = NULL;
         $row[9] = NULL;
     }
-    else
-    {
-        //if(linkinfo('/var/lib/misc/records/' . $row[1] . '_' . $row[3] . '_' . $row[4] )){
-        //    echo("agaaaaaaaaaaa");
-            //echo ( $row[1] . '_' . $row[3] . '_' . $row[4] );
-        //}
-    }  
     $f_data[] = $row;
     $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
