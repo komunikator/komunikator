@@ -102,6 +102,7 @@ $f_data = array();
 foreach ($data["data"] as $row) {
     $row[0] = $row[0] - $_SESSION['time_offset'] * 60;
     $row[0] = date($date_format, $row[0]);  // $date_format = "d.m.y H:i:s"; - data.php
+    $row[4] = urldecode($row[4]);//добавлено, чтобы в 1с не декодировать
     $f_data[] = $row;
     // $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
