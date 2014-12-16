@@ -99,15 +99,33 @@ if (!is_array($data["data"]))
 $obj = array();
 
 $f_data = array();
+
+function isJSON($string) {
+    return ((is_string($string) && (is_object(json_decode($string)) || is_array(json_decode($string))))) ? true : false;
+}
+
 foreach ($data["data"] as $row) {
     $row[0] = $row[0] - $_SESSION['time_offset'] * 60;
     $row[0] = date($date_format, $row[0]);  // $date_format = "d.m.y H:i:s"; - data.php
-    $row[4] = urldecode($row[4]);//добавлено, чтобы в 1с не декодировать
-    $row[4] = json_decode($row[4], true);
+    $row[4] = urldecode($row[4]); //добавлено, чтобы в 1с не декодировать
+    if (isJSON($row[4])) {
+        $row[4] = json_decode($row[4], true);
+        $i = 0;
+        foreach ($row[4] as $key => $value) {
+            foreach ($value as $key => $val) {
+                $t["item" . $i]["name"] = $key;
+                $t["item" . $i]["value"] = $val;
+                $i++;
+            }
+        }
+        $row[4] = $t;
+        $row[4] = translate($row[4], $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');
+    }
     $f_data[] = $row;
-    // $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
+    $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
 
 $obj["data"] = $f_data;
+//echo out("aaaaaaaaaaaa");
 echo out($obj);
 ?>

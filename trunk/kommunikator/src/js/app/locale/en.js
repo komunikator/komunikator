@@ -313,6 +313,15 @@ app.msg = {
     navigator_appName: 'Application',
     navigator_userAgent: 'Type of browser',
     OSName: 'OSName',
+    country: 'Country',
+    country_code3: 'Country code',
+    region: 'Region',
+    timezone: 'Timezone',
+    continent_code: 'Continent code',
+    dma_code: 'Trade zone ID', /*'Код рыночной зоны (DMA, только для США и Канады)',*/
+    area_code: 'PSTN ID',
+    isp: 'The name of the ISP of the IP address',
+    asn: 'Autonomous System Numbers',
     // - - - - - - - - - - - - - - - - - - - - - -
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
