@@ -405,7 +405,7 @@ app.online_offline_renderer = function(value, metadata, record, rowIndex, colInd
         {
             metadata.tdAttr = 'data-qtip="' + app.msg[value] + '"';
         }
-        if (value == 0)
+        if (value == 0 || value == null)
         {
             return '&nbsp';
         }
