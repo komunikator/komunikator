@@ -159,7 +159,7 @@ CREATE TABLE `call_records` (
 `gateway` varchar(250) DEFAULT NULL,
 `called_number` varchar(250) DEFAULT NULL,
 `called_group` int(11) DEFAULT NULL,
-`trusted` tinyint(1) DEFAULT NULL,
+`enabled` tinyint(1) DEFAULT NULL,
 `description` text,
 PRIMARY KEY (`call_records_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
