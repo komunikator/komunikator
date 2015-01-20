@@ -1030,7 +1030,9 @@ for (;;) {
                     //подключение трубки: off/on
                     $query = "UPDATE extensions SET location='" . $ev->GetValue("data") . "',expires=" . (time() + $ev->GetValue("expires")) . " WHERE extension='" . $ev->GetValue("username") . "'";
                     $res = query_nores($query);
+                    // echo(" ------------------ -------------------------" . $ev->GetValue("username") . "----------");
                     $ev->handled = true;
+                    // echo(" ------------------ -------------------------" . $ev->GetValue("username") . "----------");
                     break;
                 case "user.unregister":
                     $query = "UPDATE extensions SET location=NULL,expires=NULL WHERE expires IS NOT NULL AND extension='" . $ev->GetValue("username") . "'";
@@ -1166,7 +1168,7 @@ for (;;) {
                             $direction_ev = $ev->GetValue("direction");
                             $ended_ev = 0;
 
-                            
+
                             $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
                                     "', caller='" . $caller_ev . "', called='" . $called_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                     $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
@@ -1176,9 +1178,6 @@ for (;;) {
                             break;
 
                         case "finalize":
-                            $billid_ev = $ev->GetValue("billid");
-                            $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=" . time() . " WHERE extension='" . $ev->GetValue("external") . "'";
-                            $res = query_nores($query);
 
                             $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
                                     "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
@@ -1187,29 +1186,21 @@ for (;;) {
 
                             $res = query_nores($query);
 
-                            $sql = "SELECT
+                            $sql = $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway)"
+                                    . "SELECT
                                        b.time,
                                        b.chan,
-                                       b.address,
-                                       b.billid,
+                                       b.address,                                   
                                        CASE
                                            WHEN x1.extension IS NOT NULL AND x2.extension IS NOT NULL
                                                THEN 'internal'
                                            WHEN x1.extension IS NOT NULL
                                                THEN 'outgoing'
                                            ELSE 'incoming'
-                                       END type,
-                                       CASE
-                                           WHEN x1.firstname IS NULL
-                                               THEN a.caller
-                                           ELSE  a.caller
-                                       END caller,
-                                       CASE
-                                           WHEN x2.firstname IS NULL
-                                               THEN b.called
-                                           ELSE b.called
-                                       END called,
-                                       b.gateway,
+                                       END direction,
+                                       b.billid,
+                                       b.caller,
+                                       b.called,
                                        b.duration,
                                        b.billtime,
                                        b.ringtime,
@@ -1217,38 +1208,22 @@ for (;;) {
                                            WHEN b.reason = ''
                                                THEN b.status
                                            ELSE REPLACE( LOWER(b.reason), ' ', '_' )
-                                       END status                                       
+                                       END status,
+                                       b.ended,
+                                       a.gateway
                                    FROM call_logs a
                                    JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
-                                   LEFT JOIN gateways g ON g.authname = a.called OR g.authname = b.caller
                                    LEFT JOIN extensions x1 ON x1.extension = a.caller
                                    LEFT JOIN extensions x2 ON x2.extension = a.called
-                                   WHERE  a.direction = 'incoming' AND b.billid = '$billid_ev'";
-
-                            $call_params = query_to_array($sql);
-
-                            if ($call_params) {
-                                $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway)"
-                                        . " VALUES ("
-                                        . $call_params[0]['time'] . ", '"
-                                        . $call_params[0]['chan'] . "', '"
-                                        . $call_params[0]['address'] . "', '"
-                                        . $call_params[0]['type'] . "', '"
-                                        . $call_params[0]['billid'] . "', '"
-                                        . $call_params[0]['caller'] . "', '"
-                                        . $call_params[0]['called'] . "', "
-                                        . $call_params[0]['duration'] . ", "
-                                        . $call_params[0]['billtime'] . ", "
-                                        . $call_params[0]['ringtime'] . ", '"
-                                        . $call_params[0]['status'] . "', '"
-                                        . "1', '" . $call_params[0]['gateway'] . "')";
-                                $res = query_nores($query);
-                                //очищаем массив и удаляем ненужные записи- - - - - - - - -
-                                $sql = "DELETE FROM call_logs WHERE billid = '" . $call_params[0]['billid'] . "'";
-                                $res = query_nores($sql);
-                            }
-
-
+                                   WHERE  a.direction = 'incoming' AND b.billid = '$billid_ev' ";
+                            $res = query_nores($query);
+                            //очищаем массив и удаляем ненужные записи- - - - - - - - -
+                            //$sql = "DELETE FROM call_logs WHERE billid = '" . $billid_ev. "'";
+                            //$res = query_nores($sql);
+                            $billid_ev = $ev->GetValue("billid");
+                            $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=" . time() . " WHERE extension='" . $ev->GetValue("external") . "'";
+                            $res = query_nores($query);
+                            break;
                     }
                     break;
             }
