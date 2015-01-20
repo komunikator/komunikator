@@ -429,9 +429,43 @@ function get_state_send_message() {
 $f_data[] = array('Модуль: Почтовые<br>уведомления', get_state_send_message());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - состояние webrtc2sip (ВКЛ. или выкл.) - - - - - - - - - - - - - - - - - - -
+
+function get_state_callrecord() {
+
+    $sda_command_ps = 'ps axu | grep record.js';
+    $sda_output_ps = array();
+
+    exec($sda_command_ps, $sda_output_ps);
 
 
-$f_data[] = array('version', '0.8.0');
+    $sda_tick = 'выкл.';
+
+    foreach ($sda_output_ps as $value) {
+
+        $sda_row = strtolower($value);
+
+        $sda_result = strpos($sda_row, '/usr/share/yate/scripts/record.js');
+
+
+        if ($sda_result) {
+
+            $sda_tick = 'ВКЛ.';
+
+            break;
+        }
+    }
+
+
+    return $sda_tick;
+}
+
+$f_data[] = array('Модуль: Запись<br>Звонков', get_state_callrecord());
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+$f_data[] = array('version', '1.0.b');
 
 
 /* функция заменена (см. выше)
