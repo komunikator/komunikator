@@ -1178,7 +1178,7 @@ for (;;) {
                             break;
 
                         case "finalize":
-
+                            $billid_ev = $ev->GetValue("billid");
                             $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
                                     "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                     $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1 WHERE chan='" .
@@ -1220,7 +1220,7 @@ for (;;) {
                             //очищаем массив и удаляем ненужные записи- - - - - - - - -
                             //$sql = "DELETE FROM call_logs WHERE billid = '" . $billid_ev. "'";
                             //$res = query_nores($sql);
-                            $billid_ev = $ev->GetValue("billid");
+
                             $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=" . time() . " WHERE extension='" . $ev->GetValue("external") . "'";
                             $res = query_nores($query);
                             break;
