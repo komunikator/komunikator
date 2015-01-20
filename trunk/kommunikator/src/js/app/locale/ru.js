@@ -68,7 +68,7 @@ if (window['app'] == undefined)
 
 app.lang = 'ru';
 app.msg = {
-    copyright: "Komunikator Copyright (C) 2012-2014, ООО 'Телефонные системы'",
+    copyright: "Komunikator Copyright (C) 2012-2015, ООО 'Телефонные системы'",
     //-------названия кнопок, полей
     auth_title: 'Авторизация',
     login: 'Логин',
