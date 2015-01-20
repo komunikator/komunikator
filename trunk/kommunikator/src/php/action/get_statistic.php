@@ -160,7 +160,7 @@ $cur_date = lastDayToTimestamp();
 }
 
 $f_data[] = array('status', $status);
-$sql =
+/*$sql =
         <<<EOD
 select count(*)
   from call_logs a
@@ -169,8 +169,13 @@ select count(*)
   left join extensions x2 on x2.extension=b.called
   where a.ended=1 and a.direction='incoming' and a.status!='unknown'
   and a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
+EOD;*/
+$sql =
+        <<<EOD
+select count(*)
+  from call_history 
+  where time between  {$cur_date['start']}  and {$cur_date['end']} ;
 EOD;
-
 $data = compact_array(query_to_array($sql));
 $f_data[] = array('day_total_calls', $data["data"][0][0]);
 /*
