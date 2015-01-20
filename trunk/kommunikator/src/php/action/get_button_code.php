@@ -130,30 +130,35 @@ switch ($sda_button_color) {
 
 
 // $sda_src = 'js/c2c-api.js';
-$sda_src = 'http://komunikator.ru/c2c/js/c2c-api.js';
+$sda_src = 'http://komunikator.ru/js/c2c-api.js';
 $sda_host = $_SERVER['SERVER_ADDR'];
 
 $sda_button_code = <<<EOD
 <script src='$sda_src'></script>
 
 <script>
+
+    c2c.horizontal_align = 'right'; // right / left
+    c2c.vertical_align = 'top';	// bottom / top	
+    c2c.horizontal_margin = '-60'; // значение в пикселях
+    c2c.vertical_margin = '10';	// значение в пикселях
+    c2c.button_type = 'vertical'; // vertical / horizontal
+
     c2c.from = '$sda_c2c_from';
 
     c2c.cls = '$sda_c2c_cls';
 
     c2c.text = 'Позвонить нам';
-
-    c2c.calling_text = 'Установка соединения ...';
-    c2c.ringing_text = 'Вызов абонента ...';
+	
+    c2c.calling_text = 'Установка соединения...';
+    c2c.ringing_text = 'Вызов абонента...';
     c2c.in_call_text = 'Слушаем Вас, говорите';
     c2c.call_terminated_text = 'Вызов завершен';
-    c2c.call_terminating_text = 'Завершение вызова ...';
+    c2c.call_terminating_text = 'Завершение вызова...';
     c2c.fail_to_find_user_account_text = 'Нет такой учетной записи';
 
     c2c.config = {
-        http_service_url: 'http://$sda_host:10070',
         websocket_proxy_url: 'ws://$sda_host:10060',
-        sip_outbound_proxy_url: 'udp://$sda_host:5060'
     };
 
     c2c.init();
