@@ -166,8 +166,7 @@ $f_data[] = array('status', $status);
   where a.ended=1 and a.direction='incoming' and a.status!='unknown'
   and a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
   EOD; */
-$sql =
-        <<<EOD
+$sql = <<<EOD
 select count(*)
   from call_history 
   where time between  {$cur_date['start']}  and {$cur_date['end']} ;
