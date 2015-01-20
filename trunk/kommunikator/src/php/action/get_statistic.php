@@ -1,58 +1,57 @@
 <?php
 
 /*
-*  | RUS | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ *  | RUS | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-*    «Komunikator» – Web-интерфейс для настройки и управления программной IP-АТС «YATE»
-*    Copyright (C) 2012-2013, ООО «Телефонные системы»
+ *    «Komunikator» – Web-интерфейс для настройки и управления программной IP-АТС «YATE»
+ *    Copyright (C) 2012-2013, ООО «Телефонные системы»
 
-*    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
+ *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
 
-*    Сайт проекта «Komunikator»: http://4yate.ru/
-*    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+ *    Сайт проекта «Komunikator»: http://4yate.ru/
+ *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
 
-*    В проекте «Komunikator» используются:
-*      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
-*      исходные коды проекта «FREESENTRAL», http://www.freesentral.com/
-*      библиотеки проекта «Sencha Ext JS», http://www.sencha.com/products/extjs
+ *    В проекте «Komunikator» используются:
+ *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
+ *      исходные коды проекта «FREESENTRAL», http://www.freesentral.com/
+ *      библиотеки проекта «Sencha Ext JS», http://www.sencha.com/products/extjs
 
-*    Web-приложение «Komunikator» является свободным и открытым программным обеспечением. Тем самым
-*  давая пользователю право на распространение и (или) модификацию данного Web-приложения (а также
-*  и иные права) согласно условиям GNU General Public License, опубликованной
-*  Free Software Foundation, версии 3.
+ *    Web-приложение «Komunikator» является свободным и открытым программным обеспечением. Тем самым
+ *  давая пользователю право на распространение и (или) модификацию данного Web-приложения (а также
+ *  и иные права) согласно условиям GNU General Public License, опубликованной
+ *  Free Software Foundation, версии 3.
 
-*    В случае отсутствия файла «License» (идущего вместе с исходными кодами программного обеспечения)
-*  описывающего условия GNU General Public License версии 3, можно посетить официальный сайт
-*  http://www.gnu.org/licenses/ , где опубликованы условия GNU General Public License
-*  различных версий (в том числе и версии 3).
+ *    В случае отсутствия файла «License» (идущего вместе с исходными кодами программного обеспечения)
+ *  описывающего условия GNU General Public License версии 3, можно посетить официальный сайт
+ *  http://www.gnu.org/licenses/ , где опубликованы условия GNU General Public License
+ *  различных версий (в том числе и версии 3).
 
-*  | ENG | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ *  | ENG | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-*    "Komunikator" is a web interface for IP-PBX "YATE" configuration and management
-*    Copyright (C) 2012-2013, "Telephonnyie sistemy" Ltd.
+ *    "Komunikator" is a web interface for IP-PBX "YATE" configuration and management
+ *    Copyright (C) 2012-2013, "Telephonnyie sistemy" Ltd.
 
-*    THIS FILE is an integral part of the project "Komunikator"
+ *    THIS FILE is an integral part of the project "Komunikator"
 
-*    "Komunikator" project site: http://4yate.ru/
-*    "Komunikator" technical support e-mail: support@4yate.ru
+ *    "Komunikator" project site: http://4yate.ru/
+ *    "Komunikator" technical support e-mail: support@4yate.ru
 
-*    The project "Komunikator" are used:
-*      the source code of "YATE" project, http://yate.null.ro/pmwiki/
-*      the source code of "FREESENTRAL" project, http://www.freesentral.com/
-*      "Sencha Ext JS" project libraries, http://www.sencha.com/products/extjs
+ *    The project "Komunikator" are used:
+ *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
+ *      the source code of "FREESENTRAL" project, http://www.freesentral.com/
+ *      "Sencha Ext JS" project libraries, http://www.sencha.com/products/extjs
 
-*    "Komunikator" web application is a free/libre and open-source software. Therefore it grants user rights
-*  for distribution and (or) modification (including other rights) of this programming solution according
-*  to GNU General Public License terms and conditions published by Free Software Foundation in version 3.
+ *    "Komunikator" web application is a free/libre and open-source software. Therefore it grants user rights
+ *  for distribution and (or) modification (including other rights) of this programming solution according
+ *  to GNU General Public License terms and conditions published by Free Software Foundation in version 3.
 
-*    In case the file "License" that describes GNU General Public License terms and conditions,
-*  version 3, is missing (initially goes with software source code), you can visit the official site
-*  http://www.gnu.org/licenses/ and find terms specified in appropriate GNU General Public License
-*  version (version 3 as well).
+ *    In case the file "License" that describes GNU General Public License terms and conditions,
+ *  version 3, is missing (initially goes with software source code), you can visit the official site
+ *  http://www.gnu.org/licenses/ and find terms specified in appropriate GNU General Public License
+ *  version (version 3 as well).
 
-*  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-*/
-
+ *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ */
 ?><?
 
 /*  for Windows
@@ -70,8 +69,6 @@ if (!$_SESSION['user']) {
 }
 
 //$extension = getparam("extension");
-
-
 // - текущее время на сервере  - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function get_time_current() {
@@ -141,8 +138,7 @@ function lastDayToTimestamp() {
     return array('start' => $day_start, 'end' => $day_end);
 }
 
-$cur_date = lastDayToTimestamp();
-{
+$cur_date = lastDayToTimestamp(); {
     $status = 'offline';
     $query = "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames";
     $res = query_to_array($query);
@@ -160,16 +156,16 @@ $cur_date = lastDayToTimestamp();
 }
 
 $f_data[] = array('status', $status);
-/*$sql =
-        <<<EOD
-select count(*)
+/* $sql =
+  <<<EOD
+  select count(*)
   from call_logs a
   join call_logs b on b.billid=a.billid and b.ended=1 and b.direction='outgoing' and b.status!='unknown'
   left join extensions x on x.extension=a.caller
   left join extensions x2 on x2.extension=b.called
   where a.ended=1 and a.direction='incoming' and a.status!='unknown'
   and a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
-EOD;*/
+  EOD; */
 $sql =
         <<<EOD
 select count(*)
@@ -178,18 +174,7 @@ select count(*)
 EOD;
 $data = compact_array(query_to_array($sql));
 $f_data[] = array('day_total_calls', $data["data"][0][0]);
-/*
-  $sql =
-  <<<EOD
-  select count(*)
-  from call_logs a
-  join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
-  left join extensions x on x.extension=a.caller
-  left join extensions x2 on x2.extension=b.called
-  where a.ended=0 and a.direction='incoming' and a.status!='unknown'
-  and a.time between  {$cur_date['start']}  and {$cur_date['end']} ;
-  EOD;
- */
+
 $sql =
         <<<EOD
      select count(*) from extensions 
@@ -338,7 +323,6 @@ function get_yate_version() {
     return $ver;
 }
 
-
 // - получение времени работы yate - - - - - - - - - - - - - - - - - - - - - - -
 
 function get_yate_last_restart() {
@@ -378,8 +362,6 @@ function get_yate_last_restart() {
 $f_data[] = array('uptime', get_yate_last_restart());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
 // - состояние webrtc2sip (ВКЛ. или выкл.) - - - - - - - - - - - - - - - - - - -
 
 function get_state_webrtc2sip() {
@@ -387,38 +369,33 @@ function get_state_webrtc2sip() {
     $sda_command_ps = 'ps axu | grep webrtc2sip';
     $sda_output_ps = array();
 
-    exec( $sda_command_ps, $sda_output_ps );
+    exec($sda_command_ps, $sda_output_ps);
 
 
     $sda_tick = 'выкл.';
 
-    foreach( $sda_output_ps as $value ) {
+    foreach ($sda_output_ps as $value) {
 
         $sda_row = strtolower($value);
 
-        $sda_result = strpos( $sda_row, 'screen -dms webrtc2sip webrtc2sip' );
+        $sda_result = strpos($sda_row, 'screen -dms webrtc2sip webrtc2sip');
 
 
         if ($sda_result) {
-        
+
             $sda_tick = 'ВКЛ.';
 
             break;
-
         }
-
     }
-    
-    
+
+
     return $sda_tick;
-    
 }
 
 $f_data[] = array('Модуль: Звонок<br>с сайта', get_state_webrtc2sip());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
 // - состояние send_message (ВКЛ. или выкл.) - - - - - - - - - - - - - - - - - -
 
 function get_state_send_message() {
@@ -426,31 +403,28 @@ function get_state_send_message() {
     $sda_command_ps = 'ps axu | grep -i send_message | grep -v grep';
     $sda_output_ps = array();
 
-    exec( $sda_command_ps, $sda_output_ps );
+    exec($sda_command_ps, $sda_output_ps);
 
 
     $sda_tick = 'выкл.';
 
-    foreach( $sda_output_ps as $value ) {
+    foreach ($sda_output_ps as $value) {
 
         $sda_row = strtolower($value);
 
-        $sda_result = strpos( $sda_row, '/usr/share/yate/scripts/send_message.php' );
+        $sda_result = strpos($sda_row, '/usr/share/yate/scripts/send_message.php');
 
 
         if ($sda_result) {
-        
+
             $sda_tick = 'ВКЛ.';
 
             break;
-
         }
-
     }
-    
-    
+
+
     return $sda_tick;
-    
 }
 
 $f_data[] = array('Модуль: Почтовые<br>уведомления', get_state_send_message());
