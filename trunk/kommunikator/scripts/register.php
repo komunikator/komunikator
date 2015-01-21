@@ -198,7 +198,7 @@ function set_moh($time = NULL) {
 }
 
 function delete_old_calls() {
-    $sql = "DELETE FROM call_logs WHERE FROM_UNIXTIME(time) < DATE_ADD(CURDATE(), INTERVAL - 2 day)";
+    $sql = "DELETE FROM call_logs WHERE FROM_UNIXTIME(time) < DATE_ADD(CURDATE(), INTERVAL - 1 day)";
     $res = query_nores($sql);
 }
 
@@ -1199,8 +1199,16 @@ for (;;) {
                                            ELSE 'incoming'
                                        END direction,
                                        b.billid,
-                                       b.caller,
-                                       b.called,
+                                       CASE
+                                           WHEN x1.firstname IS NULL
+                                               THEN a.caller
+                                           ELSE  a.caller
+                                       END caller,
+                                       CASE
+                                           WHEN x2.firstname IS NULL
+                                               THEN b.called
+                                           ELSE b.called
+                                       END called,
                                        b.duration,
                                        b.billtime,
                                        b.ringtime,
@@ -1210,7 +1218,11 @@ for (;;) {
                                            ELSE REPLACE( LOWER(b.reason), ' ', '_' )
                                        END status,
                                        b.ended,
-                                       a.gateway
+                                       CASE
+                                           WHEN b.gateway = ''
+                                               THEN a.gateway
+                                           ELSE gateway
+                                       END gateway
                                    FROM call_logs a
                                    JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
                                    LEFT JOIN extensions x1 ON x1.extension = a.caller
