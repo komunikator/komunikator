@@ -141,11 +141,8 @@ Ext.define('app.module.Gateways_Grid', {
             triggerAction : 'all',
             
             store : [
-                ['sip', 'sip'],
-                ['h323', 'h323'],
-                ['iax', 'iax']
-            ],
-            
+                ['sip', 'sip']
+            ],          
             editable : false,
             allowBlank  : false
         }
