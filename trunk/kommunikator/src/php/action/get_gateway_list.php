@@ -71,6 +71,7 @@ SELECT
     gateway_id as id,
     gateway as name
 FROM gateways
+WHERE gateway_id !=1
 EOD;
 
 $data = compact_array(query_to_array($sql));
