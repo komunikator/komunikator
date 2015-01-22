@@ -56,7 +56,9 @@ Ext.define('app.module.Extensions_Grid', {
     store_cfg: {
         autorefresh: false,
         loadmask: true,
-        fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group_name', 'priority', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
+        //для отображения ВСЕХ столбцов переадресации
+        // fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group_name', 'priority', 'forward', 'forward_busy', 'forward_noanswer', 'noanswer_timeout'],
+        fields: ['id', 'status', 'extension', 'password', 'firstname', 'lastname', 'address', 'group_name', 'priority', 'forward'],
         storeId: 'extensions',
         sorters: [{
                 direction: 'DESC',
@@ -97,7 +99,7 @@ Ext.define('app.module.Extensions_Grid', {
         {// 'firstname'
             editor: {
                 xtype: 'textfield'
-            }                   	   
+            }
         },
         {// 'lastname'
             editor: {
@@ -127,39 +129,47 @@ Ext.define('app.module.Extensions_Grid', {
 
             ]
         },
-        {// Переадресация ( Всегда, Номер занят, Нет ответа, Таймаут (сек) )
-            header: app.msg.forward,
-            dataIndex: 'forward',
-            headers: [
-                {
-                    header: app.msg.number,
-                    dataIndex: 'forward'
-                },
-                {
-                    header: app.msg.forward_busy,
-                    dataIndex: 'forward_busy'
-                },
-                {
-                    header: app.msg.forward_noanswer,
-                    dataIndex: 'forward_noanswer'
-                },
-                {
-                    header: app.msg.noanswer_timeout,
-                    dataIndex: 'noanswer_timeout',
-                    editor: {
-                        xtype: 'textfield',
-                        regex: /^\d{1,3}$/
-                    }
-                }
-            ]
+        {
+            //столбец необходим для верного отображени данных, пока не отображаются
+            // ВСЕ столбцы переадресации, после их возвращения, данный столбец можно удалить
+            hidden: true
+        },
+        {
+            /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+             заменить на этот код, для отображения ВСЕХ столбцов переадресации
+             // Переадресация ( Всегда, Номер занят, Нет ответа, Таймаут (сек) )
+             header: app.msg.forward,
+             dataIndex: 'forward',
+             headers: [
+             {
+             header: app.msg.number,
+             dataIndex: 'forward'
+             },
+             {
+             header: app.msg.forward_busy,
+             dataIndex: 'forward_busy'
+             },
+             {
+             header: app.msg.forward_noanswer,
+             dataIndex: 'forward_noanswer'
+             },
+             {
+             header: app.msg.noanswer_timeout,
+             dataIndex: 'noanswer_timeout',
+             editor: {
+             xtype: 'textfield',
+             regex: /^\d{1,3}$/
+             }
+             }]
+             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
         }
+
     ],
     requires: 'Ext.ux.grid.FiltersFeature',
     features: [
         {
-            ftype: 'grouping'/*,            
-             groupByText    : '???????????? ?? ????? ????',
-             showGroupsText : '?????????? ?? ???????'*/
+            ftype: 'grouping'
         },
         {
             ftype: 'filters',
@@ -198,10 +208,8 @@ Ext.define('app.module.Extensions_Grid', {
                      store: Ext.StoreMgr.lookup('groups'),
                      labelField: 'group',
                      valueField: 'group'  // not work, need 'id'
-                     */
-                }
+                     */}
             ]
-
                     /*
                      type: 'boolean',
                      // type: 'string',
@@ -324,45 +332,57 @@ Ext.define('app.module.Extensions_Grid', {
                 return app.msg.voicemail;
             return value;
         };
+        /*для отображения ВСЕХ столбцов переадресации, следует раскомментировать
+         this.columns[8] = {
+         text: app.msg.forward,
+         groupable: false,
+         sortable: false,
+         menuDisabled: true,
+         defaults: {
+         editor: this.forward_editor,
+         renderer: this.forward_renderer,
+         menuDisabled: true,
+         groupable: false
+         },
+         columns: [
+         {// 'forward'
+         header: app.msg.always,
+         dataIndex: 'forward',
+         width: 120
+         },
+         {// 'forward_busy'
+         header: app.msg.forward_busy,
+         dataIndex: 'forward_busy',
+         width: 120
+         },
+         {// 'forward_noanswer'
+         header: app.msg.forward_noanswer,
+         dataIndex: 'forward_noanswer',
+         width: 120
+         },
+         {// 'noanswer_timeout'
+         header: app.msg.noanswer_timeout,
+         dataIndex: 'noanswer_timeout',
+         width: 90,
+         editor: {
+         xtype: 'textfield',
+         regex: /^\d{1,3}$/
+         }
+         }
+         ]
+         };
+         */
 
-        this.columns[8] = {
+//если код выше требуется раскомментировать, данную часть следует удалить - - -
+        this.columns[9] = {
             text: app.msg.forward,
-            groupable: false,
-            sortable: false,
-            menuDisabled: true,
-            defaults: {
-                editor: this.forward_editor,
-                renderer: this.forward_renderer,
-                menuDisabled: true,
-                groupable: false
-            },
-            columns: [
-                {// 'forward'
-                    header: app.msg.always,
-                    dataIndex: 'forward',
-                    width: 120
-                },
-                {// 'forward_busy'
-                    header: app.msg.forward_busy,
-                    dataIndex: 'forward_busy',
-                    width: 120
-                },
-                {// 'forward_noanswer'
-                    header: app.msg.forward_noanswer,
-                    dataIndex: 'forward_noanswer',
-                    width: 120
-                },
-                {// 'noanswer_timeout'
-                    header: app.msg.noanswer_timeout,
-                    dataIndex: 'noanswer_timeout',
-                    width: 90,
-                    editor: {
-                        xtype: 'textfield',
-                        regex: /^\d{1,3}$/
-                    }
-                }
-            ]
+            editor: this.forward_editor,
+            renderer: this.forward_renderer,
+            dataIndex: 'forward',
+            width: 120
+
         };
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
         this.callParent(arguments);
 
