@@ -63,7 +63,7 @@ $total = compact_array(query_to_array("SELECT count(*) FROM gateways"));
 if (!is_array($total["data"]))
     echo out(array("success" => false, "message" => $total));
 
-$data = compact_array(query_to_array("SELECT gateway_id as id, status,/* case when enabled = 1 then true when enabled = 0 then false end as */ enabled, gateway, server, username, password, description, protocol, ip_transport,authname, domain, callerid FROM gateways " . get_sql_order_limit()));
+$data = compact_array(query_to_array("SELECT gateway_id as id, status,/* case when enabled = 1 then true when enabled = 0 then false end as */ enabled, gateway, server, username, password, description, protocol, ip_transport,authname, domain, callerid FROM gateways WHERE gateway_id !=1" . get_sql_order_limit()));
 if (!is_array($data["data"]))
     echo out(array("success" => false, "message" => $data));
 
