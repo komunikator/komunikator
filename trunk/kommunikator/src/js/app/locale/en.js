@@ -286,6 +286,7 @@ app.msg = {
     one_year: '1 year',
     call_history_lifespan: 'Call history lifespan',
     call_records_lifespan: 'Call records lifespan',
+    call_order_executor: 'Call order executor',
     additional_settings: 'Additional settings',
     all_calls: 'All calls',
     outgoing_calls: 'Outgoing_calls',

@@ -81,6 +81,9 @@ Ext.define('app.module.Extra_Grid', {
                 else
                 if (v == 'call_records_lifespan')
                     return app.msg.call_records_lifespan;
+                else 
+                if (v == 'call_order_executor')
+                    return app.msq.call_order_executor;
             },
             editor: {
                 xtype: 'textfield',

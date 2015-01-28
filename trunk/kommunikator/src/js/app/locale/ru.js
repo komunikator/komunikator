@@ -341,6 +341,7 @@ app.msg = {
     one_year: '1 год',
     call_history_lifespan: 'Время хранения истории звонков',
     call_records_lifespan: 'Время хранения записей разговоров',
+    call_order_executor: 'Номер исполняющий заказ звонка',
     additional_settings: 'Дополнительные настройки',
     all_calls: 'Все звонки',
     outgoing_calls: 'Исходящие звонки',
