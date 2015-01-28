@@ -81,7 +81,7 @@ Ext.define('app.module.Extra_Grid', {
                 else
                 if (v == 'call_records_lifespan')
                     return app.msg.call_records_lifespan;
-                else 
+                else
                 if (v == 'call_order_executor')
                     return app.msq.call_order_executor;
             },
@@ -92,13 +92,16 @@ Ext.define('app.module.Extra_Grid', {
         {//time
             width: 150,
             editor: {
-                xtype: 'combobox',
-                store: time,
-                queryMode: 'local',
-                displayField: 'time',
-                valueField: 'time',
-                editable: false
+                xtype: 'textfield'
             }
+            /*editor: {
+             xtype: 'combobox',
+             store: time,
+             queryMode: 'local',
+             displayField: 'time',
+             valueField: 'time',
+             editable: false
+             }*/
         }
     ],
     initComponent: function() {
