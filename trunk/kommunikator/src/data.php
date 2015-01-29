@@ -108,11 +108,13 @@ PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error2');
 // - - - - - - - - - - - - - - - - - - - -
 
 if ($action != 'order_call') {
-    if ($action != 'auth' && !( isset($_SESSION['user']) || isset($_SESSION['extension']))) {
-        echo out(array("success" => false, "message" => "session_failed"));
-        exit;
-    }
+    
+} else
+if ($action != 'auth' && !( isset($_SESSION['user']) || isset($_SESSION['extension']))) {
+    echo out(array("success" => false, "message" => "session_failed"));
+    exit;
 }
+
 
 if (!isset($_SESSION['time_offset'])
 )
