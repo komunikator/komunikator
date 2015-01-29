@@ -65,7 +65,7 @@ Ext.define('app.module.Extra_Grid', {
     extend: 'app.Grid',
     no_adddelbuttons: true, //уберет возможность удалять и добавлять строки в табл
     store_cfg: {
-        fields: ['id', 'description', 'time'],
+        fields: ['id', 'description', 'value'],
         storeId: 'additional_settings'
     },
     enableColumnHide: false,

@@ -66,7 +66,7 @@ $sql = <<<EOD
 SELECT
     additional_settings.settings_id as id,
     additional_settings.description,
-    additional_settings.time
+    additional_settings.value
 FROM
     additional_settings
 EOD;
