@@ -108,7 +108,7 @@ PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handle_pear_error2');
 // - - - - - - - - - - - - - - - - - - - -
 
 
-if ($action != 'order_call' || $action != 'auth' && !( isset($_SESSION['user']) || isset($_SESSION['extension']))) {
+if ($action != 'order_call' || ($action != 'auth' && !( isset($_SESSION['user']) || isset($_SESSION['extension'])))) {
     echo out(array("success" => false, "message" => "session_failed"));
     exit;
 }
