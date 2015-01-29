@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `additional_settings`;
 CREATE TABLE `additional_settings` (
   `settings_id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(250) DEFAULT NULL,
-  `time` varchar(250) DEFAULT NULL,
+  `value` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`settings_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -86,18 +86,13 @@ LOCK TABLES `additional_settings` WRITE;
 
 INSERT INTO `additional_settings` (
   `settings_id`,
-  `description`,
-  `time`
+ `description`,
+  `value`
 )
-VALUES (
-  1,
-  'call_history_lifespan',
-  '1 год'
-), (
-  2,
-  'call_records_lifespan',
-  '1 год'
-);
+VALUES 
+(1, 'call_history_lifespan', '12'), 
+(2, 'call_records_lifespan', '12'), 
+(3, 'call_order_executor', '');
 
 UNLOCK TABLES;
 
@@ -345,37 +340,10 @@ INSERT INTO `gateways` (
   `trusted`,
   `sig_trunk_id`
 )
-VALUES (
-  1,
-  'webrtc2sip',
-  'sip',
-  'ipaddress',
-  NULL,
-  'webrtc2sip',
-  'webrtc2sip',
-  0,
-  'webrtc2sip',
-  NULL,
-  'webrtc2sip',
-  'webrtc2sip',
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  'UDP',
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  '',
-  0,
-  'webrtc2sip',
-  NULL,
-  NULL,
-  1,
-  NULL
-);
+VALUES 
+(1, 'webrtc2sip', 'sip', '172.17.2.113', NULL, 'webrtc2sip', 'webrtc2sip', 0, 'webrtc2sip',
+ NULL, 'webrtc2sip', 'webrtc2sip', NULL, NULL, NULL, NULL, 'UDP', NULL, NULL, NULL, NULL,
+ NULL, '', 0, 'webrtc2sip', NULL, NULL, 1, NULL);
 
 UNLOCK TABLES;
 
@@ -805,25 +773,10 @@ INSERT INTO `modules` (
   `version`,
   `condition`
 )
-VALUES (
-  1,
-  'Call_website_Grid',
-  'text_call_website',
-  '1.0',
-  0
-), (
-  2,
-  'Mail_Settings_Panel',
-  'text_mail_Settings',
-  '1.0',
-  0
-), (
-  3,
-  'Call_Record_Grid',
-  'Позволяет IP-АТС осуществлять запись звонков.',
-  '1.0',
-  0
-);
+VALUES 
+(1, 'Call_website_Grid', 'text_call_website', '1.0', 0), 
+(2, 'Mail_Settings_Panel', 'text_mail_Settings', '1.0', 0),
+(3, 'Call_Record_Grid', 'text_call_record', '1.0', 0);
 
 UNLOCK TABLES;
 
@@ -851,46 +804,14 @@ INSERT INTO `settings` (
   `value`,
   `description`
 )
-VALUES (
-  NULL,
-  'vm',
-  'external/nodata/leavemaildb.php',
-  NULL
-), (
-  NULL,
-  'version',
-  '1',
-  NULL
-), (
-  NULL,
-  'annonymous_calls',
-  'yes',
-  NULL
-), (
-  NULL,
-  'callername',
-  NULL,
-  NULL
-), (
-  NULL,
-  'prefix',
-  NULL,
-  NULL
-), (
-  NULL,
-  'callerid',
-  NULL,
-  NULL
-), (
-  NULL,
-  'international_calls',
-  'yes',
-  NULL
-), (
-  NULL,
-  'international_calls_live',
-  'yes',
-  NULL
-);
+VALUES 
+(NULL, 'vm', 'external/nodata/leavemaildb.php', NULL), 
+(NULL, 'version', '1', NULL), 
+(NULL, 'annonymous_calls', 'yes', NULL), 
+(NULL, 'callername', NULL, NULL), 
+(NULL, 'prefix', NULL, NULL), 
+(NULL, 'callerid', NULL, NULL), 
+(NULL, 'international_calls', 'yes', NULL), 
+(NULL, 'international_calls_live', 'yes', NULL);
 
 UNLOCK TABLES;
