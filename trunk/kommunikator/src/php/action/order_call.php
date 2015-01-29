@@ -67,7 +67,6 @@ if (!$called) {echo out("Called number is undefined"); exit;}
 $command = "click_to_call $caller $called";
 $socket = new SocketConn;
 $msg = '';
-
 if($socket->error == "") {
     $obj=array("success"=>true);
     $socket->command($command);
