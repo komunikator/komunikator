@@ -59,12 +59,14 @@
 require_once("php/socketconn.php");
 
 $called = getparam("number");
-$caller = getparam("caller");
+$obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
+
+$caller = query_to_array($obj);
 if (!$called) {echo out("Called number is undefined"); exit;} 
 
 //$caller = $_SESSION["user"];
 
-$command = "click_to_call $caller $called";
+$command = "click_to_call " . $caller[0]['value'] . " $called";
 $socket = new SocketConn;
 $msg = '';
 if($socket->error == "") {
@@ -75,7 +77,29 @@ if($socket->error == "") {
 }
 else {
     $obj=array("success"=>false);
-    $obj['message'] = /*$socket->error;*/"Can't make call. Please contact your system administrator.";
+    $obj['message'] ="Can't make call. Please contact your system administrator.";
+    echo out($obj);
 }
-echo out($obj);
+//echo out($obj);
+$sleep_time = 20;
+sleep($sleep_time);
+
+$sql =
+        <<<EOD
+select * from (
+select * 
+from call_logs a  
+join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
+left join extensions x on x.extension=a.caller
+left join extensions x2 on x2.extension=b.called
+left join gateways g  on g.authname=a.called or g.authname=b.caller
+   where a.ended=0 and a.direction='incoming' and a.status!='unknown' and a.called= $called) a
+EOD;
+
+
+ header("Content-Type: application/javascript");
+    $callback = $_GET["callback"];
+    $message = "you got a response from server yipeee!!!";
+    $jsonResponse = "{\"message\":\"" . $message . "\"}";
+    echo $callback . "(" . $jsonResponse . ")";
 ?>
