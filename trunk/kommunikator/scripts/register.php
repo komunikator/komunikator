@@ -1169,17 +1169,31 @@ for (;;) {
                             $ended_ev = 0;
 
 
-                            $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
-                                    "', caller='" . $caller_ev . "', called='" . $called_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
-                                    $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                    "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
-
+                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
+                                $direction_ev = "incoming";
+                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
+                                        "', caller='" . $called_ev . "', called='" . $caller_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                        $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
+                                        "', reason='$reason', ended=1 WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                            } else {
+                                $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
+                                        "', caller='" . $caller_ev . "', called='" . $called_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
+                                        $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
+                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                            }
                             $res = query_nores($query);
+                            $query1 = "UPDATE call_logs t1
+                                      JOIN call_logs t2 ON t2.billid = t1.billid
+                                      SET t1.direction = 'unknown'
+                                      WHERE t1.called = '" . $called_ev . "' and t1.billid = '" . $ev->GetValue("billid") . "' and SUBSTRING(t1.chan,1, 11)!= 'ctc-dialer/'
+                                      AND
+                                      t2.caller = '" . $called_ev . "' and t2.billid = '" . $ev->GetValue("billid") . "' and SUBSTRING(t2.chan,1, 11) = 'ctc-dialer/'";
+                            $res1 = query_nores($query1);
                             break;
 
                         case "finalize":
                             $billid_ev = $ev->GetValue("billid");
-                            $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $ev->GetValue("direction") . "', billid='" . $ev->GetValue("billid") .
+                            $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', billid='" . $ev->GetValue("billid") .
                                     "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                     $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1 WHERE chan='" .
                                     $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
@@ -1221,7 +1235,7 @@ for (;;) {
                                        CASE
                                            WHEN b.gateway = ''
                                                THEN a.gateway
-                                           ELSE gateway
+                                           ELSE a.gateway
                                        END gateway
                                    FROM call_logs a
                                    JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
@@ -1232,8 +1246,8 @@ for (;;) {
                             //очищаем массив и удаляем ненужные записи- - - - - - - - -
                             //$sql = "DELETE FROM call_logs WHERE billid = '" . $billid_ev. "'";
                             //$res = query_nores($sql);
-                            
-                            
+
+
                             $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=" . time() . " WHERE extension='" . $ev->GetValue("external") . "'";
                             $res = query_nores($query);
                             break;
