@@ -1174,7 +1174,7 @@ for (;;) {
                                 $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $called_ev . "', called='" . $caller_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                        "', reason='$reason', ended=1 WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
+                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
                             } else {
                                 $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $caller_ev . "', called='" . $called_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
@@ -1231,7 +1231,11 @@ for (;;) {
                                                THEN b.status
                                            ELSE REPLACE( LOWER(b.reason), ' ', '_' )
                                        END status,
-                                       b.ended,
+                                       CASE
+                                           WHEN SUBSTRING(b.chan,1, 11)!= 'ctc-dialer/'
+                                               THEN b.ended = '1'
+                                           ELSE b.ended
+                                       END ended,
                                        CASE
                                            WHEN b.gateway = ''
                                                THEN a.gateway
