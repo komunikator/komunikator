@@ -429,7 +429,7 @@ function get_state_send_message() {
 $f_data[] = array('Модуль: Почтовые<br>уведомления', get_state_send_message());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// - состояние webrtc2sip (ВКЛ. или выкл.) - - - - - - - - - - - - - - - - - - -
+// - состояние записи звонка(ВКЛ. или выкл.) - - - - - - - - - - - - - - - - - - -
 
 function get_state_callrecord() {
 
@@ -465,8 +465,8 @@ $f_data[] = array('Модуль: Запись<br>Звонков', get_state_call
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-$f_data[] = array('version', '1.0.b');
-
+$f_data[] = array('version', $cur_ver);
+//$cur_ver - переменная из config.php
 
 /* функция заменена (см. выше)
   function get_yate_last_restart(){
