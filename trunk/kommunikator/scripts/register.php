@@ -1248,8 +1248,8 @@ for (;;) {
                                    WHERE  a.direction = 'incoming' AND b.billid = '$billid_ev' ";
                             $res = query_nores($query);
                             //очищаем массив и удаляем ненужные записи- - - - - - - - -
-                            //$sql = "DELETE FROM call_logs WHERE billid = '" . $billid_ev. "'";
-                            //$res = query_nores($sql);
+                            $sql = "DELETE FROM call_logs WHERE billid = '" . $billid_ev. "'";
+                            $res = query_nores($sql);
 
 
                             $query = "UPDATE extensions SET inuse_count=(CASE WHEN inuse_count>0 THEN inuse_count-1 ELSE 0 END), inuse_last=" . time() . " WHERE extension='" . $ev->GetValue("external") . "'";
