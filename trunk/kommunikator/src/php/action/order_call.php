@@ -57,6 +57,7 @@
 require_once("php/socketconn.php");
 
 $called = getparam("number");
+//echo out($called);
 $obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
 
 $caller = query_to_array($obj);
@@ -91,8 +92,8 @@ select
          when x.extension is not null then 'outgoing'
          else 'incoming'
         end type,
-	case when x.firstname is null then a.caller else concat(x.firstname,' ',x.lastname,' (',a.caller,')') end caller,
-	case when x2.firstname is null then b.called else concat(x2.firstname,' ',x2.lastname,' (',b.called,')') end called,
+	a.caller,
+        b.called,
 	round(b.duration) duration,
         case 
 	 when g.description is not null and g.description !='' then g.description 
@@ -100,39 +101,30 @@ select
 	 when g.authname    is not null                        then g.authname
 	else a.gateway 
         end gateway,
-      case when a.reason="" then a.status else replace(lower(a.reason),' ','_') end status
+      case when a.status!="answered" or b.status!="answered" then "progressing" else a.status end status
 from call_logs a  
 join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
 left join extensions x on x.extension=a.caller
 left join extensions x2 on x2.extension=b.called
 left join gateways g  on g.authname=a.called or g.authname=b.caller
-   where a.ended=0 and a.direction='incoming' and a.status!='unknown' ) a
+   where a.ended=0 and a.direction='incoming' and a.status!='unknown' and b.called = $called and(a.status="answered" and b.status="answered")) a
 EOD;
-/*and b.called = $called
 header("Content-Type: application/javascript");
-$callback = $_GET["callback"];*/
-/*for ($i = 0; $i <= 5; $i++) {
+$callback = $_GET["callback"];
+for ($i = 0; $i <= 5; $i++) {
     sleep(5);
     $data = compact_array(query_to_array($sql));
-    if (!is_array($data["data"]))
-        echo out(array("success" => false, "message" => $data));
     $total = count($data["data"]);
     if ($total > 0) {
         $message = "true";
-        $jsonResponse = "{\"message\":\"" . $message . "\"}";
+        $jsonResponse = "{\"success\":\"" . $message . "\"}";
         echo $callback . "(" . $jsonResponse . ")";
+        break;
     }
-    if($i=5 && $total = 0)
-    {
+    if ($i == 5 && $total == 0) {
         $message = "false";
-        $jsonResponse = "{\"message\":\"" . $message . "\"}";
+        $jsonResponse = "{\"success\":\"" . $message . "\"}";
         echo $callback . "(" . $jsonResponse . ")";
     }
 }
-
-        $message = "false";
-        $jsonResponse = "{\"message\":\"" . $message . "\"}";
-        echo $callback . "(" . $jsonResponse . ")";*/
-        
-        echo out("test");
 ?>
