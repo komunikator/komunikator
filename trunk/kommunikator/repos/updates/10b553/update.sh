@@ -51,7 +51,14 @@
 
 #!/bin/bash
 
-ver=0.5.001 
-source="./data" 
-target="/usr/share/yate/scripts/config.php"
-sudo yes | cp $source$target $target
+ver=1.0.b.553
+
+source="./data/var/www/kommunikator/"
+target="/var/www"
+
+sudo yes | cp -R $source $target 
+
+source="./data/usr/share/yate/"
+target="/usr/share"
+
+sudo yes | cp -R $source $target
