@@ -68,6 +68,17 @@ if (!$called) {
 
 //$caller = $_SESSION["user"];
 
+if ($_SESSION['last_action']) {
+   /* echo("raz");
+    echo($_SESSION['last_action']); echo("dva");
+    echo(time() - $_SESSION['last_action']);*/
+}else {
+    //echo("nety");
+    }
+
+$_SESSION['last_action'] = time();
+
+
 $command = "click_to_call " . $caller[0]['value'] . " $called";
 $socket = new SocketConn;
 $msg = '';
