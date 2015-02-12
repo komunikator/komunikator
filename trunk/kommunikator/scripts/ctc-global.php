@@ -111,6 +111,7 @@ for (;;) {
 		    $m->params["real_caller"] = $caller;
 		    $m->params["real_called"] = $called;
 		    $m->params["already-auth"] = "yes";
+                    $m->params["maxcall"] = 120000;//2min - максимальное время дозвона
 		    $m->Dispatch();
 		}
 	    }
