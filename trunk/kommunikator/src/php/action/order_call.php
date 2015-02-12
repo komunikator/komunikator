@@ -138,7 +138,7 @@ from call_logs a
 EOD;
 
 
-for ($i = 0; $i <= 5; $i++) {
+for ($i = 0; $i <= 4; $i++) {
     sleep(5);
     $data = compact_array(query_to_array($sql));
     $total = count($data["data"]);
