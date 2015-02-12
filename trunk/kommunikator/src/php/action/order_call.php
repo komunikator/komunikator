@@ -56,32 +56,50 @@
 
 require_once("php/socketconn.php");
 
-$called = getparam("number");
-//echo out($called);
-$obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
+header("Content-Type: application/javascript");
+$callback = $_GET["callback"];
 
+$called = getparam("number");
+//получаем Номер исполняющий заказ звонка. Если он отсутствует - выводим ошибку
+$obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
 $caller = query_to_array($obj);
-if (!$called) {
-    echo out("Called number is undefined");
+if ($caller[0]['value'] == '' || $caller[0]['value'] == null) {
+    $message = "Call order executor is undefined";
+    $jsonResponse = "{\"warning\":\"" . $message . "\"}";
+    echo $callback . "(" . $jsonResponse . ")";
     exit;
 }
 
-//$caller = $_SESSION["user"];
+//если номер телефона, на который нужно совершить заказанный звонок, не передан - выводим ошибку
+$check_called = str_replace(' ', '', $called);
+if (!$called || $check_called == '') {
+    $message = "Phone number is undefined";
+    $jsonResponse = "{\"warning\":\"" . $message . "\"}";
+    echo $callback . "(" . $jsonResponse . ")";
+    exit;
+}
 
+//если с одного и того же браузера(или одна и та же сессия) получаем запрос несколько раз подряд 
+//запрос на заказ звонка, то проверяем промежуток между этим запросами. Он должен быть не менее 30сек
 if ($_SESSION['last_action']) {
-   /* echo("raz");
-    echo($_SESSION['last_action']); echo("dva");
-    echo(time() - $_SESSION['last_action']);*/
-}else {
-    //echo("nety");
+    if ((time() - $_SESSION['last_action']) < 30) {
+        $message = "You can reorder the call after 30 seconds";
+        $jsonResponse = "{\"warning\":\"" . $message . "\"}";
+        echo $callback . "(" . $jsonResponse . ")";
+        exit;
     }
+}
 
+//записываем время сессии и после этого закрываем файл, где пишутся некие данные о сессии
+//это сделано, чтобы можно было с одной сессии делать один и тот же запрос несколько раз
+//(иначе, пока первый запрос не выполнится, второй также не выполняется. с закрыванием - 
+//можно выполнять второй запрос, пока первый еще не завершился)
 $_SESSION['last_action'] = time();
+session_write_close();
 
 
 $command = "click_to_call " . $caller[0]['value'] . " $called";
 $socket = new SocketConn;
-$msg = '';
 if ($socket->error == "") {
     $obj = array("success" => true);
     $socket->command($command);
@@ -93,45 +111,45 @@ if ($socket->error == "") {
     echo out($obj);
 }
 
+//проверяем есть ли активные звонки с нужными параметрами
 $sql =
         <<<EOD
 select * from (
 select
-	a.time,
-        case 
-         when x.extension is not null and x2.extension is not null then 'internal'
-         when x.extension is not null then 'outgoing'
-         else 'incoming'
-        end type,
-	a.caller,
-        b.called,
-	round(b.duration) duration,
-        case 
-	 when g.description is not null and g.description !='' then g.description 
-	 when g.gateway     is not null                        then g.gateway	
-	 when g.authname    is not null                        then g.authname
-	else a.gateway 
-        end gateway,
-      case when a.status!="answered" or b.status!="answered" then "progressing" else a.status end status
+    case 
+        when x.extension is not null and x2.extension is not null then 'internal'
+        when x.extension is not null then 'outgoing'
+        else 'incoming'
+    end type,
+    a.caller,
+    b.called,
+    case 
+        when a.status!="answered" or b.status!="answered" 
+            then "progressing" 
+        else a.status 
+    end status
 from call_logs a  
-join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
-left join extensions x on x.extension=a.caller
-left join extensions x2 on x2.extension=b.called
-left join gateways g  on g.authname=a.called or g.authname=b.caller
-   where a.ended=0 and a.direction='incoming' and a.status!='unknown' and b.called = $called and(a.status="answered" and b.status="answered")) a
+    join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
+    left join extensions x on x.extension=a.caller
+    left join extensions x2 on x2.extension=b.called
+    where a.ended=0 and a.direction='incoming' and 
+    a.status!='unknown' and b.called = $called and
+    (a.status="answered" and b.status="answered")) a
 EOD;
-header("Content-Type: application/javascript");
-$callback = $_GET["callback"];
+
+
 for ($i = 0; $i <= 5; $i++) {
     sleep(5);
     $data = compact_array(query_to_array($sql));
     $total = count($data["data"]);
+    // соединение прошло успешно, отвечаем true
     if ($total > 0) {
         $message = "true";
         $jsonResponse = "{\"success\":\"" . $message . "\"}";
         echo $callback . "(" . $jsonResponse . ")";
         break;
     }
+    //если соединение между АБОНЕНТАМИ не произошло в течении 25сек, отвечаем false
     if ($i == 5 && $total == 0) {
         $message = "false";
         $jsonResponse = "{\"success\":\"" . $message . "\"}";
