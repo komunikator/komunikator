@@ -155,7 +155,7 @@ Ext.define('app.module.Mail_Settings_Panel', {
                         xtype: 'textfield',
                         anchor: '100%',
                         name: 'fromname',
-                        fieldLabel: app.msg.fromname,
+                        fieldLabel: app.msg.fromname
                     },
                     {
                         xtype: 'textfield',
@@ -175,6 +175,12 @@ Ext.define('app.module.Mail_Settings_Panel', {
                         anchor: '100%',
                         name: 'incoming_trunk_text',
                         fieldLabel: app.msg.mail2
+                    },
+                    {
+                        xtype: 'textfield',
+                        anchor: '100%',
+                        name: 'time_zone',
+                        fieldLabel: app.msg.time_zone
                     },
                     {
                         title: app.msg.mail_subject, // Тема сообщения

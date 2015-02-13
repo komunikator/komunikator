@@ -227,6 +227,7 @@ app.msg = {
     email: 'E-Mail to',
     mail1: 'Message text',
     mail2: '* Message text for incoming calls with indicating the gateway',
+    time_zone: 'Time zone',
     invalid_email: 'Invalid E-Mail address',
     mail_subject: 'Subject of',
     mail_nofications: 'E-Mail notifications',
