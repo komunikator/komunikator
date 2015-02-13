@@ -247,7 +247,7 @@ for (;;) {
                                     $unanswered_incoming_call = true;
                             }
 
-                            if (count($res) || ($only_unanswered && ($ev->GetValue('status') != 'answered'))) {
+                            if (count($res) || ($unanswered_incoming_call && ($ev->GetValue('status') != 'answered'))) {
                                 $text = format_msg($text, $params);
                                 $subject = format_msg($subject, $params);
 
