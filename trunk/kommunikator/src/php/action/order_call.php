@@ -150,7 +150,7 @@ for ($i = 0; $i <= 4; $i++) {
         break;
     }
     //если соединение между АБОНЕНТАМИ не произошло в течении 25сек, отвечаем false
-    if ($i == 5 && $total == 0) {
+    if ($i == 4 && $total == 0) {
         $message = "false";
         $jsonResponse = "{\"success\":\"" . $message . "\"}";
         echo $callback . "(" . $jsonResponse . ")";
