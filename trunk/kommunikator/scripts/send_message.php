@@ -241,8 +241,8 @@ for (;;) {
                                 $res = query_to_array($query);
 
 
-                                $query = "SELECT value FROM ntn_settings WHERE param = 'unanswered_incoming_call' AND value = 'true'";
-                                $res2 = query_to_array($query);
+                                $query2 = "SELECT value FROM ntn_settings WHERE param = 'unanswered_incoming_call' AND value = 'true'";
+                                $res2 = query_to_array($query2);
                                 if (count($res2))
                                     $unanswered_incoming_call = true;
                             }
