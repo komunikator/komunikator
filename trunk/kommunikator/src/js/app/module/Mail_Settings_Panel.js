@@ -179,8 +179,8 @@ Ext.define('app.module.Mail_Settings_Panel', {
                     {
                         xtype: 'textfield',
                         anchor: '100%',
-                        name: 'time_zone',
-                        fieldLabel: app.msg.time_zone
+                        name: 'time_zone_hour',
+                        fieldLabel: app.msg.time_zone_hour
                     },
                     {
                         title: app.msg.mail_subject, // Тема сообщения

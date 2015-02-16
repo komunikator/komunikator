@@ -63,7 +63,7 @@ $updates_data_url = "$updates_base/update.tar.gz";
 error_reporting(E_ALL & ~(E_STRICT | E_NOTICE | E_WARNING));
 
 date_default_timezone_set("UTC");
-$def_time_offset = 4;//Смещение метки времени по умолчанию (в часах) при отправке писем   
+//$def_time_offset = 4;//Смещение метки времени по умолчанию (в часах) при отправке писем   
 
 require_once("DB.php");
 
