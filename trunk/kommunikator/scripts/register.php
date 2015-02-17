@@ -1246,7 +1246,7 @@ for (;;) {
                                        CASE
                                            WHEN b.gateway = ''
                                                THEN a.gateway
-                                           ELSE a.gateway
+                                           ELSE b.gateway
                                        END gateway
                                    FROM call_logs a
                                    JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
