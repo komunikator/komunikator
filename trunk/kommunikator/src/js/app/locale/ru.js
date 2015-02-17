@@ -305,6 +305,7 @@ app.msg = {
     incoming: "входящий",
     internal: "внутренний",
     transfer: "переадресован",
+    order_call: "заказанный",
     'temporarily_unavailable_[call_processing_released]': "временно недоступен",
     performing_actions: "Выполнение действий",
     wait_reboot: "Пожалуйста, подождите пока происходит перезагрузка АТС",

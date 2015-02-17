@@ -98,7 +98,7 @@ $_SESSION['last_action'] = time();
 session_write_close();
 
 
-$command = "click_to_call " . $caller[0]['value'] . " $called";
+$command = "click_to_call " . $caller[0]['value'] . " $called order_call";
 $socket = new SocketConn;
 if ($socket->error == "") {
     $obj = array("success" => true);
