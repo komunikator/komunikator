@@ -58,17 +58,21 @@ require_once("php/socketconn.php");
 
 header("Content-Type: application/javascript");
 $callback = $_GET["callback"];
+$caller = $_GET["caller"];//добавить проверку
+$site = $_GET["site"];//добавить проверку
 
 $called = getparam("number");
 //получаем Номер исполняющий заказ звонка. Если он отсутствует - выводим ошибку
-$obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
+/*$obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
 $caller = query_to_array($obj);
 if ($caller[0]['value'] == '' || $caller[0]['value'] == null) {
     $message = "Call order executor is undefined";
     $jsonResponse = "{\"warning\":\"" . $message . "\"}";
     echo $callback . "(" . $jsonResponse . ")";
     exit;
-}
+}*/
+
+
 
 //если номер телефона, на который нужно совершить заказанный звонок, не передан - выводим ошибку
 $check_called = str_replace(' ', '', $called);
@@ -98,7 +102,7 @@ $_SESSION['last_action'] = time();
 session_write_close();
 
 
-$command = "click_to_call " . $caller[0]['value'] . " $called order_call";
+$command = "click_to_call $caller $called $site";
 $socket = new SocketConn;
 if ($socket->error == "") {
     $obj = array("success" => true);

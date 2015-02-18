@@ -65,24 +65,28 @@ $call = NULL;
 
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
-    $call = "WHERE caller = '$exten' OR called = '$exten'";
+    $call = "WHERE a.caller = '$exten' OR a.called = '$exten'";
 }
 
 $sql = <<<EOD
 SELECT * FROM (
     SELECT
         "" AS id,
-        time,
-        direction,
+        a.time,
+        CASE 
+            WHEN a.direction = 'order_call'
+		THEN c.detailed
+            ELSE a.direction
+        END direction,
         CASE
             WHEN x1.firstname IS NULL
-                THEN caller
-            ELSE CONCAT( x1.firstname, ' ', x1.lastname, ' (', caller, ')' )
+                THEN a.caller
+            ELSE CONCAT( x1.firstname, ' ', x1.lastname, ' (', a.caller, ')' )
         END caller,
         CASE
             WHEN x2.firstname IS NULL
-                THEN called
-            ELSE CONCAT( x2.firstname, ' ', x2.lastname, ' (', called, ')' )
+                THEN a.called
+            ELSE CONCAT( x2.firstname, ' ', x2.lastname, ' (', a.called, ')' )
         END called,
         ROUND(billtime) duration,
         CASE
@@ -96,19 +100,20 @@ SELECT * FROM (
         END gateway,
         a.status,
         CASE
-            WHEN time IS NOT NULL 
-                THEN CONCAT(date_format(FROM_UNIXTIME(time), '%d_%m_%Y_%H_%i_%s'), '~',caller, '~', called)
+            WHEN a.time IS NOT NULL 
+                THEN CONCAT(date_format(FROM_UNIXTIME(a.time), '%d_%m_%Y_%H_%i_%s'), '~',a.caller, '~', a.called)
             ELSE NULL
         END record,
         CASE
-            WHEN time IS NOT NULL 
-                THEN CONCAT(date_format(FROM_UNIXTIME(time), '%d_%m_%Y_%H_%i_%s'), '~',caller, '~', called)
+            WHEN a.time IS NOT NULL 
+                THEN CONCAT(date_format(FROM_UNIXTIME(a.time), '%d_%m_%Y_%H_%i_%s'), '~',a.caller, '~', a.called)
             ELSE NULL
         END download
     FROM call_history a
     LEFT JOIN extensions x1 ON x1.extension = caller
     LEFT JOIN extensions x2 ON x2.extension = called
     LEFT JOIN gateways g ON g.authname = a.gateway
+    LEFT JOIN detailed_infocall c ON c.billid = a.billid
     $call
 ) a
 EOD;

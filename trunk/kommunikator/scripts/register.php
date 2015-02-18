@@ -57,8 +57,7 @@ require_once("libyate.php");
 require_once("lib_queries.php");
 
 $gateway_ev = array();
-$storage_gateway = array();
-$call_from1C = array();
+$callFrom = '';
 
 $s_fallbacks = array();
 $s_params_assistant_outgoing = array();
@@ -1117,7 +1116,7 @@ for (;;) {
                     switch ($operation) {
                         case "initialize":
 
-                            
+
                             $gateway_name = '';
                             $gateway_sql = "SELECT username FROM gateways";
                             $gateway_ev = query_to_array($gateway_sql);
@@ -1171,13 +1170,31 @@ for (;;) {
                             $called_ev = $ev->GetValue("called");
                             $direction_ev = $ev->GetValue("direction");
                             $ended_ev = 0;
-
-                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {                            
+//echo($callFrom ."//////////////////////////////////////////////" );
+//substr_replace($ev->GetValue("chan"), $callFrom, 0,10)
+                            if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
+                                if ($callFrom !== '') {
+                                    $chan_ev = substr_replace($ev->GetValue("chan"), 'order_call', 0, 10); //echo($ev->GetValue("chan") . "//////////////////////////////////////////////" . $chan_ev);
+                                    $query = "INSERT INTO detailed_infocall(billid, caller, called, detailed)"
+                                            . " SELECT'"
+                                            . $ev->GetValue("billid") . "', '"
+                                            . $ev->GetValue("called") . "', '"
+                                            . $ev->GetValue("caller") . "', '"
+                                            . $callFrom . "' FROM dual
+                                              WHERE NOT EXISTS (     
+                                              SELECT * FROM detailed_infocall
+                                              WHERE billid = '" . $ev->GetValue("billid")  . "' 
+                                                  AND caller = '" . $ev->GetValue("called") . "' 
+                                                  AND called = '" . $ev->GetValue("caller") . "' 
+                                                  AND detailed = '" . $callFrom . "');";
+                                    $res1 = query_nores($query);
+                                    //echo($callFrom ."//////////////////////////////////////////////" );
+                                }
                                 $direction_ev = "incoming";
-                                $query = "UPDATE call_logs SET chan = '" . substr_replace($ev->GetValue("chan"), $callFrom, 0,10) . "', address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
+                                $query = "UPDATE call_logs SET chan = '" . $chan_ev . "', address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $called_ev . "', called='" . $caller_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                         $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") .
-                                        "', reason='$reason' WHERE chan='" . $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");                             
+                                        "', reason='$reason' WHERE (chan='" . $ev->GetValue("chan") . "' OR chan = '" . substr_replace($ev->GetValue("chan"), 'order_call', 0, 10) . "') AND time=" . $ev->GetValue("time");
                             } else {
                                 $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
                                         "', caller='" . $caller_ev . "', called='" . $called_ev . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
@@ -1203,7 +1220,7 @@ for (;;) {
 
                             $res = query_nores($query);
 
-                            $sql = $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway)"
+                            $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway)"
                                     . "SELECT
                                        b.time,
                                        b.chan,
@@ -1254,6 +1271,12 @@ for (;;) {
                                    LEFT JOIN extensions x2 ON x2.extension = a.called
                                    WHERE  a.direction = 'incoming' AND b.billid = '$billid_ev' ";
                             $res = query_nores($query);
+
+                            $query1 = "UPDATE detailed_infocall AS a
+                                      INNER JOIN call_history  AS b ON a.billid = b.billid AND a.caller = b.caller AND a.called = b.called
+                                      SET a.time = b.time
+                                      WHERE b.billid = '$billid_ev'";
+                            $res1 = query_nores($query1);
                             //очищаем массив и удаляем ненужные записи- - - - - - - - -
                             //$sql = "DELETE FROM call_logs WHERE billid = '" . $billid_ev . "'";
                             //$res = query_nores($sql);

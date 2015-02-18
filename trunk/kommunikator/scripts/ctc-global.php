@@ -102,7 +102,7 @@ for (;;) {
                     $cmd = explode(" ", $cmd);
                     $caller = $cmd[0];
                     $called = $cmd[1];
-                    $callFrom = ($cmd[2]) ? $cmd[2]:'ctc-dialer/';
+                    $callFrom = ($cmd[2]) ? $cmd[2]:'';
                     $m = new Yate("call.route");
                     $m->params["caller"] = "ctc"; // $caller;
                     $m->params["called"] = $caller; //$called;
