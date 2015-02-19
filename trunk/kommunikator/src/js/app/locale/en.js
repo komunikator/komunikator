@@ -224,6 +224,7 @@ app.msg = {
     mailevent_outgoing: 'Outgoing call',
     mailevent_internal: 'Internal call',
     mailevent_unanswered_incoming_call: 'Unanswered incoming call',
+    mailevent_unanswered_order_call: 'Unanswered order call',
     email: 'E-Mail to',
     mail1: 'Message text',
     mail2: '* Message text for incoming calls with indicating the gateway',

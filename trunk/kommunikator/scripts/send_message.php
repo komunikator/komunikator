@@ -215,6 +215,8 @@ for (;;) {
                         $res = query_to_array($query);
                     }
                     $unanswered_incoming_call = false;
+                    $unanswered_order_call = false;
+                    $existence_order_call = false;
                     if ($is_internal_call && count($res) || !$is_internal_call) {
                         $text = getValueFromNtnSettings('incoming_call_text', '');
 
@@ -240,14 +242,25 @@ for (;;) {
                                 $query = "SELECT value FROM ntn_settings WHERE param = 'incoming_call' AND value = 'true'";
                                 $res = query_to_array($query);
 
-
                                 $query2 = "SELECT value FROM ntn_settings WHERE param = 'unanswered_incoming_call' AND value = 'true'";
                                 $res2 = query_to_array($query2);
                                 if (count($res2))
                                     $unanswered_incoming_call = true;
+
+                                $query3 = "SELECT value FROM ntn_settings WHERE param = 'unanswered_order_call' AND value = 'true'";
+                                $res3 = query_to_array($query3);
+                                if (count($res3)) {
+                                    $unanswered_order_call = true;
+                                    $query4 = "SELECT * FROM call_logs WHERE billid = '" . $ev->GetValue('billid') . "' AND SUBSTRING(chan,1, 11) = 'order_call/'";
+                                    $res4 = query_to_array($query4);
+                                    if (count($res4))
+                                        $existence_order_call = true;
+                                }
                             }
 
-                            if (count($res) || ($unanswered_incoming_call && ($ev->GetValue('status') != 'answered'))) {
+                            if (count($res) 
+                                    || ($unanswered_incoming_call && ($ev->GetValue('status') != 'answered')) 
+                                    || ($unanswered_order_call && ($ev->GetValue('status') != 'answered') && $existence_order_call == true)) {
                                 $text = format_msg($text, $params);
                                 $subject = format_msg($subject, $params);
 

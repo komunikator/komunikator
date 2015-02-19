@@ -130,6 +130,9 @@ Ext.define('app.module.Mail_Settings_Panel', {
                     }, {
                         boxLabel: app.msg.mailevent_unanswered_incoming_call,
                         name: 'unanswered_incoming_call'
+                    }, {
+                        boxLabel: app.msg.mailevent_unanswered_order_call,
+                        name: 'unanswered_order_call'
                     }
                 ]
             }, {
