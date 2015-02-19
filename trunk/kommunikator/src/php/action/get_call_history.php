@@ -77,7 +77,7 @@ SELECT * FROM (
             WHEN a.direction = 'order_call' AND (c.detailed !=NULL OR c.detailed !='')
 		THEN CONCAT('Перезвоните мне: ',c.detailed)
             ELSE a.direction
-        END direction,
+        END type,
         CASE
             WHEN x1.firstname IS NULL
                 THEN a.caller

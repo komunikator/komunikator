@@ -229,7 +229,8 @@ Ext.define('app.module.Call_logs_Grid', {
                             type: 'list',
                             options: [['internal', app.msg['internal']], ['incoming', app.msg['incoming']], ['outgoing', app.msg['outgoing']]],
                             dataIndex: 'type'
-                        }, {
+                        },
+                        {
                             type: 'string',
                             dataIndex: 'caller'
                         }, {
