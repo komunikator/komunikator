@@ -74,8 +74,8 @@ SELECT * FROM (
         "" AS id,
         a.time,
         CASE 
-            WHEN a.direction = 'order_call'
-		THEN c.detailed
+            WHEN a.direction = 'order_call' AND (c.detailed !=NULL OR c.detailed !='')
+		THEN CONCAT('Перезвоните мне: ',c.detailed)
             ELSE a.direction
         END direction,
         CASE
@@ -113,7 +113,7 @@ SELECT * FROM (
     LEFT JOIN extensions x1 ON x1.extension = caller
     LEFT JOIN extensions x2 ON x2.extension = called
     LEFT JOIN gateways g ON g.authname = a.gateway
-    LEFT JOIN detailed_infocall c ON c.billid = a.billid
+    LEFT JOIN detailed_infocall c ON (c.billid = a.billid AND c.time = a.time)
     $call
 ) a
 EOD;
