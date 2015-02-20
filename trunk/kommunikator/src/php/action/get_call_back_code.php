@@ -64,7 +64,7 @@ $destination = getparam('destination');
 $name_site = getparam('name_site');
 $host = $_SERVER['SERVER_ADDR'];
 
-
+//$id_call_back = getparam('id_call_back');
 $call_back_code = <<<EOD
 
 <script>
@@ -73,6 +73,7 @@ $call_back_code = <<<EOD
     site=  $name_site;
     destination = $destination; 
         $host
+
    </script>
 EOD;
 

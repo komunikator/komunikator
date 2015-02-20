@@ -74,9 +74,9 @@ SELECT
         WHEN g.group != NULL OR g.group != ''
             THEN g.group
         ELSE c.destination 
-    END destination,
-    callthrough_time,
+    END destination,  
     name_site,
+    callthrough_time,
     c.description
 FROM call_back c
 left join groups g ON g.extension = c.destination

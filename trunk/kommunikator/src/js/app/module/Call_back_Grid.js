@@ -71,10 +71,42 @@ Ext.define('app.module.Call_back_Grid', {
                 }),
                 editable: false,
                 displayField: 'name',
-                valueField: 'name',
+                valueField: 'id',
                 queryMode: 'local',
                 allowBlank: false
             }
+                /*                editor: {
+                        xtype: 'combobox',
+                        store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    storeId: 'sources_exception'
+                        }),
+                        queryMode: 'local',
+                        valueField: 'name',
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                        // настройка combobox под «себя»
+                        // «нормальное» отображение пустых полей в выпадающем списке
+                        displayField: 'name',
+                        hiddenName : 'id',
+                        tpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '<div class="x-boundlist-item" style="min-height: 22px">{name}</div>',
+                                '</tpl>'
+                                ),
+                        displayTpl: Ext.create('Ext.XTemplate',
+                                '<tpl for=".">',
+                                '{name}',
+                                '</tpl>'
+                                ),
+                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+                        editable: false,
+                        listeners: {
+                            afterrender: function() {
+                                this.store.load();
+                            }
+                        }
+                    }*/
         },
         {// 'name_site'  - описание
             editor: {
@@ -91,6 +123,7 @@ Ext.define('app.module.Call_back_Grid', {
             }
         },
         {// 'description'  - описание
+            width: 250,
             editor: {
                 xtype: 'textfield'
             }

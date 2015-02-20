@@ -54,14 +54,10 @@
  */
 ?><?
 
-require_once("php/socketconn.php");
 
-header("Content-Type: application/javascript");
-$callback = $_GET["callback"];
-$caller = $_GET["caller"];//добавить проверку
-$site = $_GET["site"];//добавить проверку
+//$caller = $_GET["caller"];//добавить проверку
+//$site = $_GET["site"];//добавить проверк
 
-$called = getparam("number");
 //получаем Номер исполняющий заказ звонка. Если он отсутствует - выводим ошибку
 /*$obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
 $caller = query_to_array($obj);
@@ -71,7 +67,21 @@ if ($caller[0]['value'] == '' || $caller[0]['value'] == null) {
     echo $callback . "(" . $jsonResponse . ")";
     exit;
 }*/
+//-----
+require_once("php/socketconn.php");
 
+header("Content-Type: application/javascript");
+$callback = $_GET["callback"];
+$called = getparam("number");
+$call_back_id= $_GET["call_back_id"];
+$sql = "SELECT destination, name_site, callthrough_time FROM call_back WHERE call_back_id = $call_back_id";
+$res = query_to_array($sql);
+$caller = $res[0]["destination"];
+$site = $res[0]["name_site"];
+$callthrough_time = $res[0]["callthrough_time"];
+
+
+//--------
 
 
 //если номер телефона, на который нужно совершить заказанный звонок, не передан - выводим ошибку
@@ -102,7 +112,7 @@ $_SESSION['last_action'] = time();
 session_write_close();
 
 
-$command = "click_to_call $caller $called $site";
+$command = "click_to_call $caller $called $site $callthrough_time";
 $socket = new SocketConn;
 if ($socket->error == "") {
     $obj = array("success" => true);
