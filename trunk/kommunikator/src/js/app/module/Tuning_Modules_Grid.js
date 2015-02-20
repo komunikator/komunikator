@@ -74,6 +74,9 @@ Ext.define('app.module.Tuning_Modules_Grid', {
                 else
                 if (v == 'Call_Record_Grid')
                     return app.msg.Call_Record_Grid;
+                else
+                if (v == 'Call_back_Grid')
+                    return app.msg.Call_back_Grid;
             },
             editor: {
                 xtype: 'textfield',

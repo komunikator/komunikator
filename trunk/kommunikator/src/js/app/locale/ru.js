@@ -203,7 +203,6 @@ app.msg = {
     mailevent_outgoing: 'Исходящий вызов',
     mailevent_internal: 'Внутренний вызов',
     mailevent_unanswered_incoming_call: 'Неотвеченный входящий вызов',
-    mailevent_unanswered_order_call: 'Неотвеченные заказанные звонки',
     email: 'Адрес получателя',
     mail1: 'Текст письма',
     mail2: '* Текст письма для входящих вызовов с указанием шлюза',
@@ -252,6 +251,7 @@ app.msg = {
     Call_website_Grid: 'Звонок с сайта', //1-- для Tuning_modules_Grid в титуле используется имя модуля
     Mail_Settings_Panel: 'Почтовые уведомления', //2--//--
     Call_Record_Grid: 'Запись звонка', //3--//--
+    Call_back_Grid: 'Перезвоните мне',
 
     //-------предупреждения
     session_failed: 'Время сеанса истекло. Пожалуйста, войдите еще раз',
@@ -306,7 +306,6 @@ app.msg = {
     incoming: "входящий",
     internal: "внутренний",
     transfer: "переадресован",
-    order_call: "заказанный",
     'temporarily_unavailable_[call_processing_released]': "временно недоступен",
     performing_actions: "Выполнение действий",
     wait_reboot: "Пожалуйста, подождите пока происходит перезагрузка АТС",
@@ -383,5 +382,6 @@ app.msg = {
     dma_code: 'Код рыночной зоны',/*'Код рыночной зоны (DMA, только для США и Канады)',*/
     area_code: 'Код телефонной сети общего пользования',
     isp: 'Имя провайдера(ISP) указаного IP адреса',
-    asn: 'Номера АС'
+    asn: 'Номера АС',
+    name_site: 'Название сайта'
 };   
