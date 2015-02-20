@@ -63,7 +63,7 @@ Ext.define('app.module.Call_back_Grid', {
             hidden: true
         },
         {// 'destination' - назначение
-            editor: {
+          editor: {
                 xtype: 'combobox',
                 store: Ext.create('app.Store', {
                     fields: ['id', 'name'],
@@ -71,7 +71,7 @@ Ext.define('app.module.Call_back_Grid', {
                 }),
                 editable: false,
                 displayField: 'name',
-                valueField: 'id',
+                valueField: 'name',
                 queryMode: 'local',
                 allowBlank: false
             }
