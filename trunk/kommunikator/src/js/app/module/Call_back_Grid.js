@@ -55,7 +55,7 @@
 Ext.define('app.module.Call_back_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'destination', 'name_site', 'description', 'button_code'],
+        fields: ['id', 'destination', 'name_site', 'callthrough_time', 'description', 'button_code'],
         storeId: 'call_back'
     },
     columns: [
@@ -79,6 +79,15 @@ Ext.define('app.module.Call_back_Grid', {
         {// 'name_site'  - описание
             editor: {
                 xtype: 'textfield'
+            }
+        },
+        {// 'callthrough time'
+            width: 120,
+            groupable: false,
+            editor: {
+                xtype: 'textfield',
+                regex: /^\d{2,3}$/,
+                allowBlank: false
             }
         },
         {// 'description'  - описание

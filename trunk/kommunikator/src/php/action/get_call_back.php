@@ -75,6 +75,7 @@ SELECT
             THEN g.group
         ELSE c.destination 
     END destination,
+    callthrough_time,
     name_site,
     c.description
 FROM call_back c

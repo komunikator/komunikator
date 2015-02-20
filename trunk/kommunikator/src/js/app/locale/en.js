@@ -327,6 +327,8 @@ app.msg = {
     area_code: 'PSTN ID',
     isp: 'The name of the ISP of the IP address',
     asn: 'Autonomous System Numbers',
+    callthrough_time: 'Callthrough time',
+    name_site: 'Site\'s name',
     // - - - - - - - - - - - - - - - - - - - - - -
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
