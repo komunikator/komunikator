@@ -60,16 +60,9 @@ if (!$_SESSION['user']) {
     exit;
 }
 
-
-
-
 $destination = getparam('destination');
-
 $name_site = getparam('name_site');
-
-
-
-
+$host = $_SERVER['SERVER_ADDR'];
 
 
 $call_back_code = <<<EOD
@@ -78,7 +71,8 @@ $call_back_code = <<<EOD
         некий такой код
     http://172.17.2.147/kommunikator/data.php?action=order_call&number=89877083007&callback=jsonpCallback&caller=125&site=test
     site=  $name_site;
-    destination = $destination;   
+    destination = $destination; 
+        $host
    </script>
 EOD;
 

@@ -70,10 +70,15 @@ if (!is_array($total["data"])) echo out(array("success"=>false,"message"=>$total
 $query = <<<EOD
 SELECT
     call_back_id as id,
-    destination,
+    CASE
+        WHEN g.group != NULL OR g.group != ''
+            THEN g.group
+        ELSE c.destination 
+    END destination,
     name_site,
-    description
-FROM call_back
+    c.description
+FROM call_back c
+left join groups g ON g.extension = c.destination
 EOD;
 
 $data = compact_array(query_to_array($query));

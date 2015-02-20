@@ -51,41 +51,6 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 
-Ext.apply(Ext.form.field.VTypes, {
-    picture: function(val, field) {
-        if (val == '#e6e6e6') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Grey_button.png" >'));
-            return true;
-        }
-        if (val == '#0044cc') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Cyan_button.png" >'));
-            return true;
-        }
-        if (val == '#2f96b4') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Blue_button.png" >'));
-            return true;
-        }
-        if (val == '#51a351') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Green_button.png" >'));
-            return true;
-        }
-        if (val == '#f89406') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Yellow_button.png" >'));
-            return true;
-        }
-        if (val == '#bd362f') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Red_button.png" >'));
-            return true;
-        }
-        if (val == '#444444') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Black_button.png" >'));
-            return true;
-        }
-
-    }
-});
-
-var color = [['btn', '#e6e6e6'], ['btn btn-primary', '#0044cc'], ['btn btn-info', '#2f96b4'], ['btn btn-success', '#51a351'], ['btn btn-warning', '#f89406'], ['btn btn-danger', '#bd362f'], ['btn btn-inverse', '#444444']];
 
 Ext.define('app.module.Call_back_Grid', {
     extend: 'app.Grid',
@@ -106,7 +71,7 @@ Ext.define('app.module.Call_back_Grid', {
                 }),
                 editable: false,
                 displayField: 'name',
-                valueField: 'name',
+                valueField: 'id',
                 queryMode: 'local',
                 allowBlank: false
             }
