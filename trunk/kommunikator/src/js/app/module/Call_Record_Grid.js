@@ -56,10 +56,23 @@ Ext.define('app.module.Call_Record_Grid', {
                                 app.msg.All,
                                 '</tpl>',
                                 '</tpl>'
-                                )
+                                ),
+                        listeners: {
+                            change:
+                                    function(f, new_val) {
+                                        if (new_val == '' && f.ownerCt.items.items[2].value == null) {
+                                            f.ownerCt.items.items[1].setValue('*');
+                                        }
+                                        return true;
+                                    }
+                        }
+
                     },
                     renderer: function(v) {
+                        //var t = '';
                         return  (v == '*') ? app.msg.All : v;
+                        //if(v == '*'){t =app.msg.All; } else{t = v;}
+                        //if(v == null)
                     }
                 },
                 {// 'group'
@@ -96,7 +109,16 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
-                            }
+                            },
+                            change:
+                                    function(f, new_val) {
+                                        //    console.log(f.value); console.log(new_val);
+                                        //          console.log(f.ownerCt.items.items[1].value);//
+                                        if (new_val == '' && f.ownerCt.items.items[1].value == null) {
+                                            f.ownerCt.items.items[1].setValue('*');
+                                        }//console.log(f.ownerCt.items.items[1]);}
+                                        return true;
+                                    }
                         }
                     }
                 }]
@@ -232,7 +254,16 @@ Ext.define('app.module.Call_Record_Grid', {
                                 app.msg.All,
                                 '</tpl>',
                                 '</tpl>'
-                                )
+                                ),
+                        listeners: {
+                            change:
+                                    function(f, new_val) {console.log(f.ownerCt.items.items[7].value);
+                                        if (new_val == '' && f.ownerCt.items.items[7].value == null) {
+                                            f.ownerCt.items.items[6].setValue('*');
+                                        }
+                                        return true;
+                                    }
+                        }
                     },
                     renderer: function(v) {
                         return  (v == '*') ? app.msg.All : v;
@@ -267,7 +298,14 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
-                            }
+                            },
+                            change:
+                                    function(f, new_val) {
+                                        if (new_val == '' && f.ownerCt.items.items[6].value == null) {
+                                            f.ownerCt.items.items[6].setValue('*');
+                                        }
+                                        return true;
+                                    }
                         }
                     }
                 }]

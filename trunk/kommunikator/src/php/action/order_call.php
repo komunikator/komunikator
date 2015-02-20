@@ -80,7 +80,7 @@ $caller = $res[0]["destination"];
 $site = $res[0]["name_site"];
 $callthrough_time = $res[0]["callthrough_time"];
 
-
+//echo("----------------------------------------------". $site);
 //--------
 
 
