@@ -1041,7 +1041,10 @@ for (;;) {
                 case "call.route":
                     $caller = $ev->getValue("caller");
                     $called = $ev->getValue("called");
-                    $callFrom = $ev->getValue("call_from");
+
+                    if($ev->getValue("call_from"))
+                        $callFrom = $ev->getValue("call_from");
+
                     return_route($called, $caller);
                     break;
                 case "call.answered":
@@ -1170,11 +1173,12 @@ for (;;) {
                             $called_ev = $ev->GetValue("called");
                             $direction_ev = $ev->GetValue("direction");
                             $ended_ev = 0;
-
+                            
                             if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
-                                if ($callFrom !== '') {
+                                if ($callFrom && ($callFrom !== '' || $callFrom !==null)) {
+                                  //  echo("~~~~~~~~~~~~~~~~~~~~~~" . $callFrom . "~~~~~~~~~~");
                                     $chan_ev = substr_replace($ev->GetValue("chan"), 'order_call', 0, 10);
-                                    $query = "INSERT INTO detailed_infocall(billid, caller, called, detailed)"
+                                    $query1 = "INSERT INTO detailed_infocall(billid, caller, called, detailed)"
                                             . " SELECT'"
                                             . $ev->GetValue("billid") . "', '"
                                             . $ev->GetValue("called") . "', '"
@@ -1186,7 +1190,7 @@ for (;;) {
                                                   AND caller = '" . $ev->GetValue("called") . "' 
                                                   AND called = '" . $ev->GetValue("caller") . "' 
                                                   AND detailed = '" . $callFrom . "');";
-                                    $res1 = query_nores($query);
+                                    $res1 = query_nores($query1);
                                 }
                                 $direction_ev = "incoming";
                                 $query = "UPDATE call_logs SET chan = '" . $chan_ev . "', address='" . $ev->GetValue("address") . "', direction='" . $direction_ev . "', billid='" . $ev->GetValue("billid") .
@@ -1211,7 +1215,7 @@ for (;;) {
 
                         case "finalize":
                             $billid_ev = $ev->GetValue("billid");
-
+$callFrom = null;
                             $query = "UPDATE call_logs SET address='" . $ev->GetValue("address") . "', billid='" . $ev->GetValue("billid") .
                                     "', caller='" . $ev->GetValue("caller") . "', called='" . $ev->GetValue("called") . "', duration=" . $ev->GetValue("duration") . ", billtime=" .
                                     $ev->GetValue("billtime") . ", ringtime=" . $ev->GetValue("ringtime") . ", status='" . $ev->GetValue("status") . "', reason='$reason', ended=1 WHERE chan='" .

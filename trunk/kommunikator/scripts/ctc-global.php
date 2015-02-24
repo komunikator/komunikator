@@ -102,16 +102,20 @@ for (;;) {
                     $cmd = explode(" ", $cmd);
                     $caller = $cmd[0];
                     $called = $cmd[1];
-                    $callFrom = ($cmd[2]) ? $cmd[2]:'';
+
                     $m = new Yate("call.route");
                     $m->params["caller"] = "ctc"; // $caller;
                     $m->params["called"] = $caller; //$called;
                     $m->params["real_caller"] = $caller;
                     $m->params["real_called"] = $called;
                     $m->params["already-auth"] = "yes";
-                    $m->params["maxcall"] = 25000; //25сек - максимальное время дозвона
+                    if ($cmd[2]) {
+                        $m->params["call_from"] = $cmd[2];
+                    }
+                    $m->params["maxcall"] = ($cmd[3]) ? $cmd[3] * 1000 : 25000;
+                    // $m->params["maxcall"] = 25000; //25сек - максимальное время дозвона
                     // $m->params["callername"] = $place;
-                    $m->params["call_from"] = $callFrom;
+                    //$m->params["call_from"] = $callFrom;
                     $m->Dispatch();
                 }
             }

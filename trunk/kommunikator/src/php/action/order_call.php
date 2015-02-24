@@ -74,8 +74,9 @@ header("Content-Type: application/javascript");
 $callback = $_GET["callback"];
 $called = getparam("number");
 $call_back_id= $_GET["call_back_id"];
-$sql = "SELECT destination, name_site, callthrough_time FROM call_back WHERE call_back_id = $call_back_id";
-$res = query_to_array($sql);
+
+$sql1 = "SELECT destination, name_site, callthrough_time FROM call_back WHERE call_back_id = $call_back_id";
+$res = query_to_array($sql1);
 $caller = $res[0]["destination"];
 $site = $res[0]["name_site"];
 $callthrough_time = $res[0]["callthrough_time"];
@@ -113,6 +114,7 @@ session_write_close();
 
 
 $command = "click_to_call $caller $called $site $callthrough_time";
+
 $socket = new SocketConn;
 if ($socket->error == "") {
     $obj = array("success" => true);
