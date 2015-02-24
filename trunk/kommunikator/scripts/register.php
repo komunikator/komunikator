@@ -1176,7 +1176,7 @@ for (;;) {
                             
                             if (substr($chan_ev, 0, 11) == 'ctc-dialer/') {
                                 if ($callFrom && ($callFrom !== '' || $callFrom !==null)) {
-
+                                    $callFrom = urldecode($callFrom);
                                     $chan_ev = substr_replace($ev->GetValue("chan"), 'order_call', 0, 10);
                                     $query1 = "INSERT INTO detailed_infocall(billid, caller, called, detailed)"
                                             . " SELECT'"
@@ -1189,7 +1189,7 @@ for (;;) {
                                               WHERE billid = '" . $ev->GetValue("billid") . "' 
                                                   AND caller = '" . $ev->GetValue("called") . "' 
                                                   AND called = '" . $ev->GetValue("caller") . "' 
-                                                  AND detailed = '" . urldecode($callFrom) . "');";
+                                                  AND detailed = '" . $callFrom . "');";
                                     $res1 = query_nores($query1);
                                 }
                                 $direction_ev = "incoming";
