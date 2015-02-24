@@ -112,10 +112,7 @@ for (;;) {
                     if ($cmd[2]) {
                         $m->params["call_from"] = $cmd[2]; 
                     }
-                    $m->params["maxcall"] = ($cmd[3]) ? $cmd[3] * 1000 : 25000;
-                    // $m->params["maxcall"] = 25000; //25сек - максимальное время дозвона
-                    // $m->params["callername"] = $place;
-                    //$m->params["call_from"] = $callFrom;
+                    $m->params["maxcall"] = ($cmd[3]) ? $cmd[3] * 1000 : 25000; 
                     $m->Dispatch();
                 }
             }

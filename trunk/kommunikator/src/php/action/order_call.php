@@ -152,9 +152,9 @@ from call_logs a
     (a.status="answered" and b.status="answered")) a
 EOD;
 
-
-for ($i = 0; $i <= 4; $i++) {
-    sleep(5);
+$count = round($res[0]["callthrough_time"]/4, 0, PHP_ROUND_HALF_DOWN);
+for ($i = 0; $i <= $count; $i++) {
+    sleep(4);
     $data = compact_array(query_to_array($sql));
     $total = count($data["data"]);
     // соединение прошло успешно, отвечаем true
