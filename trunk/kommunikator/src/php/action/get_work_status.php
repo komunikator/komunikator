@@ -54,9 +54,27 @@
  */
 ?><?
 
-$out = array("success" => true);
-if (isset($_SESSION['user']))
-    $out['user'] = $_SESSION['user'];
-if (isset($_SESSION['extension']))
-    $out['extension'] = $_SESSION['extension'];
-echo (out($out));
+    $status = 'offline';
+    $query = "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames";
+    $res = query_to_array($query);
+    if (count($res)) {
+        $day_week = date('w');
+        $hour = date('H') * 1;
+        //echo("Current week index '$day_week' : hour '$hour'");
+        //$day_week = 2;
+        //$hour 	  = 19;
+        $status = 'offline';
+        foreach ($res as $row)
+            if ($row["numeric_day"] == $day_week && $row["start_hour"] <= $hour && $hour < $row["end_hour"])
+                $status = 'online';
+    };
+
+$f_data[] = array('status', $status);
+
+$obj = array("success" => true);
+
+$obj["total"] = count($f_data);
+$obj["data"] = $f_data;
+
+echo out($obj);
+
