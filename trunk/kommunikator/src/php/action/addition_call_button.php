@@ -8,8 +8,8 @@
 
 *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
 
-*    Сайт проекта «Komunikator»: http://4yate.ru/
-*    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+*    Сайт проекта «Komunikator»: http://komunikator.ru/
+*    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
 
 *    В проекте «Komunikator» используются:
 *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -33,8 +33,8 @@
 
 *    THIS FILE is an integral part of the project "Komunikator"
 
-*    "Komunikator" project site: http://4yate.ru/
-*    "Komunikator" technical support e-mail: support@4yate.ru
+*    "Komunikator" project site: http://komunikator.ru/
+*    "Komunikator" technical support e-mail: support@komunikator.ru
 
 *    The project "Komunikator" are used:
 *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -57,40 +57,24 @@
 if ($sda_action == 'start' or $sda_action == 'stop') {
 
     if ($sda_action == 'start') { $sda_command = '/etc/webrtc2sip/scripts/start_webrtc2sip.sh'; }
-
     if ($sda_action == 'stop') { $sda_command = '/etc/webrtc2sip/scripts/stop_webrtc2sip.sh'; }
 
     $sda_output = array();
 
-
     exec( $sda_command, $sda_output );
-
-    
+   
     foreach($sda_output as $row) { $sda_status = $row; }
 
-
-    if ( $sda_status == "launch error" ) {
-        
-        $obj = array("success" => false);
-        
-        $obj['message'] = "Ошибка: не удается запустить процесс webrtc2sip";
-        
-        echo out($obj);
-        
+    if ( $sda_status == "launch error" ) {      
+        $obj = array("success" => false);     
+        $obj['message'] = "Ошибка: не удается запустить процесс webrtc2sip";       
+        echo out($obj);      
     }
 
-    if ( $sda_status == "stop error" ) {
-        
-        $obj = array("success" => false);
-        
-        $obj['message'] = "Ошибка: не удается остановить процесс webrtc2sip";
-        
-        echo out($obj);
-        
-    }
-    
-    
+    if ( $sda_status == "stop error" ) {        
+        $obj = array("success" => false);       
+        $obj['message'] = "Ошибка: не удается остановить процесс webrtc2sip";        
+        echo out($obj);       
+    }    
     $sda_action = '';
-
 }
-?>

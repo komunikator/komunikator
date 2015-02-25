@@ -60,9 +60,6 @@
     if (count($res)) {
         $day_week = date('w');
         $hour = date('H') * 1;
-        //echo("Current week index '$day_week' : hour '$hour'");
-        //$day_week = 2;
-        //$hour 	  = 19;
         $status = 'offline';
         foreach ($res as $row)
             if ($row["numeric_day"] == $day_week && $row["start_hour"] <= $hour && $hour < $row["end_hour"])
@@ -71,10 +68,5 @@
 
 $f_data[] = array('status', $status);
 
-$obj = array("success" => true);
-
-$obj["total"] = count($f_data);
-$obj["data"] = $f_data;
-
-echo out($obj);
+echo out($f_data);
 
