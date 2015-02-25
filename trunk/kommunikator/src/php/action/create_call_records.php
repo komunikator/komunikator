@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  | RUS | - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -8,8 +7,8 @@
 
  *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
 
- *    Сайт проекта «Komunikator»: http://4yate.ru/
- *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+ *    Сайт проекта «Komunikator»: http://komunikator.ru/
+ *    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
 
  *    В проекте «Komunikator» используются:
  *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -33,8 +32,8 @@
 
  *    THIS FILE is an integral part of the project "Komunikator"
 
- *    "Komunikator" project site: http://4yate.ru/
- *    "Komunikator" technical support e-mail: support@4yate.ru
+ *    "Komunikator" project site: http://komunikator.ru/
+ *    "Komunikator" technical support e-mail: support@komunikator.ru
 
  *    The project "Komunikator" are used:
  *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -67,7 +66,6 @@ if ($data && !is_array($data))
 foreach ($data as $row) {
     $values = array();
     foreach ($row as $key => $value) {
-        //echo($key . "!!!" .  $value);
         if ($key == 'id') {
             $id = $key;
         } else {
