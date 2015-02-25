@@ -66,7 +66,7 @@
                 $status = 'online';
     };
 
-$f_data[] = array('status', $status);
+$f_data = array('status', $status);
 
 echo out($f_data);
 
