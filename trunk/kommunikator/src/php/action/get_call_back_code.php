@@ -8,8 +8,8 @@
 
 *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
 
-*    Сайт проекта «Komunikator»: http://4yate.ru/
-*    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+*    Сайт проекта «Komunikator»: http://komunikator.ru/
+*    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
 
 *    В проекте «Komunikator» используются:
 *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -33,8 +33,8 @@
 
 *    THIS FILE is an integral part of the project "Komunikator"
 
-*    "Komunikator" project site: http://4yate.ru/
-*    "Komunikator" technical support e-mail: support@4yate.ru
+*    "Komunikator" project site: http://komunikator.ru/
+*    "Komunikator" technical support e-mail: support@komunikator.ru
 
 *    The project "Komunikator" are used:
 *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -60,31 +60,29 @@ if (!$_SESSION['user']) {
     exit;
 }
 
-$destination = getparam('destination');
-$name_site = getparam('name_site');
+$id_call_back = getparam('id');
+$callthrough_time = getparam('callthrough_time');
 $host = $_SERVER['SERVER_ADDR'];
 
-//$id_call_back = getparam('id_call_back');
 $call_back_code = <<<EOD
-
-<script>
-        некий такой код
-    http://172.17.2.147/kommunikator/data.php?action=order_call&number=89877083007&callback=jsonpCallback&caller=125&site=test
-    site=  $name_site;
-    destination = $destination; 
-        $host
-
-   </script>
+        
+    <script type='text/javascript'>
+	var digt_callback_from=300; 
+        var digt_callback_to=900; 
+        var id_call_back=$id_call_back;
+        var dcb_sec = $callthrough_time; 
+        var dcb_id_server = $host; 
+	(function(){var x = document.createElement('script'); 
+            x.type = 'text/javascript'; 
+            x.async = true; 
+            x.src = 'digt_callback/digt_callback.js'; 
+            var xx = document.getElementsByTagName('script')[0]; 
+            xx.parentNode.insertBefore(x, xx);})();
+    </script>
 EOD;
 
-
 $call_back_code = htmlspecialchars($call_back_code);
-
-
 $obj = array("success"=>true);
-
 $obj["data"] = $call_back_code;
 
 echo out($obj);
-
-?>

@@ -6,8 +6,8 @@
  
  *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
  
- *    Сайт проекта «Komunikator»: http://4yate.ru/
- *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+ *    Сайт проекта «Komunikator»: http://komunikator.ru/
+ *    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
  
  *    В проекте «Komunikator» используются:
  *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -31,8 +31,8 @@
  
  *    THIS FILE is an integral part of the project "Komunikator"
  
- *    "Komunikator" project site: http://4yate.ru/
- *    "Komunikator" technical support e-mail: support@4yate.ru
+ *    "Komunikator" project site: http://komunikator.ru/
+ *    "Komunikator" technical support e-mail: support@komunikator.ru
  
  *    The project "Komunikator" are used:
  *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -63,7 +63,7 @@ Ext.define('app.module.Call_back_Grid', {
             hidden: true
         },
         {// 'destination' - назначение
-          editor: {
+            editor: {
                 xtype: 'combobox',
                 store: Ext.create('app.Store', {
                     fields: ['id', 'name'],
@@ -75,38 +75,38 @@ Ext.define('app.module.Call_back_Grid', {
                 queryMode: 'local',
                 allowBlank: false
             }
-                /*                editor: {
-                        xtype: 'combobox',
-                        store: Ext.create('app.Store', {
-                    fields: ['id', 'name'],
-                    storeId: 'sources_exception'
-                        }),
-                        queryMode: 'local',
-                        valueField: 'name',
-                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                        // настройка combobox под «себя»
-                        // «нормальное» отображение пустых полей в выпадающем списке
-                        displayField: 'name',
-                        hiddenName : 'id',
-                        tpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '<div class="x-boundlist-item" style="min-height: 22px">{name}</div>',
-                                '</tpl>'
-                                ),
-                        displayTpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                '{name}',
-                                '</tpl>'
-                                ),
-                        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-                        editable: false,
-                        listeners: {
-                            afterrender: function() {
-                                this.store.load();
-                            }
-                        }
-                    }*/
+            /*                editor: {
+             xtype: 'combobox',
+             store: Ext.create('app.Store', {
+             fields: ['id', 'name'],
+             storeId: 'sources_exception'
+             }),
+             queryMode: 'local',
+             valueField: 'name',
+             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             // настройка combobox под «себя»
+             // «нормальное» отображение пустых полей в выпадающем списке
+             displayField: 'name',
+             hiddenName : 'id',
+             tpl: Ext.create('Ext.XTemplate',
+             '<tpl for=".">',
+             '<div class="x-boundlist-item" style="min-height: 22px">{name}</div>',
+             '</tpl>'
+             ),
+             displayTpl: Ext.create('Ext.XTemplate',
+             '<tpl for=".">',
+             '{name}',
+             '</tpl>'
+             ),
+             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+             
+             editable: false,
+             listeners: {
+             afterrender: function() {
+             this.store.load();
+             }
+             }
+             }*/
         },
         {// 'name_site'  - описание
             editor: {
@@ -139,8 +139,10 @@ Ext.define('app.module.Call_back_Grid', {
                 app.request(
                         {
                             action: 'get_call_back_code',
+                            id: rec.get('id'),
                             destination: rec.get('destination'),
-                            name_site: rec.get('name_site')
+                            name_site: rec.get('name_site'),
+                            callthrough_time: rec.get('callthrough_time')
                         },
                 function(result) {
                     Ext.create('widget.window', {
