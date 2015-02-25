@@ -8,8 +8,8 @@
 
  *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
 
- *    Сайт проекта «Komunikator»: http://4yate.ru/
- *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+ *    Сайт проекта «Komunikator»: http://komunikator.ru/
+ *    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
 
  *    В проекте «Komunikator» используются:
  *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -33,8 +33,8 @@
 
  *    THIS FILE is an integral part of the project "Komunikator"
 
- *    "Komunikator" project site: http://4yate.ru/
- *    "Komunikator" technical support e-mail: support@4yate.ru
+ *    "Komunikator" project site: http://komunikator.ru/
+ *    "Komunikator" technical support e-mail: support@komunikator.ru
 
  *    The project "Komunikator" are used:
  *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -81,6 +81,16 @@ foreach ($data as $row) {
         } else {
             
         }
+        if ($key == 'caller_number') {
+            $caller_number = $value;
+        } else {
+            
+        }
+        if ($key == 'called_number') {
+            $called_number = $value;
+        } else {
+            
+        }
         $values[$key] = "'$value'";
     }
     $rows[] = $values;
@@ -108,5 +118,23 @@ if ($gateway) {
     $gateway_id = $result1[0]['gateway_id'];
     $sql = "UPDATE call_records SET gateway = $gateway_id WHERE call_records_id = $call_records_id";
     $result2 = query_to_array($sql);
+}
+
+if ($caller_number == null) {
+    $sql = "SELECT caller_group FROM call_records WHERE call_records_id = $call_records_id";
+    $res = query_to_array($sql);
+    if ($res[0]['caller_group'] == '0') {
+        $sql = "UPDATE call_records SET caller_number = '*' WHERE call_records_id = $call_records_id";
+        $result2 = query_to_array($sql);
+    }
+}
+
+if ($called_number == null) {
+    $sql = "SELECT called_group FROM call_records WHERE call_records_id = $call_records_id";
+    $res = query_to_array($sql);
+    if ($res[0]['called_group'] == '0') {
+        $sql = "UPDATE call_records SET called_number = '*' WHERE call_records_id = $call_records_id";
+        $result2 = query_to_array($sql);
+    }
 }
 ?>

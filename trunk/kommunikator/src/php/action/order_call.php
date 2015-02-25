@@ -8,8 +8,8 @@
 
  *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
 
- *    Сайт проекта «Komunikator»: http://4yate.ru/
- *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+ *    Сайт проекта «Komunikator»: http://komunikator.ru/
+ *    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
 
  *    В проекте «Komunikator» используются:
  *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -33,8 +33,8 @@
 
  *    THIS FILE is an integral part of the project "Komunikator"
 
- *    "Komunikator" project site: http://4yate.ru/
- *    "Komunikator" technical support e-mail: support@4yate.ru
+ *    "Komunikator" project site: http://komunikator.ru/
+ *    "Komunikator" technical support e-mail: support@komunikator.ru
 
  *    The project "Komunikator" are used:
  *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -54,26 +54,24 @@
  */
 ?><?
 
-
 //$caller = $_GET["caller"];//добавить проверку
 //$site = $_GET["site"];//добавить проверк
-
 //получаем Номер исполняющий заказ звонка. Если он отсутствует - выводим ошибку
-/*$obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
-$caller = query_to_array($obj);
-if ($caller[0]['value'] == '' || $caller[0]['value'] == null) {
-    $message = "Call order executor is undefined";
-    $jsonResponse = "{\"warning\":\"" . $message . "\"}";
-    echo $callback . "(" . $jsonResponse . ")";
-    exit;
-}*/
+/* $obj = "SELECT value FROM additional_settings WHERE settings_id=3 AND description = 'call_order_executor'";
+  $caller = query_to_array($obj);
+  if ($caller[0]['value'] == '' || $caller[0]['value'] == null) {
+  $message = "Call order executor is undefined";
+  $jsonResponse = "{\"warning\":\"" . $message . "\"}";
+  echo $callback . "(" . $jsonResponse . ")";
+  exit;
+  } */
 //-----
 require_once("php/socketconn.php");
 
 header("Content-Type: application/javascript");
 $callback = $_GET["callback"];
 $called = getparam("number");
-$call_back_id= $_GET["call_back_id"];
+$call_back_id = $_GET["call_back_id"];
 
 $sql1 = "SELECT destination, name_site, callthrough_time FROM call_back WHERE call_back_id = $call_back_id";
 $res = query_to_array($sql1);
@@ -83,8 +81,6 @@ $callthrough_time = $res[0]["callthrough_time"];
 
 //echo("----------------------------------------------". $site);
 //--------
-
-
 //если номер телефона, на который нужно совершить заказанный звонок, не передан - выводим ошибку
 $check_called = str_replace(' ', '', $called);
 if (!$called || $check_called == '') {
@@ -152,8 +148,8 @@ from call_logs a
     (a.status="answered" and b.status="answered")) a
 EOD;
 
-$count = round($res[0]["callthrough_time"]/4, 0, PHP_ROUND_HALF_DOWN);
-for ($i = 0; $i <= $count; $i++) {
+$count = round($res[0]["callthrough_time"] / 4, 0, PHP_ROUND_HALF_DOWN);
+for ($i = 0; $i < $count; $i++) {
     sleep(4);
     $data = compact_array(query_to_array($sql));
     $total = count($data["data"]);
@@ -165,10 +161,10 @@ for ($i = 0; $i <= $count; $i++) {
         break;
     }
     //если соединение между АБОНЕНТАМИ не произошло в течении 25сек, отвечаем false
-    if ($i == 4 && $total == 0) {
+    if ($i == ($count - 1) && $total == 0) {
         $message = "false";
         $jsonResponse = "{\"success\":\"" . $message . "\"}";
-        echo $callback . "(" . $jsonResponse . ")";
+        echo $callback . "(" . $jsonResponse . $count . ")";
     }
 }
 ?>

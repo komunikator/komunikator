@@ -53,6 +53,8 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 ?><?
+header("Content-Type: application/javascript");
+$callback = $_GET["callbackStatus"];
 
     $status = 'offline';
     $query = "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames";
@@ -66,7 +68,5 @@
                 $status = 'online';
     };
 
-$f_data = array('status', $status);
-
-echo out($f_data);
-
+    $jsonResponse = "{\"status\":\"" . $status . "\"}";
+    echo $callback . "(" . $jsonResponse . ")";

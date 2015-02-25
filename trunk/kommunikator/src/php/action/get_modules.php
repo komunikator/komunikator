@@ -8,8 +8,8 @@
 
  *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
 
- *    Сайт проекта «Komunikator»: http://4yate.ru/
- *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+*    Сайт проекта «Komunikator»: http://komunikator.ru/
+*    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
 
  *    В проекте «Komunikator» используются:
  *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -33,8 +33,8 @@
 
  *    THIS FILE is an integral part of the project "Komunikator"
 
- *    "Komunikator" project site: http://4yate.ru/
- *    "Komunikator" technical support e-mail: support@4yate.ru
+*    "Komunikator" project site: http://komunikator.ru/
+*    "Komunikator" technical support e-mail: support@komunikator.ru
 
  *    The project "Komunikator" are used:
  *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -59,12 +59,10 @@ if (!$_SESSION['user']) {
     exit;
 }
 
-
 $total = compact_array(query_to_array("SELECT count(*) FROM modules"));
 
 if (!is_array($total["data"]))
     echo out(array("success" => false, "message" => $total));
-
 
 $sql = <<<EOD
 SELECT
@@ -81,8 +79,6 @@ $data = compact_array(query_to_array($sql . get_sql_order_limit()));
 
 if (!is_array($data["data"]))
     echo out(array("success" => false, "message" => $data));
-
-
 
 /* - - - - -  подключение или отключение модулей (НАЧАЛО)  - - - - - */
 
