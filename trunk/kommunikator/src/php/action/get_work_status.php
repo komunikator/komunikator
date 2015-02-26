@@ -53,20 +53,21 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 ?><?
+
 header("Content-Type: application/javascript");
-$callback = $_GET["callbackStatus"];
+$callback = $_GET["callback"];
 
+$status = 'offline';
+$query = "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames";
+$res = query_to_array($query);
+if (count($res)) {
+    $day_week = date('w');
+    $hour = date('H') * 1;
     $status = 'offline';
-    $query = "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames";
-    $res = query_to_array($query);
-    if (count($res)) {
-        $day_week = date('w');
-        $hour = date('H') * 1;
-        $status = 'offline';
-        foreach ($res as $row)
-            if ($row["numeric_day"] == $day_week && $row["start_hour"] <= $hour && $hour < $row["end_hour"])
-                $status = 'online';
-    };
+    foreach ($res as $row)
+        if ($row["numeric_day"] == $day_week && $row["start_hour"] <= $hour && $hour < $row["end_hour"])
+            $status = 'online';
+};
 
-    $jsonResponse = "{\"status\":\"" . $status . "\"}";
-    echo $callback . "(" . $jsonResponse . ")";
+$jsonResponse = "{\"status\":\"" . $status . "\"}";
+echo $callback . "(" . $jsonResponse . ")";
