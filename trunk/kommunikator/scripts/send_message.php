@@ -81,6 +81,11 @@ if (!isset($incoming_trunks)) {
     $incoming_trunks = array();
 }
 
+$sql_time = "SELECT value FROM ntn_settings WHERE param = 'time_zone_hour'";
+$res_time = query_to_array($sql_time);
+$time_zone_hour = ($res_time[0]['value']) ? $res_time[0]['value'] : 3; 
+
+
 // Always the first action to do 
 Yate::Init();
 
@@ -129,7 +134,7 @@ for (;;) {
                             $params = array();
 
                             $params['incoming_trunk'] = $incoming_trunks[$ev->GetValue('billid')];
-                            $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time') + 60 * 60 * $def_time_offset);
+                            $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time') + 60 * 60 * $time_zone_hour);
                             $params['caller'] = $ev->GetValue('caller');
                             // $params['called'] = $ev->GetValue('called');  // если снять комментарий, то элементы incoming_trunk и caller будут идентичны
 
@@ -167,7 +172,7 @@ for (;;) {
                     $params['username'] = $ev->GetValue('username');
                     $params['caller'] = ($params['username']) ? $params['username'] : $ev->GetValue('caller');
                     $params['called'] = $ev->GetValue('called');
-                    $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time') + 60 * 60 * $def_time_offset);
+                    $params['ftime'] = strftime(TIME_FMT, $ev->GetValue('time') + 60 * 60 * $time_zone_hour);
 
                     // Do not log internal calls
                     // if (strlen($params['caller']) <= 3 && strlen($params['called']) <= 3) return;
