@@ -56,76 +56,6 @@
 
 require_once("php/socketconn.php");
 
-header("Content-Type: application/javascript");
-$callback = $_GET["callback"];
-$called = getparam("number");
-$call_back_id = $_GET["call_back_id"];
-
-
-$sql1 = "SELECT destination, name_site, callthrough_time FROM call_back WHERE call_back_id = $call_back_id";
-$res = query_to_array($sql1);
-
-// - - - - - - - error checking - - - - - - -
-
-$check_called = str_replace(' ', '', $called);
-if (!$called || $check_called == '') {
-    $message = "Phone number is undefined";
-    $jsonResponse = "{\"warning\":\"" . $message . "\"}";
-    echo $callback . "(" . $jsonResponse . ")";
-    exit;
-}
-
-if (!$call_back_id || $call_back_id == '' || count($res) == 0) {
-    $message = "Caller undefined";
-    $jsonResponse = "{\"warning\":\"" . $message . "\"}";
-    echo $callback . "(" . $jsonResponse . ")";
-    exit;
-}
-
-$caller = $res[0]["destination"];
-$site = urlencode($res[0]["name_site"]);
-$callthrough_time = $res[0]["callthrough_time"];
-
-if ($_SESSION['last_action']) {
-    if ((time() - $_SESSION['last_action']) < ($callthrough_time + 5)) {
-        $message = "You can reorder the call after " . ($callthrough_time + 5) . " seconds";
-        $jsonResponse = "{\"warning\":\"" . $message . "\"}";
-        echo $callback . "(" . $jsonResponse . ")";
-        exit;
-    }
-}
-
-// - - - - - - - error checking(END) - - - - - - -
-
-$_SESSION['last_action'] = time();
-session_write_close();
-
-//проверяем есть ли активные звонки с нужными параметрами
-$sql_action_call =
-        <<<EOD
-select * from (
-select
-    case 
-        when x.extension is not null and x2.extension is not null then 'internal'
-        when x.extension is not null then 'outgoing'
-        else 'incoming'
-    end type,
-    a.caller,
-    b.called,
-    case 
-        when a.status!="answered" or b.status!="answered" 
-            then "progressing" 
-        else a.status 
-    end status
-from call_logs a  
-    join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
-    left join extensions x on x.extension=a.caller
-    left join extensions x2 on x2.extension=b.called
-    where a.ended=0 and a.direction='incoming' and 
-    a.status!='unknown' and b.called = $called and
-    (a.status="answered" and b.status="answered")) a
-EOD;
-
 function click_to_call($caller, $called, $site, $callthrough_time) {
     $command = "click_to_call $caller $called $site $callthrough_time";
 
@@ -142,13 +72,75 @@ function click_to_call($caller, $called, $site, $callthrough_time) {
     }
 }
 
+header("Content-Type: application/javascript");
+$callback = $_GET["callback"];
+$called = getparam("number");
+$call_back_id = $_GET["call_back_id"];
+
+$sql1 = "SELECT destination, name_site, callthrough_time FROM call_back WHERE call_back_id = $call_back_id";
+$res = query_to_array($sql1);
+
+// - - - - - - - error checking - - - - - - -
+
+$check_called = str_replace(' ', '', $called);
+if (!$called || $check_called == '') {
+    echo $callback . '({"warning":"Phone number is undefined"})';
+    exit;
+}
+
+if (!$call_back_id || $call_back_id == '' || count($res) == 0) {
+    echo $callback . '({"warning":"Caller undefined"})';
+    exit;
+}
+
+$caller = $res[0]["destination"];
+$site = urlencode($res[0]["name_site"]);
+$callthrough_time = $res[0]["callthrough_time"];
+
+if ($_SESSION['last_action']) {
+    if ((time() - $_SESSION['last_action']) < ($callthrough_time + 5)) {
+        $message = "You can reorder the call after " . ($callthrough_time + 5) . " seconds";
+        echo $callback . '({"warning":"' . $message . '"}';
+        exit;
+    }
+}
+
+// - - - - - - - error checking(END) - - - - - - -
+
+$_SESSION['last_action'] = time();
+session_write_close();
+
+$sql_action_call = <<<EOD
+SELECT * FROM(
+SELECT
+    CASE
+        WHEN x.extension IS NOT NULL AND x2.extension IS NOT NULL THEN 'internal'
+        WHEN x.extension IS NOT NULL THEN 'outgoing'
+        ELSE 'incoming'
+    END type,
+    a.caller,
+    b.called,
+    CASE 
+        WHEN a.status!="answered" OR b.status!="answered" 
+            THEN "progressing" 
+        ELSE a.status 
+    END status
+FROM call_logs a  
+    JOIN call_logs b ON b.billid=a.billid AND b.ended=0 AND b.direction='outgoing' AND b.status!='unknown'
+    LEFT JOIN extensions x ON x.extension=a.caller
+    LEFT JOIN extensions x2 ON x2.extension=b.called
+    WHERE a.ended=0 AND a.direction='incoming' AND
+    a.status!='unknown' AND b.called = $called AND
+    (a.status="answered" AND b.status="answered")) a
+EOD;
+
 if (strlen($caller) == 2) {
     $sql = "SELECT group_id FROM groups WHERE extension = $caller";
     $res = query_to_array($sql);
     if ($res) {
+
         $group_id = $res[0]["group_id"];
         $last_priority = NULL;
-
         $count = round($callthrough_time / 11, 0, PHP_ROUND_HALF_DOWN);
 
         for ($i = 0; $i < $count; $i++) {
@@ -165,26 +157,24 @@ if (strlen($caller) == 2) {
             $last_priority 
 	    ORDER BY priority DESC, inuse_last";
             $res1 = query_to_array($sql1);
+
             $caller = $res1[0]["number"];
-            /*  if($i == 1){echo $last_priority; echo("!");
-              print_r($res1);
-              echo $sql1; exit;}
-             */ if (!$res1 && $last_priority == NULL) {
-                $message = "Caller undefined";
-                $jsonResponse = "{\"warning\":\"" . $message . "\"}";
-                echo $callback . "(" . $jsonResponse . ")";
+
+            if (!$res1 && $last_priority == NULL) {
+                $sql_count = "SELECT count(extension_id) as count FROM group_members WHERE group_id = $group_id";
+                $res_count = query_to_array($sql_count);
+                $jsonResponse = ($res_count[0]['count'] == 0) ? '({"warning":"Caller undefined(look at the group members)"})' : '({"success":"false"})';
+                echo $callback . $jsonResponse;
                 exit;
             }
+
             if (!$res1 && $last_priority !== NULL) {
                 $last_priority = NULL;
                 $res1 = query_to_array($sql1);
                 if (!$res1) {
-                    $message = "false";
-                    $jsonResponse = "{\"success\":\"" . $message . "\"}";
-                    echo $callback . "(" . $jsonResponse . ")";
+                    echo $callback . '({"success":"false"})';
                     break;
-                }
-                ;
+                };
             }
             click_to_call($caller, $called, $site, 10);
 
@@ -200,46 +190,42 @@ if (strlen($caller) == 2) {
                 }
             }
             if ($stop) {
-                $message = "true";
-                $jsonResponse = "{\"success\":\"" . $message . "\"}";
-                echo $callback . "(" . $jsonResponse . ")";
+                echo $callback . '({"success":"true"})';
                 break;
             }
             if ($i == ($count - 1) && !$stop) {
-                $message = "false";
-                $jsonResponse = "{\"success\":\"" . $message . "\"}";
-                echo $callback . "(" . $jsonResponse . ")";
+                echo $callback . '({"success":"false"})';
             }
-            $last_priority = (!$res1[0]["priority"]) ? NULL : "WHERE coalesce(gp.priority, 0) < " . $res1[0]["priority"]; // echo("!"); echo $last_priority; echo("!"); exit;
+            $last_priority = (!$res1[0]["priority"]) ? NULL : "WHERE coalesce(gp.priority, 0) < " . $res1[0]["priority"];
             sleep(2);
         }
     } else {
-        $message = "Caller group undefined";
-        $jsonResponse = "{\"warning\":\"" . $message . "\"}";
-        echo $callback . "(" . $jsonResponse . ")";
+        echo $callback . '({"warning":"Caller group undefined"})';
         exit;
     }
 } else {
+    $sql_busyness = "SELECT inuse_count FROM extensions WHERE extension = $caller";
+    $res_busyness = query_to_array($sql_busyness);
 
-    click_to_call($caller, $called, $site, $callthrough_time);
+    if ($res_busyness[0]['inuse_count'] == 0) {
+        click_to_call($caller, $called, $site, $callthrough_time);
 
-    $count = round($callthrough_time / 4, 0, PHP_ROUND_HALF_DOWN);
-    for ($i = 0; $i < $count; $i++) {
-        sleep(4);
-        $data = compact_array(query_to_array($sql_action_call));
-        $total = count($data["data"]);
-        // соединение прошло успешно, отвечаем true
-        if ($total > 0) {
-            $message = "true";
-            $jsonResponse = "{\"success\":\"" . $message . "\"}";
-            echo $callback . "(" . $jsonResponse . ")";
-            break;
+        $count = round($callthrough_time / 4, 0, PHP_ROUND_HALF_DOWN);
+        for ($i = 0; $i < $count; $i++) {
+            sleep(4);
+            $data = compact_array(query_to_array($sql_action_call));
+            $total = count($data["data"]);
+
+            if ($total > 0) {
+                echo $callback . '({"success":"true"})';
+                break;
+            }
+
+            if ($i == ($count - 1) && $total == 0) {
+                echo $callback . '({"success":"false"})';
+            }
         }
-        //если соединение между АБОНЕНТАМИ не произошло в течении 25сек, отвечаем false
-        if ($i == ($count - 1) && $total == 0) {
-            $message = "false";
-            $jsonResponse = "{\"success\":\"" . $message . "\"}";
-            echo $callback . "(" . $jsonResponse . ")";
-        }
+    } else {
+        echo $callback . '({"success":"false"})';
     }
 }
