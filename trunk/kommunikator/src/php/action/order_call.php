@@ -149,8 +149,11 @@ if (strlen($caller) == 2) {
         $group_id = $res[0]["group_id"];
         $last_priority = NULL;
 
-        $sql1 = "
-                        SELECT e.extension as number, gp.priority
+        $count = round($callthrough_time / 11, 0, PHP_ROUND_HALF_DOWN);
+
+        for ($i = 0; $i < $count; $i++) {
+            $sql1 = "
+                 SELECT e.extension as number, gp.priority
             FROM 
                 (SELECT extensions.extension_id, extension, inuse_last 
                  FROM extensions,group_members 
@@ -159,17 +162,14 @@ if (strlen($caller) == 2) {
                  AND coalesce(extensions.inuse_count,0)=0
                  AND extensions.expires is not NULL) e 
             LEFT JOIN group_priority gp ON e.extension_id = gp.extension_id and gp.group_id = $group_id
-     $last_priority 
-
+            $last_priority 
 	    ORDER BY priority DESC, inuse_last";
-
-
-        $count = round($callthrough_time / 11, 0, PHP_ROUND_HALF_DOWN);
-
-        for ($i = 0; $i < $count; $i++) {
             $res1 = query_to_array($sql1);
             $caller = $res1[0]["number"];
-            if (!$res1 && $last_priority == NULL) {
+            /*  if($i == 1){echo $last_priority; echo("!");
+              print_r($res1);
+              echo $sql1; exit;}
+             */ if (!$res1 && $last_priority == NULL) {
                 $message = "Caller undefined";
                 $jsonResponse = "{\"warning\":\"" . $message . "\"}";
                 echo $callback . "(" . $jsonResponse . ")";
@@ -210,7 +210,7 @@ if (strlen($caller) == 2) {
                 $jsonResponse = "{\"success\":\"" . $message . "\"}";
                 echo $callback . "(" . $jsonResponse . ")";
             }
-            $last_priority = "WHERE gp.priority < " . $res1[0]["priority"];
+            $last_priority = (!$res1[0]["priority"]) ? NULL : "WHERE coalesce(gp.priority, 0) < " . $res1[0]["priority"]; // echo("!"); echo $last_priority; echo("!"); exit;
             sleep(2);
         }
     } else {
