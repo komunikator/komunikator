@@ -90,4 +90,50 @@ $obj = array("success" => true);
 $obj["total"] = $total['data'][0][0];
 $obj["data"] = $data['data'];
 
+$pictures = array(); 
+if ($dir = opendir("records/"))  {     
+     while (false !== ($file = readdir($dir))) {         
+         if ($file == "." || $file == ".." || (is_dir("records/".$file))) continue; 
+          $pictures[] = $file; 
+          $i++;  //echo($file);
+     } 
+     closedir($dir); 
+} 
+//print_r($pictures);
+//$today = date("d_m_Y");
+//$today->modify('-1 month');
+//echo $today;
+//$date = new DateTime();
+$date = date('d_m_Y',strtotime ('-3 month')); //echo gettype($date) . $date; exit;
+  $date = strtotime($date);
+foreach ($pictures as $key => $value)
+{
+    
+  $value = explode("_", $value); //echo($value[2] . "<br />");
+  $date1 = $value[0]."-" . $value[1] ."-". $value[2]; 
+ // $date1 =  strtotime($date1);
+  //echo (gettype($date) . "!" . gettype($date1)."<br />"); exit;
+  //$date1 =  strtotime($date1);
+ // echo("!" . $date1 . "<br />");
+  //echo("?" . $date . "<br />");
+  $date1 = strtotime($date1); //echo $date1 . "<br />"; exit;
+
+  if($date1 > $date){
+    //  echo "дата больше" .$date1 ."!". $date. "<br />";
+      //$date1->format('d_m_Y');
+  //echo("aga" . $date1 . "<br />");
+  
+  } //else echo "дата меньше" .$date1 ."!". $date. "<br />";
+//$timestamp= strtotime("$value[2]-$value[1]-$value[0]");echo $timestamp .  "<br />";
+
+//$timestamp->format('d_m_Y');
+//echo $timestamp .  "<br />";
+//$data1 = new DateTime("'".$data1."'"); echo $date1 .  "<br />";
+//$date1 = new DateTime("'" .$value[0]. "'-'" . $value[1]. "'-'" .$value[2] . "'");  echo $date1;
+//echo( $value[0] ."day" . $value[1] ."month" .$value[2] . "year".  "<br />");
+//if($date>$date1)
+    //echo($date1 .  "<br />");
+  
+}
+
 echo out($obj);

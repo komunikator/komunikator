@@ -55,7 +55,7 @@
 Ext.define('app.module.Call_back_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'destination', 'name_site', 'callthrough_time', 'description', 'button_code'],
+        fields: ['id', 'destination', 'name_site', 'callthrough_time', 'description', 'button_code', 'settings'],
         storeId: 'call_back'
     },
     columns: [
@@ -135,7 +135,6 @@ Ext.define('app.module.Call_back_Grid', {
             icon: 'js/app/images/Grey_button.png',
             handler: function(grid, rowIndex, colIndex) {
                 var rec = grid.getStore().getAt(rowIndex);
-                // var sda_url = 'data.php?action=get_button_code&sda_short_name=' + rec.get('short_name') + '&sda_button_color=' + rec.get('color');
                 app.request(
                         {
                             action: 'get_call_back_code',
@@ -155,6 +154,34 @@ Ext.define('app.module.Call_back_Grid', {
                         modal: true, // блокирует всё, что на заднем фоне
                         draggable: true, // перемещение объекта по экрану
                         html: '<pre>' + result.data + '</pre>'
+                    }).show();
+                }
+                );
+            }
+        },
+                {// 'settings' 
+            xtype: 'actioncolumn',
+            sortable: false,
+            groupable: false,
+            icon: 'js/app/images/Settings.png',
+            handler: function(grid, rowIndex, colIndex) {
+                var rec = grid.getStore().getAt(rowIndex);
+                app.request(
+                        {
+                            action: 'get_settings_callback',
+                            id: rec.get('id')
+                        },
+                function(result) {
+                    Ext.create('widget.window', {
+                        title: app.msg.button_code,
+                        width: 600,
+                        height: 450,
+                        autoHeight: true,
+                        autoScroll: true,
+                        maximizable: true, // значок «раскрыть окно на весь экран»
+                        modal: true, // блокирует всё, что на заднем фоне
+                        draggable: true, // перемещение объекта по экрану
+                        html: result.data
                     }).show();
                 }
                 );
