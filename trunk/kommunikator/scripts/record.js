@@ -4,7 +4,7 @@ var fs = require('fs');
 var Nodeyate = require('./Nodeyate.js');
 var path = require('path');
 var mysql = require('mysql');
-
+var _billid = {};
 process.stdin.resume();
 
 process.stdin.on('data', function(data) {
@@ -27,6 +27,7 @@ process.stdin.on('data', function(data) {
 
      //метод объекта  - определени вида сообщения
      Nod.parse(data);     
+    //fs.appendFile('/tmp/file', JSON.stringify(Nod)+  '\n');
 
      // тут основной цикл по обработке 
      switch(Nod.type){
@@ -39,15 +40,23 @@ process.stdin.on('data', function(data) {
             
             var temp_id = Nod.param['id'];
             var tra = temp_id.split('/');
+		  
+	    if (Nod.param['billid'])
+              _billid[Nod.param['targetid']] = Nod.param['billid'];
+
 
             // условия канала 
-            if ((Nod.param['answered'] == 'true')){
-
+            if (Nod.param['answered'] == 'true'){
                // канал
-               id_in = Nod.param['id'];    
+               var id_in = Nod.param['id'];    
                  
-               var billid = Nod.param['billid'];
+               var billid = Nod.param['billid']; 
+	 	if (!billid) {
+                   billid = _billid[Nod.param['targetid']];
+                   delete _billid[Nod.param['targetid']]  
+               };
 
+               if (billid){
                  // формирование названия из billida
                var temp_file = billid.split('-');
                var file_name = '';
@@ -75,7 +84,7 @@ process.stdin.on('data', function(data) {
                             
  
                //fs.appendFile('/tmp/answered',' - ' + path_1 + ' --' +   path_2 + ' - '+  ' - ' + billid  + ' - ' +  '\n');
-               
+               }
             }
             // оветим на это сообщение
             Nod.handled = 'false';
