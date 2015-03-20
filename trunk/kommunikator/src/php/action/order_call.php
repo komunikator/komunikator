@@ -193,9 +193,9 @@ if (strlen($caller) == 2) {
                 echo $callback . '({"success":"true"})';
                 break;
             }
-            if ($i == ($count - 1) && !$stop) {
+            if ($i == ($count - 1) && !$stop) 
                 echo $callback . '({"success":"false"})';
-            }
+            
             $last_priority = (!$res1[0]["priority"]) ? NULL : "WHERE coalesce(gp.priority, 0) < " . $res1[0]["priority"];
             sleep(2);
         }
@@ -221,11 +221,11 @@ if (strlen($caller) == 2) {
                 break;
             }
 
-            if ($i == ($count - 1) && $total == 0) {
+            if ($i == ($count - 1) && $total == 0) 
                 echo $callback . '({"success":"false"})';
-            }
+            
         }
-    } else {
+    } else 
         echo $callback . '({"success":"false"})';
-    }
+    
 }
