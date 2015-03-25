@@ -38,16 +38,19 @@ $partycallid = "";
 $newsource = "";
 $answermode = "";
 $override = "";
+$billid = "";
 
 function SendMsg($msg)
 {
     global $ourcallid;
     global $partycallid;
+    global $billid;
     $m = new Yate($msg);
     $m->id = "";
     $m->params["id"] = $ourcallid;
     $m->params["peerid"] = $partycallid;
     $m->params["targetid"] = $partycallid;
+    $m->params["billid"] = $billid;
     $m->params["reason"] = "queued";
     $m->params["cdrcreate"] = "false";
     $m->Dispatch();
@@ -76,6 +79,7 @@ for (;;) {
 	    switch ($ev->name) {
 		case "call.execute":
 		    $partycallid = $ev->params["id"];
+            	    $billid = $ev->params["billid"];
 		    if (array_key_exists("targetid",$ev->params))
 			$ourcallid = $ev->params["targetid"];
 		    else
