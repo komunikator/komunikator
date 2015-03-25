@@ -6,8 +6,8 @@
  
  *    ЭТОТ ФАЙЛ является частью проекта «Komunikator»
  
- *    Сайт проекта «Komunikator»: http://4yate.ru/
- *    Служба технической поддержки проекта «Komunikator»: E-mail: support@4yate.ru
+ *    Сайт проекта «Komunikator»: http://komunikator.ru/
+ *    Служба технической поддержки проекта «Komunikator»: E-mail: support@komunikator.ru
  
  *    В проекте «Komunikator» используются:
  *      исходные коды проекта «YATE», http://yate.null.ro/pmwiki/
@@ -31,8 +31,8 @@
  
  *    THIS FILE is an integral part of the project "Komunikator"
  
- *    "Komunikator" project site: http://4yate.ru/
- *    "Komunikator" technical support e-mail: support@4yate.ru
+ *    "Komunikator" project site: http://komunikator.ru/
+ *    "Komunikator" technical support e-mail: support@komunikator.ru
  
  *    The project "Komunikator" are used:
  *      the source code of "YATE" project, http://yate.null.ro/pmwiki/
@@ -59,97 +59,82 @@ app.source_tip = function(values) {
 }
 
 Ext.define('app.module.Keys_Grid', {
-    extend : 'app.Grid',
-
-    store_cfg : {
-        fields   : ['id', 'status', 'key', 'destination', 'description'],
-        storeId  : 'keys'
+    extend: 'app.Grid',
+    store_cfg: {
+        fields: ['id', 'status', 'key', 'destination', 'description'],
+        storeId: 'keys'
     },
+    columns_renderer:
+            function(value, metaData, record, rowIndex, colIndex, store) {
+                if (colIndex == 2 && app.msg[value]) {
+                    return app.msg[value];
+                }
 
-    columns_renderer :
-        function(value, metaData, record, rowIndex, colIndex, store) {
-            if (colIndex == 2 && app.msg[value]) {
-                return app.msg[value];
-            }
-
-            return value;
+                return value;
+            },
+    columns: [
+        {// 'id'
+            hidden: true
         },
-
-    columns : [
-        {  // 'id'
-            hidden : true
-        },
-        {  // 'status'
-            width : 150,
-
-            editor : {
-                xtype       : 'combobox',
-
-                store : [
+        {// 'status'
+            width: 150,
+            editor: {
+                xtype: 'combobox',
+                store: [
                     ['online', app.msg['online'] ? app.msg['online'] : 'online'],
                     ['offline', app.msg['offline'] ? app.msg['offline'] : 'offline']
                 ],
-
-                queryMode   : 'local',
-                allowBlank  : false,
-                editable    : false
+                queryMode: 'local',
+                allowBlank: false,
+                editable: false
             }
         },
-        {  // 'key'
-            width : 100,
-            
-            editor : {
-                xtype       : 'textfield',
-                regex       : /^\d$/,
-                allowBlank  : false
+        {// 'key'
+            width: 100,
+            editor: {
+                xtype: 'textfield',
+                regex: /^\d$/,
+                allowBlank: false
             }
         },
-        {  // 'destination'
-            width : 150,
-
+        {// 'destination'
+            width: 150,
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             // было создано отдельное хранилище sources_exception
             // в котором отсутствуют: Автосекретарь, Голосовая почта
 
-            editor : {
-                xtype         : 'combobox',
-
-                store : Ext.create('app.Store', {
-                    fields   : ['id', 'name'],
-                    storeId  : 'sources_exception'
+            editor: {
+                xtype: 'combobox',
+                store: Ext.create('app.Store', {
+                    fields: ['id', 'name'],
+                    storeId: 'sources_exception'
                 }),
-
-                queryMode     : 'local',
-
-                displayField  : 'name',
-                valueField    : 'name',
-
-                allowBlank    : false,
-                editable      : false
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'name',
+                allowBlank: false,
+                editable: false
             }
             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         },
-        {  // 'description'
-            width : 150,
-            
-            editor : {
+        {// 'description'
+            width: 150,
+            editor: {
                 xtype: 'textfield'
             }
         }
     ],
-            
     columns_renderer :
-        function(value, metadata, record, rowIndex, colIndex, store) {
-            if (colIndex == 1 || colIndex == 3) {
-                metadata.tdAttr = 'data-qtip="' + app.msg[value] ? app.msg[value] : value + '"';
-                return app.msg[value] ? app.msg[value] : value;
-            }
-            
-            return value;
-        },
-        
-    initComponent : function() {
+            function(value, metadata, record, rowIndex, colIndex, store) {
+                if (colIndex == 1 || colIndex == 3) {
+                    metadata.tdAttr = 'data-qtip="' + app.msg[value] ? app.msg[value] : value + '"';
+                    return app.msg[value] ? app.msg[value] : value;
+                }
+
+                return value;
+            },
+            initComponent: function() {
         this.callParent(arguments);
     }
-    
+
 });
