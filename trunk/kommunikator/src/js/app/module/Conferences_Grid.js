@@ -74,24 +74,14 @@ Ext.define('app.module.Conferences_Grid', {
             }
         },
         {  // number
-            width : 90,
-            
-            editor : {
-                allowBlank : false,
-                editable : false,
-               
-                xtype : 'combobox',
-                
-                store : Ext.create('app.Store', {
-                    fields   : ['id', 'name'],
-                    storeId  : 'number_extensions'
-                }),
-                
-                displayField : 'name',
-                valueField : 'name',
-               
-                queryMode : 'local'
-             }
+            width: 120,
+            groupable: false,
+            editor: {
+                xtype: 'textfield',
+                regex: /^\d{3}$/,
+                allowBlank: false
+            }
+             
         },
         {  // participants
             width : 90
