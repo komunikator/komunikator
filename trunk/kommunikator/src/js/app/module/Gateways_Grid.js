@@ -137,9 +137,9 @@ Ext.define('app.module.Gateways_Grid', {
                 mode: 'local',
                 triggerAction: 'all',
                 store: [
-                    ['UDP', 'UDP'],
+                    ['UDP', 'UDP']/*,
                     ['TLS', 'TLS'],
-                    ['TCP', 'TCP']
+                    ['TCP', 'TCP']*/
                 ],
                 editable: false,
                 allowBlank: false
