@@ -103,12 +103,7 @@ SELECT * FROM (
             WHEN a.time IS NOT NULL 
                 THEN CONCAT(date_format(FROM_UNIXTIME(a.time), '%d_%m_%Y_%H_%i_%s'), '~',a.caller, '~', a.called)
             ELSE NULL
-        END record,
-        CASE
-            WHEN a.time IS NOT NULL 
-                THEN CONCAT(date_format(FROM_UNIXTIME(a.time), '%d_%m_%Y_%H_%i_%s'), '~',a.caller, '~', a.called)
-            ELSE NULL
-        END download
+        END record
     FROM call_history a
     LEFT JOIN extensions x1 ON x1.extension = caller
     LEFT JOIN extensions x2 ON x2.extension = called
@@ -152,6 +147,7 @@ foreach ($data["data"] as $row) {
         $row[8] = NULL;
         $row[9] = NULL;
     }
+     else $row[9]=$row[8];
     $f_data[] = $row;
     $f_data = translate($f_data, $_SESSION['lang'] ? $_SESSION['lang'] : 'ru');   //переводим на рус/англ
 }
