@@ -159,7 +159,7 @@ Ext.define('app.module.Call_back_Grid', {
                 );
             }
         },
-                {// 'settings' 
+        {// 'settings' 
             xtype: 'actioncolumn',
             sortable: false,
             groupable: false,
@@ -181,7 +181,56 @@ Ext.define('app.module.Call_back_Grid', {
                         maximizable: true, // значок «раскрыть окно на весь экран»
                         modal: true, // блокирует всё, что на заднем фоне
                         draggable: true, // перемещение объекта по экрану
-                        html: result.data
+                        html: result.data,
+                        bbar: [
+                            {
+                                text: 'Close',
+                                handler: function() {
+                                    // this.up('.window').close();
+                                    var element = Ext.getCmp('testt');;
+                                    alert(element.getValues());
+                                }
+                            }
+                        ],
+                        /*  items: [
+                         {
+                         xtype: 'button',
+                         text: 'Cancel',
+                         itemId: 'cancel',
+                         iconCls: 'cancel'
+                         },
+                         {
+                         xtype: 'button',
+                         text: 'Save',
+                         itemId: 'save',
+                         iconCls: 'save'
+                         }
+                         ]*/dockedItems: [
+                            {
+                                xtype: 'toolbar',
+                                flex: 1,
+                                dock: 'bottom',
+                                ui: 'footer',
+                                layout: {
+                                    pack: 'end',
+                                    type: 'hbox'
+                                },
+                                items: [
+                                    {
+                                        xtype: 'button',
+                                        text: 'Cancel',
+                                        itemId: 'cancel',
+                                        iconCls: 'cancel'
+                                    },
+                                    {
+                                        xtype: 'button',
+                                        text: 'Save',
+                                        itemId: 'save',
+                                        iconCls: 'save'
+                                    }
+                                ]
+                            }
+                        ]
                     }).show();
                 }
                 );
