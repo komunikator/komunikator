@@ -299,6 +299,7 @@ app.msg = {
     text_call_website: 'Lets IP-PBX handle incoming calls from web-sites.',
     text_mail_Settings: 'Lets IP-PBX trace calls and notify the user by sending emails.',
     text_call_record: 'Enables calls recording in the PBX according to costomizable rules.',
+    text_call_back:'Lets the IP-PBX make call to the number put into a web form.',
     record: 'Record',
     // - - для истории звонков - инфо о звонке с сайта
     ip: 'ip',

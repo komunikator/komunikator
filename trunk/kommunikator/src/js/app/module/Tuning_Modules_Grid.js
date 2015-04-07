@@ -64,48 +64,15 @@ Ext.define('app.module.Tuning_Modules_Grid', {
             hidden: true
         },
         {// 'module_name'
-            width: 150,
-            renderer: function(v) {
-                if (v == 'Mail_Settings_Panel')
-                    return app.msg.Mail_Settings_Panel;
-                else
-                if (v == 'Call_website_Grid')
-                    return app.msg.Call_website_Grid;
-                else
-                if (v == 'Call_Record_Grid')
-                    return app.msg.Call_Record_Grid;
-                else
-                if (v == 'Call_back_Grid')
-                    return app.msg.Call_back_Grid;
-            },
-            editor: {
-                xtype: 'textfield',
-                disabled: true
-            }
+            width: 150,                 
+            sortable: false
         },
         {// 'description'
             width: 500,
-            renderer: function(v) {
-                if (v == 'text_call_website')
-                    return app.msg.text_call_website;
-                else
-                if (v == 'text_mail_Settings')
-                    return app.msg.text_mail_Settings;
-                else
-                if (v == 'text_call_record')
-                    return app.msg.text_call_record;
-            },
-            editor: {
-                xtype: 'textfield',
-                disabled: true
-            }
+            sortable: false            
         },
         {// 'version'
-            width: 70,
-            editor: {
-                xtype: 'textfield',
-                disabled: true
-            }
+            width: 70
         },
         {//'condition'
             renderer: app.checked_render,
@@ -118,6 +85,14 @@ Ext.define('app.module.Tuning_Modules_Grid', {
             }
         }
     ],
+    columns_renderer:
+            function(value, metaData, record, rowIndex, colIndex, store) {
+                if (colIndex == 1 || colIndex == 2)
+                {
+                    return app.msg[value];
+                }
+                return value;
+            },
     initComponent: function() {
         this.callParent(arguments);
         this.store.on('load',
