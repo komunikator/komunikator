@@ -75,35 +75,23 @@ Ext.define('app.module.Extra_Grid', {
         },
         {//description
             width: 500,
-            renderer: function(v) {
-                if (v == 'call_history_lifespan')
-                    return app.msg.call_history_lifespan;
-                else
-                if (v == 'call_records_lifespan')
-                    return app.msg.call_records_lifespan;
-                else
-                if (v == 'call_order_executor')
-                    return app.msg.call_order_executor;
-            },
-            editor: {
-                xtype: 'textfield',
-                disabled: true
-            }},
+            sortable: false
+        },
         {//time
             width: 150,
             editor: {
                 xtype: 'textfield'
             }
-            /*editor: {
-             xtype: 'combobox',
-             store: time,
-             queryMode: 'local',
-             displayField: 'time',
-             valueField: 'time',
-             editable: false
-             }*/
         }
     ],
+    columns_renderer:
+            function(value, metaData, record, rowIndex, colIndex, store) {
+                if (colIndex == 1)
+                {
+                    return app.msg[value];
+                }
+                return value;
+            },
     initComponent: function() {
         this.callParent(arguments);
     }
