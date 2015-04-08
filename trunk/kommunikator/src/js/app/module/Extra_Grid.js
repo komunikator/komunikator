@@ -51,15 +51,6 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 
-var time = Ext.create('Ext.data.Store', {
-    fields: ['id', 'time'],
-    data: [
-        {"id": "0", 'time': app.msg.one_month},
-        {"id": "1", 'time': app.msg.three_months},
-        {"id": "2", 'time': app.msg.six_months},
-        {"id": "3", 'time': app.msg.one_year}
-    ]
-});
 
 Ext.define('app.module.Extra_Grid', {
     extend: 'app.Grid',
