@@ -55,6 +55,7 @@ app.Loader.load('js/ux/css/CheckHeader.css');
 
 Ext.define('app.module.Gateways_Grid', {
     extend: 'app.Grid',
+    restart_button: true,
     store_cfg: {
         autorefresh: false,
         fields: ['id', 'status', 'enabled', 'gateway', 'server', 'username', 'password', 'description', 'protocol', 'ip_transport', 'authname', 'domain', 'callerid'],
@@ -138,8 +139,8 @@ Ext.define('app.module.Gateways_Grid', {
                 triggerAction: 'all',
                 store: [
                     ['UDP', 'UDP']/*,
-                    ['TLS', 'TLS'],
-                    ['TCP', 'TCP']*/
+                     ['TLS', 'TLS'],
+                     ['TCP', 'TCP']*/
                 ],
                 editable: false,
                 allowBlank: false
@@ -168,6 +169,7 @@ Ext.define('app.module.Gateways_Grid', {
         }
     ],
     initComponent: function() {
+        console.log();
         this.callParent(arguments);
     }
 });

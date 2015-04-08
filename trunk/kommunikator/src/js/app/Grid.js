@@ -607,6 +607,53 @@ Ext.define('app.Grid', {
         }
         ;
 
+        //this.restart_button = true;
+        if (!this['status_grid'] && this.restart_button) {
+            if (!this.dockedItems)
+                this.dockedItems = [];
+            this.dockedItems.push({
+                xtype: 'toolbar',
+                dock: 'top',
+                items: []
+            });
+            this.dockedItems[0].items.push(
+                    {
+                        xtype: 'button',
+                        text: app.msg.reboot_pbx ? app.msg.reboot_pbx : 'Reboot_pbx',
+                        iconCls: 'x-tbar-loading',
+                        labelWidth: 160,
+                        handler: function() {
+                            var fn = function(btn) {
+                                if (btn == 'yes') {
+                                    var box = Ext.MessageBox.wait(app.msg.wait_reboot, app.msg.performing_actions);
+                                    app.request(
+                                            {
+                                                action: 'reboot'
+                                            },
+                                    function(result) {
+                                        if (!result.message)
+                                            box.hide();
+                                    });
+                                }
+                            };
+                            Ext.MessageBox.show({
+                                title: app.msg.performing_actions,
+                                msg: app.msg.reboot_pbx_question,
+                                buttons: Ext.MessageBox.YESNOCANCEL,
+                                fn: fn,
+                                animEl: 'mb4',
+                                icon: Ext.MessageBox.QUESTION
+                            });
+
+                        }
+                    }
+            );
+
+        }
+        ;
+
+
+
         app.getColumnIndex = function(grid, dataIndex) {
             var gridColumns = grid.headerCt.getGridColumns();
             for (var i = 0; i < gridColumns.length; i++) {
