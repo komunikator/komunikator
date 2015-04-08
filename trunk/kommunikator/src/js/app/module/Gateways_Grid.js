@@ -169,7 +169,6 @@ Ext.define('app.module.Gateways_Grid', {
         }
     ],
     initComponent: function() {
-        console.log();
         this.callParent(arguments);
     }
 });

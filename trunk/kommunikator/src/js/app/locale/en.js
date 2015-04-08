@@ -182,7 +182,7 @@ app.msg = {
     address_book_info: "In the address book are aliases for all telephone numbers (incoming and outgoing). You can add and modify them.",
     dial_plans_info: "Dial Plan: to define a dial plan means to make the connection between a call and a gateway. You have the option to direct calls of your choice to go to a specified gateway.",
     conferences_info: "Conferences - use the number associated with each room to connect to the active conference room.",
-    gateways_info: "Gateway: the connection to another FreeSentral, other PBX or network. It is the address you choose your call to go to.",
+    gateways_info: "You should to restart the PBX after turning a gate on/off.",
     music_on_hold_info: "Music on hold - The caller on hold can hear music while waiting to be picked-up. After uploading songs, you can define playlists and set the one to be used.",
     playlist_info: "You can select playlist here.",
     call_logs_info: "This page shows the PBX call log.",
