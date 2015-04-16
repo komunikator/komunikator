@@ -121,9 +121,9 @@ DROP TABLE IF EXISTS `call_logs`;
 
 CREATE TABLE `call_logs` (
   `time` decimal(17,3) NOT NULL,
-  `chan` text,
-  `address` text,
-  `direction` text,
+  `chan` varchar(300) DEFAULT NULL,
+  `address` varchar(40) DEFAULT NULL,
+  `direction` varchar(350) DEFAULT NULL,
   `billid` varchar(20) DEFAULT NULL,
   `caller` varchar(20) DEFAULT NULL,
   `called` varchar(20) DEFAULT NULL,
@@ -145,9 +145,9 @@ DROP TABLE IF EXISTS `call_history`;
 --
 CREATE TABLE `call_history` (
   `time` decimal(17,3) NOT NULL,
-  `chan` text,
-  `address` text,
-  `direction` text,
+  `chan` varchar(300) DEFAULT NULL,
+  `address` varchar(40) DEFAULT NULL,
+  `direction` varchar(350) DEFAULT NULL,
   `billid` varchar(20) DEFAULT NULL,
   `caller` varchar(20) DEFAULT NULL,
   `called` varchar(20) DEFAULT NULL,
@@ -381,7 +381,7 @@ DROP TABLE IF EXISTS `group_priority`;
 CREATE TABLE `group_priority` (
   `group_id` int(11) NOT NULL,
   `extension_id` int(11) NOT NULL,
-  `priority` text NOT NULL
+  `priority` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
