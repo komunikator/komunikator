@@ -91,10 +91,27 @@ INSERT INTO `additional_settings` (
 )
 VALUES 
 (1, 'call_history_lifespan', '12'), 
-(2, 'call_records_lifespan', '12'), 
-(3, 'call_order_executor', '');
+(2, 'call_records_lifespan', '12');
 
 UNLOCK TABLES;
+
+
+--
+-- Table structure for table `call_back`
+--
+
+DROP TABLE IF EXISTS `call_back`;
+
+CREATE TABLE `call_back` (
+  `call_back_id` int(11) NOT NULL AUTO_INCREMENT,
+  `destination` varchar(254) DEFAULT NULL,
+  `name_site` varchar(254) DEFAULT NULL,
+  `description` varchar(254) DEFAULT NULL,
+  `callthrough_time` varchar(3) DEFAULT NULL,
+  `settings` varchar(5000) DEFAULT NULL,,
+  PRIMARY KEY (`call_back_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 --
 -- Table structure for table `call_logs`
@@ -123,6 +140,9 @@ CREATE TABLE `call_logs` (
 
 DROP TABLE IF EXISTS `call_history`;
 
+--
+-- Table structure for table `call_history`
+--
 CREATE TABLE `call_history` (
   `time` decimal(17,3) NOT NULL,
   `chan` text,
@@ -196,6 +216,22 @@ CREATE TABLE `card_ports` (
   `name` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `detailed_infocall`
+--
+CREATE TABLE `detailed_infocall` (
+  `detailed_infocall_id` int(11) NOT NULL AUTO_INCREMENT,
+  `time` decimal(17,3) NOT NULL,
+  `billid` varchar(20) DEFAULT NULL,
+  `caller` varchar(20) DEFAULT NULL,
+  `called` varchar(20) DEFAULT NULL,
+  `detailed` varchar(1024) DEFAULT NULL,
+  `reason` varchar(64) DEFAULT NULL,
+  `ended` tinyint(1) DEFAULT NULL,
+  `gateway` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`detailed_infocall_id`),
+  UNIQUE KEY `billid_indx` (`billid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `dial_plans`
@@ -221,7 +257,6 @@ CREATE TABLE `dial_plans` (
   UNIQUE KEY `prefix` (`prefix`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
 --
 -- Table structure for table `dids`
 --
@@ -239,7 +274,6 @@ CREATE TABLE `dids` (
   PRIMARY KEY (`did_id`),
   UNIQUE KEY `number` (`number`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 --
 -- Table structure for table `extensions`
@@ -266,7 +300,6 @@ CREATE TABLE `extensions` (
   UNIQUE KEY `extension` (`extension`),
   KEY `extension_id` (`extension_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 --
 -- Table structure for table `gateways`
@@ -310,35 +343,12 @@ CREATE TABLE `gateways` (
 LOCK TABLES `gateways` WRITE;
 
 INSERT INTO `gateways` (
-  `gateway_id`,
-  `gateway`,
-  `protocol`,
-  `server`,
-  `type`,
-  `username`,
-  `password`,
-  `enabled`,
-  `description`,
-  `interval`,
-  `authname`,
-  `domain` ,
-  `outbound`,
-  `localaddress`,
-  `formats`,
-  `rtp_localip`,
-  `ip_transport`,
-  `oip_transport`,
-  `port`,
-  `iaxuser`,
-  `iaxcontext`,
-  `rtp_forward`,
-  `status`,
-  `modified`,
-  `callerid`,
-  `callername`,
-  `send_extension`,
-  `trusted`,
-  `sig_trunk_id`
+  `gateway_id`, `gateway`, `protocol`, `server`, `type`,
+  `username`, `password`, `enabled`, `description`, `interval`,
+  `authname`, `domain`, `outbound`, `localaddress`, `formats`,
+  `rtp_localip`, `ip_transport`, `oip_transport`, `port`, `iaxuser`,
+  `iaxcontext`, `rtp_forward`, `status`, `modified`, `callerid`,
+  `callername`, `send_extension`, `trusted`, `sig_trunk_id`
 )
 VALUES 
 (1, 'webrtc2sip', 'sip', '172.17.2.113', NULL, 'webrtc2sip', 'webrtc2sip', 0, 'webrtc2sip',
@@ -361,7 +371,6 @@ CREATE TABLE `group_members` (
   KEY `group_id` (`group_id`),
   KEY `extension_id` (`extension_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 --
 -- Table structure for table `group_priority`
@@ -468,6 +477,39 @@ CREATE TABLE `limits_international` (
   PRIMARY KEY (`limit_international_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `modules`
+--
+
+DROP TABLE IF EXISTS `modules`;
+
+CREATE TABLE `modules` (
+  `module_name_id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_name` varchar(70) DEFAULT NULL,
+  `description` varchar(250) DEFAULT NULL,
+  `version` varchar(20) DEFAULT NULL,
+  `condition` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`module_name_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+LOCK TABLES `modules` WRITE;
+
+INSERT INTO `modules` (
+  `module_name_id`,
+  `module_name`,
+  `description`,
+  `version`,
+  `condition`
+)
+VALUES 
+(1, 'Call_website_Grid', 'text_call_website', '1.0', 0), 
+(2, 'Mail_Settings_Panel', 'text_mail_Settings', '1.0', 0),
+(3, 'Call_Record_Grid', 'text_call_record', '1.0', 0),
+(4, 'Call_back_Grid', 'text_call_back', '1.0', 0);
+
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `music_on_hold`
@@ -482,7 +524,6 @@ CREATE TABLE `music_on_hold` (
   `file` text,
   PRIMARY KEY (`music_on_hold_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 --
 -- Table structure for table `network_interfaces`
@@ -500,7 +541,6 @@ CREATE TABLE `network_interfaces` (
   PRIMARY KEY (`network_interface_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
 --
 -- Table structure for table `ntn_settings`
 --
@@ -514,7 +554,6 @@ CREATE TABLE `ntn_settings` (
   `description` text,
   PRIMARY KEY (`ntn_setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 --
 -- Table structure for table `pbx_settings`
@@ -530,7 +569,6 @@ CREATE TABLE `pbx_settings` (
   PRIMARY KEY (`pbx_setting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
 --
 -- Table structure for table `playlist_items`
 --
@@ -543,7 +581,6 @@ CREATE TABLE `playlist_items` (
   `music_on_hold_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`playlist_item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 --
 -- Table structure for table `playlists`
@@ -566,7 +603,6 @@ INSERT INTO `playlists` (
 )
 VALUES
 (NULL, '', '0');
-
 
 --
 -- Table structure for table `prefixes`
@@ -667,7 +703,6 @@ CREATE TABLE `sig_trunks` (
   PRIMARY KEY (`sig_trunk_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
 --
 -- Table structure for table `time_frames`
 --
@@ -747,38 +782,6 @@ VALUES
 
 UNLOCK TABLES;
 
-
---
--- Table structure for table `modules`
---
-
-DROP TABLE IF EXISTS `modules`;
-
-CREATE TABLE `modules` (
-  `module_name_id` int(11) NOT NULL AUTO_INCREMENT,
-  `module_name` varchar(70) DEFAULT NULL,
-  `description` varchar(250) DEFAULT NULL,
-  `version` varchar(20) DEFAULT NULL,
-  `condition` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`module_name_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-LOCK TABLES `modules` WRITE;
-
-INSERT INTO `modules` (
-  `module_name_id`,
-  `module_name`,
-  `description`,
-  `version`,
-  `condition`
-)
-VALUES 
-(1, 'Call_website_Grid', 'text_call_website', '1.0', 0), 
-(2, 'Mail_Settings_Panel', 'text_mail_Settings', '1.0', 0),
-(3, 'Call_Record_Grid', 'text_call_record', '1.0', 0);
-
-UNLOCK TABLES;
 
 
 --
