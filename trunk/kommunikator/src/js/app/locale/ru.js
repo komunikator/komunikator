@@ -203,6 +203,7 @@ app.msg = {
     mailevent_outgoing: 'Исходящий вызов',
     mailevent_internal: 'Внутренний вызов',
     mailevent_unanswered_incoming_call: 'Неотвеченный входящий вызов',
+    mailevent_unanswered_order_call: 'Неотвеченный вызов модуля "Перезвоните мне"',
     email: 'Адрес получателя',
     mail1: 'Текст письма',
     mail2: '* Текст письма для входящих вызовов с указанием шлюза',
