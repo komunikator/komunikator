@@ -79,43 +79,43 @@ process.stdin.on('data', function(data) {
 // фуннкция запроса и запуска скриптов
 function set_timer(billid, file_1, file_2)
 {
-    var query = "SELECT\
-  tab.time,\
-  tab.caller,\
-  tab.called,\
-  rt.call_records_id\
-FROM (\
-  SELECT\
-    CASE\
-      WHEN (x.extension IS NOT NULL AND x2.extension IS NOT NULL) THEN 3\
-      WHEN (x.extension IS NOT NULL) THEN 1\
-      ELSE 2\
-    END AS type,\
-    a.caller AS caller,\
-    a.called AS called,\
-    date_format(FROM_UNIXTIME (a.time), '%d_%m_%Y_%H_%i_%s') AS time,\
-    g.gateway_id AS gateway_id,\
-    CASE WHEN gm.group_id IS NULL THEN 0 ELSE gm.group_id END AS caller_group_id,\
-    CASE WHEN gm2.group_id IS NULL THEN 0 ELSE gm2.group_id END AS called_group_id\
-  FROM call_history a\
-  LEFT JOIN extensions x ON x.extension=a.caller\
-  LEFT JOIN extensions x2 ON x2.extension=a.called\
-  LEFT JOIN gateways g ON g.authname=a.called OR g.authname=a.caller\
-  LEFT JOIN group_members gm ON x.extension_id = gm.extension_id\
-  LEFT JOIN group_members gm2 ON x2.extension_id = gm2.extension_id\
-  WHERE a.billid = '" + billid + "'\
-    AND a.status IN ('answered','normal_call_clearing')\
-) AS tab\
-JOIN call_records rt ON rt.enabled=1\
-  -- caller section\
-    AND CASE WHEN (rt.caller_number='*' OR RIGHT(tab.caller,10)=RIGHT(rt.caller_number,10)) THEN TRUE ELSE FALSE END\
-  AND CASE WHEN (rt.caller_group=tab.caller_group_id OR (rt.caller_group is null and tab.caller_group_id is null)) THEN TRUE ELSE FALSE END\
-  -- called section\
-    AND CASE WHEN (rt.called_number='*' OR RIGHT(tab.called,10)=RIGHT(rt.called_number,10)) THEN TRUE ELSE FALSE END\
-  AND CASE WHEN (rt.called_group=tab.called_group_id OR (rt.called_group is null and tab.called_group_id is null)) THEN TRUE ELSE FALSE END\
-  -- other params\
-  AND CASE WHEN (rt.gateway='*') THEN TRUE ELSE (rt.gateway=tab.gateway_id) END\
-  AND CASE WHEN (rt.type='*') THEN TRUE ELSE (rt.type=tab.type) END\
+    var query = "SELECT\n\
+  tab.time,\n\
+  tab.caller,\n\
+  tab.called,\n\
+  rt.call_records_id\n\
+FROM (\n\
+  SELECT\n\
+    CASE\n\
+      WHEN (x.extension IS NOT NULL AND x2.extension IS NOT NULL) THEN 3\n\
+      WHEN (x.extension IS NOT NULL) THEN 1\n\
+      ELSE 2\n\
+    END AS type,\n\
+    a.caller AS caller,\n\
+    a.called AS called,\n\
+    date_format(FROM_UNIXTIME (a.time), '%d_%m_%Y_%H_%i_%s') AS time,\n\
+    g.gateway_id AS gateway_id,\n\
+    CASE WHEN gm.group_id IS NULL THEN 0 ELSE gm.group_id END AS caller_group_id,\n\
+    CASE WHEN gm2.group_id IS NULL THEN 0 ELSE gm2.group_id END AS called_group_id\n\
+  FROM call_history a\n\
+  LEFT JOIN extensions x ON x.extension=a.caller\n\
+  LEFT JOIN extensions x2 ON x2.extension=a.called\n\
+  LEFT JOIN gateways g ON g.authname=a.called OR g.authname=a.caller\n\
+  LEFT JOIN group_members gm ON x.extension_id = gm.extension_id\n\
+  LEFT JOIN group_members gm2 ON x2.extension_id = gm2.extension_id\n\
+  WHERE a.billid = '" + billid + "'\n\
+    AND a.status IN ('answered','normal_call_clearing')\n\
+) AS tab\n\
+JOIN call_records rt ON rt.enabled=1\n\
+  -- caller section\n\
+    AND CASE WHEN (rt.caller_number='*' OR RIGHT(tab.caller,10)=RIGHT(rt.caller_number,10)) THEN TRUE ELSE FALSE END\n\
+  AND CASE WHEN (rt.caller_group=tab.caller_group_id OR (rt.caller_group is null and tab.caller_group_id is null)) THEN TRUE ELSE FALSE END\n\
+  -- called section\n\
+    AND CASE WHEN (rt.called_number='*' OR RIGHT(tab.called,10)=RIGHT(rt.called_number,10)) THEN TRUE ELSE FALSE END\n\
+  AND CASE WHEN (rt.called_group=tab.called_group_id OR (rt.called_group is null and tab.called_group_id is null)) THEN TRUE ELSE FALSE END\n\
+  -- other params\n\
+  AND CASE WHEN (rt.gateway='*') THEN TRUE ELSE (rt.gateway=tab.gateway_id) END\n\
+  AND CASE WHEN (rt.type='*') THEN TRUE ELSE (rt.type=tab.type) END\n\
 ";
            
    //fs.appendFile('/tmp/select', query + '\n');
