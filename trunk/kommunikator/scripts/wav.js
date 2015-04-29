@@ -77,55 +77,46 @@ process.stdin.on('data', function(data) {
 });
 
 // фуннкция запроса и запуска скриптов
-function set_timer(billid, file_1, file_2){
-
-   var query = ' select '
-
-  + ' tab.time, '
- + ' tab.caller, '
- + ' tab.called, '
-+ ' rt.call_records_id ' 
-+ ' from '
-+ '(select '
-+ ' case '
-+ ' when x.extension is not null and x2.extension is not null then 3 '
-+ ' when x.extension is not null then 1 '
-+ ' else 2 '
-+ ' end type, '
-+ ' a.caller caller, ' 
-+ ' a.called called, '
-+ ' date_format( FROM_UNIXTIME (a.time), \'%d_%m_%Y_%H_%i_%s\' ) as time, '
-+ ' g.gateway_id, ' 
-+ ' gm.group_id as caller_group_id, '
-+ ' gm2.group_id as called_group_id '
-+ ' from call_history a '
-+ ' left join extensions x on x.extension=a.caller '
-+ ' left join extensions x2 on x2.extension=a.called '
-+ ' left join gateways g  on g.authname=a.called or g.authname=a.caller '
-+ ' left join group_members gm on x.extension_id = gm.extension_id '
-+ ' left join group_members gm2 on x2.extension_id = gm2.extension_id '
-+ ' where a.billid=\'' + billid + '\' and (a.status=\'answered\' or a.status=\'normal_call_clearing\')'
-+ ' ) as tab '
-+ ' join call_records rt on rt.enabled=1 and '
-+ '     case '
-+ '  when  ((length(tab.caller) < 10)  and  (rt.caller_number=\'*\' or rt.caller_number=tab.caller or rt.caller_group=tab.caller_group_id )) then true '
-+ '  when  ((length(tab.caller) >= 10) and  (rt.caller_number=\'*\' or (RIGHT(tab.caller,10)=RIGHT(rt.caller_number,10)) or rt.caller_group=tab.caller_group_id))  then true ' 
-+ '   else false '
-+ '     end and  ' 
-+ '    case '
-+ '  when  ((length(tab.called) < 10)  and (rt.called_number=\'*\' or rt.called_number=tab.called or rt.called_group=tab.called_group_id)) then true '
-+ '  when  ((length(tab.called) >= 10) and (rt.called_number=\'*\' or ((RIGHT(tab.called,10) = RIGHT(rt.called_number,10)) or rt.called_group=tab.called_group_id ))) then true '
-+ '        else false '
-+ '     end  and   '
-+ '     case  '
-+ '  when rt.gateway=\'*\' then true '
-+ ' else(rt.gateway=tab.gateway_id)  '     
-+ '  end and  '
-+ '   case  '
-+ '   when (rt.type=\'*\' ) then true '    
-+ '   else(rt.type=tab.type) '
-+ ' end '  +  '\n';
-           
+function set_timer(billid, file_1, file_2)
+{
+    var query = "SELECT\
+  tab.time,\
+  tab.caller,\
+  tab.called,\
+  rt.call_records_id\
+FROM (\
+  SELECT\
+    CASE\
+      WHEN (x.extension IS NOT NULL AND x2.extension IS NOT NULL) THEN 3\
+      WHEN (x.extension IS NOT NULL) THEN 1\
+      ELSE 2\
+    END AS type,\
+    a.caller AS caller,\
+    a.called AS called,\
+    date_format(FROM_UNIXTIME (a.time), '%d_%m_%Y_%H_%i_%s') AS time,\
+    g.gateway_id AS gateway_id,\
+    CASE WHEN gm.group_id IS NULL THEN 0 ELSE gm.group_id END AS caller_group_id,\
+    CASE WHEN gm2.group_id IS NULL THEN 0 ELSE gm2.group_id END AS called_group_id\
+  FROM call_history a\
+  LEFT JOIN extensions x ON x.extension=a.caller\
+  LEFT JOIN extensions x2 ON x2.extension=a.called\
+  LEFT JOIN gateways g ON g.authname=a.called OR g.authname=a.caller\
+  LEFT JOIN group_members gm ON x.extension_id = gm.extension_id\
+  LEFT JOIN group_members gm2 ON x2.extension_id = gm2.extension_id\
+  WHERE a.billid = '" + billid + "'\
+    AND a.status IN ('answered','normal_call_clearing')\
+) AS tab\
+JOIN call_records rt ON rt.enabled=1\
+  -- caller section\
+    AND CASE WHEN (rt.caller_number='*' OR RIGHT(tab.caller,10)=RIGHT(rt.caller_number,10)) THEN TRUE ELSE FALSE END\
+  AND CASE WHEN (rt.caller_group=tab.caller_group_id OR (rt.caller_group is null and tab.caller_group_id is null)) THEN TRUE ELSE FALSE END\
+  -- called section\
+    AND CASE WHEN (rt.called_number='*' OR RIGHT(tab.called,10)=RIGHT(rt.called_number,10)) THEN TRUE ELSE FALSE END\
+  AND CASE WHEN (rt.called_group=tab.called_group_id OR (rt.called_group is null and tab.called_group_id is null)) THEN TRUE ELSE FALSE END\
+  -- other params\
+  AND CASE WHEN (rt.gateway='*') THEN TRUE ELSE (rt.gateway=tab.gateway_id) END\
+  AND CASE WHEN (rt.type='*') THEN TRUE ELSE (rt.type=tab.type) END\
+";
            
    //fs.appendFile('/tmp/select', query + '\n');
 
