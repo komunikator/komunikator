@@ -55,8 +55,8 @@
 var windowSettings = Ext.create('widget.window', {
     id: 'window_about1',
     title: "Настройки",
-    width: 770,
-    height: 400,
+    width: 800,
+    height: 500,
     autoHeight: true,
     autoScroll: true,
     maximizable: true, // значок «раскрыть окно на весь экран»
@@ -81,10 +81,9 @@ var windowSettings = Ext.create('widget.window', {
                         sortable: false,
                         renderer: function(value) {
                             if (app.msg[value]) {
-                                //return app.msg[value];
-                                return '<div style="white-space:normal !important; height:25px; text-align:  center">' + app.msg[value] + '</div>';
+                                return '<div style="white-space:normal !important; height:40px; text-align:  left">' + app.msg[value] + '</div>';
                             } else {
-                                return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
+                                return '<div style="white-space:normal !important; height:40px; text-align:  left">' + value + '</div>';
 
                             }
                         }
@@ -119,7 +118,7 @@ var windowSettings = Ext.create('widget.window', {
                         renderer: function(value) {
                             return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
                         }
-                    }, {width: 200,
+                    }, {width: 250,
                         text: "текст сообщения",
                         dataIndex: 'field5',
                         sortable: false,
@@ -178,7 +177,7 @@ window.openSettings = function(object) {
     var call_site_params = [];
     var obj = JSON.parse(value);
 
-    for (var i = 0; i < 7; i++)
+    for (var i = 0; i < 8; i++)
     {
         var st = [];
         for (var key in obj[i]) {

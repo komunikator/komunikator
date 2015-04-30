@@ -70,9 +70,22 @@ foreach ($data as $row) {
         else
         if ($key == 'button_code') {
             
+        } else if ($key == 'callthrough_time') {
+            $time = $value;
+            $values[$key] = $value;
         }
         else
             $values[$key] = "'$value'";
+    $settings = '[{"1":{"field1":"condition_return_user","field2":true,"field3":"","field4":"","field5":"Рады вас видеть снова! Мы готовы перезвонить Вам за ' . $time
+            . ' секунд и ответить на все Ваши вопросы!","id":"1"}},{"2":{"field1":"condition_exit","field2":false,"field3":"","field4":"","field5":"Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за ' . $time
+            . ' секунд.","id":"2"}},{"3":{"field1":"condition_pages","field2":false,"field3":"количество страниц:","field4":"3","field5":"Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за ' . $time
+            . ' секунд.","id":"3"}},{"4":{"field1":"condition_time","field2":true,"field3":"Время, секунда:","field4":"40","field5":"Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за ' . $time
+            . ' секунд.","id":"4"}},{"5":{"field1":"condition_scroll","field2":true,"field3":"","field4":"","field5":"Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за ' . $time
+            . ' секунд.","id":"5"}},{"6":{"field1":"condition_certain_page","field2":true,"field3":"URL:","field4":"http://example.ru/","field5":"Интересуетесь ХХХ? Давайте мы Вам перезвоним за ' . $time
+            . ' секунд и расскажем подробнее!","id":"6"}},{"7":{"field1":"color","field2":false,"field3":"","field4":"3399FF","field5":"","id":"7"}},{"8":{"field1":"color_after","field2":false,"field3":"","field4":"FF8519","field5":"","id":"8"}}]';
+
+    $val = addslashes($settings);
+    $values['settings'] = "'$val'";
     $rows[] = $values;
 }
 
