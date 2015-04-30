@@ -549,3 +549,7 @@ app.get_info_site = function(value1, metadata, record) {
         return '<img src="js/app/images/about.png" alt="About" onclick=openAbout("' + value1 + '") style = "cursor: pointer">';
     }
 };
+
+app.button_settings = function(value1, metadata, record) {
+         return '<img src="js/app/images/Settings.png" alt="Settings" onclick=openSettings("' + escape(value1) + '") style = "cursor: pointer">';
+};
