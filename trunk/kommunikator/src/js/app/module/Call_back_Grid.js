@@ -52,10 +52,151 @@
  */
 
 
+var windowSettings = Ext.create('widget.window', {
+    id: 'window_about1',
+    title: "Настройки",
+    width: 770,
+    height: 400,
+    autoHeight: true,
+    autoScroll: true,
+    maximizable: true, // значок «раскрыть окно на весь экран»
+    modal: true, // блокирует всё, что на заднем фоне
+    draggable: true, // перемещение объекта по экрану
+    closeAction: 'hide',
+    items: Ext.create('Ext.grid.Panel', {
+        id: 'windowSettingsCallBack',
+        store: [[null, null, null, null, null]], // определили хранилище
+        closeAction: 'hide', //по дефолту объект при закрытии уничтожается, с 'hide' - нет.
+
+        plugins: [{
+                ptype: 'rowediting',
+                clicksToEdit: 2
+            }],
+        columns:
+                [
+                    {
+                        width: 200,
+                        text: app.msg.stipulation,
+                        dataIndex: 'field1',
+                        sortable: false,
+                        renderer: function(value) {
+                            if (app.msg[value]) {
+                                //return app.msg[value];
+                                return '<div style="white-space:normal !important; height:25px; text-align:  center">' + app.msg[value] + '</div>';
+                            } else {
+                                return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
+
+                            }
+                        }
+                    }, {
+                        text: "Вкл/Выкл",
+                        dataIndex: 'field2',
+                        width: 60,
+                        renderer: app.checked_render,
+                        editor: {
+                            xtype: 'checkbox',
+                            style: {
+                                textAlign: 'center'
+                            }
+                        }
+                    },
+                    {width: 100,
+                        dataIndex: 'field3',
+                        sortable: false,
+                        renderer: function(value) {
+                            return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
+                        }
+                    },
+                    {width: 150,
+                        text: "Условие",
+                        dataIndex: 'field4',
+                        sortable: false,
+                        editor: {
+                            xtype: 'textfield'
+                        },
+                        renderer: function(value) {
+                            return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
+                        }
+                    }, {width: 200,
+                        text: "текст сообщения",
+                        dataIndex: 'field5',
+                        sortable: false,
+                        editor: {
+                            xtype: 'textfield'
+                        },
+                        renderer: function(value) {
+                            return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
+                        }
+                    }
+                ], height: 390
+
+    }),
+    buttons: [
+        {
+            id: 'change_forw11',
+            text: app.msg.save,
+            handler: function() {
+                var change_forward = Ext.getCmp('windowSettingsCallBack');
+                var array = [];
+                var e = 1;
+
+                Ext.getCmp('windowSettingsCallBack').getStore().each(function(model) {
+                    var key = e + "";
+                    var obj = {};
+                    obj[key] = model.data;
+                    array.push(obj);
+                    e++;
+                });
+
+                var string = JSON.stringify(array);
+                change_forward.body.mask();
+                var record = Ext.getCmp('call_back_grid').getSelectionModel().getLastSelected();
+                record.set("settings", string);
+                
+                Ext.getCmp('window_about1').close();               
+                Ext.getCmp('call_back_grid').store.dirtyMark = true;
+                Ext.getCmp('call_back_grid').store.sync();
+
+                change_forward.body.unmask();
+            }
+        },
+        {
+            text: app.msg.cancel,
+            handler: function() {
+                windowSettings.close();
+            }
+        }
+    ]
+            // this.callParent(arguments);
+
+});
+
+window.openSettings = function(object) {
+    var value = unescape(object);
+    var call_site_params = [];
+    var obj = JSON.parse(value);
+
+    for (var i = 0; i < 7; i++)
+    {
+        var st = [];
+        for (var key in obj[i]) {
+            for (var key1 in obj[i][key])
+            {
+                st.push(obj[i][key][key1]);
+            }
+        }
+        st.push(i + "");
+        call_site_params.push(st);
+
+    }
+
+    Ext.getCmp('windowSettingsCallBack').getStore().loadData(call_site_params);
+    windowSettings.show();
+};
 Ext.define('app.module.Call_back_Grid', {
     extend: 'app.Grid',
     store_cfg: {
-        fields: ['id', 'destination', 'name_site', 'callthrough_time', 'description', 'button_code', 'settings'],
+        fields: ['id', 'destination', 'name_site', 'callthrough_time', 'description', 'settings', 'button_code'],
         storeId: 'call_back'
     },
     columns: [
@@ -75,38 +216,7 @@ Ext.define('app.module.Call_back_Grid', {
                 queryMode: 'local',
                 allowBlank: false
             }
-            /*                editor: {
-             xtype: 'combobox',
-             store: Ext.create('app.Store', {
-             fields: ['id', 'name'],
-             storeId: 'sources_exception'
-             }),
-             queryMode: 'local',
-             valueField: 'name',
-             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-             // настройка combobox под «себя»
-             // «нормальное» отображение пустых полей в выпадающем списке
-             displayField: 'name',
-             hiddenName : 'id',
-             tpl: Ext.create('Ext.XTemplate',
-             '<tpl for=".">',
-             '<div class="x-boundlist-item" style="min-height: 22px">{name}</div>',
-             '</tpl>'
-             ),
-             displayTpl: Ext.create('Ext.XTemplate',
-             '<tpl for=".">',
-             '{name}',
-             '</tpl>'
-             ),
-             // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-             
-             editable: false,
-             listeners: {
-             afterrender: function() {
-             this.store.load();
-             }
-             }
-             }*/
+
         },
         {// 'name_site'  - описание
             editor: {
@@ -127,6 +237,10 @@ Ext.define('app.module.Call_back_Grid', {
             editor: {
                 xtype: 'textfield'
             }
+        },
+        {// 'settings'         
+            width: 150,
+            renderer: app.button_settings        
         },
         {// 'button_code' - код кнопки
             xtype: 'actioncolumn',
@@ -154,83 +268,6 @@ Ext.define('app.module.Call_back_Grid', {
                         modal: true, // блокирует всё, что на заднем фоне
                         draggable: true, // перемещение объекта по экрану
                         html: '<pre>' + result.data + '</pre>'
-                    }).show();
-                }
-                );
-            }
-        },
-        {// 'settings' 
-            xtype: 'actioncolumn',
-            sortable: false,
-            groupable: false,
-            icon: 'js/app/images/Settings.png',
-            handler: function(grid, rowIndex, colIndex) {
-                var rec = grid.getStore().getAt(rowIndex);
-                app.request(
-                        {
-                            action: 'get_settings_callback',
-                            id: rec.get('id')
-                        },
-                function(result) {
-                    Ext.create('widget.window', {
-                        title: app.msg.button_code,
-                        width: 600,
-                        height: 450,
-                        autoHeight: true,
-                        autoScroll: true,
-                        maximizable: true, // значок «раскрыть окно на весь экран»
-                        modal: true, // блокирует всё, что на заднем фоне
-                        draggable: true, // перемещение объекта по экрану
-                        html: result.data,
-                        bbar: [
-                            {
-                                text: 'Close',
-                                handler: function() {
-                                    // this.up('.window').close();
-                                    var element = Ext.getCmp('testt');;
-                                    alert(element.getValues());
-                                }
-                            }
-                        ],
-                        /*  items: [
-                         {
-                         xtype: 'button',
-                         text: 'Cancel',
-                         itemId: 'cancel',
-                         iconCls: 'cancel'
-                         },
-                         {
-                         xtype: 'button',
-                         text: 'Save',
-                         itemId: 'save',
-                         iconCls: 'save'
-                         }
-                         ]*/dockedItems: [
-                            {
-                                xtype: 'toolbar',
-                                flex: 1,
-                                dock: 'bottom',
-                                ui: 'footer',
-                                layout: {
-                                    pack: 'end',
-                                    type: 'hbox'
-                                },
-                                items: [
-                                    {
-                                        xtype: 'button',
-                                        text: 'Cancel',
-                                        itemId: 'cancel',
-                                        iconCls: 'cancel'
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Save',
-                                        itemId: 'save',
-                                        iconCls: 'save'
-                                    }
-                                ]
-                            }
-                        ]
                     }).show();
                 }
                 );

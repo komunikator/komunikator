@@ -295,7 +295,7 @@ app.msg = {
     text_call_website: 'Lets IP-PBX handle incoming calls from web-sites.',
     text_mail_Settings: 'Lets IP-PBX trace calls and notify the user by sending emails.',
     text_call_record: 'Enables calls recording in the PBX according to costomizable rules.',
-    text_call_back:'Lets the IP-PBX make call to the number put into a web form.',
+    text_call_back: 'Lets the IP-PBX make call to the number put into a web form.',
     record: 'Record',
     // - - для истории звонков - инфо о звонке с сайта
     ip: 'ip',
@@ -326,6 +326,13 @@ app.msg = {
     asn: 'Autonomous System Numbers',
     callthrough_time: 'Callthrough time',
     name_site: 'Site\'s name',
+    stipulation: 'Condition',
+    condition_return_user: 'Returning user',
+    condition_exit: 'Leaving the site',
+    condition_pages: 'Number of pages visited',
+    condition_time: 'Time spent on the site',
+    condition_scroll: 'Scrolling the page 100% below',
+    condition_certain_page: 'Visiting a certain page of the site',
     // - - - - - - - - - - - - - - - - - - - - - -
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'
