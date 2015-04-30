@@ -551,5 +551,5 @@ app.get_info_site = function(value1, metadata, record) {
 };
 
 app.button_settings = function(value1, metadata, record) {
-         return '<img src="js/app/images/Settings.png" alt="Settings" onclick=openSettings("' + escape(value1) + '") style = "cursor: pointer">';
+         return '<img src="js/app/images/setting.png" alt="Settings" onclick=openSettings("' + escape(value1) + '") style = "cursor: pointer">';
 };
