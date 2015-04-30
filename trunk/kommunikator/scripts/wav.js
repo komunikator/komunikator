@@ -95,12 +95,12 @@ FROM (\n\
     a.called AS called,\n\
     date_format(FROM_UNIXTIME (a.time), '%d_%m_%Y_%H_%i_%s') AS time,\n\
     g.gateway_id AS gateway_id,\n\
-    CASE WHEN gm.group_id IS NULL THEN 0 ELSE gm.group_id END AS caller_group_id,\n\
-    CASE WHEN gm2.group_id IS NULL THEN 0 ELSE gm2.group_id END AS called_group_id\n\
+    CASE WHEN gm.group_id IS NULL OR gm2.group_id=1 THEN 0 ELSE gm.group_id END AS caller_group_id,\n\
+    CASE WHEN gm2.group_id IS NULL OR gm2.group_id=1 THEN 0 ELSE gm2.group_id END AS called_group_id\n\
   FROM call_history a\n\
   LEFT JOIN extensions x ON x.extension=a.caller\n\
   LEFT JOIN extensions x2 ON x2.extension=a.called\n\
-  LEFT JOIN gateways g ON g.authname=a.called OR g.authname=a.caller\n\
+  LEFT JOIN gateways g ON g.username=a.gateway\n\
   LEFT JOIN group_members gm ON x.extension_id = gm.extension_id\n\
   LEFT JOIN group_members gm2 ON x2.extension_id = gm2.extension_id\n\
   WHERE a.billid = '" + billid + "'\n\
