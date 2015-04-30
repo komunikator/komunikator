@@ -81,7 +81,6 @@ var windowSettings = Ext.create('widget.window', {
                         sortable: false,
                         renderer: function(value) {
                             if (app.msg[value]) {
-                                //return app.msg[value];
                                 return '<div style="white-space:normal !important; height:40px; text-align:  left">' + app.msg[value] + '</div>';
                             } else {
                                 return '<div style="white-space:normal !important; height:40px; text-align:  left">' + value + '</div>';
