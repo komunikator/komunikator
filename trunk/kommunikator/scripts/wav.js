@@ -106,6 +106,7 @@ FROM (\n\
   WHERE a.billid = '" + billid + "'\n\
     AND a.status IN ('answered','normal_call_clearing')\n\
 ) AS tab\n\
+JOIN modules ms ON module_name='Call_Record_Grid' AND condition=1\n\
 JOIN call_records rt ON rt.enabled=1\n\
   -- caller section\n\
     AND CASE WHEN (rt.caller_number='*' OR RIGHT(tab.caller,10)=RIGHT(rt.caller_number,10)) THEN TRUE ELSE FALSE END\n\
