@@ -64,8 +64,14 @@ if ($data && !is_array($data))
     $data = array($data);
 foreach ($data as $row) {
     $values = array();
-    foreach ($row as $key => $value)
-        $values[$key] = "'$value'";
+    foreach ($row as $key => $value) {
+        if ($key == 'settings') {
+            $value = addslashes($value);
+            $values[$key] = "'$value'";
+        }
+        else
+            $values[$key] = "'$value'";
+    }
     $rows[] = $values;
 }
 $id_name = 'call_back_id';
