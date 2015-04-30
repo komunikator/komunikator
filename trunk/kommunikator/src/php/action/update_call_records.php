@@ -120,7 +120,7 @@ if ($gateway) {
     $result2 = query_to_array($sql);
 }
 
-if ($caller_number == null) {
+if (isset($caller_number) && $caller_number == null) {
     $sql = "SELECT caller_group FROM call_records WHERE call_records_id = $call_records_id";
     $res = query_to_array($sql);
     if ($res[0]['caller_group'] == '0') {
@@ -129,7 +129,7 @@ if ($caller_number == null) {
     }
 }
 
-if ($called_number == null) {
+if (isset($called_number) && $called_number == null) {
     $sql = "SELECT called_group FROM call_records WHERE call_records_id = $call_records_id";
     $res = query_to_array($sql);
     if ($res[0]['called_group'] == '0') {

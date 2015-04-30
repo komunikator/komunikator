@@ -113,7 +113,9 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             change:
                                     function(f, new_val) {
-                                        if (new_val == '' && f.ownerCt.items.items[2].value == null) {
+										console.log(f.ownerCt.items.items[1].value);
+									    console.log('new_val='+new_val);
+                                        if (new_val == null && f.ownerCt.items.items[1].value == null) {
                                             f.ownerCt.items.items[1].setValue('*');
                                         }
                                         return true;
@@ -159,16 +161,7 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
-                            },
-                            change:
-                                    function(f, new_val) {
-                                        //    console.log(f.value); console.log(new_val);
-                                        //          console.log(f.ownerCt.items.items[1].value);//
-                                        if (new_val == '' && f.ownerCt.items.items[1].value == null) {
-                                            f.ownerCt.items.items[1].setValue('*');
-                                        }//console.log(f.ownerCt.items.items[1]);}
-                                        return true;
-                                    }
+                            }
                         }
                     }
                 }]
@@ -308,8 +301,7 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             change:
                                     function(f, new_val) {
-                                        console.log(f.ownerCt.items.items[7].value);
-                                        if (new_val == '' && f.ownerCt.items.items[7].value == null) {
+                                        if (new_val == null && f.ownerCt.items.items[6].value == null) {
                                             f.ownerCt.items.items[6].setValue('*');
                                         }
                                         return true;
@@ -349,14 +341,7 @@ Ext.define('app.module.Call_Record_Grid', {
                         listeners: {
                             afterrender: function() {
                                 this.store.load();
-                            },
-                            change:
-                                    function(f, new_val) {
-                                        if (new_val == '' && f.ownerCt.items.items[6].value == null) {
-                                            f.ownerCt.items.items[6].setValue('*');
-                                        }
-                                        return true;
-                                    }
+                            }
                         }
                     }
                 }]
