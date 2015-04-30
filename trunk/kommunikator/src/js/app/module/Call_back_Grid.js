@@ -76,7 +76,7 @@ var windowSettings = Ext.create('widget.window', {
                 [
                     {
                         width: 200,
-                        text: app.msg.stipulation,
+                        text: app.msg.param,
                         dataIndex: 'field1',
                         sortable: false,
                         renderer: function(value) {
@@ -100,15 +100,17 @@ var windowSettings = Ext.create('widget.window', {
                             }
                         }
                     },
-                    {width: 100,
+                    {
+                        width: 100,
                         dataIndex: 'field3',
                         sortable: false,
                         renderer: function(value) {
                             return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
                         }
                     },
-                    {width: 150,
-                        text: "Условие",
+                    {
+                        width: 150,
+                        text: app.msg.stipulation,
                         dataIndex: 'field4',
                         sortable: false,
                         editor: {
@@ -152,8 +154,8 @@ var windowSettings = Ext.create('widget.window', {
                 change_forward.body.mask();
                 var record = Ext.getCmp('call_back_grid').getSelectionModel().getLastSelected();
                 record.set("settings", string);
-                
-                Ext.getCmp('window_about1').close();               
+
+                Ext.getCmp('window_about1').close();
                 Ext.getCmp('call_back_grid').store.dirtyMark = true;
                 Ext.getCmp('call_back_grid').store.sync();
 
@@ -240,7 +242,7 @@ Ext.define('app.module.Call_back_Grid', {
         },
         {// 'settings'         
             width: 150,
-            renderer: app.button_settings        
+            renderer: app.button_settings
         },
         {// 'button_code' - код кнопки
             xtype: 'actioncolumn',
