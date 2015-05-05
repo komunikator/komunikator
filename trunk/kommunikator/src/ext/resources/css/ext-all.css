@@ -5280,7 +5280,7 @@ textarea.x-form-invalid-field {
 
 /* line 277, ../themes/stylesheets/ext4/default/widgets/_panel.scss */
 .x-nlg .x-panel-header-default-top {
-  background-image: url('../../resources/themes/images/default/panel-header/panel-header-default-top-bg.gif'); }
+/*  background-image: url('../../resources/themes/images/default/panel-header/panel-header-default-top-bg.gif'); */ }
 
 /* line 281, ../themes/stylesheets/ext4/default/widgets/_panel.scss */
 .x-nlg .x-panel-header-default-bottom {
@@ -5491,7 +5491,7 @@ textarea.x-form-invalid-field {
 .x-strict .x-ie9 .x-panel-header-default-framed-top,
 .x-nlg.x-opera .x-panel-header-default-framed-top,
 .x-nlg.x-safari .x-panel-header-default-framed-top {
-  background-image: url('../../resources/themes/images/default/panel-header/panel-header-default-top-bg.gif'); }
+/*  background-image: url('../../resources/themes/images/default/panel-header/panel-header-default-top-bg.gif'); */ }
 /* line 321, ../themes/stylesheets/ext4/default/widgets/_panel.scss */
 .x-strict .x-ie9 .x-panel-header-default-framed-bottom,
 .x-nlg.x-opera .x-panel-header-default-framed-bottom,
