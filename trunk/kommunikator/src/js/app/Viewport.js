@@ -117,7 +117,7 @@ Ext.define('app.Viewport', {
             // style : 'padding : 2px',
             // defaults : {
             //     layout : 'fit'
-            // },	
+            // },   
             // activeTab : 0,
 
             listeners: {
@@ -307,7 +307,7 @@ Ext.define('app.Viewport', {
                                                         // Пожалуйста, подождите пока происходит установка обновлений
                                                         // Выполнение действий
                                                         var polling_time = 5000;
-                                                        // Ext.MessageBox.maxHeight = 400;	
+                                                        // Ext.MessageBox.maxHeight = 400;  
                                                         var intervalID = setInterval(function() {
                                                             app.request(
                                                                     {
@@ -386,8 +386,8 @@ Ext.define('app.Viewport', {
     initComponent: function() {
         this.items[0].title =
                 // '<div class="x-box-inner" style="padding-left: 20px; padding-right: 20px; height: 60px; background-color: #D5EAF3">'+
-                '<div class="x-box-inner" style="padding-left: 20px; padding-right: 20px; height: 60px">' +
-                '<img class="logo" src="js/app/images/logo.png" height="60px" alt="TS" border="0" align="left">' +
+                '<div class="x-box-inner" style="padding-left: 10px;  padding-top:3px; padding-bottom:3px; padding-right: 10px; height: 42px">' +
+                '<img class="logo" src="js/app/images/logo.png" alt="Komunikator" border="0" align="left">' +
                 '<p align="right"><a href="#" onclick="app.logout(); return false">' + app.msg.logout + '</a></p>' +
                 '<p align="right">' + app.msg.user + ': ' + this.user_name + '</p>' +
                 // '<p align="right"><a target="_blank" href="http://ats.digt.local/bugtracker/">BUG TRACKER</a></p>'+
