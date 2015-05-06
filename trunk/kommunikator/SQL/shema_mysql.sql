@@ -712,9 +712,9 @@ DROP TABLE IF EXISTS `time_frames`;
 CREATE TABLE `time_frames` (
   `time_frame_id` int(11) NOT NULL AUTO_INCREMENT,
   `prompt_id` int(11) DEFAULT NULL,
-  `day` text,
-  `start_hour` text,
-  `end_hour` text,
+  `day` varchar(12) DEFAULT NULL,
+  `start_hour` varchar(5) DEFAULT NULL,
+  `end_hour` varchar(5) DEFAULT NULL,
   `numeric_day` int(11) DEFAULT NULL,
   PRIMARY KEY (`time_frame_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
