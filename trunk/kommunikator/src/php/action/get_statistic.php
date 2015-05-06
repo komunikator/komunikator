@@ -144,14 +144,20 @@ $cur_date = lastDayToTimestamp();
     $query = "select prompt_id, day, start_hour, end_hour, numeric_day FROM time_frames";
     $res = query_to_array($query);
     if (count($res)) {
-        $day_week = date('w');
-        $hour = date('H') * 1;
+		//$t = date(); print_r($f_data);
+		
+		$v_day = exec("date '+%w'");
+        $day_week = $v_day; 	
+        $hour = date('H') * 1;//echo  
+        $v_time = exec("date '+%H'");	
+		
         //echo("Current week index '$day_week' : hour '$hour'");
         //$day_week = 2;
         //$hour 	  = 19;
         $status = 'offline';
         foreach ($res as $row)
-            if ($row["numeric_day"] == $day_week && $row["start_hour"] <= $hour && $hour < $row["end_hour"])
+		//echo $row["numeric_day"] ."!". $day_week ."!". $row["start_hour"] ."!".  $hour ."!".  $hour."!".  $row["end_hour"] . "--";
+            if ($row["numeric_day"] == $day_week && $row["start_hour"] <= $hour && $v_time < $row["end_hour"])
                 $status = 'online';
     };
 }
