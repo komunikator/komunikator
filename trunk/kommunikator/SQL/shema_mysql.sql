@@ -108,7 +108,7 @@ CREATE TABLE `call_back` (
   `name_site` varchar(254) DEFAULT NULL,
   `description` varchar(254) DEFAULT NULL,
   `callthrough_time` varchar(3) DEFAULT NULL,
-  `settings` varchar(5000) DEFAULT NULL,,
+  `settings` varchar(5000) DEFAULT NULL,
   PRIMARY KEY (`call_back_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
