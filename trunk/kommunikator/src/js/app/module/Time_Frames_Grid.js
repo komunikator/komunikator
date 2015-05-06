@@ -80,7 +80,7 @@ Ext.define('app.module.Time_Frames_Grid', {
                 xtype: 'combobox',
                 mode: 'local',
                 editable: false,
-                triggerAction: 'all'
+                triggerAction: 'all'          
             }
         },
         {// 'end_hour'
