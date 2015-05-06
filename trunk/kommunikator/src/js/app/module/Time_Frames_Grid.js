@@ -100,8 +100,7 @@ Ext.define('app.module.Time_Frames_Grid', {
                 {
                     return app.msg[value];
                 }
-             //   if ((colIndex == 2 || colIndex == 3) && (value == null || value == 0))
-				  if ((colIndex == 2 || colIndex == 3) && (value == null))
+                if ((colIndex == 2 || colIndex == 3) && value == null)
                 {
                     return app.msg['notselected'];
                 }
@@ -110,7 +109,7 @@ Ext.define('app.module.Time_Frames_Grid', {
     initComponent: function() {
         var clock = [
             [null, app.msg['notselected']],
-			['0', '0'],
+            ['0', '0'],
             ['1', '1'],
             ['2', '2'],
             ['3', '3'],
