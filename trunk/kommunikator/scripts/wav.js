@@ -8,17 +8,14 @@ var child = require('child_process');
 var database_config = {host: 'localhost', user: 'root', password: 'root'};
 
 var exec = require('child_process').exec,
-        child;
+        exec_child;
 
-child = exec('php /usr/share/yate/scripts/getconfig.php', function (error, stdout, stderr)
+exec_child = exec('php /usr/share/yate/scripts/getconfig.php', function (error, stdout, stderr)
 {
-    if (error === null) {
+    try 
     {
-        try 
-        {
-            database_config = JSON.parse(stdout);
-        } catch (e) { }
-    }
+        database_config = JSON.parse(stdout);
+    } catch (e) { }
 
     process.stdin.resume();
 
