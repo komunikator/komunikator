@@ -89,8 +89,6 @@ Ext.define('app.module.Groups_Grid', {
         this.callParent(arguments);
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        // при внесении изменений в хранилище groups
-        // повторная загрузка (обновление записей) хранилища groups_extended
 
         this.store.on('load',
                 function(store, records, success) {
@@ -106,14 +104,18 @@ Ext.define('app.module.Groups_Grid', {
                             store.autorefresh = false;
                         console.log('ERROR: ' + store.storeId + ' fail_load [code of Groups_Grid.js]');
                     }
-
-
                     var repository_exists = Ext.StoreMgr.lookup('groups_extended');
-
                     if (repository_exists)
-                        repository_exists.load()
+                        repository_exists.load();
                     else
                         console.log('ERROR: groups_extended - fail_load [code of Groups_Grid.js]');
+                    
+                    var storeGroupNumbers = Ext.StoreMgr.lookup('sources_exception');
+                    if (storeGroupNumbers){
+                        storeGroupNumbers.load();
+                    }
+                    else
+                        console.log('ERROR: sources_exception - fail_load [code of Groups_Grid.js]');
                 }
 
         );

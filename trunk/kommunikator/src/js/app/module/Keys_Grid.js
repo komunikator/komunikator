@@ -105,7 +105,9 @@ Ext.define('app.module.Keys_Grid', {
 
             editor: {
                 xtype: 'combobox',
-                store: Ext.create('app.Store', {
+                store: Ext.StoreMgr.lookup('sources_exception') ?
+                        Ext.StoreMgr.lookup('sources_exception') :
+                        Ext.create('app.Store', {
                     fields: ['id', 'name'],
                     storeId: 'sources_exception'
                 }),

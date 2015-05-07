@@ -53,7 +53,7 @@
 
 
 var windowSettings = Ext.create('widget.window', {
-    id: 'window_about1',
+    id: 'window_settings',
     title: "Настройки",
     width: 800,
     height: 500,
@@ -109,7 +109,7 @@ var windowSettings = Ext.create('widget.window', {
                     },
                     {
                         width: 150,
-                        text: app.msg.stipulation,
+                        text: "Значение",
                         dataIndex: 'field4',
                         sortable: false,
                         editor: {
@@ -118,7 +118,8 @@ var windowSettings = Ext.create('widget.window', {
                         renderer: function(value) {
                             return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
                         }
-                    }, {width: 250,
+                    }, {
+                        width: 250,
                         text: "текст сообщения",
                         dataIndex: 'field5',
                         sortable: false,
@@ -154,7 +155,7 @@ var windowSettings = Ext.create('widget.window', {
                 var record = Ext.getCmp('call_back_grid').getSelectionModel().getLastSelected();
                 record.set("settings", string);
 
-                Ext.getCmp('window_about1').close();
+                Ext.getCmp('window_settings').close();
                 Ext.getCmp('call_back_grid').store.dirtyMark = true;
                 Ext.getCmp('call_back_grid').store.sync();
 
@@ -207,7 +208,9 @@ Ext.define('app.module.Call_back_Grid', {
         {// 'destination' - назначение
             editor: {
                 xtype: 'combobox',
-                store: Ext.create('app.Store', {
+                store: Ext.StoreMgr.lookup('sources_exception') ?
+                        Ext.StoreMgr.lookup('sources_exception') :
+                        Ext.create('app.Store', {
                     fields: ['id', 'name'],
                     storeId: 'sources_exception'
                 }),
@@ -215,7 +218,12 @@ Ext.define('app.module.Call_back_Grid', {
                 displayField: 'name',
                 valueField: 'id',
                 queryMode: 'local',
-                allowBlank: false
+                allowBlank: false,
+                listeners: {
+                    afterrender: function() {
+                        this.store.load();
+                    }
+                }
             }
 
         },
@@ -291,11 +299,6 @@ Ext.define('app.module.Call_back_Grid', {
                             store.autorefresh = false;
                         console.log('ERROR: ' + store.storeId + ' fail_load [code of Call_back_Grid.js]');
                     }
-                    var repository_exists = Ext.StoreMgr.lookup('sources_exception');
-                    if (repository_exists)
-                        repository_exists.load();
-                    else
-                        console.log('ERROR: sources_exception - fail_load [code of Call_back_Grid.js]');
                 }
         );
     }

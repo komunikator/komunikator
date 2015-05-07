@@ -68,12 +68,14 @@ $data = compact_array(query_to_array("SELECT settings FROM call_back WHERE call_
 if (!is_array($data["data"]))
     echo out(array("success" => false, "message" => $data));
 
-$data = $data['data'][0][0]; 
-$data = json_decode($data); //print_r($data); exit;
-//print_r($data[0]->{'2'}->{'field5'});
-$color_before = $data[6]->{'7'}->{'field4'};;
-$color_after = $data[7]->{'8'}->{'field4'};;
+$data = json_decode($data['data'][0][0]); 
 
+$color_before = $data[6]->{'7'}->{'field4'};
+$color_after = $data[7]->{'8'}->{'field4'};
+$main_time = $callthrough_time + 5;
+$sec_time = $callthrough_time;
+$nPage = $data[2]->{'3'}->{'field4'};
+$ua =  $data[3]->{'4'}->{'field4'};
 $url = $data[5]->{'6'}->{'field4'};
 
 $onUserVisit_check = $data[0]->{'1'}->{'field2'};
@@ -89,12 +91,6 @@ $onCheckURLHistory = $data[2]->{'3'}->{'field5'};
 $onUserActivity2 = $data[3]->{'4'}->{'field5'};
 $onMetrica = $data[4]->{'5'}->{'field5'};
 $onSpecificPage = $data[5]->{'6'}->{'field5'};
-
-$nPage = $data[2]->{'3'}->{'field4'};
-$ua =  $data[3]->{'4'}->{'field4'};
-
-$main_time = $callthrough_time + 5;
-$sec_time = $callthrough_time;
 
 $call_back_code = <<<EOD
      
