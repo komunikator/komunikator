@@ -105,7 +105,9 @@ Ext.define('app.module.Call_website_Grid', {
         {// 'destination' - назначение
             editor: {
                 xtype: 'combobox',
-                store: Ext.create('app.Store', {
+                store: Ext.StoreMgr.lookup('sources_exception') ?
+                        Ext.StoreMgr.lookup('sources_exception') :
+                        Ext.create('app.Store', {
                     fields: ['id', 'name'],
                     storeId: 'sources_exception'
                 }),
@@ -215,11 +217,7 @@ Ext.define('app.module.Call_website_Grid', {
                             store.autorefresh = false;
                         console.log('ERROR: ' + store.storeId + ' fail_load [code of Call_website_Grid.js]');
                     }
-                    var repository_exists = Ext.StoreMgr.lookup('sources_exception');
-                    if (repository_exists)
-                        repository_exists.load();
-                    else
-                        console.log('ERROR: sources_exception - fail_load [code of Call_website_Grid.js]');
+                    
                 }
         );
     }

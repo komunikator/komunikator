@@ -404,14 +404,18 @@ Ext.define('app.module.Extensions_Grid', {
                             store.autorefresh = false;
                         console.log('ERROR: ' + store.storeId + ' fail_load [code of Extensions_Grid.js]');
                     }
-
                     var repository_exists = Ext.StoreMgr.lookup('extensions_list');
-
                     if (repository_exists) {
                         repository_exists.load();
                     }
                     else
                         console.log('ERROR: extensions_list - fail_load [code of Extensions_Grid.js]');
+                    
+                    var storeGroupNumbers = Ext.StoreMgr.lookup('sources_exception');
+                    if (storeGroupNumbers)
+                        storeGroupNumbers.load();                   
+                    else
+                        console.log('ERROR: sources_exception - fail_load [code of Extensions_Grid.js]');
                 }
 
         );
@@ -422,7 +426,7 @@ Ext.define('app.module.Extensions_Grid', {
 var sda_storage_for_forwarding = Ext.create('Ext.data.Store', {
     fields: ['abbr', 'name'],
     data: [
-        {"abbr": "", "name": ""},
+        {"abbr": "", "name": app.msg.notselected},
         {"abbr": "vm", "name": app.msg.voicemail}
     ]
 });

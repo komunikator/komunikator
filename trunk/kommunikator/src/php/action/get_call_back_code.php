@@ -64,21 +64,64 @@ $id_call_back = getparam('id');
 $callthrough_time = getparam('callthrough_time');
 $host = $_SERVER['SERVER_ADDR'];
 
+$data = compact_array(query_to_array("SELECT settings FROM call_back WHERE call_back_id = $id_call_back"));
+if (!is_array($data["data"]))
+    echo out(array("success" => false, "message" => $data));
+
+$data = json_decode($data['data'][0][0]); 
+
+$color_before = $data[6]->{'7'}->{'field4'};
+$color_after = $data[7]->{'8'}->{'field4'};
+$main_time = $callthrough_time + 5;
+$sec_time = $callthrough_time;
+$nPage = $data[2]->{'3'}->{'field4'};
+$ua =  $data[3]->{'4'}->{'field4'};
+$url = $data[5]->{'6'}->{'field4'};
+
+$onUserVisit_check = $data[0]->{'1'}->{'field2'};
+$onUserExit_check = $data[1]->{'2'}->{'field2'};
+$onCheckURLHistory_check =  $data[5]->{'6'}->{'field2'};
+$onUserActivity2_check = $data[3]->{'4'}->{'field2'};
+$onMetrica_check = $data[4]->{'5'}->{'field2'};
+$onCheckNumberPage_check = $data[2]->{'3'}->{'field2'};
+
+$onUserVisit = $data[0]->{'1'}->{'field5'};
+$onUserExit = $data[1]->{'2'}->{'field5'};
+$onCheckURLHistory = $data[2]->{'3'}->{'field5'};
+$onUserActivity2 = $data[3]->{'4'}->{'field5'};
+$onMetrica = $data[4]->{'5'}->{'field5'};
+$onSpecificPage = $data[5]->{'6'}->{'field5'};
+
 $call_back_code = <<<EOD
+     
+<script type='text/javascript'>
         
-    <script type='text/javascript'>
-	var digt_callback_from=300; 
-        var digt_callback_to=900; 
-        var id_call_back=$id_call_back;
-        var dcb_sec = $callthrough_time; 
-        var dcb_id_server = $host; 
-	(function(){var x = document.createElement('script'); 
-            x.type = 'text/javascript'; 
-            x.async = true; 
-            x.src = 'digt_callback/digt_callback.js'; 
-            var xx = document.getElementsByTagName('script')[0]; 
-            xx.parentNode.insertBefore(x, xx);})();
-    </script>
+var komunikatorCallback={
+    id:$id_call_back,
+    server:'$host',
+    timer:{main:'$main_time',sec:'$sec_time',ua:'$ua'},
+    nPage:'$nPage',
+    timePopupBlocker:'5',
+    url:'$url',
+    color:{before:'$color_before',after:'$color_after'},
+    msg:{
+        onUserVisit:'$onUserVisit',
+        onUserExit:'$onUserExit',
+        onCheckURLHistory:'$onCheckURLHistory',
+        onUserActivity2:'$onUserActivity2',
+        onMetrica:'$onMetrica',
+        onSpecificPage:'$onSpecificPage'},
+    trigger:{
+        onUserVisit:$onUserVisit_check,
+        onUserExit:$onUserExit_check,
+        onCheckURLHistory:$onCheckURLHistory_check,
+        onUserActivity2:$onUserActivity2_check,
+        onMetrica:$onMetrica_check,
+        onCheckNumberPage:$onCheckNumberPage_check}
+ };
+(function(){var x=document.createElement('script');x.type='text/javascript';x.async=true;x.src=komunikatorCallback.server+'/callback/loader.js';
+var xx=document.getElementsByTagName('script')[0];xx.parentNode.insertBefore(x,xx);})();
+</script>
 EOD;
 
 $call_back_code = htmlspecialchars($call_back_code);
