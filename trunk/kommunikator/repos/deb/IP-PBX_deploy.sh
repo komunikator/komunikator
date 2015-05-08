@@ -5,10 +5,10 @@ cd komunikator.temp
 
 if [ "$arch" = 'x86_64' ]
 then
-	wget http://komunikator.ru/repos/deb/1.0.b2/komunikator_64.tar.gz
+	wget http://komunikator.ru/repos/deb/nightly/komunikator_64.tar.gz
 	sudo mv komunikator_64.tar.gz komunikator.tar.gz
 else
-	wget http://komunikator.ru/repos/deb/1.0.b2/komunikator.tar.gz
+	wget http://komunikator.ru/repos/deb/nightly/komunikator.tar.gz
 fi
 
 tar -xvzf komunikator.tar.gz
@@ -88,6 +88,12 @@ cd ../
 sudo rm -rf ./komunikator.temp
 
 sudo sed -i "s@;  sip=level 8@  sip=level 9@g" /etc/yate/yate.conf
+
+sudo cp -rf moh /var/lib/misc/moh
+sudo chown -R www-data:www-data /var/lib/misc/moh
+
+sudo cp -rf auto_attendant /var/lib/misc/auto_attendant
+sudo chown -R www-data:www-data /var/lib/misc/auto_attendant
 
 sudo service yate stop
 sudo service yate start
