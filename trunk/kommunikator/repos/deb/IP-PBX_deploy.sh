@@ -84,10 +84,10 @@ sudo chmod +x /etc/webrtc2sip/scripts/*
 
 sudo sh webrtc2sip_source.sh
 
-sudo cp -rf moh /var/lib/misc/moh
+sudo cp -rf moh/* /var/lib/misc/moh
 sudo chown -R www-data:www-data /var/lib/misc/moh
 
-sudo cp -rf auto_attendant /var/lib/misc/auto_attendant
+sudo cp -rf auto_attendant/* /var/lib/misc/auto_attendant
 sudo chown -R www-data:www-data /var/lib/misc/auto_attendant
 
 cd ../
