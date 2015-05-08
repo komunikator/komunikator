@@ -103,7 +103,7 @@ FROM (\n\
     a.called AS called,\n\
     date_format(FROM_UNIXTIME (a.time), '%d_%m_%Y_%H_%i_%s') AS time,\n\
     g.gateway_id AS gateway_id,\n\
-    CASE WHEN gm.group_id IS NULL OR gm2.group_id=1 THEN 0 ELSE gm.group_id END AS caller_group_id,\n\
+    CASE WHEN gm.group_id IS NULL OR gm.group_id=1 THEN 0 ELSE gm.group_id END AS caller_group_id,\n\
     CASE WHEN gm2.group_id IS NULL OR gm2.group_id=1 THEN 0 ELSE gm2.group_id END AS called_group_id\n\
   FROM call_history a\n\
   LEFT JOIN extensions x ON x.extension=a.caller\n\
