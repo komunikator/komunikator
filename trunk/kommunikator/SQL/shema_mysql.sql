@@ -525,6 +525,19 @@ CREATE TABLE `music_on_hold` (
   PRIMARY KEY (`music_on_hold_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+LOCK TABLES `music_on_hold` WRITE;
+
+INSERT INTO `music_on_hold` (
+  `music_on_hold_id`,
+  `music_on_hold`,
+  `description`,
+  `file`
+)
+VALUES 
+(1, 'kpv.mp3', 'Ringback tone', 'kpv.mp3');
+
+UNLOCK TABLES;
+
 --
 -- Table structure for table `network_interfaces`
 --
@@ -582,6 +595,18 @@ CREATE TABLE `playlist_items` (
   PRIMARY KEY (`playlist_item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+LOCK TABLES `playlist_items` WRITE;
+
+INSERT INTO `playlist_items` (
+  `playlist_item_id`,
+  `playlist_id`,
+  `music_on_hold_id`
+)
+VALUES
+(1, 2, 1);
+
+UNLOCK TABLES;
+
 --
 -- Table structure for table `playlists`
 --
@@ -595,6 +620,7 @@ CREATE TABLE `playlists` (
   PRIMARY KEY (`playlist_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+LOCK TABLES `playlists` WRITE;
 
 INSERT INTO `playlists` (
   `playlist_id`,
@@ -602,7 +628,10 @@ INSERT INTO `playlists` (
   `in_use`
 )
 VALUES
-(NULL, '', '0');
+(NULL, '', '0'),
+(2, 'default', '1');
+
+UNLOCK TABLES;
 
 --
 -- Table structure for table `prefixes`
@@ -634,6 +663,19 @@ CREATE TABLE `prompts` (
   PRIMARY KEY (`prompt_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+LOCK TABLES `prompts` WRITE;
+
+INSERT INTO `prompts` (
+  `prompt_id`,
+  `prompt`,
+  `status`,
+  `file`
+)
+VALUES
+(1, 'online', 'online', 'online.wav'),
+(2, 'offline', 'offline', 'offline.wav');
+
+UNLOCK TABLES;
 
 --
 -- Table structure for table `settings`
