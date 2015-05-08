@@ -26,8 +26,8 @@ sudo cp -rf apache22 /etc/apt/preferences.d/apache22
 #echo "mysql-server mysql-server/root_password_again password root" | sudo debconf-set-selections
 
 sudo apt-get update
-sudo apt-get install ntp
-sudo apt-get install tzdata
+sudo apt-get install -y ntp
+sudo apt-get install -y tzdata
 sudo dpkg-reconfigure tzdata
 sudo dpkg -i *.deb
 
