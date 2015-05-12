@@ -5,10 +5,10 @@ cd komunikator.temp
 
 if [ "$arch" = 'x86_64' ]
 then
-	wget http://komunikator.ru/repos/deb/1.0.b2/komunikator_64.tar.gz
+	wget http://komunikator.ru/repos/deb/nightly/komunikator_64.tar.gz
 	sudo mv komunikator_64.tar.gz komunikator.tar.gz
 else
-	wget http://komunikator.ru/repos/deb/1.0.b2/komunikator.tar.gz
+	wget http://komunikator.ru/repos/deb/nightly/komunikator.tar.gz
 fi
 
 tar -xvzf komunikator.tar.gz
@@ -83,6 +83,12 @@ sudo chown -R www-data:www-data /etc/webrtc2sip/c2c_sqlite.db
 sudo chmod +x /etc/webrtc2sip/scripts/*
 
 sudo sh webrtc2sip_source.sh
+
+sudo cp -rf moh/* /var/lib/misc/moh
+sudo chown -R www-data:www-data /var/lib/misc/moh
+
+sudo cp -rf auto_attendant/* /var/lib/misc/auto_attendant
+sudo chown -R www-data:www-data /var/lib/misc/auto_attendant
 
 cd ../
 sudo rm -rf ./komunikator.temp
