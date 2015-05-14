@@ -52,7 +52,8 @@
 
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
-?><?php
+?>
+<?php
 require_once("libyate.php");
 require_once("lib_queries.php");
 
@@ -708,7 +709,14 @@ function return_route($called, $caller, $no_forward = false) {
     }
 
 
-    $query = "SELECT * FROM dial_plans INNER JOIN gateways ON dial_plans.gateway_id=gateways.gateway_id WHERE (prefix IS NULL OR '$called' LIKE " . get_SQL_concat(array("prefix", "'%'")) . ") AND (gateways.username IS NULL OR gateways.status='online') ORDER BY length(coalesce(prefix,'')) DESC, priority LIMIT $max_routes";
+//  $query = "SELECT * FROM dial_plans INNER JOIN gateways ON dial_plans.gateway_id=gateways.gateway_id WHERE (prefix IS NULL OR '$called' LIKE " . get_SQL_concat(array("prefix", "'%'")) . ") AND (gateways.username IS NULL OR gateways.status='online') ORDER BY length(coalesce(prefix,'')) DESC, priority LIMIT $max_routes";
+//  Changed by TiM, Komunikator Team
+    $query = "SELECT dial_plan_id,dial_plan,priority,prefix,d.gateway_id,nr_of_digits_to_cut,position_to_start_cutting,nr_of_digits_to_replace,digits_to_replace_with,".
+             "position_to_start_replacing,position_to_start_adding,digits_to_add,g.gateway_id,gateway,protocol,server,type,username,password,enabled,description,`interval`,".
+             "authname,domain,outbound,localaddress,formats,rtp_localip,ip_transport,oip_transport,port,iaxuser,iaxcontext,rtp_forward,status,modified,callerid,".
+             "case when callername is null then '$caller' else callername end callername,send_extension,trusted,sig_trunk_id ".
+             "FROM dial_plans d INNER JOIN gateways g ON d.gateway_id=g.gateway_id WHERE (prefix IS NULL OR '$called' LIKE ".get_SQL_concat(array("prefix", "'%'")).
+             ") AND (g.username IS NULL OR g.status='online') ORDER BY length(coalesce(prefix,'')) DESC, priority LIMIT $max_routes";
     $res = query_to_array($query);
 
     if (!count($res)) {

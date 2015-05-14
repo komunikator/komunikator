@@ -63,6 +63,7 @@ if (!$_SESSION['user']) {
 $id_call_back = getparam('id');
 $callthrough_time = getparam('callthrough_time');
 $host = $_SERVER['SERVER_ADDR'];
+$host = "http://".$host;
 
 $data = compact_array(query_to_array("SELECT settings FROM call_back WHERE call_back_id = $id_call_back"));
 if (!is_array($data["data"]))
@@ -78,12 +79,12 @@ $nPage = $data[2]->{'3'}->{'field4'};
 $ua =  $data[3]->{'4'}->{'field4'};
 $url = $data[5]->{'6'}->{'field4'};
 
-$onUserVisit_check = $data[0]->{'1'}->{'field2'};
-$onUserExit_check = $data[1]->{'2'}->{'field2'};
-$onCheckURLHistory_check =  $data[5]->{'6'}->{'field2'};
-$onUserActivity2_check = $data[3]->{'4'}->{'field2'};
-$onMetrica_check = $data[4]->{'5'}->{'field2'};
-$onCheckNumberPage_check = $data[2]->{'3'}->{'field2'};
+$onUserVisit_check = ($data[0]->{'1'}->{'field2'}=='1') ? 'true' : 'false';
+$onUserExit_check = ($data[1]->{'2'}->{'field2'}=='1') ? 'true' : 'false';
+$onCheckURLHistory_check =  ($data[5]->{'6'}->{'field2'}=='1') ? 'true' : 'false';
+$onUserActivity2_check = ($data[3]->{'4'}->{'field2'}=='1') ? 'true' : 'false';
+$onMetrica_check = ($data[4]->{'5'}->{'field2'}=='1') ? 'true' : 'false';
+$onCheckNumberPage_check = ($data[2]->{'3'}->{'field2'}=='1') ? 'true' : 'false';
 
 $onUserVisit = $data[0]->{'1'}->{'field5'};
 $onUserExit = $data[1]->{'2'}->{'field5'};
