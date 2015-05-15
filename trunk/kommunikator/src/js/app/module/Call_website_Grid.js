@@ -97,7 +97,7 @@ Ext.apply(Ext.form.field.VTypes, {
     }
 });
 
-var color = [['komunikator_btn-info komunikator_btn_blue', '#0095C6'], ['komunikator_btn-info komunikator_btn_orange', '#F48033'], ['komunikator_btn-info komunikator_btn_red', '#C60000'], ['komunikator_btn-info komunikator_btn_green', '#009E00'], ['komunikator_btn-info komunikator_btn_yellow', '#FFCC4D'], ['komunikator_btn-info komunikator_btn_purple', '#6169CC'], ['komunikator_btn-info komunikator_btn_pink', '#DE57A4'], ['komunikator_btn-info komunikator_btn_lightgreen', '#A0C152'], ['', '#3C3C3C'], ['', '#CECECE']];
+var color = [['komunikator_btn-info komunikator_btn_blue', '#0095C6'], ['komunikator_btn-info komunikator_btn_orange', '#F48033'], ['komunikator_btn-info komunikator_btn_red', '#C60000'], ['komunikator_btn-info komunikator_btn_green', '#009E00'], ['komunikator_btn-info komunikator_btn_yellow', '#FFCC4D'], ['komunikator_btn-info komunikator_btn_purple', '#6169CC'], ['komunikator_btn-info komunikator_btn_pink', '#DE57A4'], ['komunikator_btn-info komunikator_btn_lightgreen', '#A0C152'], ['komunikator_btn-info komunikator_btn_black', '#3C3C3C'], ['komunikator_btn-info komunikator_btn_grey', '#CECECE']];
 
 Ext.define('app.module.Call_website_Grid', {
     extend: 'app.Grid',
