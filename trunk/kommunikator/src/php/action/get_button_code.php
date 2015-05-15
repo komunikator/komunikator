@@ -95,28 +95,37 @@ $sda_c2c_from = base64_encode($data["data"][0][0]);
 
 switch ($sda_button_color) {
 
-    case "btn" : $sda_c2c_cls = 'btn';
+    case "komunikator_btn-info komunikator_btn_blue" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_blue';
         break;
 
-    case "btn btn-primary" : $sda_c2c_cls = 'btn btn-primary';
+    case "komunikator_btn-info komunikator_btn_orange" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_orange';
         break;
 
-    case "btn btn-info" : $sda_c2c_cls = 'btn btn-info';
+    case "komunikator_btn-info komunikator_btn_red" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_red';
         break;
 
-    case "btn btn-success" : $sda_c2c_cls = 'btn btn-success';
+    case "komunikator_btn-info komunikator_btn_green" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_green';
         break;
-
-    case "btn btn-warning" : $sda_c2c_cls = 'btn btn-warning';
+    
+    case "komunikator_btn-info komunikator_btn_yellow" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_yellow';
         break;
-
-    case "btn btn-danger" : $sda_c2c_cls = 'btn btn-danger';
+    
+    case "komunikator_btn-info komunikator_btn_purple" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_purple';
         break;
-
-    case "btn btn-inverse" : $sda_c2c_cls = 'btn btn-inverse';
+    
+    case "komunikator_btn-info komunikator_btn_pink" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_pink';
         break;
-
-    default : $sda_c2c_cls = 'btn';
+    
+    case "komunikator_btn-info komunikator_btn_lightgreen" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_lightgreen';
+        break;
+    
+    case "komunikator_btn-info komunikator_btn_black" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_black';
+        break; 
+    
+    case "komunikator_btn-info komunikator_btn_grey" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_grey';
+        break;    
+    
+    default : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_blue';
 }
 
 /* - - - - -  получение значения переменной $sda_c2c_cls – стиль кнопки (КОНЕЦ)  - - - - - */
@@ -126,10 +135,13 @@ $sda_src = 'http://komunikator.ru/js/c2c-api.js';
 $sda_host = $_SERVER['SERVER_ADDR'];
 
 $sda_button_code = <<<EOD
-<script src='$sda_src'></script>
-
+        
+<script>	    
+    c2chostlocation = '$sda_host'
+    document.write(unescape("%3Cscript src='http://" + c2chostlocation + "/c2c/js/c2c-api.js'%3E%3C/script%3E"));    
+</script>  
+    
 <script>
-
     c2c.horizontal_align = 'right'; // right / left
     c2c.vertical_align = 'top';	// bottom / top	
     c2c.horizontal_margin = '-60'; // значение в пикселях
@@ -148,13 +160,10 @@ $sda_button_code = <<<EOD
     c2c.call_terminated_text = 'Вызов завершен';
     c2c.call_terminating_text = 'Завершение вызова...';
     c2c.fail_to_find_user_account_text = 'Нет такой учетной записи';
-
-    c2c.config = {
-        websocket_proxy_url: 'ws://$sda_host:10060',
-    };
-
+        
     c2c.init();
-</script>
+    checkWorkTime();
+</script>        
 EOD;
 
 $sda_button_code = htmlspecialchars($sda_button_code);
