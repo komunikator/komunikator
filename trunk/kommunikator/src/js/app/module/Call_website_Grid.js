@@ -137,7 +137,8 @@ Ext.define('app.module.Call_website_Grid', {
             }
         },
         {// 'button_color' - цвет кнопки
-            renderer: function(v) {
+            width: 180,
+            renderer: function(v) {                
                 if (v == 'komunikator_btn-info komunikator_btn_blue')
                     return app.msg.blue;
                 else
