@@ -1,0 +1,140 @@
+.komunikator_btn-info                                  /*стиль кнопки Позвоните Нам*/
+{
+  background-color: #5F9FCB; /*blue-цвет кнопки*/
+  border: 0px;
+  border-radius: 2px;
+  color: #ffffff;	         /*цвет текста кнопки*/	
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font: 11pt Arial;
+  height: 30px;
+  left: 1px;
+  margin-bottom: 0;
+  padding: 8px 12px 0px ;
+  position: fixed;
+  text-align: center;
+  top: 10px;
+  vertical-align: middle; 
+  visibility: visible;
+  -webkit-transform: rotate(0deg);
+  width: 145px;
+  z-index: 98;
+}
+.komunikator_btn-info:hover
+{
+  background-color: #FF832A;  /*цвет кнопки после наведения*/
+}
+.komunikator_btn                                  /*номернабиратель*/
+ {            
+  border: 0px;
+  border-radius: 0px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500; 
+  height:28px;
+  margin-bottom: 0;
+  outline: none;
+  padding: 4px 12px;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.41);
+     -moz-box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.41);
+          box-shadow:  0px 0px 2px 0px rgba(0, 0, 0, 0.41);	 
+  background: #dddddd;		  
+}
+.komunikator_btn_asterisk {
+  font-size: 28px;
+  padding-bottom: 10px;
+ }
+
+a{
+	text-decoration: none;
+}
+.komunikator_well                                      /*номеронабиратель*/
+{              
+  min-height: 20px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 2px solid #ffffff;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.komunikator_well blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.komunikator_well-large {
+  padding: 24px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+.komunikator_well-small {
+  padding: 9px;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+.komunikator_btn:focus, 
+.komunikator_btn:active,     /*цвет кнопок номеронабирателя при наведении на них и клику */
+.komunikator_btn.active, 
+.komunikator_btn.disabled, 
+.komunikator_btn[disabled]   
+{    
+  color: #333333;
+  background-color: #e6e6e6;
+  border: 1px solid #29B0D9;
+}
+
+.komunikator_btn:hover
+{
+  color: #333333;
+  background: #fff5ee ; 
+  border: 1px solid #29B0D9;
+}
+.komunikator_btn_blue     /*расцветки кнопки перезвоните нам*/
+{
+	background-color: #0095C6;
+}
+.komunikator_btn_orange
+{
+	background-color: #F48033;
+}
+.komunikator_btn_red
+{
+	background-color: #C60000;
+}
+.komunikator_btn_green
+{
+	background-color: #009E00;
+}
+.komunikator_btn_yellow
+{
+	background-color: #FFCC4D;
+}
+.komunikator_btn_purple
+{
+	background-color: #6169CC;
+}
+.komunikator_btn_pink
+{
+	background-color: #DE57A4;
+}
+.komunikator_btn_lightgreen
+{
+	background-color: #A0C152;
+}
+.komunikator_btn_black
+{
+	background-color: #3C3C3C;
+}
+.komunikator_btn_grey
+{
+	background-color: #CECECE;
+}
