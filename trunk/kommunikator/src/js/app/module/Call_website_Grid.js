@@ -53,39 +53,51 @@
 
 Ext.apply(Ext.form.field.VTypes, {
     picture: function(val, field) {
-        if (val == '#e6e6e6') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Grey_button.png" >'));
-            return true;
-        }
-        if (val == '#0044cc') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Cyan_button.png" >'));
-            return true;
-        }
-        if (val == '#2f96b4') {
+        if (val == '#0095C6') {
             console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Blue_button.png" >'));
             return true;
         }
-        if (val == '#51a351') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Green_button.png" >'));
+        if (val == '#F48033') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Orange_button.png" >'));
             return true;
         }
-        if (val == '#f89406') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Yellow_button.png" >'));
-            return true;
-        }
-        if (val == '#bd362f') {
+        if (val == '#C60000') {
             console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Red_button.png" >'));
             return true;
         }
-        if (val == '#444444') {
-            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Black_button.png" >'));
+        if (val == '#009E00') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Green_button.png" >'));
             return true;
         }
+        if (val == '#FFCC4D') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Yellow_button.png" >'));
+            return true;
+        }
+        if (val == '#6169CC') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Purple_button.png" >'));
+            return true;
+        }
+        if (val == '#DE57A4') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Pink_button.png" >'));
+            return true;
+        }
+        if (val == '#A0C152') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Lightgreen_button.png" >'));
+            return true;
+        }
+        if (val == '#3C3C3C') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Black_button.png" >'));
+            return true;
+        } 
+        if (val == '#CECECE') {
+            console.log(field.ownerCt.items.items[5].setValue('<img src= "js/app/images/Grey_button.png" >'));
+            return true;
+        }         
 
     }
 });
 
-var color = [['btn', '#e6e6e6'], ['btn btn-primary', '#0044cc'], ['btn btn-info', '#2f96b4'], ['btn btn-success', '#51a351'], ['btn btn-warning', '#f89406'], ['btn btn-danger', '#bd362f'], ['btn btn-inverse', '#444444']];
+var color = [['komunikator_btn-info komunikator_btn_blue', '#0095C6'], ['komunikator_btn-info komunikator_btn_orange', '#F48033'], ['komunikator_btn-info komunikator_btn_red', '#C60000'], ['komunikator_btn-info komunikator_btn_green', '#009E00'], ['komunikator_btn-info komunikator_btn_yellow', '#FFCC4D'], ['komunikator_btn-info komunikator_btn_purple', '#6169CC'], ['komunikator_btn-info komunikator_btn_pink', '#DE57A4'], ['komunikator_btn-info komunikator_btn_lightgreen', '#A0C152'], ['komunikator_btn-info komunikator_btn_black', '#3C3C3C'], ['komunikator_btn-info komunikator_btn_grey', '#CECECE']];
 
 Ext.define('app.module.Call_website_Grid', {
     extend: 'app.Grid',
@@ -126,26 +138,35 @@ Ext.define('app.module.Call_website_Grid', {
         },
         {// 'button_color' - цвет кнопки
             renderer: function(v) {
-                if (v == 'btn')
-                    return app.msg.gray;
-                else
-                if (v == 'btn btn-primary')
+                if (v == 'komunikator_btn-info komunikator_btn_blue')
                     return app.msg.blue;
                 else
-                if (v == 'btn btn-info')
-                    return app.msg.azure;
-                else
-                if (v == 'btn btn-success')
-                    return app.msg.green;
-                else
-                if (v == 'btn btn-warning')
+                if (v == 'komunikator_btn-info komunikator_btn_orange')
                     return app.msg.orange;
                 else
-                if (v == 'btn btn-danger')
+                if (v == 'komunikator_btn-info komunikator_btn_red')
                     return app.msg.red;
                 else
-                if (v == 'btn btn-inverse')
-                    return app.msg.dark_gray;
+                if (v == 'komunikator_btn-info komunikator_btn_green')
+                    return app.msg.green;
+                else
+                if (v == 'komunikator_btn-info komunikator_btn_yellow')
+                    return app.msg.yellow;
+                else
+                if (v == 'komunikator_btn-info komunikator_btn_purple')
+                    return app.msg.purple;
+                else
+                if (v == 'komunikator_btn-info komunikator_btn_pink')
+                    return app.msg.pink;
+                else
+                if (v == 'komunikator_btn-info komunikator_btn_lightgreen')
+                    return app.msg.green;     
+                else
+                if (v == 'komunikator_btn-info komunikator_btn_black')
+                    return app.msg.black;
+                else
+                if (v == 'komunikator_btn-info komunikator_btn_grey')
+                    return app.msg.grey;            
                 return v;
             },
             editor: {
