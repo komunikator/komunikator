@@ -162,10 +162,10 @@ Ext.define('app.module.Call_website_Grid', {
                 if (v == 'komunikator_btn-info komunikator_btn_lightgreen')
                     return app.msg.green;     
                 else
-                if (v == 'komunikator_btn-info komunikator_btn_black')
+                if (v == '')
                     return app.msg.black;
                 else
-                if (v == 'komunikator_btn-info komunikator_btn_grey')
+                if (v == '')
                     return app.msg.grey;            
                 return v;
             },
