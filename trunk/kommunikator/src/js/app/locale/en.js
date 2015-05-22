@@ -179,7 +179,7 @@ app.msg = {
     keys_info: "If your online prompt says: Press 1 for Sales, then you must select type: online, key: 1, and insert group: Sales (you must have Sales defined in the Groups section). Same for offline state.<br><br>If you want to send a call directly to an extension or another number, you should insert the number in the Destination field from Define Keys section.",
     timeframes_info: "When scheduling the Auto Attendant you set the time frames for each day during which ATT will be online. For periods not included in this time frames the offline mode will be used.",
     routing_rules_info: "DIDs - A call can go directly to a phone from inside the FreeSentral, by defining the destination as a DID. The destination can be an extension, a group of extensions, a voicemail, etc.",
-    address_book_info: "In the address book are aliases for all telephone numbers (incoming and outgoing). You can add and modify them.",
+    address_book_info: "In the address book are aliases for all telephone numbers (incoming and outgoing). You can add and modify them. To call a number from the address book, press 2 times star and enter an alias. For example: **ABONENT (the phone's display will show the number **2266368).",
     dial_plans_info: "Dial Plan: to define a dial plan means to make the connection between a call and a gateway. You have the option to direct calls of your choice to go to a specified gateway.",
     conferences_info: "Conferences - use the number associated with each room to connect to the active conference room.",
     gateways_info: "You should to restart the PBX after turning a gate on/off.",
