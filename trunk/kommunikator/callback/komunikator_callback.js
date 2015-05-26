@@ -399,7 +399,7 @@ var DCB = {
                 DCB.countdown_init();
                 DCB.countdown();
 
-                $.jsonp({url: ""+ dcb_id_server + "/data.php?action=order_call&number=" + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
+                $.jsonp({url: ""+ dcb_id_server + "/service/data.php?action=order_call&number=" + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
             } else
             {
                 $('#ahtyng_5031613510').empty();
@@ -561,7 +561,7 @@ var DCB = {
     };
 
     DCB.CheckWorkTime = function () {
-        $.jsonp({url: "" + dcb_id_server + "/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
+        $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
         setTimeout(DCB.CheckWorkTime, 60000);
     };
 
