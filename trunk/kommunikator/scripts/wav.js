@@ -117,11 +117,11 @@ FROM (\n\
 JOIN modules ms ON module_name='Call_Record_Grid' AND `condition`=1\n\
 JOIN call_records rt ON rt.enabled=1\n\
   -- caller section\n\
-    AND CASE WHEN (rt.caller_number='*' OR RIGHT(tab.caller,10)=RIGHT(rt.caller_number,10)) THEN TRUE ELSE FALSE END\n\
-  AND CASE WHEN (rt.caller_group=tab.caller_group_id OR (rt.caller_group is null and tab.caller_group_id is null)) THEN TRUE ELSE FALSE END\n\
+  AND CASE WHEN (rt.caller_number='*' OR RIGHT(tab.caller,10)=RIGHT(rt.caller_number,10)) THEN TRUE ELSE FALSE END\n\
+  AND CASE WHEN (rt.caller_group=tab.caller_group_id OR rt.caller_group is null OR tab.caller_group_id is null) THEN TRUE ELSE FALSE END\n\
   -- called section\n\
     AND CASE WHEN (rt.called_number='*' OR RIGHT(tab.called,10)=RIGHT(rt.called_number,10)) THEN TRUE ELSE FALSE END\n\
-  AND CASE WHEN (rt.called_group=tab.called_group_id OR (rt.called_group is null and tab.called_group_id is null)) THEN TRUE ELSE FALSE END\n\
+  AND CASE WHEN (rt.called_group=tab.called_group_id OR rt.called_group is null OR tab.called_group_id is null) THEN TRUE ELSE FALSE END\n\
   -- other params\n\
   AND CASE WHEN (rt.gateway='*') THEN TRUE ELSE (rt.gateway=tab.gateway_id) END\n\
   AND CASE WHEN (rt.type='*') THEN TRUE ELSE (rt.type=tab.type) END\n\
