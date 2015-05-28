@@ -34,8 +34,8 @@
     margin-top:7px;
     margin-left: 10px;
 } 
-
-.bubble_1093358732                  /*стиль подсказки*/
+/*
+.bubble_1093358732                  
 {
     display: none;
     margin-left: -160px;
@@ -72,7 +72,7 @@
 }
 .icon_box:hover > .bubble_1093358732 {
     display: block;}
-
+*/
 /* движение кнопки */
 @-webkit-keyframes pulse {
     0% {

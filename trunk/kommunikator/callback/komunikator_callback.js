@@ -278,8 +278,8 @@ var DCB = {
         $(document).ready(function () {
 
             $('body').append('<div id="dcb_id" class="dcb"></div>');
-            $('#dcb_id').append('<div id="circle" class="icon_box" onClick="DCB.Create_order(undefined,true);"><i class="ball icon1 fa fa-phone fa-3x"></i><div id="podskazka_3874990613" class="bubble_1093358732">Хотите, Мы перезвоним  Вам за ' + dcb_sec + ' секунд?' +
-                    '</div></div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="mod_header_7894788111"><div class="box-modal_close arcticmodal-close">X</div></div>' +
+            $('#dcb_id').append('<div id="circle" class="icon_box" onClick="DCB.Create_order(undefined,true);"><i class="ball icon1 fa fa-phone fa-3x"></i>'+ 
+                    '</div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="mod_header_7894788111"><div class="box-modal_close arcticmodal-close">X</div></div>' +
                     '<div class="mod_body_1427621553" id="win_order_content_9268377087"></div><div class="mod_footer_2196269136" id="podpic_komunikator_1749966526"><div class="text_silka_komunicator_9989142638">Работает на технологии</div>' +
                     '<a href="http://komunikator.ru/" target="_blank"><div class="some_background"></div></a></div></div>');
 
