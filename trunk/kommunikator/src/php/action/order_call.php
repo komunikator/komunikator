@@ -74,22 +74,25 @@ function click_to_call($caller, $called, $site, $callthrough_time) {
 
 header("Content-Type: application/javascript");
 $callback = $_GET["callback"];
-$called = getparam("number");
-$call_back_id = $_GET["call_back_id"];
+$called = mysql_real_escape_string(getparam("number"));
+//file_put_contents('order_call.log',date('d.m.y H:m:s')." called=$called\n",FILE_APPEND);
+$call_back_id = mysql_real_escape_string($_GET["call_back_id"]);
 
 $sql1 = "SELECT destination, name_site, callthrough_time FROM call_back WHERE call_back_id = $call_back_id";
 $res = query_to_array($sql1);
 
 // - - - - - - - error checking - - - - - - -
 
-$check_called = str_replace(' ', '', $called);
-if (!$called || $check_called == '') {
-    echo $callback . '({"warning":"Phone number is undefined"})';
+//$check_called = str_replace(' ', '', $called);
+if (!$called) 
+{
+    echo $callback.'({"warning":"Phone number is undefined"})';
     exit;
 }
 
-if (!$call_back_id || $call_back_id == '' || count($res) == 0) {
-    echo $callback . '({"warning":"Caller undefined"})';
+if (!$call_back_id || $call_back_id == '' || count($res) == 0) 
+{
+    echo $callback.'({"warning":"Caller undefined"})';
     exit;
 }
 
@@ -130,7 +133,7 @@ FROM call_logs a
     LEFT JOIN extensions x ON x.extension=a.caller
     LEFT JOIN extensions x2 ON x2.extension=b.called
     WHERE a.ended=0 AND a.direction='incoming' AND
-    a.status!='unknown' AND b.called = $called AND
+    a.status!='unknown' AND b.called = '$called' AND
     (a.status="answered" AND b.status="answered")) a
 EOD;
 
