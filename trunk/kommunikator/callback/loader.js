@@ -33,20 +33,24 @@ if (komunikatorCallback)
 	iframe.id = 'komunikatorCallbackFrame';
     iframe.setAttribute("frameBorder", "-");
     iframe.setAttribute("scrolling", "no");
-    iframe.setAttribute("height", "100%");
-    iframe.setAttribute("width", "100%");
-    iframe.style.position = "absolute";
+    iframe.setAttribute("seamless", "seamless");
+    iframe.setAttribute("height", "0px");
+    iframe.setAttribute("width", "0px");
+    iframe.style.position = "fixed";
     iframe.style.top = "0px";
     iframe.style.bottom = "0px";
+    iframe.style.right = "0px";
+    iframe.style.left = "0px";
+    iframe.style.padding = "0px 0px 0px 0px";
     iframe.style.zIndex = "999999";
     iframe.style.border = "0px";
     iframe.allowTransparency = true;
     iframe.style.backgroundColor = "transparent";
     iframe.style.display = "block";
-	iframe.onload = function ()
-	{
-		var iframeWindow = iframe.contentWindow;
-		var global = iframeWindow.MY_GLOBAL;
+    iframe.onload = function ()
+    {
+	var iframeWindow = iframe.contentWindow;
+	var global = iframeWindow.MY_GLOBAL;
     };
     if (!document.body)
     document.createElement('body');

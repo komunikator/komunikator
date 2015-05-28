@@ -1,5 +1,5 @@
 var DCB = {
-    debug:true
+    debug:false
 };
 
 (function () {
@@ -199,19 +199,53 @@ var DCB = {
         }
     };
 
+    DCB.setFramePosSize = function (x,y,width,height)
+    {
+        window.parent.document.getElementById('komunikatorCallbackFrame').width=width;
+        window.parent.document.getElementById('komunikatorCallbackFrame').height=height;
+        window.parent.document.getElementById('komunikatorCallbackFrame').style.left=x;
+        window.parent.document.getElementById('komunikatorCallbackFrame').style.top=y;
+    };
+
     DCB.correctScreen = function ()           // определение размеров экрана
     {
-        var client_w = window.parent.document.body.clientWidth;
-        var client_h = window.parent.document.documentElement.clientHeight;
-
+	var client_w = $(window.parent.document.documentElement).width();
+	var client_h = $(window.parent.document.documentElement).height();
+	var win_h;
+	var win_w;
+	if (window.parent.document.compatMode === 'BackCompat') {
+	    win_h = window.parent.document.body.clientHeight;
+	    win_w = window.parent.document.body.clientWidth;
+	} else {
+	    win_h = window.parent.document.documentElement.clientHeight;
+	    win_w = window.parent.document.documentElement.clientWidth;
+	}
+        if ($('.icon_box').get(0))
+        {
+            if ($('.icon_box').css('display') == 'none')
+	    {
+		DCB.setFramePosSize(0,0,win_w,win_h);
+	    } else
+	    {
+		DCB.setFramePosSize(win_w-150,win_h-150,74,74);
+	    }
+	}
+	//console.log('client='+client_w+'x'+client_h);
+	//console.log('window='+win_w+'x'+win_h);
+/*
 	var dsocleft = window.parent.window.pageXOffset || window.parent.document.documentElement.scrollLeft;
 	var dsoctop = window.parent.window.pageYOffset || window.parent.document.documentElement.scrollTop;
+
+
+	//console.log('scrolling: ('+dsocleft+','+dsoctop+')');
+
 	if (DCB.debug == true) console.log('dsocleft='+dsocleft+' dsoctop='+dsoctop);
 	$('.arcticmodal-container').css('width',client_w+'px');
 	$('.arcticmodal-container').css('height',client_h+'px');
 	$('.arcticmodal-container').css('top',dsoctop+'px');
 	$('.arcticmodal-container').css('left',dsocleft+'px');
-        $('.icon_box').css('margin-top', (client_h - 150 + dsoctop) + 'px');
+        $('.icon_box').css('margin-top', (win_h - 150 + dsoctop) + 'px');
+	
         if (client_w < 768)
         {
             $('.icon_box').css('margin-left', ((-110)+dsocleft)+'px');
@@ -227,6 +261,8 @@ var DCB = {
             $('.icon_box').css('margin-left', '-' +dsocleft+ Math.round(client_w * 0.12) + 'px');
             if (DCB.debug == true) console.log('width>1200');
         }
+*/
+	
     };
 
     DCB.begin = function () {
@@ -327,6 +363,7 @@ var DCB = {
     {
         cancel_order = true;
         $('.icon_box').css('display', 'block');
+	DCB.correctScreen();		   // корректируем iFrame
     };
 
     DCB.Create_order_checkcookie = function ()   // блокировка всплывающих окон по таймеру 
@@ -355,6 +392,7 @@ var DCB = {
         cancel_order = false;
         // отрисовка
         $('.icon_box').css('display', 'none');          // прячем кнопку
+	DCB.correctScreen();				// корректируем iFrame
         $('#win_order_7503523488').arcticmodal({// показываем модальное окно   
             afterClose: function (data, el) {
                 if (DCB.debug == true) console.log(data);
