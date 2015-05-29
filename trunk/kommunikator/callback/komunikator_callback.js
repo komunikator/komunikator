@@ -27,7 +27,7 @@ var DCB = {
         addListener(window.parent.window, 'scroll', function () {
             var sT = Number($(window.parent.window).scrollTop());
             var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
-	    if (DCB.debug == true) console.log('sT='+sT+' cH='+cH);
+        if (DCB.debug == true) console.log('sT='+sT+' cH='+cH);
             if (sT == cH)
             {
                 if (DCB.incCookie(c_scrollingvisit) > 1)   // сработает N раз ==1 - сработает 1 раз 
@@ -203,33 +203,36 @@ var DCB = {
     {
         window.parent.document.getElementById('komunikatorCallbackFrame').width=width;
         window.parent.document.getElementById('komunikatorCallbackFrame').height=height;
-        window.parent.document.getElementById('komunikatorCallbackFrame').style.left=x;
-        window.parent.document.getElementById('komunikatorCallbackFrame').style.top=y;
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.width=width+'px';
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.height=height+'px';
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.left=x+'px';
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.top=y+'px';
     };
 
     DCB.correctScreen = function ()           // определение размеров экрана
     {
-		var client_w = $(window.parent.document.documentElement).width();
-		var client_h = $(window.parent.document.documentElement).height();
-		var win_h;
-		var win_w;
-		if (window.parent.document.compatMode === 'BackCompat') {
-			win_h = window.parent.document.body.clientHeight;
-			win_w = window.parent.document.body.clientWidth;
-		} else {
-			win_h = window.parent.document.documentElement.clientHeight;
-			win_w = window.parent.document.documentElement.clientWidth;
-		}
-			if ($('.icon_box').get(0))
-			{
-				if ($('.icon_box').css('display') == 'none')
-			{
-			DCB.setFramePosSize(0,0,win_w,win_h);
-			} else
-			{
-			DCB.setFramePosSize(win_w-150,win_h-150,74,74);
-			}
-		}
+        var client_w = $(window.parent.document.documentElement).width();
+        var client_h = $(window.parent.document.documentElement).height();
+        var win_h;
+        var win_w;
+        if (window.parent.document.compatMode === 'BackCompat') {
+            win_h = window.parent.document.body.clientHeight;
+            win_w = window.parent.document.body.clientWidth;
+        } else {
+            win_h = window.parent.document.documentElement.clientHeight;
+            win_w = window.parent.document.documentElement.clientWidth;
+        }
+        if ($('.icon_box').get(0))
+        {
+            if ($('.icon_box').css('display') == 'none')
+            {
+                DCB.setFramePosSize(0,0,win_w,win_h);
+            } else
+            {
+                DCB.setFramePosSize(win_w-150,win_h-150,74,74);
+            }
+        }
+        console.log(win_w+'x'+win_h);
     };
 
     DCB.begin = function () {
@@ -330,7 +333,7 @@ var DCB = {
     {
         cancel_order = true;
         $('.icon_box').css('display', 'block');
-	DCB.correctScreen();		   // корректируем iFrame
+    DCB.correctScreen();           // корректируем iFrame
     };
 
     DCB.Create_order_checkcookie = function ()   // блокировка всплывающих окон по таймеру 
@@ -359,14 +362,14 @@ var DCB = {
         cancel_order = false;
         // отрисовка
         $('.icon_box').css('display', 'none');          // прячем кнопку
-	DCB.correctScreen();				// корректируем iFrame
+    DCB.correctScreen();                // корректируем iFrame
         $('#win_order_7503523488').arcticmodal({// показываем модальное окно   
             afterClose: function (data, el) {
                 if (DCB.debug == true) console.log(data);
                 DCB.Cancel_order();
             }
         });
-	DCB.correctScreen();
+    DCB.correctScreen();
         $('#win_order_content_9268377087').empty();    // очистка контекста модального окна
 
         if (co_text == undefined)
@@ -394,11 +397,11 @@ var DCB = {
         } else
         {
             var re1 = phone.replace(/[\s-]+/g, '');         // проверка на валидность набора номера                      
-	    var numregexp = /^(8|\+7)(\d{10,15})$/;
+        var numregexp = /^(8|\+7)(\d{10,15})$/;
             var valid = DCB.valid1(re1, numregexp);
             if (valid == true)
             {
-		re1 = re1.replace(numregexp,"7$2");
+        re1 = re1.replace(numregexp,"7$2");
                 DCB.zapret();                               // запрет на нажатии кнопки заказа звонка
                 // меняем форму ввода номера на таймер
                 $('#win_order_content_9268377087').empty();

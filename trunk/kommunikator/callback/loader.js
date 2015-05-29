@@ -1,6 +1,7 @@
 if (komunikatorCallback)
 {
     var iframe = document.createElement('iframe');
+    var div = document.createElement('div');
     var content = [
         "\<!DOCTYPE html\>",
         "\<html\>\<head\>\</head\>\<body\>\<script type=\"text/javascript\"\>",
@@ -30,13 +31,13 @@ if (komunikatorCallback)
         "var xx=document.getElementsByTagName('script')[0];xx.parentNode.insertBefore(x,xx);})();",
         "\</script\>\</body\>\</html\>"];
     iframe.src = 'javascript:void(0)';
-	iframe.id = 'komunikatorCallbackFrame';
+    iframe.id = 'komunikatorCallbackFrame';
     iframe.setAttribute("frameBorder", "-");
     iframe.setAttribute("scrolling", "no");
     iframe.setAttribute("seamless", "seamless");
     iframe.setAttribute("height", "0px");
     iframe.setAttribute("width", "0px");
-    iframe.style.position = "fixed";
+    iframe.style.position = "relative";
     iframe.style.top = "0px";
     iframe.style.bottom = "0px";
     iframe.style.right = "0px";
@@ -49,12 +50,24 @@ if (komunikatorCallback)
     iframe.style.display = "block";
     iframe.onload = function ()
     {
-	var iframeWindow = iframe.contentWindow;
-	var global = iframeWindow.MY_GLOBAL;
+        var iframeWindow = iframe.contentWindow;
+        var global = iframeWindow.MY_GLOBAL;
     };
+    div.id = 'komunikatorCallbackDiv';
+    div.style.position = "fixed";
+    div.style.height = 0;
+    div.style.width = 0;
+    div.style.top = "0px";
+    div.style.bottom = "0px";
+    div.style.right = "0px";
+    div.style.left = "0px";
+    div.style.padding = "0px 0px 0px 0px";
+    div.style.zIndex = "999999";
+    div.style.display = "block";
     if (!document.body)
-    document.createElement('body');
-	document.body.appendChild(iframe)
+        document.createElement('body');
+    document.body.appendChild(div);
+    document.getElementById("komunikatorCallbackDiv").appendChild(iframe);
     var doc = iframe.contentDocument || iframe.contentWindow.document;
     doc.open();
     doc.write(content.join("\n"));
