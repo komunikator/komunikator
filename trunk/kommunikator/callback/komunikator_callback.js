@@ -183,7 +183,7 @@ var DCB = {
                 $('.icon_box').css('background', '#' + color_hex_before);
             });
         }
-        if (color_hex_before == "ffffff" || color_hex_after == "ffffff") {
+        if (color_hex_before.toUpperCase() == "FFFFFF" || color_hex_after.toUpperCase() == "FFFFFF") {
             $('.icon1').css('color', '#000000');
         }
     };
