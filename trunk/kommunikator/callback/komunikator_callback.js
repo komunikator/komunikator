@@ -183,7 +183,7 @@ var DCB = {
                 $('.icon_box').css('background', '#' + color_hex_before);
             });
         }
-        if (color_hex_before == "ffffff" || color_hex_after == "ffffff") {
+        if (color_hex_before.toUpperCase() == "FFFFFF" || color_hex_after.toUpperCase() == "FFFFFF") {
             $('.icon1').css('color', '#000000');
         }
     };
@@ -232,7 +232,6 @@ var DCB = {
                 DCB.setFramePosSize(win_w-150,win_h-150,74,74);
             }
         }
-        console.log(win_w+'x'+win_h);
     };
 
     DCB.begin = function () {
@@ -323,6 +322,7 @@ var DCB = {
         return css;
     };
 
+    var work_status = 'offline';
     var cancel_order = true;
     var jsonpCallback_datasuccess = 'false';        // значение параметра success возвращаемое через jsonpCallback()
     var jsonpCallback_done = 'false';               // true - ф-ция jsonpCallback() выполнилась; false - не выполнялась
@@ -333,7 +333,7 @@ var DCB = {
     {
         cancel_order = true;
         $('.icon_box').css('display', 'block');
-    DCB.correctScreen();           // корректируем iFrame
+        DCB.correctScreen();           // корректируем iFrame
     };
 
     DCB.Create_order_checkcookie = function ()   // блокировка всплывающих окон по таймеру 
@@ -359,17 +359,20 @@ var DCB = {
         // защита от повторного вызова
         if (cancel_order == false)
             return;
+    // проверка рабочего времени
+    if (work_status != 'online')
+        return;
         cancel_order = false;
         // отрисовка
         $('.icon_box').css('display', 'none');          // прячем кнопку
-    DCB.correctScreen();                // корректируем iFrame
+        DCB.correctScreen();                        // корректируем iFrame
         $('#win_order_7503523488').arcticmodal({// показываем модальное окно   
             afterClose: function (data, el) {
                 if (DCB.debug == true) console.log(data);
                 DCB.Cancel_order();
             }
         });
-    DCB.correctScreen();
+        DCB.correctScreen();
         $('#win_order_content_9268377087').empty();    // очистка контекста модального окна
 
         if (co_text == undefined)
@@ -562,11 +565,12 @@ var DCB = {
 
     DCB.jsonpCallbackStatus = function (data) {  // проверка статуса рабочего времени 
         if (DCB.debug == true) console.log(data.status);
-        if (data.status = true)
+        work_status = data.status;
+        if (data.status == 'online' && cancel_order == true)
         {
-            $('.btn_callback_8403736779').css('display', 'block');
+            $('.icon_box').css('display', 'block');
         } else {
-            $('.btn_callback_8403736779').css('display', 'none');
+            $('.icon_box').css('display', 'none');
         }
     };
 
