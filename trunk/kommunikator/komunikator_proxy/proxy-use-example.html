@@ -1,0 +1,27 @@
+<script type='text/javascript'>
+var komunikatorCallback={
+    id:2,
+    server:'http://172.17.2.127/proxy/proxy.php?',
+    timer:{main:'20',sec:'15',ua:'40'},
+    nPage:'3',
+    timePopupBlocker:'5',
+    url:'http://example.ru/',
+    color:{before:'FFFFFF',after:'FF8519'},
+    msg:{
+        onUserVisit:'Рады вас видеть снова! Мы готовы перезвонить Вам за 15 секунд и ответить на все Ваши вопросы!',
+        onUserExit:'Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за 15 секунд.',
+        onCheckURLHistory:'Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за 15 секунд.',
+        onUserActivity2:'Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за 15 секунд.',
+        onMetrica:'Не нашли, что искали? Возникли вопросы? Давайте мы Вам перезвоним за 15 секунд.',
+        onSpecificPage:'Интересуетесь ХХХ? Давайте мы Вам перезвоним за 15 секунд и расскажем подробнее!'},
+    trigger:{
+        onUserVisit:true,
+        onUserExit:true,
+        onCheckURLHistory:true,
+        onUserActivity2:true,
+        onMetrica:true,
+        onCheckNumberPage:true}
+ };
+(function(){var x=document.createElement('script');x.type='text/javascript';x.async=true;x.src=komunikatorCallback.server+'/callback/loader.js';
+var xx=document.getElementsByTagName('script')[0];xx.parentNode.insertBefore(x,xx);})();
+</script>
