@@ -27,8 +27,11 @@ var DCB = {
         addListener(window.parent.window, 'scroll', function () {
             var sT = Number($(window.parent.window).scrollTop());
             var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
-            if (DCB.debug == true) console.log('sT='+sT+' cH='+cH);
-            if (sT == cH)
+            if (DCB.debug == true) console.log('DCB.metrica: sT='+sT+' cH='+cH+' (sT - scrollTop, cH - content height)');
+	    sT = Math.trunc(sT);
+	    cH = Math.trunc(cH);
+            if (DCB.debug == true) console.log('DCB.metrica: truncated values: sT='+sT+' cH='+cH);
+            if (sT > cH-10 && sT != 0)   // интервал в 10 пикселей (на случай если скроллинг сайта будет сделан не до самого конца)
             {
                 if (DCB.incCookie(c_scrollingvisit) > 1)   // сработает N раз ==1 - сработает 1 раз 
                 {
