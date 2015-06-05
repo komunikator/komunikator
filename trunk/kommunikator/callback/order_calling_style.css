@@ -1,5 +1,6 @@
 .icon_box  /* стиль круга*/
 {   
+    display: none;
     position: fixed; 
     float: right;
     z-index: 1000000;
