@@ -160,6 +160,10 @@ $sda_button_code = <<<EOD
     c2c.call_terminated_text = 'Вызов завершен';
     c2c.call_terminating_text = 'Завершение вызова...';
     c2c.fail_to_find_user_account_text = 'Нет такой учетной записи';
+
+    c2c.config = {
+            websocket_proxy_url: 'ws://$sda_host:10060',
+    };
         
     c2c.init();
     checkWorkTime();
