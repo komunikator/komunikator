@@ -92,7 +92,7 @@ Ext.define('app.module.Extensions_Grid', {
             editor: {
                 xtype: 'textfield',
                 inputType: 'password',
-                regex: /^\d{3,10}$/,
+                regex: /^[^:@;\?]+$/,
                 allowBlank: false
             }
         },

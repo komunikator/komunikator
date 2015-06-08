@@ -27,8 +27,11 @@ var DCB = {
         addListener(window.parent.window, 'scroll', function () {
             var sT = Number($(window.parent.window).scrollTop());
             var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
-	    if (DCB.debug == true) console.log('sT='+sT+' cH='+cH);
-            if (sT == cH)
+            if (DCB.debug == true) console.log('DCB.metrica: sT='+sT+' cH='+cH+' (sT - scrollTop, cH - content height)');
+	    sT = Math.trunc(sT);
+	    cH = Math.trunc(cH);
+            if (DCB.debug == true) console.log('DCB.metrica: truncated values: sT='+sT+' cH='+cH);
+            if (sT > cH-10 && sT != 0)   // интервал в 10 пикселей (на случай если скроллинг сайта будет сделан не до самого конца)
             {
                 if (DCB.incCookie(c_scrollingvisit) > 1)   // сработает N раз ==1 - сработает 1 раз 
                 {
@@ -102,17 +105,20 @@ var DCB = {
     DCB.check_urlhistory = function ()           // проверка history url
 
     {
+	if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
+	if (DCB.debug == true) console.log (urlhistory);
         if (!urlhistory)
             urlhistory = [];
         urlhistory.push({'timestamp': timestamp, 'url': window.location.toString()});
         DCB.setCookie(c_urlhistory, urlhistory);
+	if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
 
         if (urlhistory.length > 0)         // проверка посещения определенной страницы сайта 
             if (urlhistory[urlhistory.length - 1].url == specificurl)    // http://localhost/index.html
                 if (DCB.incCookie(c_actsomepagevisit) == 1) // >1 - показывать N раз 
                 {
-                    DCB.Create_order(msg_on_specificpage);
                     if (DCB.debug == true) console.log('это определенная страница');
+                    DCB.Create_order(msg_on_specificpage);
                 }
     };
 
@@ -183,7 +189,7 @@ var DCB = {
                 $('.icon_box').css('background', '#' + color_hex_before);
             });
         }
-        if (color_hex_before == "ffffff" || color_hex_after == "ffffff") {
+        if (color_hex_before.toUpperCase() == "FFFFFF" || color_hex_after.toUpperCase() == "FFFFFF") {
             $('.icon1').css('color', '#000000');
         }
     };
@@ -199,33 +205,38 @@ var DCB = {
         }
     };
 
+    DCB.setFramePosSize = function (x,y,width,height)
+    {
+        window.parent.document.getElementById('komunikatorCallbackFrame').width=width;
+        window.parent.document.getElementById('komunikatorCallbackFrame').height=height;
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.width=width+'px';
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.height=height+'px';
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.left=x+'px';
+        window.parent.document.getElementById('komunikatorCallbackDiv').style.top=y+'px';
+    };
+
     DCB.correctScreen = function ()           // определение размеров экрана
     {
-        var client_w = window.parent.document.body.clientWidth;
-        var client_h = window.parent.document.documentElement.clientHeight;
-
-	var dsocleft = window.parent.window.pageXOffset || window.parent.document.documentElement.scrollLeft;
-	var dsoctop = window.parent.window.pageYOffset || window.parent.document.documentElement.scrollTop;
-	if (DCB.debug == true) console.log('dsocleft='+dsocleft+' dsoctop='+dsoctop);
-	$('.arcticmodal-container').css('width',client_w+'px');
-	$('.arcticmodal-container').css('height',client_h+'px');
-	$('.arcticmodal-container').css('top',dsoctop+'px');
-	$('.arcticmodal-container').css('left',dsocleft+'px');
-        $('.icon_box').css('margin-top', (client_h - 150 + dsoctop) + 'px');
-        if (client_w < 768)
-        {
-            $('.icon_box').css('margin-left', ((-110)+dsocleft)+'px');
-            if (DCB.debug == true) console.log('width<768');
+        var client_w = $(window.parent.document.documentElement).width();
+        var client_h = $(window.parent.document.documentElement).height();
+        var win_h;
+        var win_w;
+        if (window.parent.document.compatMode === 'BackCompat') {
+            win_h = window.parent.document.body.clientHeight;
+            win_w = window.parent.document.body.clientWidth;
+        } else {
+            win_h = window.parent.document.documentElement.clientHeight;
+            win_w = window.parent.document.documentElement.clientWidth;
         }
-        if (client_w >= 768 && client_w <= 1200)
+        if ($('.icon_box').get(0))
         {
-            $('.icon_box').css('margin-left', ((-150)+dsocleft)+'px');
-            if (DCB.debug == true) console.log('width 768-1200');
-        }
-        if (client_w > 1200)
-        {
-            $('.icon_box').css('margin-left', '-' +dsocleft+ Math.round(client_w * 0.12) + 'px');
-            if (DCB.debug == true) console.log('width>1200');
+            if ($('.icon_box').css('display') == 'none' && work_status == 'online')
+            {
+                DCB.setFramePosSize(0,0,win_w,win_h);
+            } else
+            {
+                DCB.setFramePosSize(win_w-150,win_h-150,74,74);
+            }
         }
     };
 
@@ -242,8 +253,8 @@ var DCB = {
         $(document).ready(function () {
 
             $('body').append('<div id="dcb_id" class="dcb"></div>');
-            $('#dcb_id').append('<div id="circle" class="icon_box" onClick="DCB.Create_order(undefined,true);"><i class="ball icon1 fa fa-phone fa-3x"></i><div id="podskazka_3874990613" class="bubble_1093358732">Хотите, Мы перезвоним  Вам за ' + dcb_sec + ' секунд?' +
-                    '</div></div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="mod_header_7894788111"><div class="box-modal_close arcticmodal-close">X</div></div>' +
+            $('#dcb_id').append('<div id="circle" class="icon_box" onClick="DCB.Create_order(undefined,true);"><i class="ball icon1 fa fa-phone fa-3x"></i>' +
+                    '</div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="mod_header_7894788111"><div class="box-modal_close arcticmodal-close">X</div></div>' +
                     '<div class="mod_body_1427621553" id="win_order_content_9268377087"></div><div class="mod_footer_2196269136" id="podpic_komunikator_1749966526"><div class="text_silka_komunicator_9989142638">Работает на технологии</div>' +
                     '<a href="http://komunikator.ru/" target="_blank"><div class="some_background"></div></a></div></div>');
 
@@ -252,28 +263,31 @@ var DCB = {
             DCB.selectcolor();   // приоритет вызова функций 
             DCB.correctScreen();
             DCB.checkbrowser();
-            if (on_metrica == true)
-                DCB.metrica();
-            if (on_user_activity2 == true)
-                DCB.user_activity2();
-            if (on_check_urlhistory == true)
-                DCB.check_urlhistory();
-            if (on_user_visit == true)
-                DCB.user_visit();
-            if (on_check_numberpage == true)
-                DCB.check_numberpage();
-            if (on_user_exit == true)
-                DCB.user_exit();
-            addListener(window.parent.window, 'resize', function () {
-                DCB.correctScreen();
-            });
-            addListener(window.parent.window, 'scroll', function () {
-                DCB.correctScreen();
-            });
-            addListener(window.parent.window, 'load', function () {
-                DCB.correctScreen();
-            });
-            DCB.CheckWorkTime();
+	    DCB.begin2 = function ()
+	    {
+                if (on_metrica == true)
+                    DCB.metrica();
+                if (on_user_activity2 == true)
+                    DCB.user_activity2();
+                if (on_check_urlhistory == true)
+                    DCB.check_urlhistory();
+                if (on_user_visit == true)
+                    DCB.user_visit();
+                if (on_check_numberpage == true)
+                    DCB.check_numberpage();
+                if (on_user_exit == true)
+                    DCB.user_exit();
+                addListener(window.parent.window, 'resize', function () {
+                    DCB.correctScreen();
+                });
+                addListener(window.parent.window, 'scroll', function () {
+                    DCB.correctScreen();
+                });
+                addListener(window.parent.window, 'load', function () {
+                    DCB.correctScreen();
+                });
+	    };
+	    DCB.FirstCheckWorkTime();
         });
     };
 
@@ -317,6 +331,7 @@ var DCB = {
         return css;
     };
 
+    var work_status = 'offline';
     var cancel_order = true;
     var jsonpCallback_datasuccess = 'false';        // значение параметра success возвращаемое через jsonpCallback()
     var jsonpCallback_done = 'false';               // true - ф-ция jsonpCallback() выполнилась; false - не выполнялась
@@ -327,6 +342,7 @@ var DCB = {
     {
         cancel_order = true;
         $('.icon_box').css('display', 'block');
+        DCB.correctScreen();           // корректируем iFrame
     };
 
     DCB.Create_order_checkcookie = function ()   // блокировка всплывающих окон по таймеру 
@@ -352,16 +368,20 @@ var DCB = {
         // защита от повторного вызова
         if (cancel_order == false)
             return;
+	// проверка рабочего времени
+	if (work_status != 'online')
+	    return;
         cancel_order = false;
         // отрисовка
         $('.icon_box').css('display', 'none');          // прячем кнопку
+        DCB.correctScreen();                		// корректируем iFrame
         $('#win_order_7503523488').arcticmodal({// показываем модальное окно   
             afterClose: function (data, el) {
                 if (DCB.debug == true) console.log(data);
                 DCB.Cancel_order();
             }
         });
-	DCB.correctScreen();
+        DCB.correctScreen();
         $('#win_order_content_9268377087').empty();    // очистка контекста модального окна
 
         if (co_text == undefined)
@@ -389,9 +409,11 @@ var DCB = {
         } else
         {
             var re1 = phone.replace(/[\s-]+/g, '');         // проверка на валидность набора номера                      
-            var valid = DCB.valid1(re1, /(8|\+7)(\d{10,15})/);
+        var numregexp = /^(8|\+7)(\d{10,15})$/;
+            var valid = DCB.valid1(re1, numregexp);
             if (valid == true)
             {
+        re1 = re1.replace(numregexp,"7$2");
                 DCB.zapret();                               // запрет на нажатии кнопки заказа звонка
                 // меняем форму ввода номера на таймер
                 $('#win_order_content_9268377087').empty();
@@ -399,7 +421,7 @@ var DCB = {
                 DCB.countdown_init();
                 DCB.countdown();
 
-                $.jsonp({url: ""+ dcb_id_server + "/data.php?action=order_call&number=" + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
+                $.jsonp({url: ""+ dcb_id_server + "/service/data.php?action=order_call&number=" + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
             } else
             {
                 $('#ahtyng_5031613510').empty();
@@ -552,17 +574,26 @@ var DCB = {
 
     DCB.jsonpCallbackStatus = function (data) {  // проверка статуса рабочего времени 
         if (DCB.debug == true) console.log(data.status);
-        if (data.status = true)
+	work_status = data.status;
+        if (data.status == 'online' && cancel_order == true)
         {
-            $('.btn_callback_8403736779').css('display', 'block');
+            $('.icon_box').css('display', 'block');
         } else {
-            $('.btn_callback_8403736779').css('display', 'none');
+            $('.icon_box').css('display', 'none');
         }
     };
 
     DCB.CheckWorkTime = function () {
-        $.jsonp({url: "" + dcb_id_server + "/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
+        $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
         setTimeout(DCB.CheckWorkTime, 60000);
+    };
+
+    DCB.FirstCheckWorkTime = function () {
+        $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.FirstCheckWorkTime_f"});
+    };
+    DCB.FirstCheckWorkTime_f = function (data) {
+	DCB.jsonpCallbackStatus(data);
+	DCB.begin2();
     };
 
     // Внедряем объекты

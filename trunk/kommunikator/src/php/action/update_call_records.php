@@ -98,20 +98,31 @@ foreach ($data as $row) {
 $id_name = 'call_records_id';
 
 require_once("update.php");
+
 if ($caller_group) {
     $sql = "SELECT group_id FROM groups WHERE groups.group = '$caller_group'";
     $result1 = query_to_array($sql);
     $caller_group_id = $result1[0]['group_id'];
     $sql = "UPDATE call_records SET caller_group = $caller_group_id WHERE call_records_id = $call_records_id";
     $result2 = query_to_array($sql);
+} else
+{
+    $sql = "UPDATE call_records SET caller_group = null WHERE call_records_id = $call_records_id";
+    $result2 = query_to_array($sql);
 }
+
 if ($called_group) {
     $sql = "SELECT group_id FROM groups WHERE groups.group = '$called_group'";
     $result1 = query_to_array($sql);
     $called_group_id = $result1[0]['group_id'];
     $sql = "UPDATE call_records SET called_group = $called_group_id WHERE call_records_id = $call_records_id";
     $result2 = query_to_array($sql);
+} else
+{
+    $sql = "UPDATE call_records SET called_group = null WHERE call_records_id = $call_records_id";
+    $result2 = query_to_array($sql);
 }
+
 if ($gateway) {
     $sql = "SELECT gateway_id FROM gateways WHERE gateways.gateway = '$gateway'";
     $result1 = query_to_array($sql);
