@@ -1,0 +1,1 @@
+sudo sh deploy.sh | tee -a ~/log.txt

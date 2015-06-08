@@ -1,0 +1,11 @@
+Package: apache*
+Pin: release a=precise
+Pin-Priority: 500
+
+Package: libapache2-mod-php5
+Pin: release a=precise
+Pin-Priority: 500
+
+Package: php*
+Pin: release a=precise
+Pin-Priority: 500
