@@ -27,5 +27,5 @@ rm megastep.tar.gz
 ./makeself.sh "$kitemp" IP-PBX_deploy.sh "Komunikator Installer" ./INSTALL
 cd $p
 
-mv "$megastep"/IP-PBX_deploy.sh ./deb
+mv "$megastep"/IP-PBX_deploy.sh /var/www/
 rm -rf "$kitemp" "$megastep"
