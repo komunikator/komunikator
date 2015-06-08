@@ -8,7 +8,7 @@ Homepage:
 
 Package: kommunikator
 Architecture: all
-Depends: yate (>=4.3.0), sox, madplay, libapache2-mod-php5, php5-mysql, php-db, dbconfig-common, mysql-server
+Depends: yate (>=4.3.0), sox, madplay, libapache2-mod-php5, php5-mysql, php-db, mysql-server
 Description: Komunikator is a web interface for IP PBX YATE configuration and management
 
 Package: kommunikator-doc

@@ -60,12 +60,12 @@ if [ -f /usr/share/debconf/confmodule ]; then
 fi
 
 # source dbconfig-common stuff
-if [ -f /usr/share/dbconfig-common/dpkg/postinst.mysql ]; then
-	#dbc_generate_include=php:/var/www/kommunikator/config-db.php
-	#dbc_generate_include_perms=644
-	. /usr/share/dbconfig-common/dpkg/postinst.mysql 
-	dbc_go kommunikator $@
-fi
+#if [ -f /usr/share/dbconfig-common/dpkg/postinst.mysql ]; then
+#	#dbc_generate_include=php:/var/www/kommunikator/config-db.php
+#	#dbc_generate_include_perms=644
+#	. /usr/share/dbconfig-common/dpkg/postinst.mysql 
+#	dbc_go kommunikator $@
+#fi
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
