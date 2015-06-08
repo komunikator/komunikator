@@ -80,7 +80,7 @@ Ext.define('app.module.DID_Grid', {
             width: 150,
             editor: {
                 xtype: 'textfield',
-                regex: /^\d+$/,
+                regex: /^.+$/,
                 allowBlank: false
             }
         },
