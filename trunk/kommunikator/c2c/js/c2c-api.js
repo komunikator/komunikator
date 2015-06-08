@@ -30,10 +30,9 @@ document.write(unescape("%3Cscript src='//www.telize.com/geoip?callback=geoData'
 if(!window.c2c){
     c2c = { debug: false };
 }
+
+c2c.config = {};
 	
-c2c.config = {
-    websocket_proxy_url: 'ws://' + c2chostlocation + ':10060',
-};
 c2c.started = false;
 c2c.callSession = null;
 
@@ -65,7 +64,8 @@ if(c2c.debug){
 else{
 c2c.add_html_elts('body',
         [
-            { type: 'link', attributes: [{ name: 'href', value: 'http://' + c2chostlocation + '/c2c/css/call_us.css' }, { name: 'rel', value: 'stylesheet' }] }
+            { type: 'link', attributes: [{ name: 'href', value: 'http://' + c2chostlocation + '/c2c/css/bootstrap.css' }, { name: 'rel', value: 'stylesheet' }] },
+            { type: 'link', attributes: [{ name: 'href', value: 'http://' + c2chostlocation + '/c2c/css/bootstrap-responsive.css' }, { name: 'rel', value: 'stylesheet' }] },	    
         ]
     );
 }
@@ -189,42 +189,42 @@ c2c.init = function () {
 	    "<object id='fakeNetTransport' classid='clsid:5A7D84EC-382C-4844-AB3A-9825DBE30DAE' style='display:none'> </object>"+
 	    "<object id='fakePeerConnection' classid='clsid:56D10AD3-8F52-4AA4-854B-41F4D6F9CEA3' style='display:none'> </object>"
     );*/
-    document.write(
-        "<a href='#' class='komunikator_btn-info' id='c2c_btn_call' style='width: 145px; position:fixed; z-index:98'>call us &raquo;</a>"+
+    document.write(       
+        "<a href='#' class='btn btn-large btn-success' id='c2c_btn_call' style='width: 145px; position:fixed; z-index:98'>call us &raquo;</a>"+
         
-        "<div id='c2cNumPad' class='komunikator_well' style='display: none; padding: 70px 9px 10px 10px; width: 170px; position:fixed; z-index:97;'>"+
-			"<table style='width: 100%; height: 100%'>"+
-				"<tr>"+
-					"<td>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='1' onclick='sipSendDTMF(1);'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='2' onclick='sipSendDTMF(2);'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='3' onclick='sipSendDTMF(3);'/>"+
-					"</td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='4' onclick='sipSendDTMF(4);'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='5' onclick='sipSendDTMF(5);'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='6' onclick='sipSendDTMF(6);'/>"+
-					"</td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='7' onclick='sipSendDTMF(7);'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='8' onclick='sipSendDTMF(8);'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='9' onclick='sipSendDTMF(9);'/>"+
-					"</td>"+
-				"</tr>"+
-				"<tr>"+
-					"<td>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn komunikator_btn_asterisk' value='*' onclick='sipSendDTMF(\"*\");'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='0' onclick='sipSendDTMF(10);'/>"+
-						"<input type='button' style='width: 33%' class='komunikator_btn' value='#' onclick='sipSendDTMF(\"#\");'/>"+
-					"</td>"+
-				"</tr>"+
-			"</table>"+
-		"</div>"+
-			"<audio id='dtmfTone' src='http://" + c2chostlocation + "/c2c/sounds/dtmf.wav' />"
+        "<div id='c2cNumPad' class='well' style='display: none; padding: 70px 9px 10px 10px; width: 170px; position:fixed; z-index:97;'>"+
+	    "<table style='width: 100%; height: 100%'>"+
+		    "<tr>"+
+			    "<td>"+
+				    "<input type='button' style='width: 33%' class='btn' value='1' onclick='sipSendDTMF(1);'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='2' onclick='sipSendDTMF(2);'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='3' onclick='sipSendDTMF(3);'/>"+
+			    "</td>"+
+		    "</tr>"+
+		    "<tr>"+
+			    "<td>"+
+				    "<input type='button' style='width: 33%' class='btn' value='4' onclick='sipSendDTMF(4);'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='5' onclick='sipSendDTMF(5);'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='6' onclick='sipSendDTMF(6);'/>"+
+			    "</td>"+
+		    "</tr>"+
+		    "<tr>"+
+			    "<td>"+
+				    "<input type='button' style='width: 33%' class='btn' value='7' onclick='sipSendDTMF(7);'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='8' onclick='sipSendDTMF(8);'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='9' onclick='sipSendDTMF(9);'/>"+
+			    "</td>"+
+		    "</tr>"+
+		    "<tr>"+
+			    "<td>"+
+				    "<input type='button' style='width: 33%' class='btn' value='*' onclick='sipSendDTMF(\"*\");'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='0' onclick='sipSendDTMF(10);'/>"+
+				    "<input type='button' style='width: 33%' class='btn' value='#' onclick='sipSendDTMF(\"#\");'/>"+
+			    "</td>"+
+		    "</tr>"+
+	    "</table>"+
+	    "</div>"+
+	    "<audio id='dtmfTone' src='http://" + c2chostlocation + "/c2c/sounds/dtmf.wav' />"
     );
     document.write(
         "<div id='c2c_div_glass' style='"+
