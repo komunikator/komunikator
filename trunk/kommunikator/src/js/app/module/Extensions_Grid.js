@@ -426,7 +426,7 @@ Ext.define('app.module.Extensions_Grid', {
 var sda_storage_for_forwarding = Ext.create('Ext.data.Store', {
     fields: ['abbr', 'name'],
     data: [
-        {"abbr": "", "name": app.msg.notselected},
+        {"abbr": "", "name": ""},
         {"abbr": "vm", "name": app.msg.voicemail}
     ]
 });
