@@ -60,6 +60,9 @@ then
 		mysql -uroot -p$dbuserpw -e "GRANT ALL PRIVILEGES ON * . * TO 'kommunikator'@'localhost';"		
 	
 	echo "Installer: Copying some components and doing some post-installation configuration..."
+                chmod 664 -R data
+                chmod 755 -R data/all/etc/webrtc2sip/scripts data/all/usr/lib/yate data/x86 data/amd64
+                
 		if [ "$arch" = 'x86_64' ]
 		then		
 			sudo cp -rf data/all/* /
@@ -68,9 +71,8 @@ then
 			sudo cp -rf data/all/* /
 			sudo cp -rf data/amd64/* /
 		fi
-								
-		sudo chown -R www-data:www-data	/var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db
 		
+		sudo chown -R www-data:www-data	/var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db		
 		sudo chown -R yate:yate /var/lib/misc/records/
 		
 		sudo ldconfig

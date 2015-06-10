@@ -12,7 +12,7 @@ chmod +x "$kitemp"/INSTALL
 
 p=`pwd`
 cd "$kitemp"/data
-tar -pxvzf data.tar.gz
+tar -xvzf data.tar.gz
 rm data.tar.gz
 cd $p
 
@@ -22,9 +22,9 @@ mkdir -p "$megastep"
 cp megastep.tar.gz "$megastep"
 
 cd "$megastep"
-tar -pxvzf megastep.tar.gz
+tar -xvzf megastep.tar.gz
 rm megastep.tar.gz
-./makeself.sh --tar-extra p "$kitemp" IP-PBX_deploy.sh "Komunikator Installer" ./INSTALL
+./makeself.sh "$kitemp" IP-PBX_deploy.sh "Komunikator Installer" ./INSTALL
 cd $p
 
 mv -f "$megastep"/IP-PBX_deploy.sh /var/www/
