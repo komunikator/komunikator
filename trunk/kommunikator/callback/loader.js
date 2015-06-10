@@ -5,6 +5,7 @@ if (komunikatorCallback)
     var content = [
         "\<!DOCTYPE html\>",
         "\<html\>\<head\>\</head\>\<body\>\<script type=\"text/javascript\"\>",
+        "var dcb_prefix='" + komunikatorCallback.prefix + "';",
         "var dcb_seconds=" + komunikatorCallback.timer.main + ";", //"+komunikatorCallback.+"
         "var call_back_id=" + komunikatorCallback.id + ";",
         "var dcb_sec=" + komunikatorCallback.timer.sec + ";",

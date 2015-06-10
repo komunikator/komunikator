@@ -28,8 +28,8 @@ var DCB = {
             var sT = Number($(window.parent.window).scrollTop());
             var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
             if (DCB.debug == true) console.log('DCB.metrica: sT='+sT+' cH='+cH+' (sT - scrollTop, cH - content height)');
-	    sT = Math.trunc(sT);
-	    cH = Math.trunc(cH);
+        sT = Math.trunc(sT);
+        cH = Math.trunc(cH);
             if (DCB.debug == true) console.log('DCB.metrica: truncated values: sT='+sT+' cH='+cH);
             if (sT > cH-10 && sT != 0)   // интервал в 10 пикселей (на случай если скроллинг сайта будет сделан не до самого конца)
             {
@@ -105,13 +105,13 @@ var DCB = {
     DCB.check_urlhistory = function ()           // проверка history url
 
     {
-	if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
-	if (DCB.debug == true) console.log (urlhistory);
+    if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
+    if (DCB.debug == true) console.log (urlhistory);
         if (!urlhistory)
             urlhistory = [];
         urlhistory.push({'timestamp': timestamp, 'url': window.location.toString()});
         DCB.setCookie(c_urlhistory, urlhistory);
-	if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
+    if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
 
         if (urlhistory.length > 0)         // проверка посещения определенной страницы сайта 
             if (urlhistory[urlhistory.length - 1].url == specificurl)    // http://localhost/index.html
@@ -263,8 +263,8 @@ var DCB = {
             DCB.selectcolor();   // приоритет вызова функций 
             DCB.correctScreen();
             DCB.checkbrowser();
-	    DCB.begin2 = function ()
-	    {
+        DCB.begin2 = function ()
+        {
                 if (on_metrica == true)
                     DCB.metrica();
                 if (on_user_activity2 == true)
@@ -286,8 +286,8 @@ var DCB = {
                 addListener(window.parent.window, 'load', function () {
                     DCB.correctScreen();
                 });
-	    };
-	    DCB.FirstCheckWorkTime();
+        };
+        DCB.FirstCheckWorkTime();
         });
     };
 
@@ -368,13 +368,13 @@ var DCB = {
         // защита от повторного вызова
         if (cancel_order == false)
             return;
-	// проверка рабочего времени
-	if (work_status != 'online')
-	    return;
+    // проверка рабочего времени
+    if (work_status != 'online')
+        return;
         cancel_order = false;
         // отрисовка
         $('.icon_box').css('display', 'none');          // прячем кнопку
-        DCB.correctScreen();                		// корректируем iFrame
+        DCB.correctScreen();                        // корректируем iFrame
         $('#win_order_7503523488').arcticmodal({// показываем модальное окно   
             afterClose: function (data, el) {
                 if (DCB.debug == true) console.log(data);
@@ -421,7 +421,7 @@ var DCB = {
                 DCB.countdown_init();
                 DCB.countdown();
 
-                $.jsonp({url: ""+ dcb_id_server + "/service/data.php?action=order_call&number=" + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
+                $.jsonp({url: ""+ dcb_id_server + "/service/data.php?action=order_call&number=" + dcb_prefix + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
             } else
             {
                 $('#ahtyng_5031613510').empty();
@@ -574,7 +574,7 @@ var DCB = {
 
     DCB.jsonpCallbackStatus = function (data) {  // проверка статуса рабочего времени 
         if (DCB.debug == true) console.log(data.status);
-	work_status = data.status;
+    work_status = data.status;
         if (data.status == 'online' && cancel_order == true)
         {
             $('.icon_box').css('display', 'block');
@@ -592,8 +592,8 @@ var DCB = {
         $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.FirstCheckWorkTime_f"});
     };
     DCB.FirstCheckWorkTime_f = function (data) {
-	DCB.jsonpCallbackStatus(data);
-	DCB.begin2();
+    DCB.jsonpCallbackStatus(data);
+    DCB.begin2();
     };
 
     // Внедряем объекты

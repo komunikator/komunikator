@@ -92,6 +92,7 @@ $onCheckURLHistory = $data[2]->{'3'}->{'field5'};
 $onUserActivity2 = $data[3]->{'4'}->{'field5'};
 $onMetrica = $data[4]->{'5'}->{'field5'};
 $onSpecificPage = $data[5]->{'6'}->{'field5'};
+$prefix = $data[8]->{'9'}->{'field2'} ? 'true' : $data[8]->{'9'}->{'field5'};
 
 $call_back_code = <<<EOD
      
@@ -104,6 +105,7 @@ var komunikatorCallback={
     nPage:'$nPage',
     timePopupBlocker:'5',
     url:'$url',
+    prefix:'$prefix',
     color:{before:'$color_before',after:'$color_after'},
     msg:{
         onUserVisit:'$onUserVisit',
