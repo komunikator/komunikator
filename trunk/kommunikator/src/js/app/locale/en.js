@@ -333,6 +333,7 @@ app.msg = {
     condition_time: 'Time spent on the site',
     condition_scroll: 'Scrolling the page 100% below',
     condition_certain_page: 'Visiting a certain page of the site',
+    condition_prefix: 'Prefix',
     // - - - - - - - - - - - - - - - - - - - - - -
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'

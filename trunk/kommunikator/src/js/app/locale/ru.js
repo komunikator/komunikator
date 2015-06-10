@@ -264,7 +264,7 @@ app.msg = {
     wait_update: "Пожалуйста, подождите пока происходит установка обновлений", //"Обновление..."?
     checkforupdates: 'Проверить на наличие обновлений?',
     db_error_number_1062: 'Такая запись уже существует.',
-    //first_step	: "<div></div><p><b>The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours.</b></p>"
+    //first_step    : "<div></div><p><b>The first step for setting it is to upload the two prompts for online/offline mode. The prompts may vary depending on your company's business hours.</b></p>"
 
     //-------комментарии на страницах
     for_edit: "Для изменения настроек кликните по нужному пункту два раза",
@@ -389,5 +389,6 @@ app.msg = {
     condition_pages: 'Посещено несколько страниц сайта',
     condition_time: 'Время, проведенное на сайте',
     condition_scroll: 'Скролл вниз 100% страницы',
-    condition_certain_page: 'Посещение конкретной страницы сайта'
+    condition_certain_page: 'Посещение конкретной страницы сайта',
+    condition_prefix: 'Префикс для набора номера'
 };   

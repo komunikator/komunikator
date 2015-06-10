@@ -130,7 +130,7 @@ var windowSettings = Ext.create('widget.window', {
                             return '<div style="white-space:normal !important; height:25px; text-align:  center">' + value + '</div>';
                         }
                     }
-                ], height: 390
+                ], height: 490
 
     }),
     buttons: [
@@ -178,7 +178,7 @@ window.openSettings = function(object) {
     var call_site_params = [];
     var obj = JSON.parse(value);
 
-    for (var i = 0; i < 8; i++)
+    for (var i = 0; i < 9; i++)
     {
         var st = [];
         for (var key in obj[i]) {
