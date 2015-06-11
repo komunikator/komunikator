@@ -1,8 +1,12 @@
-var not_android = navigator.userAgent.indexOf('Android') < 0;
-var not_presto = navigator.userAgent.indexOf('Presto') < 0;
-var not_ie = navigator.userAgent.indexOf('Trident') < 0;
-var not_safari = navigator.userAgent.indexOf('OS X') < 0;
-if ((not_ie)&&(not_safari)&&(not_presto)&&(not_android)) {
+
+var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+var is_iphone = navigator.userAgent.indexOf("iPhone") <= 0;
+var is_ipad = navigator.userAgent.indexOf("iPad") <= 0;
+if ((is_iphone)&&(is_ipad)) {
+if (((is_chrome)&&(is_safari))||(is_firefox)) {
+
 
 document.write(unescape("%3Cscript src='http://" + c2chostlocation + "/c2c/js/jquery.min.js' + (new Date).getTime(); type='text/javascript'%3E%3C/script%3E"));
 document.write(unescape("%3Cscript src='http://" + c2chostlocation + "/c2c/js/jquery.jsonp-2.4.0.js' + (new Date).getTime(); type='text/javascript'%3E%3C/script%3E"));
@@ -593,4 +597,5 @@ c2c._send_data = function(data, successCallback, errorCallback){
 
     xmlhttp.send(data);
 };
+}
 }
