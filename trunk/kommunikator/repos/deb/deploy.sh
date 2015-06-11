@@ -60,8 +60,8 @@ then
 		mysql -uroot -p$dbuserpw -e "GRANT ALL PRIVILEGES ON * . * TO 'kommunikator'@'localhost';"		
 	
 	echo "Installer: Copying some components and doing some post-installation configuration..."
-                chmod 664 -R data
-                chmod 755 -R data/all/etc/webrtc2sip/scripts data/all/usr/lib/yate data/x86 data/amd64
+                chmod 664 -R ./data
+                chmod 755 -R ./data/all/etc/webrtc2sip/scripts data/all/usr/lib/yate data/x86 data/amd64
                 
 		if [ "$arch" = 'x86_64' ]
 		then		
