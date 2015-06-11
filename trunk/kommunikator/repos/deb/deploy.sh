@@ -71,6 +71,8 @@ then
 			cp -rf data/all/* /
 			cp -rf data/amd64/* /
 		fi
+
+                rm -rf data
 		
 		chown -R www-data:www-data /var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db		
 		chown -R yate:yate /var/lib/misc/records/
