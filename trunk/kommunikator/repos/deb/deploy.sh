@@ -66,10 +66,11 @@ then
 		if [ "$arch" = 'x86_64' ]
 		then		
 			cp -rf data/all/* /
-			cp -rf data/x86/* /
+			cp -rf data/amd64/* /
 		else
 			cp -rf data/all/* /
-			cp -rf data/amd64/* /
+			cp -rf data/x86/* /
+                        echo "#" > /etc/default/yate
 		fi
 
                 rm -rf data
