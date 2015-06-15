@@ -75,7 +75,7 @@ then
                 rm -rf data
 		
                 chmod 665 /etc/webrtc2sip
-                chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/local/bin/webrtc2sip /usr/local/lib/libtiny*
+                chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/bin/webrtc2sip /usr/local/lib/libtiny*
 		chown -R www-data:www-data /var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db		
 		chown -R yate:yate /var/lib/misc/records/
 		
