@@ -64,15 +64,15 @@ then
                 
 		if [ "$arch" = 'x86_64' ]
 		then		
-			cp -rf data/all/* /
-			cp -rf data/amd64/* /
+			cp -aprf data/all/* /
+			cp -aprf data/amd64/* /
 		else
-			cp -rf data/all/* /
-			cp -rf data/x86/* /
+			cp -aprf data/all/* /
+			cp -aprf data/x86/* /
                         echo "#" > /etc/default/yate
 		fi
 
-                rm -aprf data
+                rm -rf data
 		
                 chmod 665 /etc/webrtc2sip
                 chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/local/bin/webrtc2sip /usr/local/lib/libtiny*
