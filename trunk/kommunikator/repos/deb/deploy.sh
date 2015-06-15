@@ -60,20 +60,20 @@ then
 		mysql -uroot -p$dbuserpw -e "GRANT ALL PRIVILEGES ON * . * TO 'kommunikator'@'localhost';"		
 	
 	echo "Installer: Copying some components and doing some post-installation configuration..."
-                chmod 664 -R data
                 
 		if [ "$arch" = 'x86_64' ]
 		then		
-			cp -prf data/all/* /
-			cp -prf data/amd64/* /
+			cp -rf data/all/* /
+			cp -rf data/amd64/* /
 		else
-			cp -prf data/all/* /
-			cp -prf data/x86/* /
+			cp -rf data/all/* /
+			cp -rf data/x86/* /
                         echo "#" > /etc/default/yate
 		fi
 
                 rm -rf data
 		
+                chmod 664 /usr/share/php/DB/sqlite3.php
                 chmod 665 /etc/webrtc2sip /etc/webrtc2sip/ssl
                 chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/bin/webrtc2sip /usr/local/lib
 		chown -R www-data:www-data /var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db		
