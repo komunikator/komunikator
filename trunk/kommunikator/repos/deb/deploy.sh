@@ -61,7 +61,6 @@ then
 	
 	echo "Installer: Copying some components and doing some post-installation configuration..."
                 chmod 664 -R data
-                chmod 755 -R data/all/etc/webrtc2sip/scripts data/all/usr/lib/yate data/x86 data/amd64
                 
 		if [ "$arch" = 'x86_64' ]
 		then		
@@ -73,8 +72,10 @@ then
                         echo "#" > /etc/default/yate
 		fi
 
-                rm -rf data
+                rm -aprf data
 		
+                chmod 665 /etc/webrtc2sip
+                chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/local/bin/webrtc2sip /usr/local/lib/libtiny*
 		chown -R www-data:www-data /var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db		
 		chown -R yate:yate /var/lib/misc/records/
 		
