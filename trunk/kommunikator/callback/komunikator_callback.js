@@ -41,10 +41,13 @@ var DCB = {
             }
         });
     };
-
+    var c_default_expires =  new Date();
+    var min_s = 30;
+    c_default_expires.setTime(c_default_expires.getTime() + (min_s * 60 * 1000));
+      
     DCB.setCookie = function (cookie_name, cookie_value, cookie_expires) // установка cookie
     {
-        var c_exp = 1;
+        var c_exp = c_default_expires; 
         if (cookie_expires)
             c_exp = cookie_expires;
         $.cookie.json = true;
