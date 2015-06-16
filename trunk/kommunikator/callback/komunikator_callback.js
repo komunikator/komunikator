@@ -48,7 +48,7 @@ var DCB = {
         if (cookie_expires)
             c_exp = cookie_expires;
         $.cookie.json = true;
-        $.cookie(cookie_name, cookie_value, {expires: c_exp});
+        $.cookie(cookie_name, cookie_value, {expires: c_exp, path: '/'});
     };
 
     DCB.getCookie = function (cookie_name)  // получение cookie
@@ -106,10 +106,11 @@ var DCB = {
 
     {
     if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
-    if (DCB.debug == true) console.log (urlhistory);
+    if (DCB.debug == true) console.log ('DCB.check_urlhistory: before push: ',urlhistory);
         if (!urlhistory)
             urlhistory = [];
         urlhistory.push({'timestamp': timestamp, 'url': window.location.toString()});
+    if (DCB.debug == true) console.log ('DCB.check_urlhistory: after push: ',urlhistory);
         DCB.setCookie(c_urlhistory, urlhistory);
     if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
 
