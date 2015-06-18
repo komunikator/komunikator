@@ -1,4 +1,5 @@
 .box-modal {
+    padding: 0px 0px 0px 0px;
     position: relative;
     width: 660px;
     height: 290px;
@@ -22,7 +23,7 @@
     font-weight: bold;
     color: #606060;
     text-decoration: none;
-	cursor:pointer;
+    cursor:pointer;
 }
 
 .box-modal_close:hover { color: #666; }

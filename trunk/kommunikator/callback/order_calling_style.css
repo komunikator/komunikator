@@ -1,10 +1,9 @@
 .icon_box  /* стиль круга*/
 {   
-    display: none;
     position: fixed; 
     float: right;
     z-index: 1000000;
-    left:100%;	
+    left:100%;  
     margin-left:-64px;
     width: 60px;
     height: 60px;
@@ -24,7 +23,7 @@
     -webkit-box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);    /*Тень*/
     -moz-box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);
-}	
+}   
 .icon1   /*стиль трубки */
 {
     position: relative;
@@ -35,7 +34,45 @@
     margin-top:7px;
     margin-left: 10px;
 } 
+/*
+.bubble_1093358732                  
+{
+    display: none;
+    margin-left: -160px;
+    margin-top: -110px;
 
+    text-align: center;
+    font-family: Tahoma;
+    width: 210px;
+    height: 45px;
+    padding: 5px 12px 5px 12px;
+    background: -webkit-linear-gradient(90deg, #C7C2BB 5%, #F7EFEA 100%);
+    background: -moz-linear-gradient(90deg, #C7C2BB 5%, #F7EFEA 100%);
+    background: -ms-linear-gradient(90deg, #C7C2BB 5%, #F7EFEA 100%);
+    background: linear-gradient(180deg, #F7EFEA 5%, #C7C2BB 100%);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 1px 9px 1px #616161;
+    -moz-box-shadow: 1px 1px 9px 1px #616161;
+    box-shadow: 1px 1px 9px 1px #616161;
+}
+.bubble_1093358732:after 
+{
+    position:relative;
+    content: "";
+    bottom: -7px;
+    left: 170px;
+    border-style: solid;
+    border-width: 15px 15px 0px;
+    border-color: #c7c2bb transparent;
+    display: block; 
+    width: 0px;
+    z-index: 1000001;
+}
+.icon_box:hover > .bubble_1093358732 {
+    display: block;}
+*/
 /* движение кнопки */
 @-webkit-keyframes pulse {
     0% {
@@ -206,9 +243,11 @@
     font-family: Verdana, Arial, sans-serif;
     margin-top: 9px;
     margin-right: 100px;
+    padding: 1px 0px 1px 0px;
     background: #484848; 
     color: #FFFFFF; 
     font-size: 16pt; 
+    -webkit-appearance: none;
     -moz-border-radius:  4px; 
     -webkit-border-radius:  4px; 
     border-radius: 4px; 
@@ -217,7 +256,8 @@
 .text_message_2563964469 
 {   
     margin-top: 10px;
-    margin-left: 70px;
+    margin-left: 60px;
+    padding: 2px 0px 2px 4px;
     font-family: Verdana, Arial, sans-serif;
     font-size: 14pt; 
     color: #000000; 
@@ -280,7 +320,7 @@ input.text_message_2563964469:-ms-input-placeholder
     color: #606060;
     text-align:right;
     font-weight:bold;
-    margin-right: 125px;	
+    margin-right: 125px;    
 }
 .trevoga_9107808614
 {    
@@ -299,7 +339,7 @@ input.text_message_2563964469:-ms-input-placeholder
     font-family: Verdana, Arial, sans-serif;
     font-size:12pt;
     color: red;
-}	
+}   
 /*стиль таймера */
 .cntSeparator_8087290461
 {

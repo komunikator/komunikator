@@ -26,10 +26,13 @@ var DCB = {
     DCB.metrica = function () {     // scrolling 
         addListener(window.parent.window, 'scroll', function () {
             var sT = Number($(window.parent.window).scrollTop());
-            var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
+//            var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
+            var cH = window.parent.document.body.offsetHeight - window.parent.window.innerHeight;
             if (DCB.debug == true) console.log('DCB.metrica: sT='+sT+' cH='+cH+' (sT - scrollTop, cH - content height)');
-        sT = Math.trunc(sT);
-        cH = Math.trunc(cH);
+//        sT = Math.trunc(sT);
+//        cH = Math.trunc(cH);
+        sT = sT | 0;
+        cH = cH | 0;
             if (DCB.debug == true) console.log('DCB.metrica: truncated values: sT='+sT+' cH='+cH);
             if (sT > cH-10 && sT != 0)   // интервал в 10 пикселей (на случай если скроллинг сайта будет сделан не до самого конца)
             {
@@ -47,9 +50,11 @@ var DCB = {
       
     DCB.setCookie = function (cookie_name, cookie_value, cookie_expires) // установка cookie
     {
-        var c_exp = c_default_expires; 
+        var c_exp = c_default_expires;
+        console.log('DCB.setCookie: ',c_exp); 
         if (cookie_expires)
             c_exp = cookie_expires;
+            console.log(c_exp);
         $.cookie.json = true;
         $.cookie(cookie_name, cookie_value, {expires: c_exp, path: '/'});
     };
@@ -221,17 +226,14 @@ var DCB = {
 
     DCB.correctScreen = function ()           // определение размеров экрана
     {
-        var client_w = $(window.parent.document.documentElement).width();
-        var client_h = $(window.parent.document.documentElement).height();
-        var win_h;
-        var win_w;
-        if (window.parent.document.compatMode === 'BackCompat') {
-            win_h = window.parent.document.body.clientHeight;
-            win_w = window.parent.document.body.clientWidth;
-        } else {
-            win_h = window.parent.document.documentElement.clientHeight;
-            win_w = window.parent.document.documentElement.clientWidth;
-        }
+        //var client_w = $(window.parent.document.documentElement).width();
+        //var client_h = $(window.parent.document.documentElement).height();
+        var win_w = window.parent.window.innerWidth;
+        var win_h = window.parent.window.innerHeight;
+        var doc_w = window.parent.document.body.offsetWidth;
+        var doc_h = window.parent.document.body.offsetHeight;
+        if (DCB.debug == true) console.log('DCB.correctScreen win_w=',win_w,' win_h=',win_h);
+
         if ($('.icon_box').get(0))
         {
             if ($('.icon_box').css('display') == 'none' && work_status == 'online')
@@ -239,7 +241,8 @@ var DCB = {
                 DCB.setFramePosSize(0,0,win_w,win_h);
             } else
             {
-                DCB.setFramePosSize(win_w-150,win_h-150,74,74);
+//                DCB.setFramePosSize(win_w-150,win_h-150,74,74);
+                DCB.setFramePosSize(win_w-74-win_h*0.07,win_h-74-win_h*0.07,74,74);
             }
         }
     };
@@ -253,7 +256,7 @@ var DCB = {
             "\tsrc: url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.eot?v=4.3.0');\n" +
             "\tsrc: url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');\n" +
             "}\n" +
-            "</style>");
+            "</style>\n");
         $(document).ready(function () {
 
             $('body').append('<div id="dcb_id" class="dcb"></div>');
@@ -392,7 +395,7 @@ var DCB = {
             co_text = 'Хотите, мы вам перезвоним за ' + dcb_sec + ' секунд?';      // замена текста в мод.окне
 
         $('#win_order_content_9268377087').append('<div id="zagolovok_order_0353271466" class="text_zagolovka_order_4043482234">' + co_text + '</div>' +
-                '<div style="display:inline-block;width:100%"><input type="text" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="Введите ваш номер" class="text_message_2563964469">' +
+                '<div style="display:inline-block;width:100%;text-align:center;"><input type="text" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="Введите ваш номер" class="text_message_2563964469">' +
                 '<input type="button" value="Звоните!" id="Call_us_6760835097" class="button_calling_1712953875" onClick="DCB.Show_timer();"' + (Call_us_6760835097_disabled ? ' disabled' : '') + '></div>' +
                 '<div id="calling_free_5164231155" ><div class="text_call_free_4537679586">Звонок бесплатный</div><div id="ahtyng_5031613510" class="trevoga_9107808614"></div><div id="Help_us_window_0685353415" style="display: none"><div class="help_federation_number_text_0597947849" id="Help_us_text_9868532398"></div></div></div>');
         DCB.button_calling_color(!Call_us_6760835097_disabled);
@@ -613,4 +616,6 @@ var DCB = {
     DCB.includeJS(digt_callback_url + "/js/detect.js");
     DCB.includeJS(digt_callback_url + "/js/jquery.cookie.js");
 })();
+ 
+
  
