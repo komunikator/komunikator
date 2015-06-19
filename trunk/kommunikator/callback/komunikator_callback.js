@@ -109,21 +109,25 @@ var DCB = {
 
     var timestamp = new Date().getTime().toString();
     var urlhistory;
-
-    DCB.check_urlhistory = function ()           // проверка history url
-
-    {
-    if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
-    if (DCB.debug == true) console.log ('DCB.check_urlhistory: before push: ',urlhistory);
+    
+    DCB.fill_urlhistory = function (){           // проверка history url
+        urlhistory = DCB.getCookie(c_urlhistory);
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: before push: ',urlhistory);
         if (!urlhistory)
             urlhistory = [];
         urlhistory.push({'timestamp': timestamp, 'url': window.location.toString()});
-    if (DCB.debug == true) console.log ('DCB.check_urlhistory: after push: ',urlhistory);
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: after push: ',urlhistory);
         DCB.setCookie(c_urlhistory, urlhistory);
-    if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
+    };
 
-        if (urlhistory.length > 0)         // проверка посещения определенной страницы сайта 
-            if (urlhistory[urlhistory.length - 1].url == specificurl)    // http://localhost/index.html
+    DCB.check_specificurl = function() {
+         var url_1 = urlhistory;
+        
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
+        if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
+
+        if (url_1.length > 0)         // проверка посещения определенной страницы сайта 
+            if (url_1[url_1.length - 1].url == specificurl)    // http://localhost/index.html
                 if (DCB.incCookie(c_actsomepagevisit) == 1) // >1 - показывать N раз 
                 {
                     if (DCB.debug == true) console.log('это определенная страница');
@@ -131,11 +135,10 @@ var DCB = {
                 }
     };
 
-
-
-    DCB.check_numberpage = function () {    // проверка кол-ва посещенных страниц
-
-        var number_key = urlhistory.length;
+    DCB.check_numberpage = function () {    // проверка кол-ва посещенных страниц 
+        var url_2 = urlhistory;
+        var number_key = url_2.length;
+        
         if (number_key >= number_page)
         {
             if (DCB.incCookie(c_numberpage) == 1)            //  if(DCB.incCookie(c_numberpage) > 1) 
@@ -265,11 +268,11 @@ var DCB = {
                     '<div class="mod_body_1427621553" id="win_order_content_9268377087"></div><div class="mod_footer_2196269136" id="podpic_komunikator_1749966526"><div class="text_silka_komunicator_9989142638">Работает на технологии</div>' +
                     '<a href="http://komunikator.ru/" target="_blank"><div class="some_background"></div></a></div></div>');
 
-            urlhistory = DCB.getCookie(c_urlhistory);
 
             DCB.selectcolor();   // приоритет вызова функций 
             DCB.correctScreen();
             DCB.checkbrowser();
+            DCB.fill_urlhistory();
         DCB.begin2 = function ()
         {
                 if (on_metrica == true)
@@ -277,7 +280,7 @@ var DCB = {
                 if (on_user_activity2 == true)
                     DCB.user_activity2();
                 if (on_check_urlhistory == true)
-                    DCB.check_urlhistory();
+                    DCB.check_specificurl();
                 if (on_user_visit == true)
                     DCB.user_visit();
                 if (on_check_numberpage == true)
