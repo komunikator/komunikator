@@ -508,7 +508,7 @@ var DCB = {
             if (jsonpCallback_datasuccess == 'false' && jsonpCallback_done == 'true')
             {
                 // ответ от сервера пришел, но звонок совершить сейчас невозможно  
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Извините, похоже никого нет в офисе.</div><div class="perezvon_7957356058" id="auto_otvet_perezvon_0661029074"><br>Мы обязательно перезвоним Вам в течении суток.</br></div>');
+                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Извините, похоже никого нет в офисе.</div><div class="perezvon_7957356058" id="auto_otvet_perezvon_0661029074"><br>Мы обязательно перезвоним Вам в течение суток.</br></div>');
             }
             if (jsonpCallback_datasuccess == 'true')
             {
