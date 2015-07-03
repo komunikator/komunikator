@@ -109,21 +109,25 @@ var DCB = {
 
     var timestamp = new Date().getTime().toString();
     var urlhistory;
-
-    DCB.check_urlhistory = function ()           // проверка history url
-
-    {
-    if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
-    if (DCB.debug == true) console.log ('DCB.check_urlhistory: before push: ',urlhistory);
+    
+    DCB.fill_urlhistory = function (){           // проверка history url
+        urlhistory = DCB.getCookie(c_urlhistory);
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: before push: ',urlhistory);
         if (!urlhistory)
             urlhistory = [];
         urlhistory.push({'timestamp': timestamp, 'url': window.location.toString()});
-    if (DCB.debug == true) console.log ('DCB.check_urlhistory: after push: ',urlhistory);
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: after push: ',urlhistory);
         DCB.setCookie(c_urlhistory, urlhistory);
-    if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
+    };
 
-        if (urlhistory.length > 0)         // проверка посещения определенной страницы сайта 
-            if (urlhistory[urlhistory.length - 1].url == specificurl)    // http://localhost/index.html
+    DCB.check_specificurl = function() {
+         var url_1 = urlhistory;
+        
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
+        if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
+
+        if (url_1.length > 0)         // проверка посещения определенной страницы сайта 
+            if (url_1[url_1.length - 1].url == specificurl)    // http://localhost/index.html
                 if (DCB.incCookie(c_actsomepagevisit) == 1) // >1 - показывать N раз 
                 {
                     if (DCB.debug == true) console.log('это определенная страница');
@@ -131,11 +135,10 @@ var DCB = {
                 }
     };
 
-
-
-    DCB.check_numberpage = function () {    // проверка кол-ва посещенных страниц
-
-        var number_key = urlhistory.length;
+    DCB.check_numberpage = function () {    // проверка кол-ва посещенных страниц 
+        var url_2 = urlhistory;
+        var number_key = url_2.length;
+        
         if (number_key >= number_page)
         {
             if (DCB.incCookie(c_numberpage) == 1)            //  if(DCB.incCookie(c_numberpage) > 1) 
@@ -260,16 +263,17 @@ var DCB = {
         $(document).ready(function () {
 
             $('body').append('<div id="dcb_id" class="dcb"></div>');
+            //$('#dcb_id').append('<div id="circle" class="icon_box" onClick="DCB.Create_order(undefined,true);"><i class="ball icon1 fa fa-phone fa-3x"></i><div id="podskazka_3874990613" class="bubble_1093358732">Хотите, Мы перезвоним  Вам за ' + dcb_sec + ' секунд?' +
             $('#dcb_id').append('<div id="circle" class="icon_box" onClick="DCB.Create_order(undefined,true);"><i class="ball icon1 fa fa-phone fa-3x"></i>' +
                     '</div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="mod_header_7894788111"><div class="box-modal_close arcticmodal-close">X</div></div>' +
                     '<div class="mod_body_1427621553" id="win_order_content_9268377087"></div><div class="mod_footer_2196269136" id="podpic_komunikator_1749966526"><div class="text_silka_komunicator_9989142638">Работает на технологии</div>' +
-                    '<a href="http://komunikator.ru/" target="_blank"><div class="some_background"></div></a></div></div>');
+                    '<a href="https://komunikator.ru/?utm_source=callback&utm_medium=extensions&utm_campaign=callback" target="_blank"><div class="some_background"></div></a></div></div>');
 
-            urlhistory = DCB.getCookie(c_urlhistory);
 
             DCB.selectcolor();   // приоритет вызова функций 
             DCB.correctScreen();
             DCB.checkbrowser();
+            DCB.fill_urlhistory();
         DCB.begin2 = function ()
         {
                 if (on_metrica == true)
@@ -277,7 +281,7 @@ var DCB = {
                 if (on_user_activity2 == true)
                     DCB.user_activity2();
                 if (on_check_urlhistory == true)
-                    DCB.check_urlhistory();
+                    DCB.check_specificurl();
                 if (on_user_visit == true)
                     DCB.user_visit();
                 if (on_check_numberpage == true)
@@ -395,8 +399,8 @@ var DCB = {
             co_text = 'Хотите, мы вам перезвоним за ' + dcb_sec + ' секунд?';      // замена текста в мод.окне
 
         $('#win_order_content_9268377087').append('<div id="zagolovok_order_0353271466" class="text_zagolovka_order_4043482234">' + co_text + '</div>' +
-                '<div style="display:inline-block;width:100%;text-align:center;"><input type="text" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="Введите ваш номер" class="text_message_2563964469">' +
-                '<input type="button" value="Звоните!" id="Call_us_6760835097" class="button_calling_1712953875" onClick="DCB.Show_timer();"' + (Call_us_6760835097_disabled ? ' disabled' : '') + '></div>' +
+                '<div style="display:inline-block;width:100%;text-align:center;"><input type="text" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="+7 ХХХ ХХХ ХХ ХХ" class="text_message_2563964469">' +
+                '<input type="button" value="Звоните !" id="Call_us_6760835097" class="button_calling_1712953875" onClick="DCB.Show_timer();"' + (Call_us_6760835097_disabled ? ' disabled' : '') + '></div>' +
                 '<div id="calling_free_5164231155" ><div class="text_call_free_4537679586">Звонок бесплатный</div><div id="ahtyng_5031613510" class="trevoga_9107808614"></div><div id="Help_us_window_0685353415" style="display: none"><div class="help_federation_number_text_0597947849" id="Help_us_text_9868532398"></div></div></div>');
         DCB.button_calling_color(!Call_us_6760835097_disabled);
         DCB.button_calling_print_time;
@@ -429,6 +433,7 @@ var DCB = {
                 DCB.countdown();
 
                 $.jsonp({url: ""+ dcb_id_server + "/service/data.php?action=order_call&number=" + dcb_prefix + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
+                //setTimeout(DCB.jsonpCallback({success:'false',warning:'hello, man'}),3000);
             } else
             {
                 $('#ahtyng_5031613510').empty();
@@ -503,20 +508,20 @@ var DCB = {
             if (jsonpCallback_datasuccess == 'false' && jsonpCallback_done == 'true')
             {
                 // ответ от сервера пришел, но звонок совершить сейчас невозможно  
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Извините, похоже никого нет в офисе</div><div class="perezvon_7957356058" id="auto_otvet_perezvon_0661029074"><br>Мы обязательно перезвоним Вам в течении суток</br></div>');
+                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Извините, похоже никого нет в офисе.</div><div class="perezvon_7957356058" id="auto_otvet_perezvon_0661029074"><br>Мы обязательно перезвоним Вам в течение суток.</br></div>');
             }
             if (jsonpCallback_datasuccess == 'true')
             {
                 // мы вам звоним, все в порядке
                 $('#win_order_content_9268377087').empty();
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Спасибо за использование нашего сервиса</div><div class="podrobnee_6300426980" id="yznai_o_technologii_5324782904">Узнайте <a href="http://komunikator.ru/" target="_blank">подробнее</a> о технологиях</div><a href="http://komunikator.ru/" target="_blank"><div class="bolshoi_komunicator_5316051287"></div></a>');
+                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Спасибо за использование нашего сервиса.</div><div class="podrobnee_6300426980" id="yznai_o_technologii_5324782904">Узнайте <a href="http://komunikator.ru/" target="_blank">подробнее</a> о технологиях</div><a href="http://komunikator.ru/" target="_blank"><div class="bolshoi_komunicator_5316051287"></div></a>');
                 $('#podpic_komunikator_1749966526').css('display', 'none');
             }
             if (jsonpCallback_datasuccess == 'false' && jsonpCallback_done == 'false')
             {
                 // время вышло и ответ от сервера не пришел 
                 $('#win_order_content_9268377087').empty();
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234"><p>Error 404 not found</p></div>');
+                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Похоже что-то пошло не так.</div><div class="perezvon_7957356058" id="auto_otvet_perezvon_0661029074"><br>Попробуйте позже.</br></div>');
             }
         } else
             inter = setTimeout(DCB.countdown, 10);
@@ -546,7 +551,7 @@ var DCB = {
     {
         if (enabled)
         {
-            $('.button_calling_1712953875').css('background-color', '#484848');
+            $('.button_calling_1712953875').css('background-color', '#4c4c4c');
         }
         else
         {
@@ -581,6 +586,7 @@ var DCB = {
 
     DCB.jsonpCallbackStatus = function (data) {  // проверка статуса рабочего времени 
         if (DCB.debug == true) console.log(data.status);
+       // data.status = 'online';
     work_status = data.status;
         if (data.status == 'online' && cancel_order == true)
         {
@@ -591,12 +597,14 @@ var DCB = {
     };
 
     DCB.CheckWorkTime = function () {
-        $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
+        //$.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
+        setTimeout(DCB.jsonpCallbackStatus({status:'online'}),100);
         setTimeout(DCB.CheckWorkTime, 60000);
     };
 
     DCB.FirstCheckWorkTime = function () {
-        $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.FirstCheckWorkTime_f"});
+        //$.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.FirstCheckWorkTime_f"});
+        setTimeout(DCB.FirstCheckWorkTime_f({status:'online'}),100);
     };
     DCB.FirstCheckWorkTime_f = function (data) {
     DCB.jsonpCallbackStatus(data);

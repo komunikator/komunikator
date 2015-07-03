@@ -27,65 +27,50 @@
 .icon1   /*стиль трубки */
 {
     position: relative;
-    width:48px ;
+    width: 48px ;
     height: 48px;
     cursor: pointer;
     color: #ffffff;
-    margin-top:7px;
+    margin-top: 7px;
     margin-left: 10px;
 } 
+
 /*
-.bubble_1093358732                  
+.bubble_1093358732
 {
     display: none;
-    margin-left: -160px;
-    margin-top: -110px;
-
+    margin-left: -222px;
+    margin-top: -55px;
     text-align: center;
-    font-family: Tahoma;
-    width: 210px;
+    vertical-align: middle;
+    padding-top: 15px;
+    font: 14px/18px Arial, "Helvetica CY", "Nimbus Sans L", sans-serif;
+    width: 220px;
     height: 45px;
-    padding: 5px 12px 5px 12px;
-    background: -webkit-linear-gradient(90deg, #C7C2BB 5%, #F7EFEA 100%);
-    background: -moz-linear-gradient(90deg, #C7C2BB 5%, #F7EFEA 100%);
-    background: -ms-linear-gradient(90deg, #C7C2BB 5%, #F7EFEA 100%);
-    background: linear-gradient(180deg, #F7EFEA 5%, #C7C2BB 100%);
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 1px 1px 9px 1px #616161;
-    -moz-box-shadow: 1px 1px 9px 1px #616161;
-    box-shadow: 1px 1px 9px 1px #616161;
+    border-radius: 100px;
+    background: #4c4c4c;
+    color: #fff;
 }
-.bubble_1093358732:after 
+
+.icon_box:hover > .bubble_1093358732 
 {
-    position:relative;
-    content: "";
-    bottom: -7px;
-    left: 170px;
-    border-style: solid;
-    border-width: 15px 15px 0px;
-    border-color: #c7c2bb transparent;
-    display: block; 
-    width: 0px;
-    z-index: 1000001;
+    display: block;
 }
-.icon_box:hover > .bubble_1093358732 {
-    display: block;}
 */
+
 /* движение кнопки */
 @-webkit-keyframes pulse {
     0% {
         -webkit-transform: scaleY(1) scaleX(1) rotate(0deg);
     }
     25% {
-        -webkit-transform: scaleY(1.2) scaleX(1.2) rotate(-15deg); 
+        -webkit-transform: scaleY(1.1) scaleX(1.1) rotate(-15deg); 
     }
     50% {
-        -webkit-transform: scaleY(1.2) scaleX(1.2) rotate(15deg); 
+        -webkit-transform: scaleY(1.1) scaleX(1.1) rotate(15deg); 
     }
     75% {
-        -webkit-transform: scaleY(1.2) scaleX(1.2) rotate(0deg); 
+        -webkit-transform: scaleY(1.1) scaleX(1.1) rotate(0deg); 
     }
     100% {
         -webkit-transform: scaleY(1) scaleX(1) rotate(0); 
@@ -96,13 +81,13 @@
         -o-transform: scaleY(1) scaleX(1) rotate(0deg);
     }
     25% {
-        -o-transform: scaleY(1.2) scaleX(1.2) rotate(-15deg); 
+        -o-transform: scaleY(1.1) scaleX(1.1) rotate(-15deg); 
     }
     50% {
-        -o-transform: scaleY(1.2) scaleX(1.2) rotate(15deg); 
+        -o-transform: scaleY(1.1) scaleX(1.1) rotate(15deg); 
     }
     75% {
-        -o-transform: scaleY(1.2) scaleX(1.2) rotate(0deg); 
+        -o-transform: scaleY(1.1) scaleX(1.1) rotate(0deg); 
     }
     100% {
         -o-transform: scaleY(1) scaleX(1) rotate(0); 
@@ -113,13 +98,13 @@
         -moz-transform: scaleY(1) scaleX(1) rotate(0deg);
     }
     25% {
-        -moz-transform: scaleY(1.2) scaleX(1.2) rotate(-15deg); 
+        -moz-transform: scaleY(1.1) scaleX(1.1) rotate(-15deg); 
     }
     50% {
-        -moz-transform: scaleY(1.2) scaleX(1.2) rotate(15deg); 
+        -moz-transform: scaleY(1.1) scaleX(1.1) rotate(15deg); 
     }
     75% {
-        -moz-transform: scaleY(1.2) scaleX(1.2) rotate(0deg); 
+        -moz-transform: scaleY(1.1) scaleX(1.1) rotate(0deg); 
     }
     100% {
         -moz-transform: scaleY(1) scaleX(1) rotate(0); 
@@ -130,13 +115,13 @@
         transform: scaleY(1) scaleX(1) rotate(0deg);
     }
     25% {
-        transform: scaleY(1.2) scaleX(1.2) rotate(-15deg); 
+        transform: scaleY(1.1) scaleX(1.1) rotate(-15deg); 
     }
     50% {
-        transform: scaleY(1.2) scaleX(1.2) rotate(15deg); 
+        transform: scaleY(1.1) scaleX(1.1) rotate(15deg); 
     }
     75% {
-        transform: scaleY(1.2) scaleX(1.2) rotate(0deg); 
+        transform: scaleY(1.1) scaleX(1.1) rotate(0deg); 
     }
     100% {
         transform: scaleY(1) scaleX(1) rotate(0); 
@@ -236,100 +221,141 @@
     cursor: pointer; 
 }
 
-.button_calling_1712953875                        /* стиль окна заказа  */
+.button_calling_1712953875  /* стиль окна заказа  */
 {
-    width: 110px;
+    width: 166px;
+    height: 43px;
     text-align: center;
     font-family: Verdana, Arial, sans-serif;
-    margin-top: 9px;
-    margin-right: 100px;
+    margin-top: 0;
+    margin-right: auto;
     padding: 1px 0px 1px 0px;
-    background: #484848; 
-    color: #FFFFFF; 
-    font-size: 16pt; 
+    background: #4c4c4c; 
+    color: #FFF;
+    border: none;
+    box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.3);
+    font-size: 16pt;
+    text-transform: uppercase;
     -webkit-appearance: none;
-    -moz-border-radius:  4px; 
-    -webkit-border-radius:  4px; 
-    border-radius: 4px; 
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
     cursor: pointer;
 }
+
 .text_message_2563964469 
 {   
     margin-top: 10px;
-    margin-left: 60px;
-    padding: 2px 0px 2px 4px;
+    margin-left: auto;
+    margin-right: 20px;
+    padding: 3px 3px 3px 10px;
     font-family: Verdana, Arial, sans-serif;
-    font-size: 14pt; 
-    color: #000000; 
-    border-radius: 4px;
-    width: 360px;
+    font-size: 18pt;
+    color: #4c4c4c;
+    border-radius: 5px;
+    border: 1px solid #d6d6d6;
+    box-shadow: inset 0 2px 2px 1px rgba(0, 0, 0, 0.33);
+    width: 260px;
+    height: 37px;
 }
+
 input.text_message_2563964469:-ms-input-placeholder 
 {
     font-family: Verdana, Arial,sans-serif;
-    font-size: 15pt; 
-    color: #BFBFBF; 
+    font-size: 18pt;
+    color: #afafaf;
 }
+
+input.text_message_2563964469::-webkit-input-placeholder {
+    font-family: Verdana, Arial,sans-serif;
+    font-size: 18pt;
+    color: #afafaf;
+}
+
+input.text_message_2563964469:-moz-placeholder { /* Firefox 18- */
+    font-family: Verdana, Arial,sans-serif;
+    font-size: 18pt;
+    color: #afafaf;
+}
+
+input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
+    font-family: Verdana, Arial,sans-serif;
+    font-size: 18pt;
+    color: #afafaf;
+}
+
 .text_zagolovka_order_4043482234 
 { 
     display: inline-block;
-    width:100%;
+    width: 630px;
+    margin: 0;
+    height: 80px;
+    padding: 0 15px 0 15px;
     position: inherit;
     text-align: center;
     font-family: Verdana, Arial, sans-serif;
     font-size: 16pt;
+    font-weight: bold;
     white-space: pre-wrap; /* css-3 */
     white-space: -moz-pre-wrap; /* Mozilla */
     white-space: -pre-wrap; /* Opera 4-6 */
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word; /* Internet Explorer 5.5+ */ 
     line-height: normal;
-    color: #606060;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
-    margin-left: 0px;
-    height: 80px;
-}   
+    color: #4c4c4c;
+}
+
 .text_call_free_4537679586
 {
-    display: inline; 
+    display: inline;
     float: right;
-    margin-right: 84px; 
+    margin-right: 80px;
+    width: 166px;
     margin-top: 5px;
     font-size: 10pt;
-    font-weight:bold;
-    color: #606060;
+    font-weight: normal;
+    color: #4c4c4c;
     font-family: Verdana, Arial, sans-serif;
-}   
+}
+
 .mod_header_7894788111
 {
     height:50px;
+    margin-top: 0;
 }
+
 .mod_body_1427621553
 {
     height:190px;
 }
+
 .mod_footer_2196269136
 {
-    height:50px;
+    height: 30px;
+    margin-top: 20px;
 }
 
 .text_silka_komunicator_9989142638
 { 
-    color: #606060;
-    text-align:right;
-    font-weight:bold;
+    color: #4c4c4c;
+    font-family: Verdana, Arial, sans-serif;
+    text-align: right;
+    font-weight: bold;
     margin-right: 125px;    
 }
+
 .trevoga_9107808614
 {    
     font-family: Verdana, Arial, sans-serif;
-    font-weight:bold;
-    margin-left: 70px;
+    font-weight: normal;
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 120px;
     color: #FF0000; 
     font-size: 10pt;
-} 
+    width: 260px;
+}
+
 .help_federation_number_text_0597947849
 {    
     margin-top: 10px;
@@ -339,15 +365,17 @@ input.text_message_2563964469:-ms-input-placeholder
     font-family: Verdana, Arial, sans-serif;
     font-size:12pt;
     color: red;
-}   
+}
+
 /*стиль таймера */
 .cntSeparator_8087290461
 {
-    font-size: 30pt;
+    font-size: 36pt;
     text-align: center;
     margin-top: 10px;
-    color: #606060;       
+    color: #4c4c4c;       
 }
+
 /*стиль окна извините */
 .perezvon_7957356058
 {  
@@ -355,8 +383,9 @@ input.text_message_2563964469:-ms-input-placeholder
     margin-top: 0px;
     text-align:center;
     font-size: 16pt;
-    color: #606060;
+    color: #4c4c4c;
 }
+
 /*стиль окна спасибо*/
 .podrobnee_6300426980
 {    
@@ -365,12 +394,13 @@ input.text_message_2563964469:-ms-input-placeholder
     text-align:center;
     font-family: Verdana, Arial, sans-serif;
     font-size: 16pt;
-    color: #606060; 
+    color: #4c4c4c; 
 }
+
 .bolshoi_komunicator_5316051287   
 {
-    width:250px;
-    height:40px;
+    width: 250px;
+    height: 40px;
     margin-top: 30px;
     margin-left: 200px;
     background-size: 250px;

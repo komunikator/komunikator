@@ -1,29 +1,36 @@
-.box-modal {
+.box-modal 
+{
     padding: 0px 0px 0px 0px;
     position: relative;
     width: 660px;
     height: 290px;
     padding: 15px;
-    background: #fff;
-    color: #3c3c3c;
+    background: #f6f6f6;
+    border: 1px solid #000;
+    color: #4c4c4c;
     font: 14px/18px Arial, "Helvetica CY", "Nimbus Sans L", sans-serif;
-    box-shadow: 0 0 0 2px rgba(153, 153, 153, .3);
-    border-radius: 0px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .3);
+    border-radius: 5px;
 }
-.box-modal_close {    
+
+.box-modal_close 
+{ 
     float:right;
     margin-top:  2px;
     margin-right: 2px;
-    border: 2px solid #c2c2c2;
+    border: 1px solid #4c4c4c;
     position: relative;
     padding: 1px 6px;
-    background-color: #FFFFFF;
     border-radius: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #606060;
+    font-size: 11px;
+    font-weight: normal;
+    color: #4c4c4c;
     text-decoration: none;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.box-modal_close:hover { color: #666; }
+.box-modal_close:hover
+{
+    color: #8a8a8a;
+    border-color: #8a8a8a;
+}
