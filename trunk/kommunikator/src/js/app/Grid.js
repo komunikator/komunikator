@@ -172,7 +172,7 @@ Ext.define('app.Grid', {
                     }
                 });
             }
-            this.store.dirtyMark = false;
+            me.store.dirtyMark = false;
         };
         if (selection.length)
             Ext.MessageBox.show({
