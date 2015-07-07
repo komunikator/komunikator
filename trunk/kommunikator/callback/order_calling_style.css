@@ -1,4 +1,4 @@
-.icon_box  /* стиль круга*/
+.DCB_icon_box  /* стиль круга*/
 {   
     position: fixed; 
     float: right;
@@ -24,7 +24,7 @@
     -moz-box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 5px 2px rgba(0, 0, 0, 0.2);
 }   
-.icon1   /*стиль трубки */
+.DCB_icon1   /*стиль трубки */
 {
     position: relative;
     width: 48px ;
@@ -52,7 +52,7 @@
     color: #fff;
 }
 
-.icon_box:hover > .bubble_1093358732 
+.DCB_icon_box:hover > .bubble_1093358732 
 {
     display: block;
 }
@@ -184,7 +184,7 @@
         top:0px;
     }
 }
-.ball:hover  
+.DCB_ball:hover  
 {
     -webkit-animation: pulse 1s ease 0s infinite normal;
     -o-animation: pulse 1s ease 0s infinite normal;
@@ -205,7 +205,7 @@
     animation: bump 3s linear 0s infinite normal;
 }
 
-.some_background    /* логотип комуникатор */
+.DCB_some_background    /* логотип комуникатор */
 {  
     float:right;
     width:110px;
@@ -221,7 +221,7 @@
     cursor: pointer; 
 }
 
-.button_calling_1712953875  /* стиль окна заказа  */
+.DCB_button_calling  /* стиль окна заказа  */
 {
     width: 166px;
     height: 43px;
@@ -243,7 +243,7 @@
     cursor: pointer;
 }
 
-.text_message_2563964469 
+.DCB_text_message 
 {   
     margin-top: 10px;
     margin-left: auto;
@@ -259,32 +259,32 @@
     height: 37px;
 }
 
-input.text_message_2563964469:-ms-input-placeholder 
+input.DCB_text_message:-ms-input-placeholder 
 {
     font-family: Verdana, Arial,sans-serif;
     font-size: 18pt;
     color: #afafaf;
 }
 
-input.text_message_2563964469::-webkit-input-placeholder {
+input.DCB_text_message::-webkit-input-placeholder {
     font-family: Verdana, Arial,sans-serif;
     font-size: 18pt;
     color: #afafaf;
 }
 
-input.text_message_2563964469:-moz-placeholder { /* Firefox 18- */
+input.DCB_text_message:-moz-placeholder { /* Firefox 18- */
     font-family: Verdana, Arial,sans-serif;
     font-size: 18pt;
     color: #afafaf;
 }
 
-input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
+input.DCB_text_message::-moz-placeholder {  /* Firefox 19+ */
     font-family: Verdana, Arial,sans-serif;
     font-size: 18pt;
     color: #afafaf;
 }
 
-.text_zagolovka_order_4043482234 
+.DCB_text_zagolovka_order 
 { 
     display: inline-block;
     width: 630px;
@@ -305,7 +305,7 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
     color: #4c4c4c;
 }
 
-.text_call_free_4537679586
+.DCB_text_call_free
 {
     display: inline;
     float: right;
@@ -318,24 +318,24 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
     font-family: Verdana, Arial, sans-serif;
 }
 
-.mod_header_7894788111
+.DCB_mod_header
 {
     height:50px;
     margin-top: 0;
 }
 
-.mod_body_1427621553
+.DCB_mod_body
 {
     height:190px;
 }
 
-.mod_footer_2196269136
+.DCB_mod_footer
 {
     height: 30px;
     margin-top: 20px;
 }
 
-.text_silka_komunicator_9989142638
+.DCB_text_silka_komunicator
 { 
     color: #4c4c4c;
     font-family: Verdana, Arial, sans-serif;
@@ -344,7 +344,7 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
     margin-right: 125px;    
 }
 
-.trevoga_9107808614
+.DCB_trevoga
 {    
     font-family: Verdana, Arial, sans-serif;
     font-weight: normal;
@@ -356,7 +356,7 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
     width: 260px;
 }
 
-.help_federation_number_text_0597947849
+.DCB_help_federation_number_text
 {    
     margin-top: 10px;
     margin-left: 100px;
@@ -368,7 +368,7 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
 }
 
 /*стиль таймера */
-.cntSeparator_8087290461
+.DCB_cntSeparator
 {
     font-size: 36pt;
     text-align: center;
@@ -377,7 +377,7 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
 }
 
 /*стиль окна извините */
-.perezvon_7957356058
+.DCB_perezvon
 {  
     font-family: Verdana, Arial,sans-serif;
     margin-top: 0px;
@@ -387,7 +387,7 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
 }
 
 /*стиль окна спасибо*/
-.podrobnee_6300426980
+.DCB_podrobnee
 {    
     margin-top: 10px;
     margin-bottom: 20px;
@@ -397,7 +397,7 @@ input.text_message_2563964469::-moz-placeholder {  /* Firefox 19+ */
     color: #4c4c4c; 
 }
 
-.bolshoi_komunicator_5316051287   
+.DCB_bolshoi_komunicator   
 {
     width: 250px;
     height: 40px;
