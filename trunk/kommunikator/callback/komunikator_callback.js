@@ -26,10 +26,13 @@ var DCB = {
     DCB.metrica = function () {     // scrolling 
         addListener(window.parent.window, 'scroll', function () {
             var sT = Number($(window.parent.window).scrollTop());
-            var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
+//            var cH = Number($(window.parent.document).height()-$(window.parent.window).height());
+            var cH = window.parent.document.body.offsetHeight - window.parent.window.innerHeight;
             if (DCB.debug == true) console.log('DCB.metrica: sT='+sT+' cH='+cH+' (sT - scrollTop, cH - content height)');
-        sT = Math.trunc(sT);
-        cH = Math.trunc(cH);
+//        sT = Math.trunc(sT);
+//        cH = Math.trunc(cH);
+        sT = sT | 0;
+        cH = cH | 0;
             if (DCB.debug == true) console.log('DCB.metrica: truncated values: sT='+sT+' cH='+cH);
             if (sT > cH-10 && sT != 0)   // интервал в 10 пикселей (на случай если скроллинг сайта будет сделан не до самого конца)
             {
@@ -41,14 +44,19 @@ var DCB = {
             }
         });
     };
-
+    var c_default_expires =  new Date();
+    var min_s = 30;
+    c_default_expires.setTime(c_default_expires.getTime() + (min_s * 60 * 1000));
+      
     DCB.setCookie = function (cookie_name, cookie_value, cookie_expires) // установка cookie
     {
-        var c_exp = 1;
+        var c_exp = c_default_expires;
+        console.log('DCB.setCookie: ',c_exp); 
         if (cookie_expires)
             c_exp = cookie_expires;
+            console.log(c_exp);
         $.cookie.json = true;
-        $.cookie(cookie_name, cookie_value, {expires: c_exp});
+        $.cookie(cookie_name, cookie_value, {expires: c_exp, path: '/'});
     };
 
     DCB.getCookie = function (cookie_name)  // получение cookie
@@ -101,20 +109,25 @@ var DCB = {
 
     var timestamp = new Date().getTime().toString();
     var urlhistory;
-
-    DCB.check_urlhistory = function ()           // проверка history url
-
-    {
-    if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
-    if (DCB.debug == true) console.log (urlhistory);
+    
+    DCB.fill_urlhistory = function (){           // проверка history url
+        urlhistory = DCB.getCookie(c_urlhistory);
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: before push: ',urlhistory);
         if (!urlhistory)
             urlhistory = [];
         urlhistory.push({'timestamp': timestamp, 'url': window.location.toString()});
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: after push: ',urlhistory);
         DCB.setCookie(c_urlhistory, urlhistory);
-    if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
+    };
 
-        if (urlhistory.length > 0)         // проверка посещения определенной страницы сайта 
-            if (urlhistory[urlhistory.length - 1].url == specificurl)    // http://localhost/index.html
+    DCB.check_specificurl = function() {
+         var url_1 = urlhistory;
+        
+        if (DCB.debug == true) console.log ('DCB.check_urlhistory: specificurl="'+specificurl+'"');
+        if (DCB.debug == true) console.log ('urlhistory.length='+urlhistory.length);
+
+        if (url_1.length > 0)         // проверка посещения определенной страницы сайта 
+            if (url_1[url_1.length - 1].url == specificurl)    // http://localhost/index.html
                 if (DCB.incCookie(c_actsomepagevisit) == 1) // >1 - показывать N раз 
                 {
                     if (DCB.debug == true) console.log('это определенная страница');
@@ -122,11 +135,10 @@ var DCB = {
                 }
     };
 
-
-
-    DCB.check_numberpage = function () {    // проверка кол-ва посещенных страниц
-
-        var number_key = urlhistory.length;
+    DCB.check_numberpage = function () {    // проверка кол-ва посещенных страниц 
+        var url_2 = urlhistory;
+        var number_key = url_2.length;
+        
         if (number_key >= number_page)
         {
             if (DCB.incCookie(c_numberpage) == 1)            //  if(DCB.incCookie(c_numberpage) > 1) 
@@ -179,18 +191,18 @@ var DCB = {
     DCB.selectcolor = function () // выбор цвета кнопки 
     {
 
-        if ($('.icon_box').get(0))
+        if ($('.DCB_icon_box').get(0))
         {
-            $('.icon_box').css('background', '#' + color_hex_before);
-            addListener($('.icon_box').get(0), 'mouseover', function () {
-                $('.icon_box').css('background', '#' + color_hex_after);
+            $('.DCB_icon_box').css('background', '#' + color_hex_before);
+            addListener($('.DCB_icon_box').get(0), 'mouseover', function () {
+                $('.DCB_icon_box').css('background', '#' + color_hex_after);
             });
-            addListener($('.icon_box').get(0), 'mouseout', function () {
-                $('.icon_box').css('background', '#' + color_hex_before);
+            addListener($('.DCB_icon_box').get(0), 'mouseout', function () {
+                $('.DCB_icon_box').css('background', '#' + color_hex_before);
             });
         }
         if (color_hex_before.toUpperCase() == "FFFFFF" || color_hex_after.toUpperCase() == "FFFFFF") {
-            $('.icon1').css('color', '#000000');
+            $('.DCB_icon1').css('color', '#000000');
         }
     };
 
@@ -200,8 +212,8 @@ var DCB = {
         if (DCB.debug == true) console.log(user.browser.family + user.browser.version + user.os.name);
         if (user.browser.family === 'IE') {
 
-            $('.some_background').css('margin-top', '-20px');
-            $('.some_background').css('height', '16px');
+            $('.DCB_some_background').css('margin-top', '-20px');
+            $('.DCB_some_background').css('height', '16px');
         }
     };
 
@@ -217,25 +229,23 @@ var DCB = {
 
     DCB.correctScreen = function ()           // определение размеров экрана
     {
-        var client_w = $(window.parent.document.documentElement).width();
-        var client_h = $(window.parent.document.documentElement).height();
-        var win_h;
-        var win_w;
-        if (window.parent.document.compatMode === 'BackCompat') {
-            win_h = window.parent.document.body.clientHeight;
-            win_w = window.parent.document.body.clientWidth;
-        } else {
-            win_h = window.parent.document.documentElement.clientHeight;
-            win_w = window.parent.document.documentElement.clientWidth;
-        }
-        if ($('.icon_box').get(0))
+        //var client_w = $(window.parent.document.documentElement).width();
+        //var client_h = $(window.parent.document.documentElement).height();
+        var win_w = window.parent.window.innerWidth;
+        var win_h = window.parent.window.innerHeight;
+        var doc_w = window.parent.document.body.offsetWidth;
+        var doc_h = window.parent.document.body.offsetHeight;
+        if (DCB.debug == true) console.log('DCB.correctScreen win_w=',win_w,' win_h=',win_h);
+
+        if ($('.DCB_icon_box').get(0))
         {
-            if ($('.icon_box').css('display') == 'none' && work_status == 'online')
+            if ($('.DCB_icon_box').css('display') == 'none' && work_status == 'online')
             {
                 DCB.setFramePosSize(0,0,win_w,win_h);
             } else
             {
-                DCB.setFramePosSize(win_w-150,win_h-150,74,74);
+//                DCB.setFramePosSize(win_w-150,win_h-150,74,74);
+                DCB.setFramePosSize(win_w-74-win_h*0.07,win_h-74-win_h*0.07,74,74);
             }
         }
     };
@@ -249,20 +259,21 @@ var DCB = {
             "\tsrc: url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.eot?v=4.3.0');\n" +
             "\tsrc: url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');\n" +
             "}\n" +
-            "</style>");
+            "</style>\n");
         $(document).ready(function () {
 
             $('body').append('<div id="dcb_id" class="dcb"></div>');
-            $('#dcb_id').append('<div id="circle" class="icon_box" onClick="DCB.Create_order(undefined,true);"><i class="ball icon1 fa fa-phone fa-3x"></i>' +
-                    '</div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="mod_header_7894788111"><div class="box-modal_close arcticmodal-close">X</div></div>' +
-                    '<div class="mod_body_1427621553" id="win_order_content_9268377087"></div><div class="mod_footer_2196269136" id="podpic_komunikator_1749966526"><div class="text_silka_komunicator_9989142638">Работает на технологии</div>' +
-                    '<a href="http://komunikator.ru/" target="_blank"><div class="some_background"></div></a></div></div>');
+            //$('#dcb_id').append('<div id="circle" class="DCB_icon_box" onClick="DCB.Create_order(undefined,true);"><i class="DCB_ball DCB_icon1 fa fa-phone fa-3x"></i><div id="podskazka_3874990613" class="bubble_1093358732">Хотите, Мы перезвоним  Вам за ' + dcb_sec + ' секунд?' +
+            $('#dcb_id').append('<div id="circle" class="DCB_icon_box" onClick="DCB.Create_order(undefined,true);"><i class="DCB_ball DCB_icon1 fa fa-phone fa-3x"></i>' +
+                    '</div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="DCB_mod_header"><div class="box-modal_close arcticmodal-close">X</div></div>' +
+                    '<div class="DCB_mod_body" id="win_order_content_9268377087"></div><div class="DCB_mod_footer" id="podpic_komunikator_1749966526"><div class="DCB_text_silka_komunicator">Работает на технологии</div>' +
+                    '<a href="https://komunikator.ru/?utm_source=callback&utm_medium=extensions&utm_campaign=callback" target="_blank"><div class="DCB_some_background"></div></a></div></div>');
 
-            urlhistory = DCB.getCookie(c_urlhistory);
 
             DCB.selectcolor();   // приоритет вызова функций 
             DCB.correctScreen();
             DCB.checkbrowser();
+            DCB.fill_urlhistory();
         DCB.begin2 = function ()
         {
                 if (on_metrica == true)
@@ -270,7 +281,7 @@ var DCB = {
                 if (on_user_activity2 == true)
                     DCB.user_activity2();
                 if (on_check_urlhistory == true)
-                    DCB.check_urlhistory();
+                    DCB.check_specificurl();
                 if (on_user_visit == true)
                     DCB.user_visit();
                 if (on_check_numberpage == true)
@@ -341,7 +352,7 @@ var DCB = {
     DCB.Cancel_order = function ()         // отмена заказа звонка
     {
         cancel_order = true;
-        $('.icon_box').css('display', 'block');
+        $('.DCB_icon_box').css('display', 'block');
         DCB.correctScreen();           // корректируем iFrame
     };
 
@@ -373,7 +384,7 @@ var DCB = {
         return;
         cancel_order = false;
         // отрисовка
-        $('.icon_box').css('display', 'none');          // прячем кнопку
+        $('.DCB_icon_box').css('display', 'none');          // прячем кнопку
         DCB.correctScreen();                        // корректируем iFrame
         $('#win_order_7503523488').arcticmodal({// показываем модальное окно   
             afterClose: function (data, el) {
@@ -387,10 +398,10 @@ var DCB = {
         if (co_text == undefined)
             co_text = 'Хотите, мы вам перезвоним за ' + dcb_sec + ' секунд?';      // замена текста в мод.окне
 
-        $('#win_order_content_9268377087').append('<div id="zagolovok_order_0353271466" class="text_zagolovka_order_4043482234">' + co_text + '</div>' +
-                '<div style="display:inline-block;width:100%"><input type="text" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="Введите ваш номер" class="text_message_2563964469">' +
-                '<input type="button" value="Звоните!" id="Call_us_6760835097" class="button_calling_1712953875" onClick="DCB.Show_timer();"' + (Call_us_6760835097_disabled ? ' disabled' : '') + '></div>' +
-                '<div id="calling_free_5164231155" ><div class="text_call_free_4537679586">Звонок бесплатный</div><div id="ahtyng_5031613510" class="trevoga_9107808614"></div><div id="Help_us_window_0685353415" style="display: none"><div class="help_federation_number_text_0597947849" id="Help_us_text_9868532398"></div></div></div>');
+        $('#win_order_content_9268377087').append('<div id="zagolovok_order_0353271466" class="DCB_text_zagolovka_order">' + co_text + '</div>' +
+                '<div style="display:inline-block;width:100%;text-align:center;"><input type="text" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="+7 ХХХ ХХХ ХХ ХХ" class="DCB_text_message">' +
+                '<input type="button" value="Звоните !" id="Call_us_6760835097" class="DCB_button_calling" onClick="DCB.Show_timer();"' + (Call_us_6760835097_disabled ? ' disabled' : '') + '></div>' +
+                '<div id="calling_free_5164231155" ><div class="DCB_text_call_free">Звонок бесплатный</div><div id="ahtyng_5031613510" class="DCB_trevoga"></div><div id="Help_us_window_0685353415" style="display: none"><div class="DCB_help_federation_number_text" id="Help_us_text_9868532398"></div></div></div>');
         DCB.button_calling_color(!Call_us_6760835097_disabled);
         DCB.button_calling_print_time;
         $('#podpic_komunikator_1749966526').css('display', 'block');     // логотип комуникатора
@@ -417,11 +428,12 @@ var DCB = {
                 DCB.zapret();                               // запрет на нажатии кнопки заказа звонка
                 // меняем форму ввода номера на таймер
                 $('#win_order_content_9268377087').empty();
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Мы вам уже звоним!</div><div id="timer_9109060427" class="cntSeparator_8087290461"></div>');
+                $('#win_order_content_9268377087').append('<div class="DCB_text_zagolovka_order">Мы вам уже звоним!</div><div id="timer_9109060427" class="DCB_cntSeparator"></div>');
                 DCB.countdown_init();
                 DCB.countdown();
 
                 $.jsonp({url: ""+ dcb_id_server + "/service/data.php?action=order_call&number=" + dcb_prefix + re1 + "&callback=DCB.jsonpCallback&call_back_id=" + call_back_id});
+                //setTimeout(DCB.jsonpCallback({success:'false',warning:'hello, man'}),3000);
             } else
             {
                 $('#ahtyng_5031613510').empty();
@@ -496,20 +508,20 @@ var DCB = {
             if (jsonpCallback_datasuccess == 'false' && jsonpCallback_done == 'true')
             {
                 // ответ от сервера пришел, но звонок совершить сейчас невозможно  
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Извините, похоже никого нет в офисе</div><div class="perezvon_7957356058" id="auto_otvet_perezvon_0661029074"><br>Мы обязательно перезвоним Вам в течении суток</br></div>');
+                $('#win_order_content_9268377087').append('<div class="DCB_text_zagolovka_order">Извините, похоже никого нет в офисе.</div><div class="DCB_perezvon" id="auto_otvet_perezvon_0661029074"><br>Мы обязательно перезвоним Вам в течение суток.</br></div>');
             }
             if (jsonpCallback_datasuccess == 'true')
             {
                 // мы вам звоним, все в порядке
                 $('#win_order_content_9268377087').empty();
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234">Спасибо за использование нашего сервиса</div><div class="podrobnee_6300426980" id="yznai_o_technologii_5324782904">Узнайте <a href="http://komunikator.ru/" target="_blank">подробнее</a> о технологиях</div><a href="http://komunikator.ru/" target="_blank"><div class="bolshoi_komunicator_5316051287"></div></a>');
+                $('#win_order_content_9268377087').append('<div class="DCB_text_zagolovka_order">Спасибо за использование нашего сервиса.</div><div class="DCB_podrobnee" id="yznai_o_technologii_5324782904">Узнайте <a href="https://komunikator.ru/?utm_source=callback&utm_medium=extensions&utm_campaign=callback" target="_blank">подробнее</a> о технологиях</div><a href="https://komunikator.ru/?utm_source=callback&utm_medium=extensions&utm_campaign=callback" target="_blank"><div class="DCB_bolshoi_komunicator"></div></a>');
                 $('#podpic_komunikator_1749966526').css('display', 'none');
             }
             if (jsonpCallback_datasuccess == 'false' && jsonpCallback_done == 'false')
             {
                 // время вышло и ответ от сервера не пришел 
                 $('#win_order_content_9268377087').empty();
-                $('#win_order_content_9268377087').append('<div class="text_zagolovka_order_4043482234"><p>Error 404 not found</p></div>');
+                $('#win_order_content_9268377087').append('<div class="DCB_text_zagolovka_order">Похоже что-то пошло не так.</div><div class="DCB_perezvon" id="auto_otvet_perezvon_0661029074"><br>Попробуйте позже.</br></div>');
             }
         } else
             inter = setTimeout(DCB.countdown, 10);
@@ -539,11 +551,11 @@ var DCB = {
     {
         if (enabled)
         {
-            $('.button_calling_1712953875').css('background-color', '#484848');
+            $('.DCB_button_calling').css('background-color', '#4c4c4c');
         }
         else
         {
-            $('.button_calling_1712953875').css('background-color', '#BFBFBF');
+            $('.DCB_button_calling').css('background-color', '#BFBFBF');
         }
     };
 
@@ -574,22 +586,25 @@ var DCB = {
 
     DCB.jsonpCallbackStatus = function (data) {  // проверка статуса рабочего времени 
         if (DCB.debug == true) console.log(data.status);
+       // data.status = 'online';
     work_status = data.status;
         if (data.status == 'online' && cancel_order == true)
         {
-            $('.icon_box').css('display', 'block');
+            $('.DCB_icon_box').css('display', 'block');
         } else {
-            $('.icon_box').css('display', 'none');
+            $('.DCB_icon_box').css('display', 'none');
         }
     };
 
     DCB.CheckWorkTime = function () {
-        $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
+        //$.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.jsonpCallbackStatus"});
+        setTimeout(DCB.jsonpCallbackStatus({status:'online'}),100);
         setTimeout(DCB.CheckWorkTime, 60000);
     };
 
     DCB.FirstCheckWorkTime = function () {
-        $.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.FirstCheckWorkTime_f"});
+        //$.jsonp({url: "" + dcb_id_server + "/service/data.php?action=get_work_status&callback=DCB.FirstCheckWorkTime_f"});
+        setTimeout(DCB.FirstCheckWorkTime_f({status:'online'}),100);
     };
     DCB.FirstCheckWorkTime_f = function (data) {
     DCB.jsonpCallbackStatus(data);
@@ -609,4 +624,6 @@ var DCB = {
     DCB.includeJS(digt_callback_url + "/js/detect.js");
     DCB.includeJS(digt_callback_url + "/js/jquery.cookie.js");
 })();
+ 
+
  

@@ -158,6 +158,7 @@ Ext.define('app.Grid', {
         stripeRows: true
     },
     onDeleteClick: function() {
+        this.store.dirtyMark = true;
         var selection = this.getView().getSelectionModel().getSelection();//[0];
         var me = this;
         var fn = function(btn) {
@@ -171,6 +172,7 @@ Ext.define('app.Grid', {
                     }
                 });
             }
+            me.store.dirtyMark = false;
         };
         if (selection.length)
             Ext.MessageBox.show({
