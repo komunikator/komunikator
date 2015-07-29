@@ -169,11 +169,11 @@ DROP TABLE IF EXISTS `call_records`;
 CREATE TABLE `call_records` (
 `call_records_id` int(11) NOT NULL AUTO_INCREMENT,
 `caller_number` varchar(250) DEFAULT NULL,
-`caller_group` int(11) DEFAULT NULL,
+`caller_group` varchar(250) DEFAULT NULL,
 `type` varchar(250) DEFAULT NULL,
 `gateway` varchar(250) DEFAULT NULL,
 `called_number` varchar(250) DEFAULT NULL,
-`called_group` int(11) DEFAULT NULL,
+`called_group` varchar(250) DEFAULT NULL,
 `enabled` tinyint(1) DEFAULT NULL,
 `description` text,
 PRIMARY KEY (`call_records_id`)
