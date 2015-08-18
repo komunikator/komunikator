@@ -75,8 +75,7 @@ then
 		
                 chmod 664 /usr/share/php/DB/sqlite3.php
                 chmod 665 /etc/webrtc2sip /etc/webrtc2sip/ssl
-                chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/bin/webrtc2sip /usr/local/lib
-                chmod 666 -R /var/lib/misc/moh/ /var/lib/misc/auto_attendant/
+                chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/bin/webrtc2sip /usr/local/lib /var/lib/misc/moh/ /var/lib/misc/auto_attendant/ /var/lib/misc/records/
 		chown -R www-data:www-data /var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db		
 		chown -R yate:yate /var/lib/misc/records/
 		
