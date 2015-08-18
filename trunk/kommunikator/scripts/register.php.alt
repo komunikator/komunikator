@@ -293,7 +293,7 @@ function get_location($called) {
     // it's better to use the lateroute module
     return "lateroute/$called";
 
-    /*  $query = "SELECT * FROM dial_plans INNER JOIN gateways ON dial_plans.gateway_id=gateways.gateway_id WHERE prefix IS NULL OR '$called' LIKE prefix||'%' AND (gateways.username IS NULL OR gateways.status='online') ORDER BY length(coalesce(prefix,'')) DESC, priority";
+    /* 	$query = "SELECT * FROM dial_plans INNER JOIN gateways ON dial_plans.gateway_id=gateways.gateway_id WHERE prefix IS NULL OR '$called' LIKE prefix||'%' AND (gateways.username IS NULL OR gateways.status='online') ORDER BY length(coalesce(prefix,'')) DESC, priority";
 
       $res = query_to_array($query);
       if(!count($res)) {
@@ -356,7 +356,7 @@ function rewrite_digits($route, $nr) {
 function routeToGroup($called) {
     global $uploaded_prompts, $ev, $s_moh, $system_prefix;
 
-    //  debug("entered routeToGroup('$called')");
+    //	debug("entered routeToGroup('$called')");
     $path = "$uploaded_prompts/moh/";
 
     $cnt = 2 + strlen($system_prefix);
@@ -426,7 +426,7 @@ function makePickUp($called, $caller) {
 function routeToExtension($called) {
     global $no_pbx, $ev, $voicemail, $system_prefix, $query_on, $debug_on;
 
-    //  debug("entered routeToExtension('$called')");
+    //	debug("entered routeToExtension('$called')");
     if (strlen($called) < 3)
         return false;
 
@@ -561,7 +561,7 @@ function get_possible_options($number) {
 function routeToAddressBook(&$called, $username) {
     global $adb_keys;
 
-    //  debug("entered routeToAddressBook(called='$called', username='$username')");
+    //	debug("entered routeToAddressBook(called='$called', username='$username')");
 
     if (substr($called, 0, strlen($adb_keys)) != $adb_keys)
         return;
@@ -651,22 +651,22 @@ function return_route($called, $caller, $no_forward = false) {
             if (!$username) {
                 $query = "SELECT * FROM extensions WHERE extension='$caller'";
                 $res = query_to_array($query);
-                if (count($res)) {
-                    debug("could not auth call but '$caller' seems to be in extensions");
-                    set_retval(NULL, "noauth");
-                    return;
-                }
+//                if (count($res)) {
+//                    debug("could not auth call but '$caller' seems to be in extensions");
+//                    set_retval(NULL, "noauth");
+//                    return;
+//                }
             }
 
             // if annonymous calls are allowed call to be for a inner group or extension  or from a known ip
             $query = "SELECT incoming_gateway_id, trusted, 'from outside' as call_type FROM incoming_gateways, gateways WHERE incoming_gateways.gateway_id=gateways.gateway_id AND incoming_gateways.ip='$address' UNION SELECT gateway_id, trusted, 'from outside' as call_type FROM gateways LEFT OUTER JOIN sig_trunks ON gateways.sig_trunk_id=sig_trunks.sig_trunk_id WHERE server='$address' OR server LIKE '$address:%' OR sig_trunk='$sig_trunk' UNION SELECT extension_id,1 as trusted,'to inside' as call_type FROM extensions WHERE extension='$called' OR '$system_prefix' || extension='$called' OR extension='$username' UNION SELECT group_id, 1 as trusted,'to inside' as call_type  FROM groups WHERE extension='$called' OR '$system_prefix' || extension='$called' UNION SELECT did_id, 1 as trusted,'to inside' as call_type  FROM dids WHERE number='$called' OR '$system_prefix' || number='$called'";
         }
         $res = query_to_array($query);
-        if (!count($res)) {
-            debug("could not auth call");
-            set_retval(NULL, "noauth");
-            return;
-        }
+//        if (!count($res)) {
+//            debug("could not auth call");
+//            set_retval(NULL, "noauth");
+//            return;
+//        }
         $trusted_auth = ($res[0]["trusted"] == 1) ? "yes" : "no";
         $call_type = $res[0]["call_type"]; //($username) ? "from inside" : "from outside";  // from inside/outside of freesentral
     }
@@ -761,7 +761,7 @@ function return_route($called, $caller, $no_forward = false) {
     unset($fallback[$best_option]);
     if (count($fallback))
         $s_fallbacks[$id] = $fallback;
-    //  debug("There are ".count($s_fallbacks)." in fallback : ".format_array($s_fallbacks));
+    //	debug("There are ".count($s_fallbacks)." in fallback : ".format_array($s_fallbacks));
     debug("There are " . count($s_fallbacks) . " in fallback");
     return;
 }
@@ -801,7 +801,7 @@ function prefix_match($called, $prefixes) {
 function update_counters($called) {
     global $counters_international, $timers, $limits_international, $international_calls;
 
-    /*  if (!is_international($called))
+    /* 	if (!is_international($called))
       return; */
 
     if (!isset($counters_international)) {
@@ -873,7 +873,7 @@ function set_retval($callto, $error = NULL) {
     }
     if ($error) {
         $ev->params["error"] = $error;
-        //  $ev->handled = true;
+        //	$ev->handled = true;
     }
     return false;
 }
@@ -1057,7 +1057,7 @@ for (;;) {
                     break;
                 case "call.answered":
                     $id = $ev->GetValue("targetid");
-                    //  debug("Got call.answered for '$id'. Removing fallback if setted in fallback array :".format_array($s_fallbacks));
+                    //	debug("Got call.answered for '$id'. Removing fallback if setted in fallback array :".format_array($s_fallbacks));
                     if (isset($s_params_assistant_outgoing[$id])) {
                         $params = $s_params_assistant_outgoing[$id];
                         $m = new Yate("chan.operation");
@@ -1077,7 +1077,7 @@ for (;;) {
                 case "chan.hangup":
                     $id = $ev->GetValue("id");
                     $reason = $ev->GetValue("reason");
-                    //  debug("Got '".$ev->name."' for '$id' with reason '$reason'. Fallback :".format_array($s_fallbacks));
+                    //	debug("Got '".$ev->name."' for '$id' with reason '$reason'. Fallback :".format_array($s_fallbacks));
                     if (isset($params_assistant_outgoing[$id])) {
                         debug("Dropping pbxassist params for $id's party");
                         unset($s_params_assistant_outgoing[$id]);
@@ -1090,7 +1090,7 @@ for (;;) {
                 case "chan.disconnected":
                     $id = $ev->GetValue("id");
                     $reason = $ev->GetValue("reason");
-                    //  debug("Got '".$ev->name."' for '$id' with reason '$reason'. Fallback :".format_array($s_fallbacks));
+                    //	debug("Got '".$ev->name."' for '$id' with reason '$reason'. Fallback :".format_array($s_fallbacks));
                     if (!isset($s_fallbacks[$id]))
                         break;
                     if (in_array($reason, $stoperror)) {
@@ -1300,7 +1300,7 @@ $callFrom = null;
                     break;
             }
             // This is extremely important.
-            //  We MUST let messages return, handled or not
+            //	We MUST let messages return, handled or not
             if ($ev)
                 $ev->Acknowledge();
             break;
