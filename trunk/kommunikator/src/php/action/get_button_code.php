@@ -95,37 +95,28 @@ $sda_c2c_from = base64_encode($data["data"][0][0]);
 
 switch ($sda_button_color) {
 
-    case "komunikator_btn-info komunikator_btn_blue" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_blue';
+    case "btn" : $sda_c2c_cls = 'btn';
         break;
 
-    case "komunikator_btn-info komunikator_btn_orange" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_orange';
+    case "btn btn-primary" : $sda_c2c_cls = 'btn btn-primary';
         break;
 
-    case "komunikator_btn-info komunikator_btn_red" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_red';
+    case "btn btn-info" : $sda_c2c_cls = 'btn btn-info';
         break;
 
-    case "komunikator_btn-info komunikator_btn_green" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_green';
+    case "btn btn-success" : $sda_c2c_cls = 'btn btn-success';
         break;
-    
-    case "komunikator_btn-info komunikator_btn_yellow" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_yellow';
+
+    case "btn btn-warning" : $sda_c2c_cls = 'btn btn-warning';
         break;
-    
-    case "komunikator_btn-info komunikator_btn_purple" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_purple';
+
+    case "btn btn-danger" : $sda_c2c_cls = 'btn btn-danger';
         break;
-    
-    case "komunikator_btn-info komunikator_btn_pink" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_pink';
+
+    case "btn btn-inverse" : $sda_c2c_cls = 'btn btn-inverse';
         break;
-    
-    case "komunikator_btn-info komunikator_btn_lightgreen" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_lightgreen';
-        break;
-    
-    case "komunikator_btn-info komunikator_btn_black" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_black';
-        break; 
-    
-    case "komunikator_btn-info komunikator_btn_grey" : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_grey';
-        break;    
-    
-    default : $sda_c2c_cls = 'komunikator_btn-info komunikator_btn_blue';
+
+    default : $sda_c2c_cls = 'btn';
 }
 
 /* - - - - -  получение значения переменной $sda_c2c_cls – стиль кнопки (КОНЕЦ)  - - - - - */
