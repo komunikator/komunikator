@@ -31,7 +31,7 @@ then
 		echo "mysql-server mysql-server/root_password_again password $dbuserpw" | debconf-set-selections
 
 	echo "Installer: Installing some tools and dependencies..."
-		apt-get install -qq -y ntp tzdata php5-sqlite screen lame libsrtp0 libsrtp0-dev libssl1.0.0 libssl-dev libspeex1 libspeex-dev libspeexdsp1 libspeexdsp-dev libxml2 libxml2-dev
+		apt-get install -qq -y ntp tzdata php5-sqlite screen lame libsrtp0 libsrtp0-dev libssl1.0.0 libssl-dev libspeex1 libspeex-dev libspeexdsp1 libspeexdsp-dev libxml2 libxml2-dev sendmail
 	
 	echo "Installer: Installing the distro packages..."
 		if [ "$arch" = 'x86_64' ]
@@ -75,7 +75,7 @@ then
 		
                 chmod 664 /usr/share/php/DB/sqlite3.php /etc/webrtc2sip /etc/webrtc2sip/ssl
                 chmod 755 -R /usr/lib/yate /etc/webrtc2sip/scripts /usr/bin/webrtc2sip /usr/local/lib /var/lib/misc/moh/ /var/lib/misc/auto_attendant/ /var/lib/misc/records/
-		chown -R www-data:www-data /var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db		
+		chown -R www-data:www-data /var/lib/misc/moh /var/lib/misc/auto_attendant /var/www/c2c /var/www/callback /etc/webrtc2sip/c2c_sqlite.db /var/lib/misc/records/
 		chown -R yate:yate /var/lib/misc/records/
                 echo "yate ALL = NOPASSWD: /sbin/iptables" >> /etc/sudoers
 		
