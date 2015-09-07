@@ -98,7 +98,44 @@ else
 $inuse_count = compact_array(query_to_array("select inuse_count from extensions where extension = $extension"));
 $obj["inuse_count"] = $inuse_count['data'][0][0];
 //$data  =  compact_array(query_to_array ("SELECT time-($time_offset)*60,caller,time FROM call_logs where ".time()."-time < $period and (/*caller in ($extension) or*/ called in ($extension)) and direction='outgoing' LIMIT $limit OFFSET 0"));
-$data = compact_array(query_to_array("SELECT a.time-($time_offset)*60,a.caller,a.time,case when b.called = a.called then null  when c.description !='' then c.description else b.called end FROM call_logs a left join call_logs b on b.billid=a.billid and b.direction='incoming' and b.ended=0 left join gateways c on c.authname=b.called where " . time() . "-a.time < $period and (/*caller in ($extension) or*/ a.called in ($extension)) and a.direction='outgoing' and a.ended=0 LIMIT $limit OFFSET 0"));
+//$data = compact_array(query_to_array("SELECT a.time-($time_offset)*60,a.caller,a.time,case when b.called = a.called then null  when c.description !='' then c.description else b.called end FROM call_logs a left join call_logs b on b.billid=a.billid and b.direction='incoming' and b.ended=0 left join gateways c on c.authname=b.called where " . time() . "-a.time < $period and (/*caller in ($extension) or*/ a.called in ($extension)) and a.direction='outgoing' and a.ended=0 LIMIT $limit OFFSET 0"));
+
+$sql =
+        <<<EOD
+select * from (
+select
+	from_unixtime(a.time),
+       CASE
+           WHEN (SUBSTRING(a.chan,1, 11) = 'order_call/' OR SUBSTRING(b.chan,1, 11) = 'order_call/') AND (c.detailed !=NULL OR c.detailed !='')
+               THEN CONCAT('Перезвоните мне: ',c.detailed)
+           WHEN x.extension IS NOT NULL AND x2.extension IS NOT NULL
+               THEN 'internal'
+           WHEN x.extension IS NOT NULL
+               THEN 'outgoing'
+           ELSE 'incoming'
+       END type,
+	a.caller,
+	b.called,
+        case 
+	 when g.description is not null and g.description !='' then g.description 
+	 when g.gateway     is not null                        then g.gateway	
+	 when g.authname    is not null                        then g.authname
+	else a.gateway 
+        end gateway,
+		a.time
+from call_logs a  
+join call_logs b on b.billid=a.billid and b.ended=0 and b.direction='outgoing' and b.status!='unknown'
+left join extensions x on x.extension=a.caller
+left join extensions x2 on x2.extension=b.called
+left join gateways g  on g.authname=a.called or g.authname=b.caller
+LEFT JOIN detailed_infocall c ON c.billid = a.billid 
+   where a.ended=0 and a.direction='incoming' and a.status!='unknown' and (a.caller = $extension or b.called = $extension)) a
+EOD;
+
+$data = compact_array(query_to_array($sql ));
+   
+   
+// where " . time() . "-a.time < $period and (/*caller in ($extension) or*/ a.called in ($extension)) and a.direction='outgoing' and a.ended=0 LIMIT $limit OFFSET 0"));
 /*
   $f_data = array();
   foreach ($data["data"] as $row) {
@@ -109,11 +146,11 @@ $data = compact_array(query_to_array("SELECT a.time-($time_offset)*60,a.caller,a
 
   //$obj["calls"] = $f_data;
  */
-if ($data["data"][0] && ($_SESSION['last_call'] != $data["data"][0][2])) {
+if ($data["data"][0] && ($_SESSION['last_call'] != $data["data"][0][5])) {
     //$obj["incoming_call"] = array('time'=>date($date_format,$data["data"][0][0]),'number'=>$data["data"][0][1]); 
-    $obj["incoming_call"] = array('time' => date($date_format, $data["data"][0][0]), 'number' => $data["data"][0][1], 'incoming_trunk' => $data["data"][0][3]);
+    $obj["incoming_call"] = array('time' => date($date_format, $data["data"][0][0]),'call_status' => $data["data"][0][1], 'caller' => $data["data"][0][2],  'called' => $data["data"][0][3], 'incoming_trunk' => $data["data"][0][4], "total"=>$total);
     session_start();
-    $_SESSION['last_call'] = $data["data"][0][2];
+    $_SESSION['last_call'] = $data["data"][0][5];
     session_write_close();
 }
 echo out($obj);
