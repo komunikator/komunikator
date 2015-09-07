@@ -1,8 +1,7 @@
 var DCB = {
     debug:true
 };
-
-(function () {
+(function(){
 
     c_uservisit = 'digt_callback_user_visit';
     c_urlhistory = 'digt_callback_url_history';
@@ -11,6 +10,8 @@ var DCB = {
     c_numberpage = 'digt_callback_act_numberpage';
     c_scrollingvisit = 'digt_callback_act_scrollingvisit';
     c_createorder = 'digt_callback_createorder';
+
+    f_circle_selected = false;
 
     function addListener(obj, type, listener) {
         if (obj.addEventListener) {
@@ -206,15 +207,22 @@ var DCB = {
         }
     };
 
-    DCB.checkbrowser = function () // определение типа браузера
+    DCB.get_mobver_prefix = function()  //подмена стилей кнопки в зависимости от типа устройства
     {
-        var user = detect.parse(navigator.userAgent);
-        if (DCB.debug == true) console.log(user.browser.family + user.browser.version + user.os.name);
-        if (user.browser.family === 'IE') {
+        if(f_mobile_version == true)
+            return "mobile/"
+        else
+            return "";
+    };
 
-            $('.DCB_some_background').css('margin-top', '-20px');
-            $('.DCB_some_background').css('height', '16px');
-        }
+    DCB.setFocus = function() // установка фокуса на поле ввода номера
+    {
+        $('#Number_calling_2240965432').css('outline','none'); //убрать рамку с поля input
+	setTimeout(function()
+	 {
+	    $('input[name="Number"]').focus()
+	 }, 3000);
+	console.log('focus input type text');
     };
 
     DCB.setFramePosSize = function (x,y,width,height)
@@ -227,7 +235,7 @@ var DCB = {
         window.parent.document.getElementById('komunikatorCallbackDiv').style.top=y+'px';
     };
 
-    DCB.correctScreen = function ()           // определение размеров экрана
+    DCB.correctScreen = function()           // определение размеров экрана
     {
         //var client_w = $(window.parent.document.documentElement).width();
         //var client_h = $(window.parent.document.documentElement).height();
@@ -235,18 +243,36 @@ var DCB = {
         var win_h = window.parent.window.innerHeight;
         var doc_w = window.parent.document.body.offsetWidth;
         var doc_h = window.parent.document.body.offsetHeight;
+    //    var aspect = screen.width/screen.height;
         if (DCB.debug == true) console.log('DCB.correctScreen win_w=',win_w,' win_h=',win_h);
 
-        if ($('.DCB_icon_box').get(0))
-        {
-            if ($('.DCB_icon_box').css('display') == 'none' && work_status == 'online')
+	if (f_mobile_version == true)
+	{ // действия для мобильной версии
+            if($('.DCB_icon_box').get(0))
             {
-                DCB.setFramePosSize(0,0,win_w,win_h);
-            } else
-            {
-//                DCB.setFramePosSize(win_w-150,win_h-150,74,74);
-                DCB.setFramePosSize(win_w-74-win_h*0.07,win_h-74-win_h*0.07,74,74);
+                if($('.DCB_icon_box').css('display' ) == 'none' && work_status == 'online')
+                { // модальное окно
+                    DCB.setFramePosSize(0,0,win_w,win_h);
+                } else
+                { // кнопка
+                    DCB.setFramePosSize(win_w-450,win_h-190,450,190);
+                }
             }
+        } else { // действия для настольной версии
+    	    if ($('.DCB_icon_box').get(0))
+            {
+                if ($('.DCB_icon_box').css('display') == 'none' && work_status == 'online')
+                {
+                    DCB.setFramePosSize(0,0,win_w,win_h);
+	        } else {
+                    if (f_circle_selected == true)
+                    {
+                        DCB.setFramePosSize(win_w-300-win_h*0.07,win_h-174-win_h*0.07,300,74);
+                    } else {
+                        DCB.setFramePosSize(win_w-74-win_h*0.07,win_h-174-win_h*0.07,74,74);
+                    }
+                }
+	    }
         }
     };
 
@@ -260,45 +286,61 @@ var DCB = {
             "\tsrc: url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),  url('"+dcb_id_server+"/callback/font-awesome-4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');\n" +
             "}\n" +
             "</style>\n");
-        $(document).ready(function () {
-
+        $(document).ready(function ()
+        {
             $('body').append('<div id="dcb_id" class="dcb"></div>');
-            //$('#dcb_id').append('<div id="circle" class="DCB_icon_box" onClick="DCB.Create_order(undefined,true);"><i class="DCB_ball DCB_icon1 fa fa-phone fa-3x"></i><div id="podskazka_3874990613" class="bubble_1093358732">Хотите, Мы перезвоним  Вам за ' + dcb_sec + ' секунд?' +
-            $('#dcb_id').append('<div id="circle" class="DCB_icon_box" onClick="DCB.Create_order(undefined,true);"><i class="DCB_ball DCB_icon1 fa fa-phone fa-3x"></i>' +
-                    '</div><div style="display: none;"><div class="box-modal" id="win_order_7503523488"><div class="DCB_mod_header"><div class="box-modal_close arcticmodal-close">X</div></div>' +
-                    '<div class="DCB_mod_body" id="win_order_content_9268377087"></div><div class="DCB_mod_footer" id="podpic_komunikator_1749966526"><div class="DCB_text_silka_komunicator">Работает на технологии</div>' +
-                    '<a href="https://komunikator.ru/?utm_source=callback&utm_medium=extensions&utm_campaign=callback" target="_blank"><div class="DCB_some_background"></div></a></div></div>');
-
-
+            if(f_mobile_version == false)
+            {
+                var phonebtn = '<i class="DCB_ball DCB_icon1 fa fa-phone fa-3x"></i><div id="podskazka_3874990613" class="DCB_bubble_1093358732">Хотите, Мы перезвоним</br>  Вам за '+dcb_sec+' секунд?</div>';
+            } else {
+                var phonebtn = '<div class="DCB_text_in_button_mobile">Перезвоним Вам</br> за '+dcb_sec+' секунд!</div><div id="btn_png" class="DCB_callback_png">'+
+                    '<center><div class="fa fa-phone fa-flip-horizontal fa-4x" style="color:white;"></div></center></div>';
+            }
+            $('#dcb_id').append
+            (
+                '<div id="circle" class="DCB_icon_box" onClick="DCB.Create_order(undefined,true);">'+phonebtn+'<div style="display: none;"><div class="box-modal" id="win_order_7503523488">' +
+                '<div class="DCB_mod_header"><div class="box-modal_close arcticmodal-close">X</div></div>' +
+                '<div class="DCB_mod_body" id="win_order_content_9268377087"></div><div class="DCB_mod_footer" id="podpic_komunikator_1749966526"><div class="DCB_text_silka_komunicator">Работает на технологии</div>' +
+                '<a href="https://komunikator.ru/?utm_source=callback&utm_medium=extensions&utm_campaign=callback" target="_blank"><div class="DCB_some_background"></div></a></div></div>'
+            );
+            $('#circle').mouseover(function(){
+                f_circle_selected = true;
+                DCB.correctScreen();
+            });
+            $('#circle').mouseout(function(){
+                f_circle_selected = false;
+                DCB.correctScreen();
+            });
             DCB.selectcolor();   // приоритет вызова функций 
             DCB.correctScreen();
-            DCB.checkbrowser();
+            DCB.setFocus(); // установка курсора в поле ввода номера
             DCB.fill_urlhistory();
-        DCB.begin2 = function ()
-        {
-                if (on_metrica == true)
-                    DCB.metrica();
-                if (on_user_activity2 == true)
-                    DCB.user_activity2();
-                if (on_check_urlhistory == true)
-                    DCB.check_specificurl();
-                if (on_user_visit == true)
-                    DCB.user_visit();
-                if (on_check_numberpage == true)
-                    DCB.check_numberpage();
-                if (on_user_exit == true)
-                    DCB.user_exit();
-                addListener(window.parent.window, 'resize', function () {
-                    DCB.correctScreen();
-                });
-                addListener(window.parent.window, 'scroll', function () {
-                    DCB.correctScreen();
-                });
-                addListener(window.parent.window, 'load', function () {
-                    DCB.correctScreen();
-                });
-        };
-        DCB.FirstCheckWorkTime();
+            DCB.begin2 = function ()
+            {
+                    if (on_metrica == true)
+                        DCB.metrica();
+                    if (on_user_activity2 == true)
+                        DCB.user_activity2();
+                    if (on_check_urlhistory == true)
+                        DCB.check_specificurl();
+                    if (on_user_visit == true)
+                        DCB.user_visit();
+                    if (on_check_numberpage == true)
+                        DCB.check_numberpage();
+                    if (on_user_exit == true)
+                        DCB.user_exit();
+                    addListener(window.parent.window, 'resize', function () {
+                        DCB.correctScreen();
+                    });
+                    addListener(window.parent.window, 'scroll', function () {
+                        DCB.correctScreen();
+                    });
+                    addListener(window.parent.window, 'load', function () {
+                        DCB.correctScreen();
+                        DCB.setFocus();
+                    });
+            };
+            DCB.FirstCheckWorkTime();
         });
     };
 
@@ -326,7 +368,7 @@ var DCB = {
         jsx.parentNode.insertBefore(js, jsx);
         return js;
     };
-    
+
     DCB.includeCSS = function (f_url)    // подгрузка css
     {
         var css = document.createElement("link");
@@ -399,12 +441,19 @@ var DCB = {
             co_text = 'Хотите, мы вам перезвоним за ' + dcb_sec + ' секунд?';      // замена текста в мод.окне
 
         $('#win_order_content_9268377087').append('<div id="zagolovok_order_0353271466" class="DCB_text_zagolovka_order">' + co_text + '</div>' +
-                '<div style="display:inline-block;width:100%;text-align:center;"><input type="text" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="+7 ХХХ ХХХ ХХ ХХ" class="DCB_text_message">' +
+                '<div style="display:inline-block;width:100%;text-align:center;"><input type="tel" name="Number" id="Number_calling_2240965432" size="35" maxlength="25" placeholder="+7 ХХХ ХХХ ХХ ХХ" class="DCB_text_message">' +
                 '<input type="button" value="Звоните !" id="Call_us_6760835097" class="DCB_button_calling" onClick="DCB.Show_timer();"' + (Call_us_6760835097_disabled ? ' disabled' : '') + '></div>' +
                 '<div id="calling_free_5164231155" ><div class="DCB_text_call_free">Звонок бесплатный</div><div id="ahtyng_5031613510" class="DCB_trevoga"></div><div id="Help_us_window_0685353415" style="display: none"><div class="DCB_help_federation_number_text" id="Help_us_text_9868532398"></div></div></div>');
-        DCB.button_calling_color(!Call_us_6760835097_disabled);
+
+    DCB.button_calling_color(!Call_us_6760835097_disabled);
         DCB.button_calling_print_time;
         $('#podpic_komunikator_1749966526').css('display', 'block');     // логотип комуникатора
+        if(f_mobile_version == true)
+        {
+            $('.DCB_text_call_free').css('display','none');    //скрыть текст бесплатного звонка
+            $('div .box-modal_close').css('display','none');   //скрыть кнопку закрыть модального окна
+            $('#Help_us_text_9868532398').css('display','none');//скрыть подсказку формата федеральных номеров
+        }
     };
 
     DCB.Show_timer = function ()                // показать таймер 
@@ -414,17 +463,17 @@ var DCB = {
         var phone = document.getElementById('Number_calling_2240965432').value;
         if (phone == "")
         {
-            $('#ahtyng_5031613510').empty();
-            $('#ahtyng_5031613510').append('Пожалуйста, введите номер.');
+            $('div .DCB_mod_header').empty();
+            $('div .DCB_mod_header').append('Пожалуйста, введите номер.');
 
         } else
         {
-            var re1 = phone.replace(/[\s-]+/g, '');         // проверка на валидность набора номера                      
-        var numregexp = /^(8|\+7)(\d{10,15})$/;
+            var re1 = phone.replace(/[\s-]+/g, '');         // проверка на валидность набора номера
+            var numregexp = /^(8|\+7)(\d{10,15})$/;
             var valid = DCB.valid1(re1, numregexp);
             if (valid == true)
             {
-        re1 = re1.replace(numregexp,"7$2");
+                re1 = re1.replace(numregexp,"7$2");
                 DCB.zapret();                               // запрет на нажатии кнопки заказа звонка
                 // меняем форму ввода номера на таймер
                 $('#win_order_content_9268377087').empty();
@@ -436,8 +485,8 @@ var DCB = {
                 //setTimeout(DCB.jsonpCallback({success:'false',warning:'hello, man'}),3000);
             } else
             {
-                $('#ahtyng_5031613510').empty();
-                $('#ahtyng_5031613510').append('Пожалуйста, введите номер в федеральном формате.');
+                $('div .DCB_mod_header').empty();
+                $('div .DCB_mod_header').append('Пожалуйста, введите номер в федеральном формате.');
                 $('#Help_us_text_9868532398').empty();
                 $('#Help_us_text_9868532398').append('Номера в федеральном формате<br>+7-XXX-XXX-XX-XX<br> 8-XXX-XXX-XX-XX</br>');
 
@@ -614,16 +663,13 @@ var DCB = {
     // Внедряем объекты
     DCB.k = 9 - 1;
     digt_callback_url = dcb_id_server + '/callback';
-    DCB.includeCSS(digt_callback_url + "/order_calling_style.css");
+    DCB.includeCSS(digt_callback_url + "/"+DCB.get_mobver_prefix()+"order_calling_style.css");
     DCB.includeCSS(digt_callback_url + "/font-awesome-4.3.0/css/font-awesome.css");
     DCB.includeCSS(digt_callback_url + "/js/arcticmodal/jquery.arcticmodal-0.3.css");
-    DCB.includeCSS(digt_callback_url + "/js/arcticmodal/themes/komunikator.css");
+    DCB.includeCSS(digt_callback_url + "/"+DCB.get_mobver_prefix()+"js/arcticmodal/themes/komunikator.css");
     DCB.includeJS(digt_callback_url + "/js/jquery.min.js");
     DCB.includeJS(digt_callback_url + "/js/arcticmodal/jquery.arcticmodal-0.3.min.js");
     DCB.includeJS(digt_callback_url + "/js/jquery.jsonp-2.4.0.js");
     DCB.includeJS(digt_callback_url + "/js/detect.js");
     DCB.includeJS(digt_callback_url + "/js/jquery.cookie.js");
 })();
- 
-
- 
