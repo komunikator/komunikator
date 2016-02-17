@@ -1,2 +1,0 @@
-thread apply all bt full
-quit

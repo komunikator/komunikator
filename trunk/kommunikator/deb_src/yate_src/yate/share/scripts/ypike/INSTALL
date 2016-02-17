@@ -1,2 +1,0 @@
-To install, run "pike -x module && pike -x module install" from inside the 
-source directory as root.
