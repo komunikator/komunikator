@@ -1,0 +1,62 @@
+#!/bin/sh 
+
+set -e
+
+case "$1" in
+    configure)
+	if ! getent group yate > /dev/null ; then
+	    echo 'Adding system-groupr for yate' 1>&2
+	    addgroup --system yate
+	fi
+
+	if ! getent passwd yate > /dev/null ; then
+	    adduser --system --ingroup yate --home /var/lib/yate \
+		--gecos "YATE daemon" --shell /bin/sh \
+		--disabled-password yate
+	    adduser yate dialout
+	fi
+
+	if [ ! -d /var/lib/yate ]; then
+		mkdir -p /var/lib/yate
+	fi	
+	chown -R yate:yate /var/lib/yate
+	#setcap cap_sys_nice=eip /usr/bin/yate
+	echo "Creating links ..."
+	if [ ! -h /etc/yate/modules-enabled ]; then
+		ln -s /usr/lib/x86_64-linux-gnu/yate /etc/yate/modules-enabled
+	fi
+	
+	if [ ! -h /etc/yate/scripts ]; then
+		ln -s /usr/share/yate/scripts /etc/yate/scripts
+	fi
+	
+	if [ ! -h /etc/yate/sounds ]; then
+		ln -s /usr/share/yate/sounds /etc/yate/sounds
+	fi
+	;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+	echo "postinst called with unknown argument \`$1'" >&2
+	exit 0
+esac
+
+# Automatically added by dh_installinit
+if [ -x "/etc/init.d/yate" ] || [ -e "/etc/init/yate.conf" ]; then
+	if [ ! -e "/etc/init/yate.conf" ]; then
+		update-rc.d yate defaults >/dev/null
+	fi
+	invoke-rc.d yate start || exit $?
+fi
+# End automatically added section
+# Automatically added by dh_installinit
+update-rc.d -f yate remove >/dev/null || exit $?
+# End automatically added section
+# Automatically added by dh_makeshlibs
+if [ "$1" = "configure" ]; then
+	ldconfig
+fi
+# End automatically added section
+

@@ -1,0 +1,18 @@
+Package: yate
+Version: 5.5.1
+Architecture: amd64
+Maintainer: DIGT <support@komunikator.ru>
+Installed-Size: 5230
+Pre-Depends: multiarch-support
+Depends: libc6 (>= 2.4), libgcc1 (>= 1:4.1.1), libstdc++6 (>= 4.1.1), sysv-rc (>= 2.88dsf-24) | file-rc (>= 0.8.16), libgsm1, libspandsp2, libspeex1, libmysqlclient18, libsqlite3-0
+Conflicts: yate (<= 2.2.0-1~dfsg-1), yate-mysql, yate-gtk2, yate-qt4, yate-server, yate-signaling, yate-sqlite
+Replaces: yate (<= 2.2.0-1~dfsg-1), yate-mysql, yate-gtk2, yate-qt4, yate-server, yate-signaling, yate-sqlite
+Section: comm
+Priority: optional
+Homepage: http://yate.null.ro/
+Description: YATE core modules
+ YATE is a telephony engine aimed at creating a telephony server that
+ performs well enough to deal with PBX requirements and also flexible
+ enough for complex Gateway and IVR solutions.
+ .
+ This package contains the core modules necessary for running YATE.
