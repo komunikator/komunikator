@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Мастер настроек</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />   
+        <link rel="stylesheet" href="css/materialize.css" type="text/css" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+       <!--  <link rel="stylesheet" href="css/user.css" type="text/css" /> -->
+       
+        <!--<script src="js/jquery-1.12.1.min.js"></script>-->
+        <script src="js/jquery-2.1.1.min.js"></script>
+        
+        <script src="js/materialize.js"></script> 
+        <script src="js/providers.js"></script>
+      <!--   <script src="js/user.js"></script> -->
+        <script src="js/init.js"></script>
+
+    </head>
+    <body id="body">
+
+    <div id="header">
+        <div id="header_top" class="col s12 row header_top z-depth-1">
+            <div class="col s8 offset-s2 header_top_logo">
+        <!--         <a id="close_master" href="../../" class="close_master">Закрыть мастер настройки</a> -->
+                <img class="header_top_logo_banner" src="images/mars-logo-white.png" alt="mars-white">
+         <!--        <h1 class="header_top_logo_title ">Мастер настройки</h1> -->
+            </div>
+        </div>
+        <div class="col s12 header_middle">
+            <h2 id="header_title" class="header_title blue-text light"></h2>
+        </div>
+        <div class="col s12 header_bottom">
+            <p id="header_decription" class="header_decription blue-text light"></p>
+        </div>
+    </div>
+    <div id="content" class="container valign-wrapper row">
+        <div id="work_mode" class="valign col offset-s2 s8" style="display: none;">
+             <ul class="collection center-align z-depth-1">
+                <li id="sip_sett" class="collection-item">
+                    <span class="title provider_name">Настройка Sip подключений</span>
+                </li>
+                <li id="speech_sett" class="collection-item">
+                    <span class="title provider_name">Настройка синтеза и распознавания речи</span>
+                </li>
+            </ul>
+        </div>
+        <div id="current_connections" class="valign col s12">
+            <ul class="collection collection_with_del z-depth-1">
+            </ul> 
+            <div class="col center-align s12" id="add_button">
+                <a id="add_conn_btn" class="waves-effect waves-light btn add_connection_btn">Добавить</a>
+            </div>     
+        </div>
+        <div id="provider_choose" class="valign col offset-s3 s6">
+             <ul class="collection center-align z-depth-1">
+            </ul> 
+        </div>
+        <div id="edit_connection" class="valign col offset-s3 s6" style="display: none;">
+            <div class="row">
+                <form class="col s12 master_form z-depth-1">
+                    <div class="close_icon"><img src="images/close.png"></div>
+                    <div class="img_provider"><img src=""/></div>
+                    <div class="right width75">
+                        <div class="input-field">
+                            <input id="login" type="text" class="validate">
+                            <label for="login">Логин</label>
+                        </div>
+                        <div style="clear: both;"></div>
+                        <div class="input-field">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Пароль</label>
+                        </div>
+                    </div>
+                </form>
+                <div class="col center-align s12">
+                <a id="del_connection_btn" class="waves-effect waves-light flat_btn top_margin red_text">УДАЛИТЬ</a>
+                </div>
+                <div class="col center-align s12">
+                    <a id="save_conn_btn" class="waves-effect waves-light btn-large save_conn_btn">Сохранить</a>
+                </div>
+            </div>
+        </div>
+        <div id="speech_recognize" class="valign col offset-s3 s6">
+             <ul class="collection center-align">
+                <li class="collection-item">
+                    <div class="left povider_logo_cont">
+                        <img src="images/recognizers/yandex.png" alt="yandex" class="provider_logo">
+                    </div>
+                    <span class="title provider_name">Яндекс</span>
+                </li>
+            </ul>
+        </div>
+        <div id="voice_choose" class="valign col offset-s3 s6">
+            <div class="row">
+                <form class="col s12 master_form z-depth-1">
+                    
+                    <div class="row">
+                        <a href="https://developer.tech.yandex.ru/" target="_blank"><img class="logo_speech" src="images/providers/yandex-logo.png"></a>
+                        <div class="input-field width70 col s12">
+                            <input id="key" type="password" class="">
+                            <label for="key">Ключ распознавания Яндекс</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <select id="def_tts">
+                                <option value="yandex">Яндекс</option>
+                                <option value="ivona">Ivona</option>
+                            </select>
+                            <label>Сервис синтеза речи</label>
+                        </div>
+                        <div style="clear: both;"></div>
+                        <span>Если у вас нет ключа Яндекс, получите его <a href="https://developer.tech.yandex.ru/" target="_blank">здесь</a></span>
+                        <div id="sintez_fields">
+                            <a href="http://www.ivona.com/us/" target="_blank"><img class="logo_speech sintez_logo" src="images/providers/ivona.png"></a>    
+                            <div class="input-field width70 col s12">
+                                <input id="access_key_sintez" type="password" class="">
+                                <label for="access_key_sintez">Ключ доступа Ivona</label>
+                            </div>
+                            <div class="input-field width70 col s12">
+                                <input id="secret_key_sintez" type="password" class="">
+                                <label for="secret_key_sintez">Секретный ключ Ivona</label>
+                            </div>
+                            <div style="clear: both;"></div>
+                            <span>Если у вас нет ключей Ivona, получите их <a href="http://www.ivona.com/us/" target="_blank">здесь</a></span>
+                        </div>
+                       <!-- <div class="col s1">
+                            <a id="speech_play_btn" class="btn-floating btn waves-effect waves-light speech_play_btn">&#9658;</a>
+                        </div> -->
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="enter_login_password" class="valign col offset-s3 s6">
+            <div class="row">
+                <form class="col s12 master_form z-depth-1">
+                    <div class="close_icon"><img src="images/close.png"></div>
+                    <div class="img_provider"><img src=""/></div>
+                    <div class="right width75">
+                        <div class="input-field">
+                            <input id="enter_login" type="text" class="validate">
+                            <label for="enter_login">Логин</label>
+                        </div>
+                        <div style="clear: both;"></div>
+                        <div class="input-field">
+                            <input id="enter_password" type="password" class="validate">
+                            <label for="enter_password">Пароль</label>
+                        </div>
+                    </div>
+                   <!--  <div class="input-field">
+                        <input id="enter_login" type="text" class="validate">
+                        <label for="enter_login">Логин</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="enter_password" type="password" class="validate">
+                        <label for="enter_password">Пароль</label>
+                    </div> -->
+                    <div style="clear: both;"></div>
+                    <span>Если у вас нет аккаунта <a href="" target="_blank">зарегистрируйтесь</a></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="row page-footer valign-wrapper light-grey">
+        <div class="col center-align s3 valign ">
+            <a id="prev_button" class="waves-effect btn btn_prev"><span class="arrow"><</span> Назад</a>
+        </div>
+        <div class="col center-align s6 pagination">
+            <nav>
+                <div class="nav-wrapper row">
+                  <div class="col s12">
+                        <a id="page_1" href="javascript:void(0)" class="breadcrumb">Подключения</a>
+                        <a id="page_2" href="javascript:void(0)" class="breadcrumb">Провайдер</a>
+                        <a id="page_3" href="javascript:void(0)" class="breadcrumb">Логин/Пароль</a>
+                        <!-- <a id="page_4" href="javascript:void(0)" class="breadcrumb">Речь</a> -->
+                  </div>
+                </div>
+            </nav>
+        </div>
+        <div class="col center-align s3 valign" id="next_button" >
+            <a class="waves-effect waves-light btn ">Далее <span class="arrow">></span></a>
+        </div>
+        <div class="col center-align s3 valign" id="done_button" >
+            <a class="waves-effect waves-light btn ">Готово</a>
+        </div>
+    </footer>
+    <div id="finish_master_page" class="finish_page container row valign-wrapper">
+        <div class="col offset-s2 s8 valign center-align">
+            <p class="finish_text">Теперь<br> всё готово<br> для работы</p>
+            <img class="" src="images/mars-logo-white.png" alt="mars-white">
+            <div style="clear: both;"></div>
+            <a class="waves-effect waves-light btn-large start_work_btn">Начать</a>
+        </div>
+    </div>
+    <div id="my_alert" class="modal">
+        <div class="modal-content">
+            <h4 id="alert_header"></h4>
+            <p id="alert_text"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:void(0)" class=" modal-action modal-close waves-effect waves-light btn">OK</a>
+        </div>
+    </div>
+        <!-- <div id="user-login-form" class="ui-widget ui-widget-content ui-corner-all user-login" >
+            <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+                <table style="margin-bottom: 20px; margin-top: 20px; width:100%">
+                    <tr>
+                        <td>
+                            <span class="text-login"></span>
+                        </td>
+                        <td>
+                            <input id="user-login" title="type &quot;a&quot;" class="ui-autocomplete-input" autocomplete="off" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="text-password"></span>
+                        </td>
+                        <td>
+                            <input id="user-password" type="password" title="type &quot;a&quot;" class="ui-autocomplete-input" autocomplete="off" >
+                        </td>
+                    </tr>
+                </table>
+                <div class="ui-dialog-buttonset" style="float:right; ">
+                    <button id="button-login-ok" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
+                        <span class="ui-button-text">Ok</span>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+<!--         <div id="user-status-form" class="ui-widget ui-widget-content ui-corner-all user-status" >
+            <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+                <div id="refresh-button"></div>
+                <table id="list-sip-connection" cellpadding="7" style="margin: 15px;border-collapse: collapse; width: 90%">
+                    <caption style="margin-bottom: 20px;">SIP Подключения</caption>
+                    <tr></tr>
+                </table>
+                <div id="contextMenuId" style="position:absolute; top:0; left:0; border:1px solid #666; background-color:#CCC; display:none; float:left; z-index: 100;"></div>
+                <p style="text-align: center;"><a href="#" id="add-sipconnect" class="ui-state-default ui-corner-all add-button-text">
+                    </a>
+                </p>
+            </div>
+        </div> -->
+<!-- 
+        <div id="user-panel-form" class="ui-widget ui-widget-content ui-corner-all user-panel" >
+            <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+            	<p style="text-align: center;"><a href="/logOut" id="exit" class="ui-state-default ui-corner-all exit-button-text">
+                    </a>
+                </p>
+            </div>
+        </div> -->
+       
+<!-- 
+
+        <div id="user-master-form">
+            <div id="choice-page" class="page1">
+                <p class="choice_text"></p>
+                <form style="margin-top: 1em;">
+                    <div id="radioset">
+                    </div>
+                </form>
+            </div>
+            <div id="enterData-page" class="page2">
+                <table style="margin-bottom: 20px; margin-top: 20px; width:100%">
+                    <tr>
+                        <td>
+                            <span class="text-login"></span>
+                        </td>
+                        <td>
+                            <input id="userSipName" title="type &quot;a&quot;" class="ui-autocomplete-input" autocomplete="off" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="text-password"></span>
+                        </td>
+                        <td>
+                            <input id="userSipPassword" type="password" title="type &quot;a&quot;" class="ui-autocomplete-input" autocomplete="off" >
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="question-shour-form">
+            <div id="choice-page" class="page1">
+                <p class="shour_text"></p>
+                <form style="margin-top: 1em;">
+                </form>
+            </div>
+        </div> -->
+    </body>
+</html>

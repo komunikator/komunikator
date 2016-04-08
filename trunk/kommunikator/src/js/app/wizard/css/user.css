@@ -1,0 +1,460 @@
+
+/* Codepen */
+body {
+    background: url("http://keeyawangjones.com/codepen/pattern-dark-x.png");
+}
+
+#credit-container{
+    position:fixed;
+    bottom:0px;
+    width:100%;
+}
+#credit{
+    width:400px;
+    font-size: 10px;
+    color: #fff;
+    margin:0px auto;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+
+
+/* Custom style jQuery UI Dialog*/
+.showLoginDialog {
+    background: none;
+    border: 0px;
+    cursor: default;
+    padding-top: 0;
+    padding-bottom: 3px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+
+.showLoginDialog.ui-dialog .ui-dialog-titlebar {
+    background: linear-gradient(#4d4d4d, #2f2f2f);
+    border-radius: 5px 5px 0px 0px;
+    color: #fff;
+    drop-shadow: 0 2px 0 black;
+    font-size: 15px;
+    font-weight: lighter;
+    line-height: 10px;
+    padding-bottom: 10px;
+}
+.showLoginDialog,.ui-widget-header .ui-state-default {
+    display: none;
+}
+.showLoginDialog .ui-dialog-title {
+    width: 550px;
+}
+.showLoginDialog .ui-corner-all {
+    border-radius: 0;
+}
+.showLoginDialog .ui-widget-header {
+    background: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 0;
+}
+.showLoginDialog .ui-widget-content {
+    background:#3B7EC4;
+    padding: 1em;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.87);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.87);
+    box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.87);
+}
+.showLoginDialog.ui-dialog .ui-dialog-buttonpane button {
+    background: linear-gradient(#4d4d4d, #2f2f2f);
+    border-radius: 5px;
+    border: 1px solid #34495e;
+    box-shadow: 0 1px 1px #6e6e6e,0 1px 1px rgba(0,0,0,0.4);
+    color: white !important;
+    font-size: 15px;
+    font-weight: lighter;
+    padding: 10px;
+    height: 30px;
+    cursor: pointer;
+    margin: .5em .4em .5em 0;
+}
+.showLoginDialog.ui-dialog .ui-dialog-buttonpane {
+    text-align: left;
+    border-radius: 0 0 5px 5px;
+    border-width: 1px 0 0 0;
+    background-image: none;
+    margin: .1em 0 0 0;
+    padding: 0;
+}
+.showLoginDialog .ui-button .ui-button-text {
+    display: block;
+    line-height: 0;
+}
+.showLoginDialog .ui-button-text-only .ui-button-text {
+    padding: 0 1em;
+}
+
+
+/* General Form Layout*/
+
+div#login-dialog-content-container
+{
+    width: 465px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-left {
+    float: left;
+    /* margin-left: -32px; */
+}
+.registration-left {
+    float: right;
+    margin-right: -32px;
+}
+.line-separator {
+    float: left;
+    height: 200px;
+    margin-right: 30px;
+    border-right: 1px solid rgba(255, 255, 255, 0.49);
+    background: -moz-linear-gradient( center top, #f9f9f9 5%, #e9e9e9 100% );
+    height: 160px;
+    left: 50px;
+    margin-top: 19px;
+    position: relative;
+    box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.27);
+}
+
+/* Form Styles*/
+.form-header-text {
+    color: #fff;
+    padding-bottom: 10px;
+}
+.control-label{
+    color: #fff;
+    font-size: 12px;
+}
+input.form-input {
+    background: #fff;
+    border: 2px solid #888;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #515456;
+    font-size: 12px;
+    height: 10px;
+    line-height: 22px;
+    padding: 10px;
+    width: 100%;
+    padding: 13px 13px 13px 54px;
+    margin-bottom: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 3px solid rgba(0,0,0,0);
+}
+div.login-links {
+    padding-top: 20px;
+}
+.small-text {
+    color: #fff;
+    bottom: 10px;
+    font-size: 10px;
+    padding-left: 5px;
+    position: relative;
+}
+.small-text:link {
+    color: #fff;
+}
+#virbela-registration {
+    background-image: url(http://keeyawangjones.com/codepen/virbela-registration.png);
+    height: 106px;
+    background-size: 115px 115px;
+    background-position: 42px -3px;
+    background-repeat: no-repeat;
+}
+
+
+
+.iconbg {
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, rgba(249, 249, 249, 0)), color-stop(1, rgba(233, 233, 233, 0.12)) );
+    background: -moz-linear-gradient( center top, #f9f9f9 5%, #e9e9e9 100% );
+    border: 1px solid rgba(102, 102, 102, 0.3);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    height: 32px;
+    width: 35px;
+    position: absolute;
+    margin-top: -1px;
+    box-shadow: 0 0px 12px -4px rgba(0, 0, 0, 0.66);
+}
+
+/*Form Icons Implementation - solved by Rex Kirby*/
+/* visit his pen- http://codepen.io/rexkirby/pen/Fdnlz?editors=010 */
+#username {
+    background-image: url(http://keeyawangjones.com/codepen/imgs/user.png);
+    background-size: 16px 16px;
+    background-position: 7px 5px;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 5px #666;
+}
+#username:focus {
+    background-image: url(http://keeyawangjones.com/codepen/imgs/user.png);
+    background-size: 16px 16px;
+    background-position: 7px 5px;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 5px #666;
+}
+#password {
+    background-image: url(http://keeyawangjones.com/codepen/imgs/unlocked.png);
+    background-size: 16px 16px;
+    background-position: 9px 4px;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 5px #666;
+}
+#password:focus {
+    background-image: url(http://keeyawangjones.com/codepen/imgs/unlocked.png);
+    background-size: 16px 16px;
+    background-position: 9px 4px;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 5px #666;
+}
+
+
+
+/* Form Button Styles*/
+.login-form-btn {
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9) );
+    background:-moz-linear-gradient( center top, #f9f9f9 5%, #e9e9e9 100% );
+    background-color:#f9f9f9;
+    border-radius: 5px;
+    text-indent:0px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#666666;
+    font-size: 15px !important;
+    font-weight:bold;
+    font-style:normal;
+    height:30px;
+    line-height:20px;
+    width: 215px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ffffff;
+}
+.login-form-btn:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9) );
+    background:-moz-linear-gradient( center top, #e9e9e9 5%, #f9f9f9 100% );
+}
+.login-form-btn:active {
+    position:relative;
+    top:1px;
+}
+
+.user-dialog
+{
+    position: absolute;
+    height: 250px;
+    width: 400px;
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.login-title
+{
+    text-align: center;
+}
+
+.user-status
+{
+    position: absolute;
+    height: 600px;
+    width: 400px;
+/*    display: none;*/
+    margin: 20px;
+}
+
+.user-login
+{
+    height: 150px;
+    width: 380px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 10px;
+    display: none;
+}
+
+#user-login, #user-password
+{
+    width:100%;
+}
+
+.add-img
+{
+    cursor: pointer;
+}
+
+.refresh-img
+{
+    cursor: pointer;
+    float: right;
+}
+
+.circle_red
+{
+    display: block;
+    background: #FF0000;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    background: radial-gradient(6px 10px, circle, #FF0000, #000);
+    background: -webkit-radial-gradient(6px 10px, circle, #FF0000, #000);
+    background: -moz-radial-gradient(6px 10px, circle, #FF0000, #000);
+}
+
+.circle_green
+{
+    display: block;
+    background: #00FF15;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    background: radial-gradient(6px 10px, circle, #00FF15, #000);
+    background: -webkit-radial-gradient(6px 10px, circle, #00FF15, #000);
+    background: -moz-radial-gradient(6px 10px, circle, #00FF15, #000);
+}
+
+#list-sip-connection td
+{
+    border: 2px solid black;
+    border-color: transparent transparent black transparent;
+    padding-left: 25px;
+}
+
+#list-sip-connection tr:hover {
+    background: #f3bd48;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sip-col1
+{
+    width: 20%;
+}
+
+.sip-col2
+{
+    width: 80%;
+}
+
+#contextMenuId tr
+{
+    width: 100%;
+}
+
+#contextMenuId td
+{
+    margin:4px;
+    color: #333333;
+    font-family: Trebuchet MS,Helvetica,Arial,sans-serif;
+    font-size: 1.1em;
+    border: 1px solid black;
+    border-color: transparent transparent black transparent;
+    height: 20px;
+    width: 100%;
+}
+
+#contextMenuId td:hover {
+    background: #f3bd48; /* Цвет фона при наведении */
+    color: #fff; /* Цвет текста при наведении */
+    cursor: pointer;
+}
+
+#refresh-button {
+    float:right;
+    height: 45px;
+    width: 45px;
+    background-image: url(../images/icons.png);
+    background-size: 326px 280px;
+    background-position: -4px 0px;
+    background-repeat: no-repeat;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 45px;
+    border-radius: 45px;
+}
+
+#refresh-button:hover {
+    background-position: -262px -185px;
+    box-shadow: 0 0 5px #666;
+    cursor: pointer;
+}
+
+#refresh-button:active {
+    background-position: 0px -228px;
+    box-shadow: 0 0 5px #666;
+    cursor: pointer;
+}
+
+.page2
+{
+    display: none;
+}
+
+#question-shour-form
+{
+    padding: 0px;
+    border: none;
+    text-align: center;
+    min-height: none;
+}
+
+div[aria-describedby="question-shour-form"] div:nth-child(3) button
+{
+    margin:10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+div[aria-describedby="question-shour-form"] div:nth-child(3)
+{
+    border-top: none;
+    padding-right: 0.4em;
+}
+
+div[aria-describedby="question-shour-form"] button:last-child
+{
+    margin:10px;
+    float:right;
+}
+
+div[aria-describedby="question-shour-form"] div:nth-child(3) div
+{
+    float:none  !important;
+}
+
+#userSipName, #userSipPassword
+{
+    width: 100%;
+}
+
+.user-panel
+{
+    position: absolute;
+    height: 60px;
+    width: 150px;
+    margin: 20px 20px 20px 450px;
+}

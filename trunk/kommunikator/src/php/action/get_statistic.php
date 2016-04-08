@@ -68,6 +68,8 @@ if (!$_SESSION['user']) {
     exit;
 }
 
+
+$f_data[] = array('provider_wizard');
 //$extension = getparam("extension");
 // - текущее время на сервере  - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -498,6 +500,8 @@ $f_data[] = array('version', $cur_ver);
 //$f_data[] = array('yate_version',get_yate_version());
 //exec('ps -ef | grep -c defunct',$def);
 //$f_data[] = array('defunct processes',$def[0]-2);
+
+
 
 
 $obj = array("success" => true);

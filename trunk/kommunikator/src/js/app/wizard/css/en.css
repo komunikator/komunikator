@@ -1,0 +1,68 @@
+.login-title:after
+{
+    content: "authorization";
+}
+
+.text-login:after
+{
+    content: "Login";
+}
+
+.text-password:after
+{
+    content: "Password";
+}
+
+.edit_text:after
+{
+    content: "Edit";
+}
+
+.delete_text:after
+{
+    content: "Delete";
+}
+
+.add-button-text:after
+{
+    content: "Add sip connection";
+}
+
+.next_text span:after
+{
+    content: "Next";
+}
+
+.ready_text span:after
+{
+    content: "Ready";
+}
+
+.cancel_text span:after
+{
+    content: "Cancel";
+}
+
+.choice_text:after
+{
+    content: "Choose provider from the list below:";
+}
+
+div[aria-describedby="user-master-form"] .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle span:first-child:after
+{
+    content: "Connection wizard";
+}
+
+div[aria-describedby="question-shour-form"] .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle span:first-child:after
+{
+    content: "Delete the selected account?";
+}
+
+.yes_text span:after
+{
+    content: "Yes";
+}
+.no_text span:after
+{
+    content: "No";
+}

@@ -390,5 +390,6 @@ app.msg = {
     condition_time: 'Время, проведенное на сайте',
     condition_scroll: 'Скролл вниз 100% страницы',
     condition_certain_page: 'Посещение конкретной страницы сайта',
-    condition_prefix: 'Префикс для набора номера'
+    condition_prefix: 'Префикс для набора номера',
+    provider_wizard: 'Мастер настройки провайдеров'
 };   

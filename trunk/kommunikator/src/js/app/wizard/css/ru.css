@@ -1,0 +1,74 @@
+.login-title:after
+{
+    content: "Авторизация";
+}
+
+.text-login:after
+{
+    content: "Логин";
+}
+
+.text-password:after
+{
+    content: "Пароль";
+}
+
+.edit_text:after
+{
+    content: "Редактировать";
+}
+
+.delete_text:after
+{
+    content: "Удалить";
+}
+
+.add-button-text:after
+{
+    content: "Добавить SIP подключение";
+}
+
+.exit-button-text:after
+{
+    content: "Выход";
+}
+
+.next_text span:after
+{
+    content: "Далее";
+}
+
+.ready_text span:after
+{
+    content: "Готово";
+}
+
+.cancel_text span:after
+{
+    content: "Отмена";
+}
+
+.choice_text:after
+{
+    content: "Выберите провайдера из списка ниже:";
+}
+
+div[aria-describedby="user-master-form"] .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle span:first-child:after
+{
+    content: "Мастер настройки";
+}
+
+div[aria-describedby="question-shour-form"] .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle span:first-child:after
+{
+    content: "Удалить выбранный аккаунт?";
+}
+
+.yes_text span:after
+{
+    content: "Да";
+}
+
+.no_text span:after
+{
+    content: "Нет";
+}
