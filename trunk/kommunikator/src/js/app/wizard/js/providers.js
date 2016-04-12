@@ -26,7 +26,7 @@ var providersList =
             ]
         };
  
-function getProvidersList() {
+function getProvidersList1() {
     for (var key in providersList.providers) {
         if (providersList.providers[key].ref_link){
             $('#provider_choose > .collection').append('<li class="collection-item">'+

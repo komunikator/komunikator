@@ -54,8 +54,8 @@
 Ext.define('app.Provider_Wizard', {
     extend: 'Ext.window.Window',
     id: 'ProviderWizard',
-    width: 600,
-    height: 600,
+    width: 800,
+    height: 800,
     layout: 'fit',
     border: false,
     modal: true, //блокирует всё, что на заднем фоне
@@ -63,7 +63,7 @@ Ext.define('app.Provider_Wizard', {
     resizable: false, // нельзя изменить размеры окна
     draggable: false, //перемещение объекта по экрану
     title: app.msg.provider_wizard,
-    html:' <iframe src="js/app/wizard/index.html" width="600" height="600" align="left">\
+    html:' <iframe src="js/app/wizard/index.html" width="800" height="700" align="left">\
     Ваш браузер не поддерживает плавающие фреймы!\
  </iframe>'
 

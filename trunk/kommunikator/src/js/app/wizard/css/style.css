@@ -360,7 +360,7 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
     position: fixed;
     bottom: 0;
     width: 100%;
-    
+    margin-bottom: 0;
     background-color: #e8e8e8 !important;
     text-align: center;
     padding: 0 !important;
@@ -449,4 +449,14 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
     color: #FF7726;
     line-height: 3.5rem;
     font-family: sans-serif;
+}
+
+.offline_color{
+    color: #808080;
+}
+.online_color{
+    color: #008000;
+}
+.none-status_color{
+    color: #FF0000;
 }

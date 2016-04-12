@@ -69,6 +69,7 @@ if (!is_array($data["data"]))
 
 $obj = array("success" => true);
 $obj["total"] = $total['data'][0][0];
+$obj["visible_total"] = $total['data'][0][0]-1;
 $obj["data"] = $data['data'];
 
 echo out($obj);

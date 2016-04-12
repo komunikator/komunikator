@@ -1,183 +1,236 @@
 var hostname = window.location.hostname;
 var port = window.location.port;
 var cur_acc_list = [];
-//var cur_speech_recognize; //
-//var cur_speech_sintez;//
-//var ivona_sett;//
 var from_elem;
+var providers;
+var provider_status = {
+    offline: 'Отключён',
+    online: 'Подключён',
+    'none-status': 'Ошибка регистрации'
+};
+var provider_img={
+    'voip.mtt.ru':'images/providers/youmagicpro.png',
+    'mangosip.ru':'images/providers/MangoTel.png',
+    'multifon.ru':'images/providers/megafon.png'
+};
+
+var providersList =
+        {
+            providers: [
+                {
+                    id: 'megafon',
+                    name_ru: 'Мегафон',
+                    img: 'images/providers/megafon.png',
+                    host: '193.201.229.35',
+                    domain: 'multifon.ru',
+                    ref_link: 'http://multifon.ru/help'
+                },
+                {
+                    id: 'MangoTel',
+                    name_ru: 'Манго Телеком',
+                    img: 'images/providers/MangoTel.png',
+                    host: 'mangosip.ru',
+                    ref_link: 'http://www.mango-office.ru/shop/tariffs/vpbx?p=400000034'
+                },
+                {
+                    id: 'youmagicpro',
+                    name_ru: 'Youmagic.pro',
+                    img: 'images/providers/youmagicpro.png',
+                    host: 'voip.mtt.ru',
+                    ref_link: 'https://youmagic.pro/ru/services/mnogokanalnyj-nomer?aid=3643'
+                }
+            ]
+        };
+ 
+function getProvidersList1() {
+    for (var key in providersList.providers) {
+        if (providersList.providers[key].ref_link){
+            $('#provider_choose > .collection').append('<li class="collection-item">'+
+            '<div class="left povider_logo_cont">'+
+                '<img src="'+providersList.providers[key].img+'" alt="'+providersList.providers[key].name_ru+'" url="'+providersList.providers[key].host+'" ref="'+providersList.providers[key].ref_link+'" class="provider_logo">'+
+            '</div>'+
+            '<span class="title provider_name">'+providersList.providers[key].name_ru+'</span>'+
+        '</li>');
+        }else {
+            $('#provider_choose > .collection').append('<li class="collection-item">'+
+                '<div class="left povider_logo_cont">'+
+                    '<img src="'+providersList.providers[key].img+'" alt="'+providersList.providers[key].name_ru+'" url="'+providersList.providers[key].host+'" class="provider_logo">'+
+                '</div>'+
+                '<span class="title provider_name">'+providersList.providers[key].name_ru+'</span>'+
+            '</li>');
+        }
+       
+    }
+};
+
+function getImgSipConnection(host) {
+    if (host) {
+        for (var key in providersList.providers) {
+            if (providersList.providers[key].host == host) {
+                return providersList.providers[key].img;
+            }
+        }
+    }
+    return;
+}
+
+function getNameProvConnection(host) {
+    if (host) {
+        for (var key in providersList.providers) {
+            if (providersList.providers[key].host == host) {
+                return providersList.providers[key].name_ru;
+            }
+        }
+    }
+    return;
+}
+
+
+function getHostSipConnection(name_ru) {
+    if (name_ru) {
+        for (var key in providersList.providers) {
+            if (providersList.providers[key].name_ru == name_ru) {
+                return providersList.providers[key].host;
+            }
+        }
+    }
+    return;
+}
+
+function getDomainSipConnection(name_ru) {
+    if (name_ru) {
+        for (var key in providersList.providers) {
+            if (providersList.providers[key].name_ru == name_ru) {
+                return providersList.providers[key].domain;
+            }
+        }
+    }
+    return;
+}
 
 function init_master() {
 
     $("#page_1, #page_2, #page_3").hide();
     $("#header_title").text("Мастер настроек");
-    $("#finish_master_page, #provider_choose, #enter_login_password, #speech_recognize,\n\
+    $("#finish_master_page, #provider_choose, #enter_login_password,\n\
 #voice_choose, #prev_button").hide();
-      //$("#done_button").show();
-        $("#prev_button").hide();
-        $("#current_connections").show();
-//        $.ajax({
-//            url: '/kommunikator/data.php?action=get_gateways',
-//            method: 'get',
-//            success: function (response) {
-//                var size = 0;
-//                for (var i = 10; i < response.data[0].length; i++) {
-//                    if (response.data[0][i] != null) {
-//                        size++
-//                    }
-//                }
-//                var data = response.data[0];
-//                for (var i = 0; i < size; i++) {
-//                    if (data[i] == 0) {
-//                        $("#conn_" + i + " > div > .indicator").css("color", "gray").text("Отключён");
-//                    } else if (data[i] == 2) {
-//                        $("#conn_" + i + " > div > .indicator").css("color", "red").text("Ошибка регистрации");
-//                    } else if (data[i] == 1) {
-//                        $("#conn_" + i + " > div > .indicator").css("color", "green").text("Подключён");
-//                    }
-//                }
-//            }
-//        });
-        $("#header_title").text("Ваши текущие Sip подключения");
-        $("#header_decription").text("Вы можете отредактировать ваши Sip подключения, или добавить новые");
-        $("#page_1").show();
-        if ($("#current_connections > ul li").size() == 0) {
-            $("#add_conn_btn").click();
-        }
-//    $("#done_button > a").text("Закрыть");
-    //$("#sintez_fields").hide();
+
+    $("#prev_button").hide();
+    $("#current_connections").show();
+    $("#header_title").text("Ваши текущие Sip подключения");
+    $("#header_decription").text("Вы можете отредактировать ваши Sip подключения, или добавить новые");
+    $("#page_1").show();
 }
-function getProvidersList(){
+function getProvidersList() {
+
     $.ajax({
-            url: '/kommunikator/data.php?action=get_gateways',
-            method: 'get',
-            success: function (response) {console.log(response);
-                var size = 0;
-                for (var i = 10; i < response.data[0].length; i++) {
-                    if (response.data[0][i] != null) {
-                        size++
+        url: '/kommunikator/data.php?action=get_gateways',
+        method: 'get',
+        success: function (response) {
+            var status, provider_switch, provider_login, provider_id, img_src, domain;
+            providers = JSON.parse(response);
+            console.log(providers);
+            console.log('visible_total ' + providers['visible_total']);
+            var i = 0;
+            for (i; i < providers['visible_total']; i++) {
+                
+                provider_id = providers['data'][i][0]; //0 - id провайдера
+                
+                domain = providers['data'][i][11];
+                img_src = provider_img[domain];
+                if(!img_src){
+                    var res = domain.indexOf('mangosip.ru');
+                    if(res){
+                        img_src = 'images/providers/MangoTel.png';
+                    }else{
+                        img_src = 'images/providers/unkonwn.png';
                     }
                 }
-                var data = response.data[0];
-                for (var i = 0; i < size; i++) {
-                    if (data[i] == 0) {
-                        $("#conn_" + i + " > div > .indicator").css("color", "gray").text("Отключён");
-                    } else if (data[i] == 2) {
-                        $("#conn_" + i + " > div > .indicator").css("color", "red").text("Ошибка регистрации");
-                    } else if (data[i] == 1) {
-                        $("#conn_" + i + " > div > .indicator").css("color", "green").text("Подключён");
-                    }
-                }
+                
+                provider_login = providers['data'][i][4]; //4 - username провайдера
+                
+                status = providers['data'][i][1]; //1 - id статуса провайдера
+                
+                if (status === 'online') 
+                    provider_switch = 'checked';
+
+                if (status !== 'online' && status !== 'offline')
+                    status = 'none-status';
+
+                $("#current_connections > .collection").append(
+                        '<li class="collection-item with_del valign-wrapper">' +
+                        '<div id='+provider_id+' style="display:none;"></div>' +
+                        '<div class="click_area valign-wrapper">' +
+                        '<div class="povider_logo_cont">' +
+                        '<img src="'+img_src+'" alt="tata" class="provider_logo">' +
+                        '</div>' +
+                        '<span class="title accaunt_uri valign" password="5555">'+provider_login+'</span>' +
+                        '</div>' +
+                        '<div class="right_cont valign-wrapper">' +
+                        '<div class="switch">' +
+                        '<label title="Подключить аккаунт"><input type="checkbox" '+provider_switch+'><span class="lever"></span></label>' +
+                        '</div>' +
+                        '<div class="indicator ' + status + '_color">' + provider_status[status] + '</div>' +
+                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
+                        '</div>' +
+                        '<a href="javascript:void(0)" class="del_btn">' +
+                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
+                        '</a>' +
+                        '</li>'
+                        );
             }
-        });
-      createConnections();
+        }
+    });
 }
 
 $(document).ready(function () {
     $('select').material_select();
     init_master();
-    //getProvidersList();
-    $("#sip_sett").on('click', function () {
-     
-        //$("#done_button").show();
-        //("#prev_button").hide();
-        $("#current_connections").show();
-        
-        $("#header_title").text("Ваши текущие Sip подключения");
-        $("#header_decription").text("Вы можете отредактировать ваши Sip подключения, или добавить новые");
-        $("#page_1").show();
-//        if ($("#current_connections > ul li").size() == 0) {
-//            $("#add_conn_btn").click();
-//        }
-    });
     getProvidersList();
-    
-    //$("#speech_sett").on('click', function () {
-       // $("#header > div.col.s12.header_bottom").show();
-//        $("#header_top > div > h1").show();
-       // $("#done_button > a").text("Готово");
-//        $("#work_mode").hide();
-//        $("#done_button").hide();
-        //$("#speech_recognize").show();
-        //$("#next_button").show();
-        //$("#prev_button").show();
-//        $("#header_title").html("Распознавание и синтез речи");
-//        $("#header_decription").text("Выберите предложенный сервис синтеза и распознавания речи");
-//        if ($("#speech_recognize > ul li").size() == 1) {
-//            $("#speech_recognize > ul li").addClass("active_item");
-//            $("#next_button").click();
-//            if (cur_speech_recognize) {
-//                $("#key + label").addClass("active");
-//                $("#key").val(cur_speech_recognize.options.developer_key);
-//            }
-//            if (cur_speech_sintez) {
-//                if (ivona_sett.accessKey) {
-//                    $("#access_key_sintez + label").addClass("active");
-//                    $("#access_key_sintez").val(ivona_sett.accessKey);
-//                }
-//                if (ivona_sett.secretKey) {
-//                    $("#secret_key_sintez + label").addClass("active");
-//                    $("#secret_key_sintez").val(ivona_sett.secretKey);
-//                }
-//                $("#def_tts").val(cur_speech_sintez);
-//                $("#def_tts").parent().children("input").val($('#def_tts option[value="' + cur_speech_sintez + '"]').text());
-//                if ($("#def_tts").val() == "ivona") {
-//                    $("#sintez_fields").show();
-//                } else {
-//                    $("#sintez_fields").hide();
-//                }
-//                ;
-//            }
-//        }
-   // });
+getProvidersList1();
+    $("#provider_choose > .collection > .collection-item").on('click', function () {
+        $(this).parent().children(".active_item").removeClass("active_item");
+        if ($(this).hasClass("active_item")) {
+            $(this).removeClass("active_item");
+        } else {
+            $(this).addClass("active_item");
+            if ($(this).parent().parent().attr("id") == "provider_choose") {
+                $("#provider_choose").hide();
+                $("#done_button").show();
+                $("#header_title").html("Настройки Sip подключения");
+                $(".img_provider > img").attr("src", $("#provider_choose .collection-item.active_item .provider_logo").attr('src'));
+                $("#enter_login_password > div > form > span").show();
+                $("#enter_login_password > div > form > span > a").attr("href", $("#provider_choose > .collection > .collection-item.active_item > div > img").attr("ref"));
+                $("#header_decription").html("Введите данные вашего Sip аккаунта");
+                $("#enter_login_password").show();
+                $("#page_3").show();
+            }
+        }
+    });
+//
+
     $("#add_conn_btn").on('click', function () {
         $("#current_connections").hide();
-//        $("footer > div.col.center-align.s6.pagination").removeClass("margin_right25");
         $("#header_title").text("Выбор Sip провайдера");
         $("#header_decription").text("Выберите вашего Sip провайдера");
         $("#done_button").hide();
         $("#prev_button").show();
-//        $("#next_button").show();
-//        $("#next_button > a").hide();
         $("#provider_choose").show();
         $("#page_2").show();
     });
 
-
-//    $("#next_button").on('click', function () {
-//        if ($("#speech_recognize").is(":visible")) {
-//            if ($("#speech_recognize > .collection > .collection-item").hasClass("active_item")) {
-//                $("#speech_recognize").hide();
-//                $("#next_button").hide();
-//                $("#done_button").show();
-//                $("#header_title").html("Настройки сервиса распознавания и синтеза речи");
-//                $("#header_decription").text("Введите ключ сервиса и выберите голос");
-//                $("#voice_choose").show();
-//            } else {
-//                myAlert("Внимание", "Вы не выбрали ни один из представленных сервисов");
-//            }
-//            ;
-//        }
-//    });
     $("#prev_button").on('click', function () {
         if ($("#current_connections").is(":visible")) {
-        //    $("#header > div.col.s12.header_bottom").hide();
-//            $("#header_top > div > h1").hide();
             $("#done_button > a").text("Закрыть");
             $("#work_mode > .collection > .collection-item").removeClass("active_item");
             $("#current_connections").hide();
-           // $("footer > div.col.center-align.s6.pagination").removeClass("margin_right25");
-//            $("#next_button").hide();
             $("#prev_button").hide();
             $("#page_1").hide();
             $("#done_button").show();
-//            if (isInIframe){
-//                $("#done_button").hide();
-//            }
             $("#work_mode").show();
             $("#header_title").text("Мастер настроек");
         } else if ($("#provider_choose").is(":visible")) {
             $("#provider_choose").hide();
-//            $("#next_button").hide();
             $("#done_button").show();
             $("#prev_button").hide();
             $("#provider_choose > ul > .active_item").removeClass("active_item");
@@ -212,40 +265,12 @@ $(document).ready(function () {
             });
         } else if ($("#enter_login_password").is(":visible")) {
             $("#enter_login_password").hide();
-//            $("#next_button").show();
-//            $("#next_button > a").hide();
             $("#done_button").hide();
             $("#enter_login_password > div > form").trigger('reset');
             $("#provider_choose").show();
             $("#page_3").hide();
             $("#header_title").text("Выбор Sip провайдера");
             $("#header_decription").text("Выберите вашего Sip провайдера");
-        } else if ($("#speech_recognize").is(":visible")) {
-       //     $("#header > div.col.s12.header_bottom").hide();
-//            $("#header_top > div > h1").hide();
-            $("#done_button > a").text("Закрыть");
-            $("#work_mode > .collection > .collection-item").removeClass("active_item");
-            $("#speech_recognize").hide();
-//            $("#next_button").hide();
-            $("#prev_button").hide();
-            $("#speech_recognize > ul > .active_item").removeClass("active_item");
-            $("#done_button").show();
-//            if (isInIframe){
-//                $("#done_button").hide();
-//            }
-            $("#work_mode").show();
-            $("#header_title").text("Мастер настроек");
-        } else if ($("#voice_choose").is(":visible")) {
-            $("#voice_choose").hide();
-//            $("#next_button").show();
-//            $("#next_button > a").show();
-            $("#done_button").hide();
-            $("#voice_choose > div > form").trigger('reset');
-            $("#speech_recognize").show();
-            $("#prev_button").click();
-            $("#sintez_fields").hide();
-            $("#header_title").html("Распознавание и синтез речи");
-            $("#header_decription").text("Выберите предложенный сервис синтеза и распознавания речи");
         } else if ($("#edit_connection").is(":visible")) {
             $("#edit_connection").hide();
             $("#prev_button").hide();
@@ -285,210 +310,11 @@ $(document).ready(function () {
         }
     });
 
-
-});
-
-function getUrlVars()
-{
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for (var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-}
-
-var lang = getUrlVars()["lang"];
-(lang == 'ru') ? docss("ru.css") : (lang == 'en') ? docss("en.css") : docss("ru.css");
-
-function docss(name)
-{
-    var st = document.createElement("link");
-    st.setAttribute("rel", "stylesheet");
-    st.setAttribute("href", "css/" + name);
-    document.getElementsByTagName("head")[0].appendChild(st)
-}
-
-function myAlert(header, text) {
-    $("#my_alert > div.modal-content > h4").text(header);
-    $("#my_alert > div.modal-content > p").text(text);
-    $('#my_alert').openModal();
-}
-
-
-function createConnections() {
-    var img_src, img_alt;
-    for (var i = 0; i < cur_acc_list.length; i++) {
-        img_src = getImgSipConnection(cur_acc_list[i].host);
-        img_alt = getNameProvConnection(cur_acc_list[i].host);
-        if (cur_acc_list[i].disable == 1) {
-            if (img_src && img_alt) {
-                $("#current_connections > .collection").append(
-                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
-                        '<div class="click_area valign-wrapper">' +
-                        '<div class="povider_logo_cont">' +
-                        '<img src="' + img_src + '" alt="' + img_alt + '" class="provider_logo">' +
-                        '</div>' +
-                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
-                        '</div>' +
-                        '<div class="right_cont valign-wrapper">' +
-                        '<div class="switch">' +
-                        '<label title="Подключить аккаунт"><input type="checkbox"><span class="lever"></span></label>' +
-                        '</div>' +
-                        '<div class="indicator">Отключён</div>' +
-                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
-                        '</div>' +
-                        '<a href="javascript:void(0)" class="del_btn">' +
-                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
-                        '</a>' +
-                        '</li>'
-                        );
-            } else {
-                $("#current_connections > .collection").append(
-                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
-                        '<div class="click_area valign-wrapper">' +
-                        '<div class="povider_logo_cont">' +
-                        '<img src="images/favicon.png" alt="provider" class="provider_logo">' +
-                        '</div>' +
-                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
-                        '</div>' +
-                        '<div class="right_cont valign-wrapper">' +
-                        '<div class="switch">' +
-                        '<label title="Подключить аккаунт"><input type="checkbox"><span class="lever"></span></label>' +
-                        '</div>' +
-                        '<div class="indicator">Отключён</div>' +
-                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
-                        '</div>' +
-                        '<a href="javascript:void(0)" class="del_btn">' +
-                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
-                        '</a>' +
-                        '</li>'
-                        );
-            }
-        } else {
-            if (img_src && img_alt) {
-                $("#current_connections > .collection").append(
-                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
-                        '<div class="click_area valign-wrapper">' +
-                        '<div class="povider_logo_cont">' +
-                        '<img src="' + img_src + '" alt="' + img_alt + '" class="provider_logo">' +
-                        '</div>' +
-                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
-                        '</div>' +
-                        '<div class="right_cont valign-wrapper">' +
-                        '<div class="switch">' +
-                        '<label title="Отключить аккаунт"><input type="checkbox" checked><span class="lever"></span></label>' +
-                        '</div>' +
-                        '<div class="indicator">Отключён</div>' +
-                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
-                        '</div>' +
-                        '<a href="javascript:void(0)" class="del_btn">' +
-                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
-                        '</a>' +
-                        '</li>'
-                        );
-            } else {
-                $("#current_connections > .collection").append(
-                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
-                        '<div class="click_area valign-wrapper">' +
-                        '<div class="povider_logo_cont">' +
-                        '<img src="images/favicon.png" alt="provider" class="provider_logo">' +
-                        '</div>' +
-                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
-                        '</div>' +
-                        '<div class="right_cont valign-wrapper">' +
-                        '<div class="switch">' +
-                        '<label title="Отключить аккаунт"><input type="checkbox" checked><span class="lever"></span></label>' +
-                        '</div>' +
-                        '<div class="indicator">Отключён</div>' +
-                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
-                        '</div>' +
-                        '<a href="javascript:void(0)" class="del_btn">' +
-                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
-                        '</a>' +
-                        '</li>'
-                        );
-            }
-        }
-    }
-
-   
-
-    
-    
-    
-
     $("#done_button").on('click', function () {
-        if ($("#voice_choose").is(":visible")) {
-            if ($("#def_tts").val() == "ivona" && !$("#secret_key_sintez").val() && !$("#access_key_sintez").val()) {
-                myAlert("Внимание", "Поля ключей синтеза Ivona должны быть заполнены");
-            } else {
-        //        $("#header > div.col.s12.header_bottom").hide();
-//                $("#header_top > div > h1").hide();
-                $("#done_button > a").text("Закрыть");
-//                if (isInIframe){
-//                    $("#done_button").hide();
-//                }
-                $("#work_mode > .collection > .collection-item").removeClass("active_item");
-                $("#voice_choose").hide();
-                $("#prev_button").hide();
-                $("#sintez_fields").hide();
-                $("#work_mode").show();
-                $("#header_title").text("Мастер настроек");
-                $.ajax({
-                    url: '/resourceData/settings',
-                    method: 'get',
-                    success: function (response) {
-                        var data = jQuery.parseJSON(response.data[0].value);
-                        data.recognize.options.developer_key = $("#key").val();
-                        cur_speech_recognize.options.developer_key = $("#key").val();
-                        if ($("#def_tts").val() == "ivona") {
-                            data.def_tts = "ivona";
-                            cur_speech_sintez = "ivona";
-                            data.ivona_speech.accessKey = $("#access_key_sintez").val();
-                            data.ivona_speech.secretKey = $("#secret_key_sintez").val();
-                            ivona_sett.accessKey = $("#access_key_sintez").val();
-                            ivona_sett.secretKey = $("#secret_key_sintez").val();
-                        } else {
-                            data.def_tts = "yandex";
-                            cur_speech_sintez = "yandex";
-                        }
-                        response.data[0].create = false;
-                        response.data[0].name = 'config/config';
-                        response.data[0].value = JSON.stringify(data, null, 4);
-                        $.ajax({
-                            url: "/resourceData/update",
-                            method: 'put',
-                            data: response.data[0],
-                            success: function (response) {
-                                $.get("http://" + hostname + ":" + port + "/resourceData/settings", function () {
-                                    $("#speech_recognize > ul > .active_item").removeClass("active_item");
-                                    $("#voice_choose > div > form").trigger('reset');
-                                });
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                myAlert(textStatus, errorThrown);
-                            }
-                        });
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        myAlert(textStatus, errorThrown);
-                    }
-                });
-            }
-            ;
-        } else
+
         if ($("#enter_login_password").is(":visible")) {
             if ($("#enter_login").val() && $("#enter_password").val()) {
-              //  $("#header > div.col.s12.header_bottom").hide();
-//                $("#header_top > div > h1").hide();
-                $("#done_button > a").text("Закрыть");
-//                if (isInIframe){
-//                    $("#done_button").hide();
-//                }
+
                 $("#work_mode > .collection > .collection-item").removeClass("active_item");
                 $("#enter_login_password").hide();
                 $("#prev_button").hide();
@@ -661,19 +487,12 @@ function createConnections() {
                 myAlert("Внимание", "Поля логин и пароль должны быть заполнены!");
             }
         } else if ($("#current_connections").is(":visible")) {
-           // $("#header > div.col.s12.header_bottom").hide();
-//            $("#header_top > div > h1").hide();
             $("#done_button > a").text("Закрыть");
             $("#work_mode > .collection > .collection-item").removeClass("active_item");
             $("#current_connections").hide();
-//            $("footer > div.col.center-align.s6.pagination").removeClass("margin_right25");
-//            $("#next_button").hide();
             $("#prev_button").hide();
             $("#page_1").hide();
             $("#done_button").show();
-//            if (isInIframe){
-//                $("#done_button").hide();
-//            }
             $("#work_mode").show();
             $("#header_title").text("Мастер настроек");
 
@@ -728,7 +547,6 @@ function createConnections() {
         });
 
     });
-
 
     $('input[type="checkbox"]').on("change", function () {
         var tmp_id = $(this).parent().parent().parent().parent().attr("id").substr(5);
@@ -793,27 +611,138 @@ function createConnections() {
         });
     });
 
-    $("#provider_choose > .collection > .collection-item").on('click', function () {
-        $(this).parent().children(".active_item").removeClass("active_item");
-        if ($(this).hasClass("active_item")) {
-            $(this).removeClass("active_item");
+});
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+var lang = getUrlVars()["lang"];
+(lang == 'ru') ? docss("ru.css") : (lang == 'en') ? docss("en.css") : docss("ru.css");
+
+function docss(name)
+{
+    var st = document.createElement("link");
+    st.setAttribute("rel", "stylesheet");
+    st.setAttribute("href", "css/" + name);
+    document.getElementsByTagName("head")[0].appendChild(st)
+}
+
+function myAlert(header, text) {
+    $("#my_alert > div.modal-content > h4").text(header);
+    $("#my_alert > div.modal-content > p").text(text);
+    $('#my_alert').openModal();
+}
+
+
+function createConnections() {
+    var img_src, img_alt;
+    for (var i = 0; i < cur_acc_list.length; i++) {
+        img_src = getImgSipConnection(cur_acc_list[i].host);
+        img_alt = getNameProvConnection(cur_acc_list[i].host);
+        if (cur_acc_list[i].disable == 1) {
+            if (img_src && img_alt) {
+                $("#current_connections > .collection").append(
+                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
+                        '<div class="click_area valign-wrapper">' +
+                        '<div class="povider_logo_cont">' +
+                        '<img src="' + img_src + '" alt="' + img_alt + '" class="provider_logo">' +
+                        '</div>' +
+                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
+                        '</div>' +
+                        '<div class="right_cont valign-wrapper">' +
+                        '<div class="switch">' +
+                        '<label title="Подключить аккаунт"><input type="checkbox"><span class="lever"></span></label>' +
+                        '</div>' +
+                        '<div class="indicator">Отключён</div>' +
+                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
+                        '</div>' +
+                        '<a href="javascript:void(0)" class="del_btn">' +
+                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
+                        '</a>' +
+                        '</li>'
+                        );
+            } else {
+                $("#current_connections > .collection").append(
+                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
+                        '<div class="click_area valign-wrapper">' +
+                        '<div class="povider_logo_cont">' +
+                        '<img src="images/favicon.png" alt="provider" class="provider_logo">' +
+                        '</div>' +
+                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
+                        '</div>' +
+                        '<div class="right_cont valign-wrapper">' +
+                        '<div class="switch">' +
+                        '<label title="Подключить аккаунт"><input type="checkbox"><span class="lever"></span></label>' +
+                        '</div>' +
+                        '<div class="indicator">Отключён</div>' +
+                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
+                        '</div>' +
+                        '<a href="javascript:void(0)" class="del_btn">' +
+                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
+                        '</a>' +
+                        '</li>'
+                        );
+            }
         } else {
-            $(this).addClass("active_item");
-            if ($(this).parent().parent().attr("id") == "provider_choose") {
-//                $("#next_button > a").show();
-                $("#provider_choose").hide();
-//                $("#next_button").hide();
-                $("#done_button").show();
-                $("#header_title").html("Настройки Sip подключения");
-                $(".img_provider > img").attr("src", $("#provider_choose .collection-item.active_item .provider_logo").attr('src'));
-                $("#enter_login_password > div > form > span").show();
-                $("#enter_login_password > div > form > span > a").attr("href", $("#provider_choose > .collection > .collection-item.active_item > div > img").attr("ref"));
-                $("#header_decription").html("Введите данные вашего Sip аккаунта");
-                $("#enter_login_password").show();
-                $("#page_3").show();
+            if (img_src && img_alt) {
+                $("#current_connections > .collection").append(
+                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
+                        '<div class="click_area valign-wrapper">' +
+                        '<div class="povider_logo_cont">' +
+                        '<img src="' + img_src + '" alt="' + img_alt + '" class="provider_logo">' +
+                        '</div>' +
+                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
+                        '</div>' +
+                        '<div class="right_cont valign-wrapper">' +
+                        '<div class="switch">' +
+                        '<label title="Отключить аккаунт"><input type="checkbox" checked><span class="lever"></span></label>' +
+                        '</div>' +
+                        '<div class="indicator">Отключён</div>' +
+                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
+                        '</div>' +
+                        '<a href="javascript:void(0)" class="del_btn">' +
+                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
+                        '</a>' +
+                        '</li>'
+                        );
+            } else {
+                $("#current_connections > .collection").append(
+                        '<li id="conn_' + i + '" class="collection-item with_del valign-wrapper">' +
+                        '<div class="click_area valign-wrapper">' +
+                        '<div class="povider_logo_cont">' +
+                        '<img src="images/favicon.png" alt="provider" class="provider_logo">' +
+                        '</div>' +
+                        '<span class="title accaunt_uri valign" password="' + cur_acc_list[i].password + '">' + cur_acc_list[i].user + '</span>' +
+                        '</div>' +
+                        '<div class="right_cont valign-wrapper">' +
+                        '<div class="switch">' +
+                        '<label title="Отключить аккаунт"><input type="checkbox" checked><span class="lever"></span></label>' +
+                        '</div>' +
+                        '<div class="indicator">Отключён</div>' +
+                        '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
+                        '</div>' +
+                        '<a href="javascript:void(0)" class="del_btn">' +
+                        '<img src="images/delete.png" alt="del" class="currents_icon del_icon">' +
+                        '</a>' +
+                        '</li>'
+                        );
             }
         }
-    });
+    }
+
+
+
+
     $(".close_icon").on('click', function () {
         $("#prev_button").click();
     });
@@ -896,15 +825,6 @@ function createConnections() {
         }
     });
 
-    $("#def_tts").on('change', function () {
-        if ($("#def_tts").val() == "ivona") {
-            $("#sintez_fields").show();
-        } else {
-            $("#sintez_fields").hide();
-        }
-        ;
-    });
-
     $("#page_1").on('click', function () {
         if ($("#provider_choose").is(":visible")) {
             $("#prev_button").click();
@@ -925,18 +845,7 @@ function createConnections() {
             $("#prev_button").click();
         }
     });
-    // $("#page_4").on('click', function() {
-    //     if ($("#voice_choose").is(":visible")){
-    //         $("#prev_button").click();
-    //     }
-    // });
-    // $("#speech_play_btn").on('click', function() {
-    //     if ($("#voice_choose > div > form > div > div.input-field.col.s10 > div > select").val()){
-    //         new ya.speechkit.Tts({apikey: '069b6659-984b-4c5f-880e-aaedcfd84102', emotion: 'good',speaker: $("#voice_choose > div > form > div > div.input-field.col.s10 > div > select > option:selected").text()}).speak('Здравствуйте. Вас приветствует мультиканальная система распознавания Марс!');
-    //     }else{
-    //         myAlert("Внимание","Вы не выбрали голос для озвучивания!");
-    //     }
-    // });
+
 }
 
 function newSipConnection(response) {
@@ -1041,168 +950,3 @@ function recordSipConnection(response) {
         }
     });
 }
-
-// getProvidersList();
-//             $("#accordion").accordion();
-//             var availableTags = [
-//                 "ActionScript",
-//                 "AppleScript",
-//                 "Asp",
-//                 "BASIC",
-//                 "C",
-//                 "C++",
-//                 "Clojure",
-//                 "COBOL",
-//                 "ColdFusion",
-//                 "Erlang",
-//                 "Fortran",
-//                 "Groovy",
-//                 "Haskell",
-//                 "Java",
-//                 "JavaScript",
-//                 "Lisp",
-//                 "Perl",
-//                 "PHP",
-//                 "Python",
-//                 "Ruby",
-//                 "Scala",
-//                 "Scheme"
-//             ];
-//             $("#autocomplete").autocomplete({
-//                 source: availableTags
-//             });
-//             $("#button").button();
-//             $("#button-login-ok").button();
-//             $("#radioset").buttonset();
-//             $("#tabs").tabs();
-//             $("#user-master-form").dialog({
-//                 autoOpen: false,
-//                 width: 450,
-//                 modal: true, //inactive background
-//                 buttons: [
-//                     {
-//                         id: "next_button",
-//                         class: "next_text",
-//                         click: function () {
-//                             if ($('#choice-page').is(":visible")) {
-//                                 var elements = document.getElementsByName("provider");
-//                                 var check = false;
-//                                 for (var i = 0; i < elements.length; i++) {
-//                                     if (elements[i].checked) {
-//                                         check = true;
-//                                         idProvider = elements[i].id;
-//                                         break;
-//                                     }
-//                                 }
-//                                 if (check) {
-//                                     $("#choice-page").hide();
-//                                     $("#next_button").removeClass("next_text");
-//                                     $("#next_button").addClass("ready_text");
-//                                     $("#enterData-page").show();
-//                                 } else
-//                                 {
-//                                     alert("Choice something");
-//                                 }
-//                             }
-//                             else if ($('#enterData-page').is(":visible")) {
-//                                 var sipLogin = $("#userSipName").val();
-//                                 var sipPass = $("#userSipPassword").val();
-//                                 if (sipLogin == "" || sipPass == "") {
-//                                     alert("Check whether all the fields are filled");
-//                                 }
-//                                 else {
-//                                     actionSipConnection();
-//                                     $(this).dialog("close");
-//                                     $("#choice-page").show();
-//                                     $("#enterData-page").hide();
-//                                     $("#next_button").removeClass("ready_text");
-//                                     $("#next_button").addClass("next_text");
-//                                 }
-//                             }
-//                         }
-//                     },
-//                     {
-//                         class: "cancel_text",
-//                         click: function () {
-//                             idSipRecord = null;
-//                             idProvider = null;
-//                             $("#userSipName").val('');
-//                             $("#userSipPassword").val('');
-//                             $(this).dialog("close");
-//                             $("#choice-page").show();
-//                             $("#enterData-page").hide();
-//                         }
-//                     }
-//                 ]
-//             });
-//             $("#question-shour-form").dialog({
-//                 autoOpen: false,
-//                 width: 350,
-//                 modal: true, //inactive background
-//                 buttons: [
-//                     {
-//                         id: "yes_button",
-//                         class: "yes_text",
-//                         click: function () {
-//                             $.ajax({
-//                                 url: '/resourceData/settings',
-//                                 method: 'get',
-//                                 success: function (response) {
-//                                     var data = jQuery.parseJSON(response.data[0].value);
-//                                     data.sipAccounts.splice(idSipRecord, 1);
-//                                     response.data[0].create = false;
-//                                     response.data[0].name = 'config/config';
-//                                     response.data[0].value = JSON.stringify(data, null, 4);
-//                                     $.ajax({
-//                                         url: "/resourceData/update",
-//                                         method: 'put',
-//                                         data: response.data[0],
-//                                         success: function (response) {
-//                                             $.get("http://" + hostname + ":" + port + "/resourceData/settings", displaySipTable);
-//                                         }
-//                                     });
-//                                     idSipRecord = null;
-//                                     idProvider = null;
-//                                 }
-//                             });
-//                             $(this).dialog("close");
-//                         }
-//                     },
-//                     {
-//                         class: "no_text",
-//                         click: function () {
-//                             idSipRecord = null;
-//                             idProvider = null;
-//                             $(this).dialog("close");
-//                         }
-//                     }
-//                 ]
-//             });
-// // Link to open the dialog
-//             $("#add-sipconnect").click(function (event) {
-//                 idSipRecord = null;
-//                 $("#user-master-form").dialog("open");
-//                 event.preventDefault();
-//             });
-//             $("#datepicker").datepicker({
-//                 inline: true
-//             });
-//             $("#slider").slider({
-//                 range: true,
-//                 values: [17, 67]
-//             });
-//             $("#progressbar").progressbar({
-//                 value: 20
-//             });
-//             $("#spinner").spinner();
-//             $("#menu").menu();
-//             $("#tooltip").tooltip();
-//             $("#selectmenu").selectmenu();
-//             $("#add-sipconnect, #icons li").hover(
-//                     function () {
-//                         $(this).addClass("ui-state-hover");
-//                     },
-//                     function () {
-//                         $(this).removeClass("ui-state-hover");
-//                     }
-//             );
