@@ -127,7 +127,8 @@ function getProvidersList() {
         url: '/kommunikator/data.php?action=get_gateways',
         method: 'get',
         success: function (response) {
-            var status, provider_switch, provider_login, provider_id, img_src, domain;
+            var status, provider_switch, provider_login, provider_id, img_src;
+            var provider_domain;
             providers = JSON.parse(response);
             console.log(providers);
             console.log('visible_total ' + providers['visible_total']);
@@ -136,10 +137,10 @@ function getProvidersList() {
                 
                 provider_id = providers['data'][i][0]; //0 - id провайдера
                 
-                domain = providers['data'][i][11];
-                img_src = provider_img[domain];
+                provider_domain = providers['data'][i][11];
+                img_src = provider_img[provider_domain];
                 if(!img_src){
-                    var res = domain.indexOf('mangosip.ru');
+                    var res = provider_domain.indexOf('mangosip.ru');
                     if(res){
                         img_src = 'images/providers/MangoTel.png';
                     }else{
@@ -187,14 +188,14 @@ $(document).ready(function () {
     $('select').material_select();
     init_master();
     getProvidersList();
-getProvidersList1();
+    getProvidersList1();
+    
     $("#provider_choose > .collection > .collection-item").on('click', function () {
         $(this).parent().children(".active_item").removeClass("active_item");
-        if ($(this).hasClass("active_item")) {
+        if ($(this).hasClass("active_item")){
             $(this).removeClass("active_item");
-        } else {
-            $(this).addClass("active_item");
-            if ($(this).parent().parent().attr("id") == "provider_choose") {
+        }else{
+        $(this).addClass("active_item");
                 $("#provider_choose").hide();
                 $("#done_button").show();
                 $("#header_title").html("Настройки Sip подключения");
@@ -205,9 +206,8 @@ getProvidersList1();
                 $("#enter_login_password").show();
                 $("#page_3").show();
             }
-        }
     });
-//
+
 
     $("#add_conn_btn").on('click', function () {
         $("#current_connections").hide();

@@ -55,7 +55,7 @@ Ext.define('app.Provider_Wizard', {
     extend: 'Ext.window.Window',
     id: 'ProviderWizard',
     width: 800,
-    height: 800,
+    height: 700,
     layout: 'fit',
     border: false,
     modal: true, //блокирует всё, что на заднем фоне
