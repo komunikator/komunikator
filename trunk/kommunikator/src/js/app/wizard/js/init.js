@@ -137,8 +137,8 @@ function getProvidersList() {
         url: '/kommunikator/data.php?action=get_gateways',
         method: 'get',
         success: function (response) {
-            var status, provider_switch, provider_login, provider_id, img_src;
-            var provider_domain;
+            var status, provider_switch='', provider_login, provider_id, img_src;
+            var provider_domain, provider_enabled;
             providers = JSON.parse(response);
 
             var i = 0;
@@ -154,11 +154,13 @@ function getProvidersList() {
                 }
 
                 provider_login = providers['data'][i][5]; //5 - username провайдера
+                
+                provider_enabled = providers['data'][i][2]; //2 - enabled провайдера(для переключателя)
 
                 status = providers['data'][i][1]; //1 - id статуса провайдера
+                
 
-                if (status === 'online')
-                    provider_switch = 'checked';
+                 provider_switch = (provider_enabled === '1') ? 'checked': '';
 
                 if (status !== 'online' && status !== 'offline')
                     status = 'none-status';
@@ -234,6 +236,36 @@ function getProvidersList() {
                         }
                     });
                 });
+                
+                 $('.switch').on("click", function () {
+
+                    from_elem = $(this).parent();
+                    // какое-то тупое, исправить
+                    if (from_elem.hasClass('right_cont')) {
+                        from_elem = from_elem.parent();
+                    }
+                    var from_provider_id = from_elem.children(".click_area").children(".provider-id").html();
+                  //  console.log(from_provider_id);
+                    edit_provider.id = from_provider_id;
+                  //  edit_provider.enabled = true;
+                   edit_provider.enabled = ($(this).children('input[type="checkbox"]').prop("checked")) ? true:false; 
+                    $.ajax({
+                        url: "/kommunikator/data.php?action=update_gateways",
+                        method: 'post',
+                        processData: false,
+                        contentType: 'text/plain',
+                        data: JSON.stringify(edit_provider),
+                        success: function (response) {
+                            //$("#current_connections > .collection").empty();
+                            edit_provider = empty_provider;
+                            init_master();
+//                            getProvidersList();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            myAlert(textStatus, errorThrown);
+                        }
+                    });
+                 });
             }
         }
     });
@@ -479,68 +511,72 @@ $(document).ready(function () {
         }
     });
 
-    $('input[type="checkbox"]').on("change", function () {
-        var tmp_id = $(this).parent().parent().parent().parent().attr("id").substr(5);
-        if ($(this).prop('checked')) {
-            cur_acc_list[tmp_id].disable = 0;
-            $(this).parent().attr("title", "Отключить аккаунт");
-        } else {
-            cur_acc_list[tmp_id].disable = 1;
-            $(this).parent().attr("title", "Подключить аккаунт");
-        }
-        $(this).prop('disabled', true);
-        var checkbox = $(this);
-        $.ajax({
-            url: '/resourceData/settings',
-            method: 'get',
-            success: function (response) {
-                var data = jQuery.parseJSON(response.data[0].value);
-                data.sipAccounts[tmp_id].disable = cur_acc_list[tmp_id].disable;
-                response.data[0].create = false;
-                response.data[0].name = 'config/config';
-                response.data[0].value = JSON.stringify(data, null, 4);
-                $.ajax({
-                    url: "/resourceData/update",
-                    method: 'put',
-                    data: response.data[0],
-                    success: function () {
-                        checkbox.prop('disabled', false);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        myAlert(textStatus, errorThrown);
-                    }
-                });
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                myAlert(textStatus, errorThrown);
-            }
-        });
-        $.ajax({
-            url: '/gateways',
-            method: 'get',
-            success: function (res) {
-                var size = 0;
-                for (var i = 10; i < res.data[0].length; i++) {
-                    if (res.data[0][i] != null) {
-                        size++
-                    }
-                }
-                var data = res.data[0];
-                for (var i = 0; i < size; i++) {
-                    if (data[i] == 0) {
-                        $("#conn_" + i + " > div > .indicator").css("color", "gray").text("Отключён");
-                    } else if (data[i] == 2) {
-                        $("#conn_" + i + " > div > .indicator").css("color", "red").text("Ошибка регистрации");
-                    } else if (data[i] == 1) {
-                        $("#conn_" + i + " > div > .indicator").css("color", "green").text("Подключён");
-                    }
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                myAlert(textStatus, errorThrown);
-            }
-        });
-    });
+//    $('.switch').on("change", function () {
+//        console.log(4444444);
+//        from_elem = $(this).parent();
+//        var from_provider_id = from_elem.children(".click_area").children(".provider-id").html();
+//        console.log(from_provider_id);
+//        var tmp_id = $(this).parent().parent().parent().parent().attr("id").substr(5);
+//        if ($(this).prop('checked')) {
+//            cur_acc_list[tmp_id].disable = 0;
+//            $(this).parent().attr("title", "Отключить аккаунт");
+//        } else {
+//            cur_acc_list[tmp_id].disable = 1;
+//            $(this).parent().attr("title", "Подключить аккаунт");
+//        }
+//        $(this).prop('disabled', true);
+//        var checkbox = $(this);
+//        $.ajax({
+//            url: '/resourceData/settings',
+//            method: 'get',
+//            success: function (response) {
+//                var data = jQuery.parseJSON(response.data[0].value);
+//                data.sipAccounts[tmp_id].disable = cur_acc_list[tmp_id].disable;
+//                response.data[0].create = false;
+//                response.data[0].name = 'config/config';
+//                response.data[0].value = JSON.stringify(data, null, 4);
+//                $.ajax({
+//                    url: "/resourceData/update",
+//                    method: 'put',
+//                    data: response.data[0],
+//                    success: function () {
+//                        checkbox.prop('disabled', false);
+//                    },
+//                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                        myAlert(textStatus, errorThrown);
+//                    }
+//                });
+//            },
+//            error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                myAlert(textStatus, errorThrown);
+//            }
+//        });
+//        $.ajax({
+//            url: '/gateways',
+//            method: 'get',
+//            success: function (res) {
+//                var size = 0;
+//                for (var i = 10; i < res.data[0].length; i++) {
+//                    if (res.data[0][i] != null) {
+//                        size++
+//                    }
+//                }
+//                var data = res.data[0];
+//                for (var i = 0; i < size; i++) {
+//                    if (data[i] == 0) {
+//                        $("#conn_" + i + " > div > .indicator").css("color", "gray").text("Отключён");
+//                    } else if (data[i] == 2) {
+//                        $("#conn_" + i + " > div > .indicator").css("color", "red").text("Ошибка регистрации");
+//                    } else if (data[i] == 1) {
+//                        $("#conn_" + i + " > div > .indicator").css("color", "green").text("Подключён");
+//                    }
+//                }
+//            },
+//            error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                myAlert(textStatus, errorThrown);
+//            }
+//        });
+//    });
 
 });
 
