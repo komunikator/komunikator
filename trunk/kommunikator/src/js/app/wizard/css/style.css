@@ -8,6 +8,11 @@ body {
     flex-direction: column;
     overflow: hidden;
 }
+
+.right{
+    float:right;
+}
+
 .blue {
     background-color: #489FD1 !important;
 }
@@ -202,8 +207,7 @@ body {
     float: right !important;
 }
 #current_connections {	
-    overflow-y: auto;
-    height: 50vh;
+   
 }
 #current_connections > .collection{
     /*padding-right: 1vw !important; */
