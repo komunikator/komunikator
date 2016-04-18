@@ -126,7 +126,8 @@ function init_master() {
 #voice_choose, #prev_button, #edit_connection").hide();
 
     $("#prev_button").hide();
-    $("#current_connections").show();
+    $("#current_connections, #done_button").show();
+    $("#done_button > a").text("Закрыть");
     $("#header_title").text("Ваши текущие SIP подключения");
     $("#header_decription").text("Вы можете отредактировать ваши SIP подключения, или добавить новые");
     $("#page_1").show();
@@ -320,7 +321,7 @@ $(document).ready(function () {
         $("#page_2").show();
     });
 
-    $("#prev_button").on('click', function () {
+    $("#prev_button, .close_icon").on('click', function () {
         if ($("#provider_choose").is(":visible")) {
             init_master();
     getProvidersList();
@@ -376,17 +377,8 @@ $(document).ready(function () {
                 myAlert("Внимание", "Поля логин и пароль должны быть заполнены!");
             }
         } else if ($("#current_connections").is(":visible")) {
-            $("#done_button > a").text("Закрыть");
-            $("#work_mode > .collection > .collection-item").removeClass("active_item");
-            $("#current_connections").hide();
-            $("#prev_button").hide();
-            $("#page_1").hide();
-            $("#done_button").show();
-            $("#work_mode").show();
-            $("#header_title").text("Мастер настроек");
-
-        } else if ($("#work_mode").is(":visible")) {
             window.location = '../../';
+
         }
     });
 

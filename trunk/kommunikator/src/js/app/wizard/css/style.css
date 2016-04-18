@@ -59,7 +59,7 @@ body {
 .close_icon {
     cursor: pointer;
     float: right;
-    margin-right: -3rem;
+    margin-right: -2rem;
 }
 
 .close_icon img{
@@ -170,7 +170,7 @@ body {
     position: relative;	
     float: left;
     line-height: 9rem;
-    margin-left: -3.5rem;
+    margin-left: -2rem;
 }
 .width75{
     width: 75%;
