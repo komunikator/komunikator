@@ -129,7 +129,7 @@ function init_master() {
     $("#current_connections, #done_button").show();
     $("#done_button > a").text("Закрыть");
     $("#header_title").text("Ваши текущие SIP подключения");
-    $("#header_decription").text("Вы можете отредактировать ваши SIP подключения, или добавить новые");
+    $("#header_decription").text("Вы можете отредактировать ваши SIP подключения или добавить новые");
     $("#page_1").show();
 }
 function getProvidersList() {
@@ -138,7 +138,7 @@ function getProvidersList() {
         url: '/kommunikator/data.php?action=get_gateways',
         method: 'get',
         success: function (response) {
-            var status, provider_switch='', provider_login, provider_id, img_src;
+            var status, provider_switch = '', provider_login, provider_id, img_src;
             var provider_domain, provider_enabled;
             providers = JSON.parse(response);
 
@@ -148,7 +148,7 @@ function getProvidersList() {
 
                 provider_id = providers['data'][i][0]; //0 - id провайдера
 
-                provider_domain = providers['data'][i][11];
+                provider_domain = providers['data'][i][11]; console.log(provider_domain);
                 img_src = provider_img[provider_domain];
                 if (!img_src) {
                     var res = provider_domain.indexOf('mangosip.ru');
@@ -156,22 +156,22 @@ function getProvidersList() {
                 }
 
                 provider_login = providers['data'][i][5]; //5 - username провайдера
-                
+
                 provider_enabled = providers['data'][i][2]; //2 - enabled провайдера(для переключателя)
 
                 status = providers['data'][i][1]; //1 - id статуса провайдера
-                
 
-                 provider_switch = (provider_enabled === '1') ? 'checked': '';
+
+                provider_switch = (provider_enabled === '1') ? 'checked' : '';
 
                 if (status !== 'online' && status !== 'offline')
                     status = 'none-status';
-                
+
                 $("#current_connections > .collection").append(
                         '<li class="collection-item with_del valign-wrapper">' +
                         '<div class="click_area valign-wrapper">' +
                         '<div class="povider_logo_cont">' +
-                        '<img src="' + img_src + '" alt="tata" class="provider_logo">' +
+                        '<img src="' + img_src + '" alt="" class="provider_logo">' +
                         '</div>' +
                         '<span class="provider-id" style="display:none;">' + provider_id + '</span>' +
                         '<span class="title accaunt_uri valign" >' + provider_login + '</span>' +
@@ -185,9 +185,7 @@ function getProvidersList() {
                         '</div>' +
                         '</li>'
                         );
-                
-                
-                
+
                 $(".edit_btn_cont").bind("click", function (e) {
                     $("#current_connections").hide();
                     $("#page_1").hide();
@@ -240,7 +238,7 @@ function getProvidersList() {
                         }
                     });
                 });
-                
+
                 $('.switch').on("click", function () {
 
                     from_elem = $(this).parent();
@@ -258,10 +256,8 @@ function getProvidersList() {
                         contentType: 'text/plain',
                         data: JSON.stringify(edit_provider),
                         success: function (response) {
-                            //$("#current_connections > .collection").empty();
                             edit_provider = empty_provider;
                             init_master();
-//                            getProvidersList();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             myAlert(textStatus, errorThrown);
@@ -279,15 +275,9 @@ $(document).ready(function () {
     init_master();
     getProvidersList();
     getProvidersList1();
-    
-    $('#reset_btn').on('click', function(){console.log(5555);
-      //  $('#current_connections > .collection >li').remove();
-//        $('#current_connections > .collection >li').slideUp('fast', function(){
-//    $(this).remove();
-//});
-//         $("#current_connections > .collection").empty();
-       //init_master();
-       getProvidersList();
+
+    $('#reset_btn').on('click', function () {
+        getProvidersList();
     });
 
     $(".provider-item").on('click', function () {
@@ -295,19 +285,20 @@ $(document).ready(function () {
         create_provider = empty_provider;
         create_provider.domain = providersList.providers[item]["domain"];
         create_provider.server = providersList.providers[item]["server"];
+        var img_src = providersList.providers[item]["img"];
+        var ref_link = providersList.providers[item]["ref_link"];
 
-        $(this).addClass("active_item");
+        $(this).removeClass("active_item");
         $("#provider_choose").hide();
         $("#done_button").show();
         $("#header_title").html("Настройки SIP подключения");
-        $(".img_provider > img").attr("src", $("#provider_choose .collection-item.active_item .provider_logo").attr('src'));
+        $(".img_provider > img").attr("src", img_src);
         $("#enter_login_password > div > form > span").show();
-        $("#enter_login_password > div > form > span > a").attr("href", $("#provider_choose > .collection > .collection-item.active_item > div > img").attr("ref"));
+        $("#enter_login_password > div > form > span > a").attr("href", ref_link);
         $("#header_decription").html("Введите данные вашего SIP аккаунта");
         $("#enter_login_password").show();
         $("#page_3").show();
         $("#done_button > a").text("Сохранить");
-        // }
     });
 
 
@@ -324,21 +315,21 @@ $(document).ready(function () {
     $("#prev_button, .close_icon").on('click', function () {
         if ($("#provider_choose").is(":visible")) {
             init_master();
-    getProvidersList();
+            getProvidersList();
 
         } else if ($("#enter_login_password").is(":visible")) {
             $("#enter_login_password").hide();
             $("#current_connections").hide();
-        $("#header_title").text("Выбор SIP провайдера");
-        $("#header_decription").text("Выберите вашего SIP провайдера");
-        $("#done_button").hide();
-        $("#prev_button").show();
-        $("#provider_choose").show();
-        $("#page_2").show();
+            $("#header_title").text("Выбор SIP провайдера");
+            $("#header_decription").text("Выберите вашего SIP провайдера");
+            $("#done_button").hide();
+            $("#prev_button").show();
+            $("#provider_choose").show();
+            $("#page_2").show();
 
         } else if ($("#edit_connection").is(":visible")) {
             init_master();
-    getProvidersList();
+            getProvidersList();
         }
     });
 
@@ -362,8 +353,7 @@ $(document).ready(function () {
                     processData: false,
                     contentType: 'text/plain',
                     data: JSON.stringify(create_provider),
-                    success: function (response) {console.log(111);
-                        //$("#current_connections > .collection").empty();
+                    success: function (response) {
                         create_provider = empty_provider;
                         init_master();
                         getProvidersList();
@@ -401,7 +391,7 @@ $(document).ready(function () {
                 contentType: 'text/plain',
                 data: JSON.stringify(edit_provider),
                 success: function (response) {
-                  //  $("#current_connections > .collection").empty();
+                    //  $("#current_connections > .collection").empty();
                     edit_provider = empty_provider;
                     init_master();
                     getProvidersList();
@@ -416,13 +406,9 @@ $(document).ready(function () {
     });
 
     $("#del_connection_btn").on('click', function () {
-    ///    console.log(edit_provider[0]);
-     //   var provider_id;
         var new_obj = {};
         var result = confirm("Вы уверены что хотите удалить запись?");
         if (result) {
-
-
             new_obj.id = edit_provider[0];
             $.ajax({
                 url: "/kommunikator/data.php?action=destroy_gateways",
@@ -431,7 +417,6 @@ $(document).ready(function () {
                 contentType: 'text/plain',
                 data: JSON.stringify(new_obj),
                 success: function (response) {
-                   // $("#current_connections > .collection").empty();
                     edit_provider = empty_provider;
                     init_master();
                     getProvidersList();
@@ -440,10 +425,8 @@ $(document).ready(function () {
                     myAlert(textStatus, errorThrown);
                 }
             });
-
         }
     });
-
 });
 
 function getUrlVars()
@@ -477,124 +460,4 @@ function myAlert(header, text) {
 }
 
 
-function createConnections() {
 
-
-    $("#page_1").on('click', function () {
-        if ($("#provider_choose").is(":visible")) {
-            $("#prev_button").click();
-        } else if ($("#enter_login_password").is(":visible")) {
-            $("#prev_button").click();
-            $("#prev_button").click();
-        }
-    });
-    $("#page_2").on('click', function () {
-        if ($("#enter_login_password").is(":visible")) {
-            $("#prev_button").click();
-        }
-    });
-
-}
-
-function newSipConnection(response) {
-    var data = jQuery.parseJSON(response.data[0].value);
-    var login = $("#enter_login").val();
-    var pass = $("#enter_password").val();
-    var host = $("#provider_choose > ul > li.collection-item.active_item > div > img").attr("url");
-    var domain = getDomainSipConnection($("#provider_choose > ul > li.collection-item.active_item > div > img").attr("alt"));
-    var sipAccount = {
-        host: host,
-        expires: 60,
-        user: login,
-        password: pass,
-        disable: 1
-    };
-    if (domain) {
-        sipAccount['domain'] = domain;
-    }
-    ;
-    cur_acc_list[cur_acc_list.length] = sipAccount;
-    var idSipRecord = cur_acc_list.length - 1;
-    data.sipAccounts[idSipRecord] = sipAccount;
-    response.data[0].create = false;
-    response.data[0].name = 'config/config';
-    //save in the proper format
-    response.data[0].value = JSON.stringify(data, null, 4);
-
-    $.ajax({
-        url: "/resourceData/update",
-        method: 'put',
-        data: response.data[0],
-        success: function (response) {
-            $.get("http://" + hostname + ":" + port + "/resourceData/settings", function () {
-                $("#provider_choose > ul > .active_item").removeClass("active_item");
-                $("#enter_login_password > div > form").trigger('reset');
-            });
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            myAlert(textStatus, errorThrown);
-        }
-    });
-}
-
-function recordSipConnection(response) {
-    var data = jQuery.parseJSON(response.data[0].value);
-    var login = $("#login").val();
-    var pass = $("#password").val();
-    var host = getHostSipConnection(from_elem.children(".click_area").children().children().attr("alt"));
-    var domain = getDomainSipConnection(from_elem.children(".click_area").children().children().attr("alt"));
-    var idSipRecord = from_elem.attr('id').substr(5);
-    var sipAccount = {
-        host: host,
-        expires: 60,
-        user: login,
-        password: pass,
-    };
-
-    if (!host) {
-        if (data && data.sipAccounts &&
-                data.sipAccounts[idSipRecord] &&
-                data.sipAccounts[idSipRecord].host) {
-            sipAccount['host'] = data.sipAccounts[idSipRecord].host;
-        }
-    }
-    if (domain) {
-        sipAccount['domain'] = domain;
-    } else {
-        if (data && data.sipAccounts &&
-                data.sipAccounts[idSipRecord] &&
-                data.sipAccounts[idSipRecord].domain) {
-            sipAccount['domain'] = data.sipAccounts[idSipRecord].domain;
-        }
-    }
-
-    sipAccount['disable'] = data.sipAccounts[idSipRecord].disable;
-
-    //     sipAccount['disable'] = 1;
-    // }
-
-    //choose add or edit
-    (idSipRecord === null) ?
-            data.sipAccounts[data.sipAccounts.length] = sipAccount :
-            data.sipAccounts[idSipRecord] = sipAccount;
-
-    response.data[0].create = false;
-    response.data[0].name = 'config/config';
-    //save in the proper format
-    response.data[0].value = JSON.stringify(data, null, 4);
-
-    $.ajax({
-        url: "/resourceData/update",
-        method: 'put',
-        data: response.data[0],
-        success: function (response) {
-            $.get("http://" + hostname + ":" + port + "/resourceData/settings", function () {
-                from_elem.removeClass("active_item");
-                $("#edit_connection > div >form").trigger('reset');
-            });
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            myAlert(textStatus, errorThrown);
-        }
-    });
-}
