@@ -8,13 +8,15 @@ var provider_status = {
     online: 'Подключён',
     'none-status': 'Ошибка регистрации'
 };
+
 var create_provider = {};
 var provider_img = {
     'voip.mtt.ru': 'images/providers/youmagicpro.png',
     'mangosip.ru': 'images/providers/MangoTel.png',
     'multifon.ru': 'images/providers/megafon.png'
 };
-
+//var Ext = window.Ext;
+console.log(window.Ext);
 var providersList =
         {
             providers: [
@@ -31,7 +33,8 @@ var providersList =
                     name_ru: 'Манго Телеком',
                     img: 'images/providers/MangoTel.png',
                     server: '81.88.86.11',
-                    domain: 'mangosip.ru',
+                    //domain: 'mangosip.ru',
+                    domain: '***.mangosip.ru',
                     ref_link: 'http://www.mango-office.ru/shop/tariffs/vpbx?p=400000034'
                 },
                 {
@@ -148,11 +151,12 @@ function getProvidersList() {
 
                 provider_id = providers['data'][i][0]; //0 - id провайдера
 
-                provider_domain = providers['data'][i][11]; console.log(provider_domain);
+                provider_domain = providers['data'][i][11];// console.log(provider_domain);
+                
                 img_src = provider_img[provider_domain];
                 if (!img_src) {
-                    var res = provider_domain.indexOf('mangosip.ru');
-                    img_src = (res) ? 'images/providers/MangoTel.png' : 'images/providers/unkonwn.png';
+                    var res = provider_domain.indexOf('mangosip.ru'); //console.log(res);
+                    img_src = (res>=0) ? 'images/providers/MangoTel.png' : 'images/providers/unkonwn.png';
                 }
 
                 provider_login = providers['data'][i][5]; //5 - username провайдера
@@ -201,7 +205,7 @@ function getProvidersList() {
                         $(this).parent().addClass("active_item");
                     }
 
-                    var from_provider_id = from_elem.children(".click_area").children(".provider-id").html();
+                    var from_provider_id = from_elem.children(".click_area").children(".provider-id").html(); //console.log(from_provider_id);
 
                     $.ajax({
                         url: '/kommunikator/data.php?action=get_gateways',
@@ -222,6 +226,20 @@ function getProvidersList() {
                                     $(".img_provider > img").attr("src", from_elem.children(".click_area").children(".povider_logo_cont").children().attr('src'));
                                     $("#header_title").html("Редактирование SIP подключения<br/>" + from_elem.children(".click_area").children(".accaunt_uri").text());
                                     $("#header_decription").text("Измените данные и нажмите сохранить");
+                                    
+                                    var provider_domain = providers['data'][i][11]; console.log(provider_domain);
+                
+                
+                    var res = provider_domain.indexOf('mangosip.ru'); console.log(res);
+                    if (res>=0) {
+                        $('#domain').val(provider_domain);
+            $('#label_domain').addClass('active');
+            $('#domain').show();
+                    }else
+                    {
+                        $('#domain, #label_domain').hide();
+                    }
+                
                                     $("#prev_button").show();
                                     $("#done_button").hide();
                                     $("#edit_connection").show();
@@ -270,8 +288,26 @@ function getProvidersList() {
     });
 }
 
+
+ $(document).keypress(function( event ) {
+      if ( event.which == 13 ) {
+        if ($('#my_alert').is(":visible")){
+            $("#myAlertOkBtn").click();
+        }else {
+            if ($("#current_connections").is(":visible") || $("#voice_choose").is(":visible") || $("#enter_login_password").is(":visible")){
+                $("#done_button").click();
+            }
+             if ($("#edit_connection").is(":visible")){
+                $("#save_conn_btn").click();
+            }
+        } 
+      }
+    });
 $(document).ready(function () {
-    $('select').material_select();
+    
+    
+    
+    //$('select').material_select();
     init_master();
     getProvidersList();
     getProvidersList1();
@@ -297,6 +333,14 @@ $(document).ready(function () {
         $("#enter_login_password > div > form > span > a").attr("href", ref_link);
         $("#header_decription").html("Введите данные вашего SIP аккаунта");
         $("#enter_login_password").show();
+        if(create_provider.server === '81.88.86.11'){
+            $('#enter_domain').val(create_provider.domain);
+            $('#label_enter_domain').addClass('active');
+            $('#enter_domain').show();
+        }
+        else{
+            $('#enter_domain, #label_enter_domain').hide();
+        }
         $("#page_3").show();
         $("#done_button > a").text("Сохранить");
     });
@@ -344,7 +388,9 @@ $(document).ready(function () {
                 create_provider.description = $("#enter_login").val();
                 create_provider.authname = $("#enter_login").val();
                 create_provider.callerid = $("#enter_login").val();
-
+                if(create_provider.server === '81.88.86.11'){
+                    create_provider.domain = $('#enter_domain');
+                    }
                 $("#page_1, #page_2, #page_3").hide();
 
                 $.ajax({
@@ -366,8 +412,8 @@ $(document).ready(function () {
             } else {
                 myAlert("Внимание", "Поля логин и пароль должны быть заполнены!");
             }
-        } else if ($("#current_connections").is(":visible")) {
-            window.location = '../../';
+        } else if ($("#current_connections").is(":visible")) {console.log(5555555);
+            Ext.getCmp('ProviderWizard').close();
 
         }
     });
@@ -383,6 +429,9 @@ $(document).ready(function () {
             edit_provider.authname = $("#login").val();
             edit_provider.callerid = $("#login").val();
             edit_provider.gateway = $("#login").val();
+            if ($("#domain").is(":visible")){
+                edit_provider.domain = $("#domain").val();
+            }
 
             $.ajax({
                 url: "/kommunikator/data.php?action=update_gateways",
@@ -458,6 +507,3 @@ function myAlert(header, text) {
     $("#my_alert > div.modal-content > p").text(text);
     $('#my_alert').openModal();
 }
-
-
-
