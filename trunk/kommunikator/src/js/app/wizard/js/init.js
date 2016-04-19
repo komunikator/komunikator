@@ -129,8 +129,8 @@ function init_master() {
 #voice_choose, #prev_button, #edit_connection").hide();
 
     $("#prev_button, #done_button").hide();
-    $("#current_connections, #done_button").show();
-    $("#done_button > a").text("Закрыть");
+    $("#current_connections").show();
+    //$("#done_button > a").text("Закрыть");
     $("#header_title").text("Ваши текущие SIP подключения");
     $("#header_decription").text("Вы можете отредактировать ваши SIP подключения или добавить новые");
     $("#page_1").show();
@@ -205,7 +205,7 @@ function getProvidersList() {
                         $(this).parent().addClass("active_item");
                     }
 
-                    var from_provider_id = from_elem.children(".click_area").children(".provider-id").html(); //console.log(from_provider_id);
+                    var from_provider_id = from_elem.children(".provider-id").html(); //console.log(from_provider_id);
 
                     $.ajax({
                         url: '/kommunikator/data.php?action=get_gateways',
@@ -223,8 +223,8 @@ function getProvidersList() {
                                     $("#login").val(from_uri);
                                     $("#password + label").addClass("active");
                                     $("#password").val(from_pass);
-                                    $(".img_provider > img").attr("src", from_elem.children(".click_area").children(".povider_logo_cont").children().attr('src'));
-                                    $("#header_title").html("Редактирование SIP подключения<br/>" + from_elem.children(".click_area").children(".accaunt_uri").text());
+                                    $(".img_provider > img").attr("src", from_elem.children(".povider_logo_cont").children().attr('src'));
+                                    $("#header_title").html("Редактирование SIP подключения<br/>" + from_elem.children(".accaunt_uri").text());
                                     $("#header_decription").text("Измените данные и нажмите сохранить");
                                     
                                     var provider_domain = providers['data'][i][11]; console.log(provider_domain);
@@ -264,7 +264,7 @@ function getProvidersList() {
                     if (from_elem.hasClass('right_cont')) {
                         from_elem = from_elem.parent();
                     }
-                    var from_provider_id = from_elem.children(".click_area").children(".provider-id").html();
+                    var from_provider_id = from_elem.children(".provider-id").html();
                     edit_provider.id = from_provider_id;
                     edit_provider.enabled = ($(this).children('input[type="checkbox"]').prop("checked")) ? true : false;
                     $.ajax({

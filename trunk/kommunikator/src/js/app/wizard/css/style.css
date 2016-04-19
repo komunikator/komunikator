@@ -252,13 +252,13 @@ body {
     background-color: #5F9FCB !important;
 }
 .click_area{
-    width: 60%;
+    /*width: 60%;*/
     /*padding: 0 2vw 0 5vw !important;*/
 }
 .right_cont{
-    float: right;
+/*    float: right;
     width: 39%;
-    min-width: 425px;
+    min-width: 425px;*/
 }    
 
 .edit_btn_cont{
@@ -269,7 +269,7 @@ body {
     min-width: 130px;
 }
 #current_connections {
-    min-width: 700px;
+    /*min-width: 700px;*/
 }
 .edit_btn_cont a{
     padding: 0;
