@@ -319,6 +319,7 @@ body {
     color: #5f9fcb !important;
     text-overflow: ellipsis;
     /*clear: both;*/
+        padding: 0 10px;
 }
 
 .provider_name{

@@ -128,7 +128,7 @@ function init_master() {
     $("#finish_master_page, #provider_choose, #enter_login_password,\n\
 #voice_choose, #prev_button, #edit_connection").hide();
 
-    $("#prev_button").hide();
+    $("#prev_button, #done_button").hide();
     $("#current_connections, #done_button").show();
     $("#done_button > a").text("Закрыть");
     $("#header_title").text("Ваши текущие SIP подключения");
@@ -173,20 +173,20 @@ function getProvidersList() {
 
                 $("#current_connections > .collection").append(
                         '<li class="collection-item with_del valign-wrapper">' +
-                        '<div class="click_area valign-wrapper">' +
+                       // '<div class="click_area valign-wrapper">' +
                         '<div class="povider_logo_cont">' +
                         '<img src="' + img_src + '" alt="" class="provider_logo">' +
                         '</div>' +
                         '<span class="provider-id" style="display:none;">' + provider_id + '</span>' +
-                        '<span class="title accaunt_uri valign" >' + provider_login + '</span>' +
-                        '</div>' +
-                        '<div class="right_cont valign-wrapper">' +
+                        '<span class="title accaunt_uri valign truncate" >' + provider_login + '</span>' +
+                       // '</div>' +
+                       // '<div class="right_cont valign-wrapper">' +
                         '<div class="switch">' +
                         '<label title="Подключить аккаунт"><input type="checkbox" ' + provider_switch + '><span class="lever"></span></label>' +
                         '</div>' +
                         '<div class="indicator ' + status + '_color">' + provider_status[status] + '</div>' +
                         '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
-                        '</div>' +
+                    //    '</div>' +
                         '</li>'
                         );
 
