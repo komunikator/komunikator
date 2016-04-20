@@ -257,20 +257,19 @@ function getProvidersList() {
                     });
                 });
 
-                $('.switch').on("click", function () {console.log(this);
+               
+            }
+            $("#current_connections > .collection").slideDown('fast');
+             $('.switch').on("click", function () {console.log(this);
                     var upd_provider = {};
                     
 
                     from_elem = $(this).parent();
-                    // какое-то тупое, исправить
-//                    if (from_elem.hasClass('right_cont')) {
-//                        from_elem = from_elem.parent();
-//                    }
+                    
                     var from_provider_id = from_elem.children(".provider-id").html();
                     upd_provider.id = from_provider_id;
-                    //upd_provider.enabled = ($(this).children('input[type="checkbox"]').prop("checked")) ? true : false;
+                    upd_provider.enabled = ($(this).children('input[type="checkbox"]').prop("checked")) ? true : false;
                     
-                    upd_provider.enabled = $('.switch_click').prop("checked") ? true : false;
                     $.ajax({
                         url: "/kommunikator/data.php?action=update_gateways",
                         method: 'post',
@@ -286,8 +285,6 @@ function getProvidersList() {
                         }
                     });
                 });
-            }
-            $("#current_connections > .collection").slideDown('fast');
         }
     });
 }
