@@ -182,7 +182,7 @@ function getProvidersList() {
                        // '</div>' +
                        // '<div class="right_cont valign-wrapper">' +
                         '<div class="switch">' +
-                        '<label title="Подключить аккаунт"><input type="checkbox" ' + provider_switch + '><span class="lever"></span></label>' +
+                        '<label title="Подключить аккаунт"><input type="checkbox" ' + provider_switch + ' class="switch_click"><span class="lever"></span></label>' +
                         '</div>' +
                         '<div class="indicator ' + status + '_color">' + provider_status[status] + '</div>' +
                         '<div class="edit_btn_cont click_area"><a href="javascript:void(0)" class="btn-flat grey-text">РЕДАКТИРОВАТЬ</a></div>' +
@@ -194,10 +194,10 @@ function getProvidersList() {
                     $("#current_connections").hide();
                     $("#page_1").hide();
                     from_elem = $(this).parent();
-                    if (from_elem.hasClass('right_cont')) {
-                        from_elem = from_elem.parent();
-                        $(this).parent().removeClass("active_item");
-                    }
+//                    if (from_elem.hasClass('right_cont')) {
+//                        from_elem = from_elem.parent();
+//                        $(this).parent().removeClass("active_item");
+//                    }
                     $(this).parent().parent().children(".active_item").removeClass("active_item");
                     if ($(this).parent().hasClass("active_item")) {
                         $(this).parent().removeClass("active_item");
@@ -205,7 +205,7 @@ function getProvidersList() {
                         $(this).parent().addClass("active_item");
                     }
 
-                    var from_provider_id = from_elem.children(".provider-id").html(); //console.log(from_provider_id);
+                    var from_provider_id = from_elem.children(".provider-id").html(); 
 
                     $.ajax({
                         url: '/kommunikator/data.php?action=get_gateways',
@@ -257,24 +257,28 @@ function getProvidersList() {
                     });
                 });
 
-                $('.switch').on("click", function () {
+                $('.switch').on("click", function () {console.log(this);
+                    var upd_provider = {};
+                    
 
                     from_elem = $(this).parent();
                     // какое-то тупое, исправить
-                    if (from_elem.hasClass('right_cont')) {
-                        from_elem = from_elem.parent();
-                    }
+//                    if (from_elem.hasClass('right_cont')) {
+//                        from_elem = from_elem.parent();
+//                    }
                     var from_provider_id = from_elem.children(".provider-id").html();
-                    edit_provider.id = from_provider_id;
-                    edit_provider.enabled = ($(this).children('input[type="checkbox"]').prop("checked")) ? true : false;
+                    upd_provider.id = from_provider_id;
+                    //upd_provider.enabled = ($(this).children('input[type="checkbox"]').prop("checked")) ? true : false;
+                    
+                    upd_provider.enabled = $('.switch_click').prop("checked") ? true : false;
                     $.ajax({
                         url: "/kommunikator/data.php?action=update_gateways",
                         method: 'post',
                         processData: false,
                         contentType: 'text/plain',
-                        data: JSON.stringify(edit_provider),
+                        data: JSON.stringify(upd_provider),
                         success: function (response) {
-                            edit_provider = empty_provider;
+                          //  edit_provider = empty_provider;
                             init_master();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
