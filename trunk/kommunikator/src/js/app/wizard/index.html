@@ -3,7 +3,7 @@
     <head>
         <title>Мастер настроек</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />   
+       
         <link rel="stylesheet" href="css/materialize.css" type="text/css" />
         <link rel="stylesheet" href="css/style.css" type="text/css" />
         
@@ -12,34 +12,40 @@
         <script src="js/init.js"></script>
 
     </head>
-    <body id="body">
-
-        <div id="header">
-            <div class="col s12 header_middle">
-                <h2 id="header_title" class="header_title blue-text light"></h2>
+    <body>
+        <!--BEGIN header-->
+        <div id="header" class="header">
+            <div class="col s12 header__middle">
+                <h2 id="header_title" class="header__title digt_title_color"></h2>
             </div>
-            <div class="col s12 header_bottom">
-                <p id="header_decription" class="header_decription blue-text light"></p>
+            <div class="col s12 header__btm">
+                <p id="header_decription" class="header__descr digt_descr_color"></p>
             </div>
         </div>
+        <!--END header-->
         
-        <div id="content" class="container valign-wrapper row">
-            <div id="current_connections" class="valign col s12">
-                <ul class="collection collection_with_del z-depth-1" style="overflow-y: auto; height: 50vh;"></ul> 
-                <div class="col center-align s12" id="add_button" style="    text-align: right;">
-                    <a id="add_conn_btn" class="waves-effect waves-light btn add_connection_btn">Добавить</a>
-                    <a id="reset_btn" class="waves-effect waves-light btn add_connection_btn">Обновить</a>
+        <!--BEGIN content-->
+        <div id="content" class="container valign-wrapper row content">
+            <!--BEGIN accounts-->
+            <div id="accounts" class="valign col s12 accounts">
+                <ul class="collection z-depth-1 accounts__list"></ul> 
+                <div class="col center-align s12 accounts__btn_block">
+                    <a id="addAccounts" class="waves-effect waves-light btn accounts__btn">Добавить</a>
+                    <a id="refreshAccounts" class="waves-effect waves-light btn accounts__btn">Обновить</a>
                 </div>     
-                
             </div>
-            <div id="provider_choose" class="valign col offset-s3 s6" style="width: 70%; margin: auto;">
+            <!--END accounts-->
+            
+            
+            <div id="provider_choose" class="valign col offset-s3 s6 providers">
                 <ul class="collection center-align z-depth-1">
                 </ul> 
             </div>
-            <div id="edit_connection" class="valign col offset-s3 s6" style="margin: auto;width: 70%;">
+            
+            <div id="edit_connection" class="valign col offset-s3 s6 editing">
                 <div class="row">
-                    <form class="col s12 master_form z-depth-1">
-                        <div class="close_icon"><img src="images/close.png"></div>
+                    <form class="col s12 editing__form z-depth-1">
+                        <div class="close_icon"></div>
                         <div class="img_provider"><img src=""/></div>
                         <div class="right width75">
                             <div class="input-field">
@@ -93,6 +99,8 @@
                 </div>
             </div>
         </div>
+        <!--END content-->
+        
         <footer class="row page-footer valign-wrapper light-grey">
             <div class="col center-align s3 valign " style="margin-left: 0; ">
                 <a id="prev_button" class="waves-effect btn btn_prev"><span class="arrow"><</span> Назад</a>

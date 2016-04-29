@@ -2,27 +2,59 @@ body {
     margin: 0px;
     padding: 0px;
     background-color: #fff;
-    /* background: url("../images/content_background.png") repeat #9e9e9e; */
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     overflow: hidden;
 }
-
+/* ---------->>> BEGIN GLOBAL <<<---------- */
 .btn{
     padding: 0 3vw !important;
     background: #5F9FCB !important;
 }
-.close_icon {
+
+.close_icon{
+    background: url(../images/close.png);
+    background-size: contain;
     cursor: pointer;
     float: right;
+    height: 1.5rem;
     margin-right: -2rem;
+    width: 1.5rem;
+}
+/* ---------->>> END GLOBAL <<<---------- */
+
+/* ---------->>> BEGIN company style <<<---------- */
+.digt_title_color{
+    color: #2196F3;
+}
+.digt_descr_color{
+    color: #2196F3;
+}
+/* ---------->>> END company style <<<---------- */
+
+/* ---------->>> BEGIN header <<<---------- */
+.header__middle{
+    text-align: center;
+    padding: 2vh 0;
 }
 
-.close_icon img{
-    width: 1.5rem;
-    height: 1.5rem;
+.header__title{
+    margin: 0;
+    font: normal 2rem "Roboto";
 }
+
+.header__btm{
+    text-align: center;
+    background: #FFFFFF;
+}
+
+.header__descr{
+    margin: 0;
+    font: 300 1.5rem "Roboto";
+}
+/* ---------->>> END header <<<---------- */
+
 #my_alert > div.modal-content > h4{
     color: #4682B4 !important;
 }
@@ -33,43 +65,28 @@ body {
 #my_alert > div.modal-footer > a{
 
 }
-#header{
-    margin-bottom: 0;
-}
 
-.header_middle{
-    text-align: center;
-    /*background: #F2F2F2;*/
-    padding: 2vh 0 !important;
-}
-
-.header_title{
-    margin: 0;
-    color: #FF7726;
-    line-height: 110%;
-    font-family: "Roboto";
-    font-weight: normal;
-    font-size: 2rem;
-}
-
-.header_bottom{
-    text-align: center;
-    background: #FFFFFF;
-}
-
-.header_decription{
-    margin: 0;
-    font-size: 1.5rem;
-    font-family: "Roboto";
-    font-weight: 300;
-    color: #5f9fcb !important;
-    list-style-type: disc;
-}
-
-#content{
+/* ---------->>> BEGIN content <<<---------- */
+.content{
     flex: 1 0 auto;
     display: flex;
     margin-bottom: 64px;
+}
+/* ---------->>> END content <<<---------- */
+
+/* ---------->>> BEGIN accounts <<<---------- */
+.accounts__list{
+    border: none;
+    overflow-y: auto; 
+    height: 50vh;
+}
+
+.accounts__btn_block{
+     text-align: right;
+}
+
+.accounts__btn{
+    background-color: #5F9FCB !important;
 }
 
 .povider_logo_cont{
@@ -77,15 +94,34 @@ body {
     float: left;
     text-align: center;
 }
+
 .provider_logo{
     max-height: 2rem;
     max-width: 5rem;
-    /*  float: left;*/
 }
+
+.accounts__uri{
+    width: calc(100% - 8rem);
+    text-align: center;
+    font: 300 1.5rem "Roboto";
+    color: #5f9fcb !important;
+    padding: 0 10px;
+}
+
+.switch{
+    float: left;
+    min-width: 75px;
+    width: 17%;
+}
+
+
+/* ---------->>> END accounts <<<---------- */
+
+
 
 .img_provider{
     position: relative;	
-    float: left;
+    /*float: left;*/
     line-height: 9rem;
     margin-left: -2rem;
 }
@@ -104,11 +140,7 @@ body {
 .red_text{
     color: red;
 }
-.switch{
-    float: left;
-    min-width: 75px;
-    width: 17%;
-}
+
 
 .collection > .collection-item{
     cursor: pointer;
@@ -138,15 +170,12 @@ body {
     padding: 0 5vw !important;
     background: #5F9FCB !important;
 }
-.collection_with_del{
+/*.collection_with_del{
     border: none !important;
-}
-.with_del{
-    width: 100%;
-}
-.add_connection_btn{
-    background-color: #5F9FCB !important;
-}
+   border: none;
+}*/
+
+
 
 .edit_btn_cont{
     width: 49%;
@@ -182,18 +211,6 @@ body {
      margin-top: 0.2vh;*/
 }
 
-.accaunt_uri{
-    float: left;
-    width: calc(100% - 8rem);
-    text-align: center;
-    font-size: 1.5rem;
-    font-family: "Roboto";
-    font-weight: 300;
-    color: #5f9fcb !important;
-    text-overflow: ellipsis;
-    /*clear: both;*/
-        padding: 0 10px;
-}
 
 .provider_name{
     font-size: 1.5rem;
@@ -203,11 +220,7 @@ body {
     clear: both;
 }
 
-.master_form{
-    background: #ffffff !important;
-    padding: 3vh 5vw !important;
-    border: 1px solid #f2f2f2 !important;
-}
+
 
 input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]){
     border-bottom: 1px solid #5F9FCB !important;
@@ -231,7 +244,6 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
     /*min-height: 4rem;*/
     /*padding: 0 15vw !important;*/
 }
-
 .arrow{
     content: '>' !important;
     font-size: 1.5rem !important;
@@ -239,7 +251,6 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
     font-family: monospace;    
     padding: 0 0.3vw;
 }
-
 .pagination > nav{
     box-shadow: none !important;
     background: none !important;
@@ -286,7 +297,6 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
     background-color: #5F9FCB;
     color: #FFFFFF;
 }
-
 .pagination > nav > div{
     margin-bottom: 0 !important;
 }
@@ -298,15 +308,12 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
 .start_work_btn{
     background-color: #5F9FCB !important;
 }
-
 .finish_text{
     font-size: 3.5rem;
     color: #FF7726;
     line-height: 3.5rem;
     font-family: sans-serif;
 }
-
-
 .offline_color{
     color: #808080;
 }
@@ -316,3 +323,24 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
 .none-status_color{
     color: #FF0000;
 }
+
+
+/* ---------->>>BEGIN providers<<<-----------*/
+.providers{
+    margin: auto !important;
+    width: 70% !important; 
+}
+/* ---------->>>END providers<<<-----------*/
+
+/* ---------->>>BEGIN editing<<<-----------*/
+.editing{
+    width: 70% !important; 
+    margin: auto !important;
+}
+
+.editing__form{
+    background: #ffffff !important;
+    padding: 3vh 5vw !important;
+    border: 1px solid #f2f2f2 !important;
+}
+/* ---------->>>END editing<<<-----------*/

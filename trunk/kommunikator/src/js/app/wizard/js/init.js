@@ -15,8 +15,6 @@ var provider_img = {
     'mangosip.ru': 'images/providers/MangoTel.png',
     'multifon.ru': 'images/providers/megafon.png'
 };
-//var Ext = window.Ext;
-console.log(window.Ext);
 var providersList =
         {
             providers: [
@@ -67,7 +65,7 @@ var edit_provider = {};
 
 function getProvidersList1() {
     for (var key in providersList.providers) {
-        $('#provider_choose > .collection').append('<li class="collection-item provider-item" id="' + key + '_provider">' +
+        $('#provider_choose > .collection').append('<li class="collection-item providers__item" id="' + key + '_provider">' +
                 '<div class="left povider_logo_cont">' +
                 '<img src="' + providersList.providers[key].img + '" alt="' + providersList.providers[key].name_ru + '" url="' + providersList.providers[key].server + '" ref="' + providersList.providers[key].ref_link + '" class="provider_logo">' +
                 '</div>' +
@@ -122,14 +120,14 @@ function getDomainSipConnection(name_ru) {
 }
 
 function init_master() {
-
+   
     $("#page_1, #page_2, #page_3").hide();
     $("#header_title").text("Мастер настроек");
     $("#finish_master_page, #provider_choose, #enter_login_password,\n\
 #voice_choose, #prev_button, #edit_connection").hide();
 
     $("#prev_button, #done_button").hide();
-    $("#current_connections").show();
+    $("#accounts").show();
     //$("#done_button > a").text("Закрыть");
     $("#header_title").text("Ваши текущие SIP подключения");
     $("#header_decription").text("Вы можете отредактировать ваши SIP подключения или добавить новые");
@@ -146,7 +144,7 @@ function getProvidersList() {
             providers = JSON.parse(response);
 
             var i = 0;
-            $('#current_connections > .collection >li').remove();
+            $('#accounts > .collection >li').remove();
             for (i; i < providers['visible_total']; i++) {
 
                 provider_id = providers['data'][i][0]; //0 - id провайдера
@@ -171,14 +169,14 @@ function getProvidersList() {
                 if (status !== 'online' && status !== 'offline')
                     status = 'none-status';
 
-                $("#current_connections > .collection").append(
-                        '<li class="collection-item with_del valign-wrapper">' +
+                $("#accounts > .collection").append(
+                        '<li class="collection-item valign-wrapper">' +
                        // '<div class="click_area valign-wrapper">' +
                         '<div class="povider_logo_cont">' +
-                        '<img src="' + img_src + '" alt="" class="provider_logo">' +
+                        '<img src="' + img_src + '" alt="provider logo" class="provider_logo">' +
                         '</div>' +
                         '<span class="provider-id" style="display:none;">' + provider_id + '</span>' +
-                        '<span class="title accaunt_uri valign truncate" >' + provider_login + '</span>' +
+                        '<span class="title accounts__uri valign truncate" >' + provider_login + '</span>' +
                        // '</div>' +
                        // '<div class="right_cont valign-wrapper">' +
                         '<div class="switch">' +
@@ -191,7 +189,7 @@ function getProvidersList() {
                         );
 
                 $(".edit_btn_cont").bind("click", function (e) {
-                    $("#current_connections").hide();
+                    $("#accounts").hide();
                     $("#page_1").hide();
                     from_elem = $(this).parent();
 //                    if (from_elem.hasClass('right_cont')) {
@@ -259,22 +257,14 @@ function getProvidersList() {
 
                
             }
-            $("#current_connections > .collection").slideDown('fast');
-             $('.switch').on("click", function () {console.log( $(this).parent());
+            $("#accounts > .collection").slideDown('fast');
+             $('.switch').on("click", function () {
                     var upd_provider = {};
-                    
 
-                    from_elem = $(this);
-                    console.log($(this).parent().children(".provider-id").html());
-                    // какое-то тупое, исправить
-//                    if (from_elem.hasClass('right_cont')) {
-//                        from_elem = from_elem.parent();
-//                    }
                     var from_provider_id = $(this).parent().children(".provider-id").html();
                     upd_provider.id = from_provider_id;
                     upd_provider.enabled = ($(this).children('label').children('input[type="checkbox"]').prop("checked")) ? true : false;
-                    
-                    //upd_provider.enabled = $('.switch_click').prop("checked") ? true : false;
+
                     $.ajax({
                         url: "/kommunikator/data.php?action=update_gateways",
                         method: 'post',
@@ -282,7 +272,6 @@ function getProvidersList() {
                         contentType: 'text/plain',
                         data: JSON.stringify(upd_provider),
                         success: function (response) {
-                          //  edit_provider = empty_provider;
                             init_master();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -300,7 +289,7 @@ function getProvidersList() {
         if ($('#my_alert').is(":visible")){
             $("#myAlertOkBtn").click();
         }else {
-            if ($("#current_connections").is(":visible") || $("#voice_choose").is(":visible") || $("#enter_login_password").is(":visible")){
+            if ($("#accounts").is(":visible") || $("#voice_choose").is(":visible") || $("#enter_login_password").is(":visible")){
                 $("#done_button").click();
             }
              if ($("#edit_connection").is(":visible")){
@@ -310,20 +299,17 @@ function getProvidersList() {
       }
     });
 $(document).ready(function () {
-    
-    
-    
-    //$('select').material_select();
+
     init_master();
     getProvidersList();
     getProvidersList1();
 
-    $('#reset_btn').on('click', function () {
+    $('#refreshAccounts').on('click', function () {
         getProvidersList();
     });
 
-    $(".provider-item").on('click', function () {
-        var item = this.id.split('_')[0]; // 
+    $(".providers__item").on('click', function () {
+        var item = this.id.split('_')[0];  
         create_provider = empty_provider;
         create_provider.domain = providersList.providers[item]["domain"];
         create_provider.server = providersList.providers[item]["server"];
@@ -352,8 +338,8 @@ $(document).ready(function () {
     });
 
 
-    $("#add_conn_btn").on('click', function () {
-        $("#current_connections").hide();
+    $("#addAccounts").on('click', function () {
+        $("#accounts").hide();
         $("#header_title").text("Выбор SIP провайдера");
         $("#header_decription").text("Выберите вашего SIP провайдера");
         $("#done_button").hide();
@@ -369,7 +355,7 @@ $(document).ready(function () {
 
         } else if ($("#enter_login_password").is(":visible")) {
             $("#enter_login_password").hide();
-            $("#current_connections").hide();
+            $("#accounts").hide();
             $("#header_title").text("Выбор SIP провайдера");
             $("#header_decription").text("Выберите вашего SIP провайдера");
             $("#done_button").hide();
@@ -418,7 +404,7 @@ $(document).ready(function () {
             } else {
                 myAlert("Внимание", "Поля логин и пароль должны быть заполнены!");
             }
-        } else if ($("#current_connections").is(":visible")) {console.log(5555555);
+        } else if ($("#accounts").is(":visible")) {console.log(5555555);
             Ext.getCmp('ProviderWizard').close();
 
         }
@@ -446,7 +432,6 @@ $(document).ready(function () {
                 contentType: 'text/plain',
                 data: JSON.stringify(edit_provider),
                 success: function (response) {
-                    //  $("#current_connections > .collection").empty();
                     edit_provider = empty_provider;
                     init_master();
                     getProvidersList();
