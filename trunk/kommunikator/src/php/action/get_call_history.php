@@ -62,58 +62,22 @@ if (!$_SESSION['user'] && !$_SESSION['extension']) {
 }
 
 $call = NULL;
+$query = NULL;
+
+
+$sql = <<<EOD
+SELECT * FROM history_temp 
+EOD;
 
 if ($_SESSION['extension']) {
     $exten = $_SESSION['extension'];
-    $call = "WHERE a.caller = '$exten' OR a.called = '$exten'";
+    $param = (get_filter() == '') ? 'WHERE' : 'AND';
+    $call = " ( caller LIKE '%($exten)%' OR called LIKE '%($exten)%')";
+    $query = $param . $call;
 }
 
-$sql = <<<EOD
-SELECT * FROM (
-    SELECT
-        "" AS id,
-        a.time,
-        CASE 
-            WHEN a.direction = 'order_call' AND (c.detailed !=NULL OR c.detailed !='')
-		THEN CONCAT('Перезвоните мне: ',c.detailed)
-            ELSE a.direction
-        END type,
-        CASE
-            WHEN x1.firstname IS NULL
-                THEN a.caller
-            ELSE CONCAT( x1.firstname, ' ', x1.lastname, ' (', a.caller, ')' )
-        END caller,
-        CASE
-            WHEN x2.firstname IS NULL
-                THEN a.called
-            ELSE CONCAT( x2.firstname, ' ', x2.lastname, ' (', a.called, ')' )
-        END called,
-        ROUND(billtime) duration,
-        CASE
-            WHEN g.description IS NOT NULL AND g.description != ''
-                THEN g.description
-            WHEN g.gateway IS NOT NULL
-                THEN g.gateway
-            WHEN g.authname IS NOT NULL
-                THEN g.authname
-            ELSE a.gateway
-        END gateway,
-        a.status,
-        CASE
-            WHEN a.time IS NOT NULL 
-                THEN CONCAT(date_format(FROM_UNIXTIME(a.time), '%d_%m_%Y_%H_%i_%s'), '~',a.caller, '~', a.called)
-            ELSE NULL
-        END record
-    FROM call_history a
-    LEFT JOIN extensions x1 ON x1.extension = caller
-    LEFT JOIN extensions x2 ON x2.extension = called
-    LEFT JOIN gateways g ON g.authname = a.gateway
-    LEFT JOIN detailed_infocall c ON (c.billid = a.billid AND c.time = a.time)
-    $call
-) a
-EOD;
+$data = compact_array(query_to_array($sql . get_filter() . $query));
 
-$data = compact_array(query_to_array($sql . get_filter()));
 if (!is_array($data["data"]))
     echo out(array("success" => false, "message" => $data));
 

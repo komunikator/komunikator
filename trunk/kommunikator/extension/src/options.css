@@ -1,0 +1,92 @@
+body
+{ 
+    /*background-color: #EEEEEE;  нельзя, т.к. меняется фон не только приложения,
+    но и всей страницы*/
+    color: #043F8C;
+    height: 500px;
+}
+
+label
+{ 
+    /*	display: block;  */
+    padding: 4px; 
+    font-weight: bold;
+}
+
+label.ctrl
+{ 
+    /*	display: block; */
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+a
+{ 
+    color: #729FCF; 
+}
+
+
+div.menu
+{
+    width: 400px;
+    background: #D8E4F2;
+    padding: 7px;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-border-radius: 7px;
+    -webkit-box-shadow: 0px 0px 5px #8EC2EB;
+    font: bold 10pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
+}
+
+div.buttons
+{
+    text-align: center;
+}
+
+div.buttons input[type=button]
+{
+    width: 140px;
+    background-color: #D8E4F2;
+    color: #043F8C; 
+    border: 2px ridge #8EC2EB;
+}
+
+.tabs {
+    opacity: 0;  /* Прозрачность */
+    visibility: hidden; /* Изначально - спрятан */
+}
+.tab{
+    position:absolute; /* Абсолютное позиционирование */
+    visibility: hidden;    /* Изначально - спрятан */
+    z-index: auto;    /* z-index */
+    color:#478CFB; /* Цвет */
+    font: bold 10pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
+}
+.tabs:target+.tab {
+    opacity: 1; /* Убирает прозрачность */
+    visibility: visible; /* Делает видимым */
+}
+.tabsLink a{
+    background-color:#478CFB; /* Цвет */
+    padding:5px; /* Внутренние отступы */
+    font: bold 10pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
+    color:#fff; /* Цвет */
+    text-decoration:none; /* Отсутствие нижней линии */
+
+    /* Округление старт */
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* Округление конец */
+}
+.table {
+    font: bold 10pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
+
+}
+.settings {
+    font: bold 10pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
+
+}

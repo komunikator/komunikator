@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html class='lala'>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="options.css" rel="stylesheet" type="text/css">
+        <link href="style1.css" rel="stylesheet" type="text/css">
+        <script src="SIPml-api.js" type="text/javascript"></script>
+        <!--<link href="./assets/css/bootstrap.css" rel="stylesheet" />-->
+        <style type="text/css">    
+        </style>
+        <!--  <link href="./assets/css/bootstrap-responsive.css" rel="stylesheet" />
+          Le fav and touch icons -->
+        <link rel="shortcut icon" href="./assets/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="./assets/ico/apple-touch-icon-57-precomposed.png" />
+
+        <script src="options.js" type="text/javascript"></script>
+        <script src="session.js" type="text/javascript"></script>
+        <script src="jquery.js" type="text/javascript"></script>
+        <title></title>
+    </head>
+
+    <body class="body_2rJEe">
+        <div class="phone_data_SGTqC">
+            <span></span><!--тут можно вставить время-->			
+            <span class="signals_PNTgH">
+                <b class="line1_TgOVz"></b>
+                <b class="line2_TgOVz"></b>
+                <b class="line3_TgOVz"></b>
+                <b class="line4_TgOVz"></b>
+            </span>
+        </div>      
+        <div class="main_block_cG9Ce">	
+            <ul class="phone_tab_hgQVe">
+                <li class="current" >
+                    <a id="menu_img1"><i class="icon phone_BBADc"></i></a>
+                </li>
+                <li>
+                    <a id="menu_img2"><i class="icon clock_nfuxA"></i></a>
+                </li>
+                <li>
+                    <a id="menu_img3"><i class="icon contacts_UlbYl"></i></a>
+                </li>
+                <li >
+                    <a id="menu_img4"><i class='icon wheels_RPdcn' ></i></a>
+                </li>
+            </ul>
+            <br>
+            <div>
+                <!--вкладка 1-->
+                <div style ="width:270px;" id="page_menu_img1">
+                    <div id="divCallCtrl" class="span7">
+                        <label id="txtCallStatus" class="status_XjGaO"></label>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" id="txtPhoneNumber" value="" class="txtPhoneNumber_V3wy6 left_agXbl">
+                                    <a class="delete_lAeQF">
+                                        <i class="icon del_zAnHP left_agXbl">x</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <!--неиспользуемый функционал, в коммент определять нельзя - - - - - - - - - - - - - - - - - - - - - - -->
+                            <tr style="display: none;">
+                                <td id="tdVideo">
+                                    <div id="divVideo">
+                                        <div id="divVideoRemote">
+                                            <video width="100%" height="100%" id="video_remote" autoplay="autoplay">
+                                            </video>
+                                        </div>
+                                        <div id="divVideoLocal">
+                                            <video width="88px" height="72px" id="video_local" autoplay="autoplay" muted="true"></video>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>                     
+                            <tr style="display: none;">
+                                <td align='center'>
+                                    <div id='divCallOptions'>
+                                        <input type="button" id="btnFullScreen" value="FullScreen" disabled onclick='toggleFullScreen();' > &nbsp;
+                                        <input type="button" id="btnHoldResume" value="Hold" onclick='sipToggleHoldResume();' > &nbsp;
+                                        <input type="button" id="btnTransfer" value="Transfer" onclick='sipTransfer();' > &nbsp;
+                                        <input type="button" id="btnKeyPad" value="KeyPad" onclick='openKeyPad();' >
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --->
+                        </table>
+                    </div>
+                    <!--номеронабиратель
+                    numb_button_mpDpo - ранее использовался в js, проставлялся у span-->
+                    <div class="dialer_Stplv" id='divKeyPad'>
+                        <span id="num1_aOoiP">1<em class="underline">o o</em></span>
+                        <span id="num2_aOoiP">2<em>ABC</em></span>
+                        <span id="num3_aOoiP">3<em>DEF</em></span>
+                        <span id="num4_aOoiP">4<em>GHI</em></span>
+                        <span id="num5_aOoiP">5<em>JKL</em></span>
+                        <span id="num6_aOoiP">6<em>MNO</em></span>
+                        <span id="num7_aOoiP">7<em>PQRS</em></span>
+                        <span id="num8_aOoiP">8<em>TUV</em></span>
+                        <span id="num9_aOoiP">9<em>WXYZ</em></span>
+                        <span class="fff" id="numStar_aOoiP">*</span>
+                        <span id="num0_aOoiP">0<em>+</em></span>
+                        <span class="fff" id="numGrille_aOoiP">#</span>
+                    </div>  
+                    <div>
+                        <div id="divBtnCallGroup" class="btn-group">
+                            <button id="btnCall" disabled>Call</button>
+                        </div>
+                        <div class="">
+                            <button id="btnHangUp" disabled class="buttonCall_R3RGt">hangUp</button> 
+                        </div>
+                    </div>
+                </div>
+
+                <!--вкладка 2 - история звонков-->
+                <div style ="width:270px" id="page_menu_img2">
+                    <div style="padding-left: 20px;">
+                        <!--   <div class="update_button1"></div>
+                         <img src="images/update.gif" alt="lorem" class ="update_button_9vu4g">-->
+                        <div class="update_button_9vu4g"><div class="circle_fehqe">
+                                <div class="arrow_KeVNB"></div>
+                            </div></div>
+                        <table  id="call_logs_table">
+                            <tbody>
+                                <!-- тело таблицы-->
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                </div>
+
+
+
+                <!--вкладка 3 - контакты-->
+                <div style ="width:250px;" id="page_menu_img3">           
+                    <div style="">
+                        <table  style="" id="list_extensions_table"  >
+                            <tbody>
+                                <!-- тело таблицы-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--вкладка 4 - настройки-->
+                <div  id="page_menu_img4">               
+                    <table style="display: none;">
+                        <tr>
+                            <td><span id="_extension">Extension</span></td>
+                            <td><input type="text" id="extension"></td>
+                        </tr>
+                        <tr>
+                            <td><span id="_password">Password</span></td>
+                            <td><input type="password" id="password"></td>
+                        </tr>
+                        <tr>
+                            <td><span id="_service">Service</span></td>
+                            <td><input type="text" id="service"></td>
+                        </tr>
+                    </table>
+                    <label style=" display: none;"><span id="status"></span></label>                               
+                    <div style=" display: none;">
+                        <input type="button" id="_save" value="Save">
+                        <input type="button" id="_exit" value="Exit">
+                    </div>   
+
+
+                    <!--строка с выводом сообщений/статусов-->
+                    <div><div id="divNavbarInner"></div></div>
+                    <div  class="style_k4wRp">
+                        <label  id="txtRegStatus" ></label>  <br/> 
+                        <label  id="txtInfo"></label>
+                        <footer style=" display: none;">                           
+                            <object id="fakeVideoDisplay" style="display: none;"> </object>
+                            <object id="fakeLooper" style="display: none; width:0px; height:0px"> </object>
+                            <object id="fakeSessionDescription" style="display: none;"> </object>
+                            <object id="fakeNetTransport" style="display: none;"> </object>
+                            <object id="fakePeerConnection" style="display: none;"> </object>
+                        </footer>
+                    </div>
+                    <!-- Glass Panel -->
+                    <div id='divGlassPanel' style="display: none;"></div>
+                    <!-- Call button options -->
+                    <ul id="ulCallOptions" style="display: none;"><li></li></ul>
+                    <div>
+                        <div>
+
+                            <table>
+                                <col width="250" valign="top">
+                                <tr style="display: none;">
+                                    <td><input type="text" id="txtDisplayName" value=""></td>
+                                </tr>
+
+                                <tr><td><input type="text"  id="txtPrivateIdentity" value="" class="td_style_EakWI"  > 
+                                        <label for="txtPrivateIdentity" data-hold="Внутренний номер" class="lable_tQqtx"></label></td></tr>
+                                <tr style=" display: none;">
+
+                                    <td><input type="text" id="txtPublicIdentity" value=""><label for="txtPublicIdentity">PublicIdentity:</label></td>
+                                </tr>
+
+                                <tr><td><input type="password"  id="txtPassword" value="" class="td_style_EakWI" required><label for="txtPassword" data-hold="Пароль" class="lable_tQqtx"></label></td>
+                                </tr>
+
+                                <tr><td ><input type="text" id="txtRealm" value="" class="td_style_EakWI" required>
+                                        <label for="txtRealm" data-hold="Сервер" class="lable_tQqtx"></label></td></tr>
+
+                                <tr><td><input type="text" id="txtWebsocketServerUrl" value="" class="td_style_EakWI" required >
+                                        <label for="txtWebsocketServerUrl" data-hold="WebSocket Server URL" class="lable_tQqtx"></label></td></tr>
+
+
+                                <tr><td><input type="text" id="txtSIPOutboundProxyUrl" value="" class="td_style_EakWI" required>
+                                        <label for="txtSIPOutboundProxyUrl" data-hold="SIP outbound Proxy URL" class="lable_tQqtx"></label></td></tr>
+
+                                <tr><td><input type="text" id="txtIceServers" value="" class="td_style_EakWI" required>
+                                        <label for="txtIceServers" data-hold="ICE Servers" class="lable_tQqtx"></label></td></tr>
+
+
+                                <tr><td><input type="text" id="txtBandwidth" value="" class="td_style_EakWI" required>
+                                        <label for="txtBandwidth" data-hold="Max bandwidth (kbps)" class="lable_tQqtx"></label></td></tr>
+
+
+                                <tr><td><input type="text" id="txtSizeVideo" value="" class="td_style_EakWI" required>
+                                        <label for="txtSizeVideo" data-hold="Video size" class="lable_tQqtx"></label></td></tr>
+
+                                <tr>  
+                                    <td><input type='checkbox' id='cbVideoDisable'><label for="cbVideoDisable">Disable Video</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input type='checkbox' id='cbRTCWebBreaker'><label for="cbRTCWebBreaker">Enable RTCWeb Breaker</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input type='checkbox' id='cbEarlyIMS'><label for="cbEarlyIMS">Disable 3GPP Early IMS</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input type='checkbox' id='cbDebugMessages'><label for="cbDebugMessages">Disable debug messages</label></td>
+                                </tr>
+                                <tr>
+                                    <td><input type='checkbox' id='cbCacheMediaStream'><label for="cbCacheMediaStream">Cache the media stream</label></td>
+                                </tr>
+                                <tr style="display: none;">
+                                    <td><input type='checkbox' id='cbCallButtonOptions'><label for="cbCallButtonOptions">Disable Call button options:</label></td>
+                                </tr>
+                                <tr>
+                                    <td>                  
+                                        <input type="checkbox" id="click2call"/>
+                                        <label for="click2call">click2call</label></td> 
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <input type="button" class="btn" id="btnRegister" value="LogIn" disabled>
+                                        &nbsp;
+                                        <input type="button" class="btn" id="btnUnRegister" value="LogOut" disabled >
+                                    </td>
+                                </tr>
+                                <tr style="display:none;">
+                                    <td align="right">
+                                        <input type="button" id="btnSave" value="Save">
+                                        &nbsp;
+                                        <input type="button" id="btnRevert" value="Revert">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <script type="text/javascript" src="./assets/js/jquery.js"></script>
+
+        <script type="text/javascript" src="./assets/js/bootstrap-transition.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-alert.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-modal.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-dropdown.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-scrollspy.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-tab.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-popover.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-button.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-collapse.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-carousel.js"></script>
+        <script type="text/javascript" src="./assets/js/bootstrap-typeahead.js"></script>-->
+
+        <!-- Audios -->
+    <audio id="audio_remote" autoplay="autoplay" />
+    <audio id="ringtone" loop src="sounds/ringtone.wav" />
+    <audio id="ringbacktone" loop src="sounds/ringbacktone.wav" />
+    <audio id="dtmfTone" src="sounds/dtmf.wav" />
+</body>
+</html>
