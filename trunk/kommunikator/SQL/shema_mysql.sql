@@ -709,47 +709,8 @@ CREATE TABLE `short_names` (
   UNIQUE KEY `number` (`number`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE VIEW `history_temp` (
-    select '' 
-	AS 'id',
-	'a'.'time' AS 'time',
-	(case 
-		when (('a'.'direction' = 'order_call') and (('c'.'detailed' <> NULL) or ('c'.'detailed' <> ''))) 
-			then concat('Перезвоните мне: ','c'.'detailed') 
-		else 'a'.'direction' 
-	end) AS 'type',
-	(case 
-		when isnull('x1'.'firstname') 
-			then 'a'.'caller' 
-		else concat('x1'.'firstname',' ','x1'.'lastname',' (','a'.'caller',')') 
-	end) AS 'caller',
-	(case 
-		when isnull('x2'.'firstname') 
-			then 'a'.'called' 
-		else concat('x2'.'firstname',' ','x2'.'lastname',' (','a'.'called',')') 
-	end) AS 'called',
-	round('a'.'billtime',0) AS 'duration',
-	(case 
-		when (('g'.'description' is not null) and ('g'.'description' <> '')) 
-			then 'g'.'description' 
-		when ('g'.'gateway' is not null) 
-			then 'g'.'gateway' 
-		when ('g'.'authname' is not null) 
-			then 'g'.'authname' 
-		else 'a'.'gateway' 
-	end) AS 'gateway',
-	'a'.'status' AS 'status',
-	(case 
-		when ('a'.'time' is not null) 
-			then concat(date_format(from_unixtime('a'.'time'),'%d_%m_%Y_%H_%i_%s'),'~','a'.'caller','~','a'.'called') 
-		else NULL 
-	end) AS 'record' 
-    from (((('call_history' 'a' 
-    left join 'extensions' 'x1' on(('x1'.'extension' = 'a'.'caller'))) 
-    left join 'extensions' 'x2' on(('x2'.'extension' = 'a'.'called'))) 
-    left join 'gateways' 'g' on(('g'.'authname' = 'a'.'gateway'))) 
-    left join 'detailed_infocall' 'c' on((('c'.'billid' = 'a'.'billid') and ('c'.'time' = 'a'.'time'))))
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE VIEW history_temp AS select '' AS `id`,`a`.`time` AS `time`,(case when ((`a`.`direction` = 'order_call') and ((`c`.`detailed` <> NULL) or (`c`.`detailed` <> ''))) then concat('Перезвоните мне: ',`c`.`detailed`) else `a`.`direction` end) AS `type`,(case when isnull(`x1`.`firstname`) then `a`.`caller` else concat(`x1`.`firstname`,' ',`x1`.`lastname`,' (',`a`.`caller`,')') end) AS `caller`,(case when isnull(`x2`.`firstname`) then `a`.`called` else concat(`x2`.`firstname`,' ',`x2`.`lastname`,' (',`a`.`called`,')') end) AS `called`,round(`a`.`billtime`,0) AS `duration`,(case when ((`g`.`description` is not null) and (`g`.`description` <> '')) then `g`.`description` when (`g`.`gateway` is not null) then `g`.`gateway` when (`g`.`authname` is not null) then `g`.`authname` else `a`.`gateway` end) AS `gateway`,`a`.`status` AS `status`,(case when (`a`.`time` is not null) then concat(date_format(from_unixtime(`a`.`time`),'%d_%m_%Y_%H_%i_%s'),'~',`a`.`caller`,'~',`a`.`called`) else NULL end) AS `record` from ((((`call_history` `a` left join `extensions` `x1` on((`x1`.`extension` = `a`.`caller`))) left join `extensions` `x2` on((`x2`.`extension` = `a`.`called`))) left join `gateways` `g` on((`g`.`authname` = `a`.`gateway`))) left join `detailed_infocall` `c` on(((`c`.`billid` = `a`.`billid`) and (`c`.`time` = `a`.`time`))));
+
 
 --
 -- Table structure for table `sig_trunks`
