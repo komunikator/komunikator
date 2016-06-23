@@ -1230,6 +1230,12 @@ $callFrom = null;
                                     $ev->GetValue("chan") . "' AND time=" . $ev->GetValue("time");
 
                             $res = query_nores($query);
+                            
+                            $query1 = "UPDATE call_logs t1
+                                      JOIN call_logs t2 ON t2.billid = t1.billid
+                                      SET t1.direction = 'outgoing'
+                                      WHERE t1.called = '" . $called_ev . "' and t1.billid = '" . $ev->GetValue("billid") . "' and SUBSTRING(t1.chan,1, 11)!= 'order_call/' and t1.direction = 'unknown'";
+                            $res1 = query_nores($query1);
 
                             $query = "INSERT INTO call_history (time, chan, address, direction, billid, caller, called, duration, billtime, ringtime, status, ended, gateway)"
                                     . "SELECT
@@ -1252,6 +1258,8 @@ $callFrom = null;
                                            ELSE  a.caller
                                        END caller,
                                        CASE
+                                           WHEN b.direction = 'unknown' and SUBSTRING(a.chan,1, 11) = 'order_call/'
+                                               THEN b.caller
                                            WHEN x2.firstname IS NULL
                                                THEN b.called
                                            ELSE b.called
@@ -1277,7 +1285,7 @@ $callFrom = null;
                                            ELSE b.gateway
                                        END gateway
                                    FROM call_logs a
-                                   JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND b.direction = 'outgoing'
+                                   JOIN call_logs b ON b.billid = a.billid AND b.ended = 1 AND (b.direction = 'outgoing' ||    (b.direction = 'unknown' and SUBSTRING(a.chan,1, 11) = 'order_call/'))
                                    LEFT JOIN extensions x1 ON x1.extension = a.caller
                                    LEFT JOIN extensions x2 ON x2.extension = a.called
                                    WHERE  a.direction = 'incoming' AND b.billid = '$billid_ev' ";
