@@ -1,16 +1,9 @@
-Source: kommunikator
+Package: kommunikator
+Version: 1.1
+Architecture: all
+Maintainer: Telephonnyie sistemy <support@4yate.ru>
+Installed-Size: 17022
+Depends: yate (>= 4.3.0), sox, madplay, libapache2-mod-php5, php5-mysql, php-db, mysql-server, ntp, php5-sqlite, lame, php-pear
 Section: web
 Priority: extra
-Maintainer: Telephonnyie sistemy <support@4yate.ru>
-Build-Depends: debhelper (>= 7), autotools-dev
-Standards-Version: 3.8.3
-Homepage:
-
-Package: kommunikator
-Architecture: all
-Depends: yate (>=4.3.0), sox, madplay, libapache2-mod-php5, php5-mysql, php-db, mysql-server
 Description: Komunikator is a web interface for IP PBX YATE configuration and management
-
-Package: kommunikator-doc
-Architecture: all
-Description: documentation for the Komunikator

@@ -1,9 +1,9 @@
 {
     "extName": {
-        "message": "Виртуальная АТС Komunikator"
+        "message": "Komunikator Panel"
     },
     "extDescr": {
-        "message": "Виртуальная АТС Komunikator"
+        "message": "Komunikator Panel"
     },
     "language": {
         "message": "Язык"
@@ -29,7 +29,7 @@
     "extension": {
         "message": "Внутренний номер"
     },
-    "Service": {
+    "service": {
         "message": "Сервер"
     },
     "openform": {
@@ -39,7 +39,7 @@
         "message": "Включить выделение номеров"
     },
     "click2callDesc": {
-        "message": "Нажмите, чтобы позвонить через Витруальную АТС"
+        "message": "Нажмите, чтобы позвонить через Komunikator"
     },
     "service_not_available": {
         "message": "Сервис недоступен"
@@ -53,43 +53,40 @@
     "bitrix_message": {
         "message": "Абонент: {caller}\\nВходящая линия: {line}\\nКому: {called} \\nДата: {date}\\nТип: Входящий"
     },
-    "Call_logs": {
-        "message": "История звонков"
+    "settings_error": {
+        "message": "Проверьте правильность настроек подключения"
     },
-    "Time": {
-        "message": "Время"
+    "registration_failed": {
+        "message": "Отсутствует соединение с АТС"
     },
-    "Caller": {
-        "message": "Звонящий"
+    "connect_server_failes": {
+        "message": "Не удалось подключиться к серверу"
     },
-    "Called": {
-        "message": "Принимающий"
+    "name_project": {
+        "message": "Komunikator"
     },
-    "Call_status": {
-        "message": "Статус"
+    "incoming": {
+        "message": "Входящий"
     },
-    "Settings": {
-        "message": "Настройки"
+    "internal": {
+        "message": "Внутренний"
     },
-    "List_extensions": {
-        "message": "Список внутренних номеров"
+    "outgoing": {
+        "message": "Исходящий"
     },
-    "Extension_status": {
-        "message": "Статус"
+    "call": {
+        "message": "звонок"
     },
-    "Extension_number": {
+    "number": {
         "message": "Номер"
     },
-    "Name": {
-        "message": "Имя"
+    "connection_details": {
+        "message": "Заполните данные подключения"
     },
-    "Surname": {
-        "message": "Фамилия"
+    "attempt_connect": {
+        "message": "Попытка соединиться"
     },
-    "co_worker": {
-        "message": "Сотрудники"
-    },
-    "answered": {
-        "message": "отвеченный"
+    "bug_report":{
+        "message": "Нашли ошибку? support@komunikator.ru"
     }
 }

@@ -1,51 +1,86 @@
 {
-	"extName": {
-		"message": "DIGT Virtual PBX Systems"
-	},
-	"extDescr": {
-		"message": "DIGT Virtual PBX Systems"
-	},
-	"language": {
-		"message": "Language"
-	},
-	"auth_failed": {
-		"message": "Auth Failed"
-	},
-	"save": {
-		"message": "Save"
-	},
-	"exit": {
-		"message": "Exit"
-	},
-	"options": {
-		"message": "Options"
-	},
-	"options_saved": {
-		"message": "Options saved"
-	},
-	"password": {
-		"message": "Password"
-	},
-	"extension": {
-		"message": "Internal number"
-	},
-	"openform": {
-		"message": "Open Bitrix window"
-	},
-	"click2call": {
-		"message": "Enable select number"
-	},
-	"click2callDesc": {
-		"message": "Click to call using DIGT Virtual PBX Systems"
-	},
-	"service_not_available": {
-		"message": "service is not available"
-	},
-	"status": {
-		"message": "status"
-	},
-	"call_from": {
-		"message": "call from"
-	}
-
+    "extName": {
+        "message": "Komunikator Panel"
+    },
+    "extDescr": {
+        "message": "Komunikator Panel"
+    },
+    "language": {
+        "message": "Language"
+    },
+    "auth_failed": {
+        "message": "Auth Failed"
+    },
+    "save": {
+        "message": "Save"
+    },
+    "exit": {
+        "message": "Exit"
+    },
+    "options": {
+        "message": "Options"
+    },
+    "options_saved": {
+        "message": "Options saved"
+    },
+    "password": {
+        "message": "Password"
+    },
+    "extension": {
+        "message": "Internal number"
+    },
+    "openform": {
+        "message": "Open Bitrix window"
+    },
+    "click2call": {
+        "message": "Highlight Numbers"
+    },
+    "click2callDesc": {
+        "message": "Click to call using DIGT Virtual PBX Systems"
+    },
+    "service_not_available": {
+        "message": "service is not available"
+    },
+    "status": {
+        "message": "status"
+    },
+    "call_from": {
+        "message": "call from"
+    },
+    "settings_error": {
+        "message": "Check the connection settings"
+    },
+    "registration_failed": {
+        "message": "No connection to the PBX"
+    },
+    "connect_server_failes": {
+        "message": "Can't connect to the server"
+    },
+    "name_project": {
+        "message": "Komunikator"
+    },
+    "incoming": {
+        "message": "Incoming"
+    },
+    "internal": {
+        "message": "Internal"
+    },
+    "outgoing": {
+        "message": "Outgoing"
+    },
+    "call": {
+        "message": "call"
+    },
+    "number": {
+        "message": "Phone"
+    },
+    "connection_details": {
+        "message": "Fill in the connection settings"
+    },
+    "attempt_connect": {
+        "message": "Trying to connect "
+    },
+    "bug_report":{
+        "message": "Found a bug? support@komunikator.ru"
+    }
 }

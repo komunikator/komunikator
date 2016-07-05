@@ -1,42 +1,48 @@
 {
-    "default_locale": "ru",
     "manifest_version": 2,
-    "background": {
-        "page": "background.html",
-        "js": "functions.js"
-    },
     "name": "__MSG_extName__",
+    "version": "0.1.1.1",
+    "default_locale": "ru",
     "description": "__MSG_extDescr__",
-    "web_accessible_resources": [
-        "functions.js",
-        "options.js",
-        "session.js",
-        "jquery.min.js",
-        "jquery.js",
-        "content.css",
-        "options.css",
-        "images/numbers_set.gif"
-    ],
+    "icons": {
+        "48": "images/icon_48.png"
+    },
     "browser_action": {
         "default_icon": "images/icon_not_logged_in.png",
         "default_title": "__MSG_extDescr__",
         "default_popup": "options.html"
     },
+    "background": {
+        "page": "background.html",
+        "js": "functions.js"
+    },
+
+    "web_accessible_resources": [
+        "js/jquery-2.2.4.min.js",
+        "js/materialize.min.js",
+        "css/materialize.min.css",
+        "css/style.css",
+        "functions.js",
+        "options.js",
+        "session.js",
+        "content.css",
+        "options.css",
+        "images/numbers_set.gif",
+        "images/logo.png"
+    ], 	
     "content_scripts": [{
             "js": ["contentscript.js"],
             "css": ["content.css"],
-            "matches": ["http://*/*"],
-            "run_at": "document_end"
+            "matches": ["http://*/*", "https://*/*"],
+            "run_at": "document_idle"
         }, {
-            "js": ["jquery.min.js"],
-            "matches": ["http://*/*"],
+            "js": ["js/jquery-2.2.4.min.js"],
+            "matches": ["http://*/*", "https://*/*"],
             "run_at": "document_start"
         }],
     "options_page": "options.html",
     "permissions": ["storage", "notifications", "contextMenus", "tabs", "http://*/*", "https://*/*", "unlimitedStorage"],
-    "version": "1.5",
-    "icons": {
-        "48": "images/icon_48.png"
-    }
-
+    "homepage_url": "http://komunikator.ru",
+    "offline_enabled": false,
+    "short_name": "Komunikator"
 }

@@ -1,0 +1,15 @@
+/etc/kommunikator/yate/moh.conf
+/etc/kommunikator/yate/ysigchan.conf
+/etc/kommunikator/yate/freesentral.crt
+/etc/kommunikator/yate/javascript.conf
+/etc/kommunikator/yate/queues.conf
+/etc/kommunikator/yate/mysqldb.conf
+/etc/kommunikator/yate/pbxassist.conf
+/etc/kommunikator/yate/regexroute.conf
+/etc/kommunikator/yate/dtmf.text.js
+/etc/kommunikator/yate/ysipchan.conf
+/etc/kommunikator/yate/freesentral.key
+/etc/kommunikator/yate/extmodule.conf
+/etc/kommunikator/yate/openssl.conf
+/etc/kommunikator/yate/rmanager.conf
+/etc/kommunikator/apache.conf
