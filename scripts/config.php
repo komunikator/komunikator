@@ -55,7 +55,7 @@
 
 ?><?php
 
-$cur_ver = '1.0.b6';
+$cur_ver = '1.2';
 $updates_base = "http://komunikator.ru/repos";
 $updates_url = "$updates_base/checkforupdates.php?cur_ver=$cur_ver";
 $updates_data_url = "$updates_base/update.tar.gz";

@@ -391,5 +391,10 @@ app.msg = {
     condition_scroll: 'Скролл вниз 100% страницы',
     condition_certain_page: 'Посещение конкретной страницы сайта',
     condition_prefix: 'Префикс для набора номера',
-    provider_wizard: 'Мастер настройки провайдеров'
+    provider_wizard: 'Мастер настройки провайдеров',
+    download_ext_Chrome: 'Скачать расширение Chrome',
+    plugins: 'Расширения',
+    plugin_Chrome: 'Расширение Chrome',
+    plugin_chrome_description: ' Панель Komunikator для Google Chrome упрощает общение с помощью АТС Komunikator: просто кликните на номере, поднимите трубку телефона и дожидайтесь соединения.',
+    read_more_site: 'Подробнее читайте на нашем сайте https://komunikator.ru'
 };   

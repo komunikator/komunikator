@@ -97,6 +97,14 @@ Ext.define('app.Viewport_user', {
                         },
                     ]
                 }),
+		Ext.create('app.Card_Panel', {
+                    title: app.msg.plugins, // Расширения
+                    items: [
+                        Ext.create('app.module.Plugin_Chrome_Panel', {
+                            title: app.msg.plugin_Chrome  // Расширение Chrome
+                        })
+                    ]
+                })
             ]
         }],
     initComponent: function() {

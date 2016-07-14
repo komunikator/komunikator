@@ -502,7 +502,7 @@ $f_data[] = array('version', $cur_ver);
 //$f_data[] = array('defunct processes',$def[0]-2);
 
 
-
+$f_data[] = array('plugin_Chrome');
 
 $obj = array("success" => true);
 

@@ -335,6 +335,11 @@ app.msg = {
     condition_certain_page: 'Visiting a certain page of the site',
     condition_prefix: 'Prefix',
     provider_wizard: ' Provider Wizard',
+    download_ext_Chrome: 'Download extension for Chrome?',
+    plugins: 'Extensions',
+    plugin_Chrome: 'Chrome plugin',
+    plugin_chrome_description: ' Komunikator Panel for Google Chrome makes communicating with Komunikator PBX easier: simply click the highlighted number, pick up your phone and wait for the connection to be established.',
+    read_more_site: 'Read more at https://komunikator.ru',
     // - - - - - - - - - - - - - - - - - - - - - -
     // --------------------------------------------------
     db_error_number_1062: 'This entry already exists.'

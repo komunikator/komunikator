@@ -51,84 +51,29 @@
  *  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  */
 
-app.grid_show = function(storeId) {
-    var grid = Ext.getCmp(storeId + '_grid');
-    if (grid) {
-        grid.ownerCt.ownerCt.setActiveTab(grid.ownerCt.ownerCt.items.indexOf(grid.ownerCt));
-        grid.ownerCt.layout.setActiveItem(grid.ownerCt.items.indexOf(grid));
-        grid.getStore().load();
-        grid.fireEvent('activate', grid);
-    }
-};
-
-Ext.define('app.module.Status_Grid', {
-    // title : 'day statistic',
-    extend: 'app.Grid',
-    border: false,
-    style: 'padding : 15px',
-    status_grid: true,
-    grid_id: 'Status_Grid',
-    store_cfg: {
-        autorefresh: true,
-        fields: ['name', 'value'],
-        storeId: 'statistic'
-    },
-    height: 500,
-    hideHeaders: true,
-    columns: [
-        {
-            width: 120
+Ext.define('app.module.Plugin_Chrome_Panel', {
+    extend: 'Ext.form.Panel',
+    bodyPadding: '15 15 0',
+    items: [{
+            frame: false,
+            border: false,
+            bodyPadding: '0 0 20',
+            html: app.msg.plugin_chrome_description + '<br /><br />' +
+                    '<a href="https://komunikator.ru/news/detail/ip-ats-komunikator-rasshirenie-dlya-google-chrome/" target="_blank">'
+                    + app.msg.read_more_site + '</a><br />'
         },
         {
-            flex: 1
-                    // width : 50
-        }],
-    columns_renderer: function(value, metadata, record, rowIndex, colIndex, store) {
-        if (colIndex == 0 || colIndex == 1)
-            if (app.msg[value])
-                value = app.msg[value];
-
-        if (colIndex == 1) {
-            if (record.data.name == 'status') {
-                var color = (value == app.msg['online']) ? 'green' : 'red';
-                return '<span style="color:' + color + ';">' + value + '</span>';
-            }
-            if (record.data.name == 'cpu_use') {
-                var color = (parseFloat(value.replace(/^([\d\.]+)\s%$/, "$1")) < app.critical_cpu) ? 'green' : 'red';
-                return '<span style="color:' + color + ';">' + value + '</span>';
-            }
+            frame: false,
+            xtype: 'button',
+            text: app.msg.download_ext_Chrome,
+            scale: 'large',
+            listeners:
+                    {
+                        click: function () {
+                            window.open("https://chrome.google.com/webstore/detail/komunikator-panel/gjdhioccnagaekejaofibhhagmkbjbdh", '_blank');
+                            return false;
+                        }
+                    }
         }
-        ;
-
-        if (colIndex == 0) {
-            if (record.data.name == 'day_total_calls') {
-                return '<a href="#" onclick="app.grid_show(' + "'call_logs'" + ');">' + value + '</a>';
-            }
-            ;
-            if (record.data.name == 'active_calls') {
-                return '<a href="#" onclick="app.grid_show(' + "'active_calls'" + ');">' + value + '</a>';
-            }
-            ;
-            if (record.data.name == 'active_gateways') {
-                return '<a href="#" onclick="app.grid_show(' + "'gateways'" + ');">' + value + '</a>';
-            }
-        }
-        
-        if(colIndex == 0){
-            if(record.data.name == 'provider_wizard'){
-                 return '<a href="#" onclick="Ext.create(\'app.Provider_Wizard\').show();">Мастер настройки<br>провайдеров</a>';
-            }
-        }
-
-       if(colIndex == 0){
-            if(record.data.name == 'plugin_Chrome'){
-                 return '<a href="https://chrome.google.com/webstore/detail/komunikator-panel/gjdhioccnagaekejaofibhhagmkbjbdh" target="_blank">' + value + '</a>';
-            }
-        }
-
-        return value;
-    },
-    initComponent: function() {
-        this.callParent(arguments);
-    }
-})
+    ]
+});
