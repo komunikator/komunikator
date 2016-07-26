@@ -10,7 +10,7 @@
 GNU GPLv3
 
 #### Инсталляция
-[Файл-сценарий](https://komunikator.ru/repos/IP-PBX_deploy.sh) для автоматической установки проекта или [готовый образ виртуальной машины](https://komunikator.ru/repos/komunikator.ova) можно загрузить с его [домашней странице]
+[Файл-сценарий](https://komunikator.ru/repos/IP-PBX_deploy.sh) для автоматической установки проекта или [готовый образ виртуальной машины](https://komunikator.ru/repos/komunikator.ova) можно загрузить с его [домашней странице](https://komunikator.ru/ip_ats)
 
 #### Самостоятельная сборка deb-пакета:
 - для полноценной работы проекта и всех его модулей необходимы Apache 2.22, MySQL, PHP, PHP Pear, sox, madplay, lame
