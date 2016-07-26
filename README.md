@@ -1,5 +1,6 @@
 ### Komunikator PBX - Открытая и свободная АТС на базе [Yate PBX](http://www.yate.ro/products.php)
 
+Основные функции АТС включают следующие:
 - Маршрутизация и переадресация вызовов
 - Автосекретарь
 - Запись разговоров
@@ -19,4 +20,4 @@ GNU GPLv3
 ````
 
 #### Конфигурация системы
-Подробные инструкции по настройке АТС можно найти в (нашем блоге)[https://komunikator.ru/news/index.php?tags=%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0+Komunikator]
+Подробные инструкции по настройке АТС можно найти в [нашем блоге](https://komunikator.ru/news/index.php?tags=%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0+Komunikator)
