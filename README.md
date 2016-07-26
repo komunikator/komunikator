@@ -13,10 +13,21 @@ GNU GPLv3
 [Файл-сценарий](https://komunikator.ru/repos/IP-PBX_deploy.sh) для автоматической установки проекта или [готовый образ виртуальной машины](https://komunikator.ru/repos/komunikator.ova) можно загрузить с его [домашней странице](https://komunikator.ru/ip_ats)
 
 #### Самостоятельная сборка deb-пакета:
-- для полноценной работы проекта и всех его модулей необходимы Apache 2.22, MySQL, PHP, PHP Pear, sox, madplay, lame
+Для полноценной работы проекта и всех его модулей необходимы:
+- Apache 2.22
+- MySQL
+- PHP
+- PHP Pear
+- sox
+- madplay
+- lame
+
+После установки всех зависимостей необходимо выполнить в консоли
 ```sh
-  debuild clea
+  debuild clean
   debuild -b
+  dpkg -i kommunikator_1.1-all.deb
+  apt-get install -f
 ````
 
 #### Конфигурация системы
