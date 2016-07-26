@@ -31,4 +31,4 @@ GNU GPLv3
 ````
 
 #### Конфигурация системы
-Подробные инструкции по настройке АТС можно найти в [нашем блоге](https://komunikator.ru/news/index.php?tags=%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0+Komunikator)
+Более подробное описание АТС, а также инструкции по её настройке можно найти в [нашем блоге](https://komunikator.ru/news/index.php?tags=%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0+Komunikator)
