@@ -619,6 +619,7 @@ function return_route($called, $caller, $no_forward = false) {
     // keep the initial called number
     $initial_called_number = $called;
 
+    $domain = $ev->GetValue("domain");
     $username = $ev->GetValue("username");
     $address = $ev->GetValue("address");
     $address = explode(":", $address);
@@ -638,6 +639,8 @@ function return_route($called, $caller, $no_forward = false) {
     $ev->params["copyparams"] = $params_to_copy;
     $ev->params["pbxparams"] = "$params_to_copy,copyparams";
 
+    //старая версия с переавторизацией шлюза при входящем звонке 
+    /*
     if ($already_auth != "yes" && $reason != "divert_busy" && $reason != "divert_noanswer") {
         // check to see if user is allowed to make this call
         $query = "SELECT value FROM settings WHERE param='annonymous_calls'";
@@ -666,6 +669,39 @@ function return_route($called, $caller, $no_forward = false) {
             debug("could not auth call");
             set_retval(NULL, "noauth");
             return;
+        }
+        $trusted_auth = ($res[0]["trusted"] == 1) ? "yes" : "no";
+        $call_type = $res[0]["call_type"]; //($username) ? "from inside" : "from outside";  // from inside/outside of freesentral
+    }
+    */
+
+    if ($already_auth != "yes" && $reason != "divert_busy" && $reason != "divert_noanswer") {
+        if (!$username) {
+              //$query = "SELECT * FROM extensions WHERE extension='$caller'";              //выводит в лог пароли
+              $query = "SELECT extension_id FROM extensions WHERE extension='$caller'";              
+              $res = query_to_array($query);
+              if (count($res)) {
+                   debug("could not auth call but '$caller' seems to be in extensions");
+                   set_retval(NULL, "noauth");
+                   return false;
+              } 
+            //   else {                                 
+            //
+            //                                                          BITRIX24 (подключение внешнего шлюза BITRIX24 телефонии)
+            //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>      Раскомментировать для звонков c шлюза на шлюз (отключет авторизацию шлюзов)
+            //                                        (только для АТС за фаерволлом: разрешает неавторизованные звонки шлюзам)
+            //
+            //         $query = "SELECT gateway_id, trusted, 'from outside' as call_type FROM gateways WHERE gateways.username='$caller' AND (gateways.server='$address' OR gateways.domain='$domain')";
+            //         $res = query_to_array($query);
+            //   }
+        } else {            
+            $query = "SELECT extension_id,1 as trusted,'from inside' as call_type FROM extensions WHERE extension='$username' UNION SELECT incoming_gateway_id, trusted, 'from outside' as call_type FROM incoming_gateways,gateways WHERE gateways.gateway_id=incoming_gateways.gateway_id AND gateways.username='$username' AND (incoming_gateways.ip='$address' OR incoming_gateways.ip='$domain' OR gateways.domain='$domain')";
+            $res = query_to_array($query);
+        }
+        if (!count($res)) {
+            debug("could not auth call");
+            set_retval(NULL, "noauth");
+            return false;
         }
         $trusted_auth = ($res[0]["trusted"] == 1) ? "yes" : "no";
         $call_type = $res[0]["call_type"]; //($username) ? "from inside" : "from outside";  // from inside/outside of freesentral
